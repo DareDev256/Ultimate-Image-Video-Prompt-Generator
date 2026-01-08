@@ -12,8 +12,9 @@
   },
   "dependencies": {
     "@clack/prompts": "^0.7.0",
-    "picocolors": "^1.0.0",
-    "clipboardy": "^4.0.0"
+    "@google/generative-ai": "^0.24.1",
+    "clipboardy": "^4.0.0",
+    "picocolors": "^1.0.0"
   },
   "devDependencies": {
     "@types/bun": "latest",

@@ -9,6 +9,7 @@ import { displayOutput } from './cli/display';
 import { showPostGenerationMenu } from './cli/menu';
 import { loadPreset } from './storage/presets';
 import { loadFavorites, addFavorite, removeFavorite } from './storage/favorites';
+import { analyzeImage } from './analyzer';
 import type { ImagePrompt, PresetPackName } from './types';
 
 async function main() {
@@ -49,6 +50,31 @@ async function main() {
     } else if (action === 'remove' && field && value) {
       removeFavorite(field, value);
       console.log(pc.green(`Removed favorite from ${field}`));
+    }
+    return;
+  }
+
+  // Handle image analysis
+  if (args.analyze) {
+    p.intro(pc.bgMagenta(pc.black(' Image Analyzer ')));
+
+    const spinner = p.spinner();
+    spinner.start(`Analyzing ${args.analyze}...`);
+
+    try {
+      const prompt = await analyzeImage(args.analyze);
+      spinner.stop('Analysis complete!');
+
+      // Display output
+      displayOutput(prompt);
+
+      // Show menu
+      await showPostGenerationMenu(prompt);
+
+      p.outro(pc.green('Happy prompting!'));
+    } catch (error) {
+      spinner.stop('Analysis failed');
+      p.log.error(error instanceof Error ? error.message : String(error));
     }
     return;
   }

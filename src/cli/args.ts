@@ -9,6 +9,7 @@ export interface CliArgs {
   quick?: boolean;
   help?: boolean;
   listTemplates?: boolean;
+  analyze?: string;  // Image path to analyze
   favorites?: {
     action: 'add' | 'list' | 'remove';
     field?: string;
@@ -45,6 +46,8 @@ export function parseArgs(args: string[]): CliArgs {
       result.preset = 'fashion';
     } else if (arg === '--street') {
       result.preset = 'street';
+    } else if (arg === '--analyze' || arg === '-a') {
+      result.analyze = args[++i];
     } else if (arg === 'favorites') {
       const action = args[++i] as 'add' | 'list' | 'remove';
       result.favorites = { action };
@@ -77,6 +80,7 @@ Options:
   --full                  Full mode (all categories)
   --fashion               Fashion-focused mode
   --street                Street photography mode
+  -a, --analyze <image>   Analyze an image and generate a matching prompt
   -l, --list-templates    List available templates
   -h, --help              Show this help
 
@@ -90,6 +94,10 @@ Examples:
   prompt-gen --full
   prompt-gen --pack camera,lighting,film
   prompt-gen --load my-saved-preset
+  prompt-gen --analyze ./photo.jpg
   prompt-gen favorites add camera.position "through window"
+
+Environment Variables:
+  GEMINI_API_KEY          Required for --analyze (or GOOGLE_API_KEY)
 `);
 }
