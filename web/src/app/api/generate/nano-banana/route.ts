@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
             {
               parts: [
                 {
-                  text: `Generate an image based on this detailed specification:\n\n${prompt}`,
+                  text: prompt,
                 },
               ],
             },

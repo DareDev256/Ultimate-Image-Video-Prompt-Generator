@@ -1,0 +1,38 @@
+{
+  "subject": {
+    "description": "Androgynous model with sharp cheekbones and platinum buzzcut",
+    "expression": "Pensive, deep in thought"
+  },
+  "environment": {
+    "location": "Overgrown garden, wildflowers everywhere",
+    "condition": "Vintage, preserved from another era"
+  },
+  "clothing": {
+    "main": "Flowing white linen, ethereal",
+    "accessories": "Delicate silver chain, single pendant"
+  },
+  "lighting": {
+    "source": "Golden hour sun from behind",
+    "mood": "Rim light outlining figure"
+  },
+  "camera": {
+    "position": "Low angle from ground looking up",
+    "lens": "135mm telephoto"
+  },
+  "atmosphere": {
+    "mood": "Romantic and dreamy",
+    "elements": "Dust particles visible in light beams"
+  },
+  "color": {
+    "grade": "Film emulation, Kodak Portra warm",
+    "skin": "Warm and healthy"
+  },
+  "film": {
+    "grain": "Smooth medium format grain",
+    "format": "1:1 square medium format"
+  },
+  "vibes": {
+    "reference": "Wolfgang Tillmans casual beauty",
+    "description": "Dreamlike surrealism, impossible beauty"
+  }
+}

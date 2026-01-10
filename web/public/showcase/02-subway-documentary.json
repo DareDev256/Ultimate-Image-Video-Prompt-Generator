@@ -1,0 +1,38 @@
+{
+  "subject": {
+    "description": "Weathered man in his 50s, salt-and-pepper beard, deep-set eyes",
+    "expression": "Thousand-yard stare, disconnected"
+  },
+  "environment": {
+    "location": "Grimy NYC subway car interior",
+    "condition": "Dirty, heavily used, authentic grime"
+  },
+  "clothing": {
+    "main": "Distressed denim jacket covered in patches",
+    "accessories": "No jewelry, clean"
+  },
+  "lighting": {
+    "source": "Harsh built-in camera flash, direct and unmodified",
+    "mood": "Flat and even, shadowless"
+  },
+  "camera": {
+    "position": "Waist height shooting upward",
+    "lens": "35mm documentary"
+  },
+  "atmosphere": {
+    "mood": "Melancholic longing",
+    "elements": "Nothing, crystal clear air"
+  },
+  "color": {
+    "grade": "Flash-blown with green-yellow fluorescent falloff",
+    "skin": "True to life, accurate"
+  },
+  "film": {
+    "grain": "Kodak Tri-X chunky grain",
+    "format": "4:3 native compact camera ratio"
+  },
+  "vibes": {
+    "reference": "Bruce Davidson subway documentation",
+    "description": "Documentary realism, unstaged authenticity"
+  }
+}

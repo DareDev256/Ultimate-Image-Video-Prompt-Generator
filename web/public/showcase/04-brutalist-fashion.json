@@ -1,0 +1,38 @@
+{
+  "subject": {
+    "description": "Muscular woman with shaved head and geometric tattoos",
+    "expression": "Unbothered and distant, not posing, caught mid-thought"
+  },
+  "environment": {
+    "location": "Brutalist concrete architecture",
+    "condition": "Under construction, raw materials"
+  },
+  "clothing": {
+    "main": "Tailored black suit, impeccable fit",
+    "accessories": "Statement earrings only, architectural"
+  },
+  "lighting": {
+    "source": "Single bare strobe, hard light",
+    "mood": "Dramatic chiaroscuro"
+  },
+  "camera": {
+    "position": "Wide establishing shot from across the room",
+    "lens": "24mm wide"
+  },
+  "atmosphere": {
+    "mood": "Mysterious and secretive",
+    "elements": "Fog rolling through"
+  },
+  "color": {
+    "grade": "Desaturated, almost monochrome",
+    "skin": "Cold and desaturated"
+  },
+  "film": {
+    "grain": "Clean digital, no grain",
+    "format": "2.35:1 anamorphic widescreen"
+  },
+  "vibes": {
+    "reference": "Viviane Sassen bold colors and shadows",
+    "description": "Modern minimalism, negative space"
+  }
+}
