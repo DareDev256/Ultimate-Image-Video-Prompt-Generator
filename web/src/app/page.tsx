@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Particles } from '@/components/effects/Particles';
-import { Volume2, VolumeX, Sparkles } from 'lucide-react';
+import { Volume2, VolumeX } from 'lucide-react';
 
 export default function IntroPage() {
   const router = useRouter();
@@ -162,25 +162,99 @@ export default function IntroPage() {
               exit={{ opacity: 0, scale: 0.95 }}
               className="space-y-8"
             >
-              {/* Animated logo placeholder */}
-              <motion.div
-                className="w-24 h-24 mx-auto relative"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-              >
-                <div className="absolute inset-0 rounded-full border-2 border-[var(--color-primary)] opacity-30" />
+              {/* Cosmic Space Logo */}
+              <div className="w-32 h-32 mx-auto relative">
+                {/* Outer glow ring */}
                 <motion.div
-                  className="absolute inset-2 rounded-full border-2 border-t-[var(--color-secondary)] border-r-transparent border-b-transparent border-l-transparent"
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    background: 'radial-gradient(circle, transparent 40%, rgba(100, 180, 255, 0.3) 60%, transparent 70%)',
+                  }}
+                  animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                 />
+
+                {/* Orbiting star particles */}
+                {[0, 60, 120, 180, 240, 300].map((angle, i) => (
+                  <motion.div
+                    key={angle}
+                    className="absolute w-1.5 h-1.5 rounded-full bg-white"
+                    style={{
+                      top: '50%',
+                      left: '50%',
+                      boxShadow: '0 0 6px 2px rgba(255,255,255,0.8)',
+                    }}
+                    animate={{
+                      x: [
+                        Math.cos((angle * Math.PI) / 180) * 52,
+                        Math.cos(((angle + 360) * Math.PI) / 180) * 52,
+                      ],
+                      y: [
+                        Math.sin((angle * Math.PI) / 180) * 52,
+                        Math.sin(((angle + 360) * Math.PI) / 180) * 52,
+                      ],
+                    }}
+                    transition={{
+                      duration: 8 + i * 0.5,
+                      repeat: Infinity,
+                      ease: 'linear',
+                    }}
+                  />
+                ))}
+
+                {/* Inner rotating nebula ring */}
                 <motion.div
-                  className="absolute inset-4 rounded-full border-2 border-t-transparent border-r-[var(--color-accent)] border-b-transparent border-l-transparent"
+                  className="absolute inset-3 rounded-full overflow-hidden"
+                  style={{
+                    border: '3px solid transparent',
+                    background: 'linear-gradient(var(--color-bg-deep), var(--color-bg-deep)) padding-box, conic-gradient(from 0deg, rgba(100, 180, 255, 0.8), rgba(180, 100, 255, 0.8), rgba(255, 100, 200, 0.8), rgba(100, 180, 255, 0.8)) border-box',
+                  }}
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                  transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
                 />
-                <Sparkles className="absolute inset-0 m-auto w-8 h-8 text-[var(--color-primary)]" />
-              </motion.div>
+
+                {/* Nebula core - the main visual */}
+                <motion.div
+                  className="absolute inset-5 rounded-full overflow-hidden"
+                  style={{
+                    backgroundImage: 'url(/images/nebula.jpg)',
+                    backgroundSize: '250% auto',
+                    backgroundPosition: 'center',
+                    boxShadow: 'inset 0 0 20px rgba(0,0,0,0.5), 0 0 30px rgba(100, 180, 255, 0.5), 0 0 60px rgba(180, 100, 255, 0.3)',
+                  }}
+                  animate={{
+                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                  }}
+                  transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                />
+
+                {/* Center bright star */}
+                <motion.div
+                  className="absolute inset-0 m-auto w-4 h-4 rounded-full bg-white"
+                  style={{
+                    boxShadow: '0 0 10px 4px rgba(255,255,255,0.9), 0 0 20px 8px rgba(100, 180, 255, 0.6), 0 0 40px 16px rgba(180, 100, 255, 0.3)',
+                  }}
+                  animate={{
+                    scale: [1, 1.3, 1],
+                    opacity: [0.9, 1, 0.9],
+                  }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                />
+
+                {/* Sparkle rays */}
+                <motion.div
+                  className="absolute inset-0 m-auto w-8 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent"
+                  style={{ opacity: 0.7 }}
+                  animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0.8, 0.5] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                />
+                <motion.div
+                  className="absolute inset-0 m-auto w-0.5 h-8 bg-gradient-to-b from-transparent via-white to-transparent"
+                  style={{ opacity: 0.7 }}
+                  animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0.8, 0.5] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+                />
+              </div>
 
               {/* Loading text */}
               <div className="space-y-2">
