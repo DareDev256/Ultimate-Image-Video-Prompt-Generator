@@ -184,7 +184,7 @@ export default function IntroPage() {
 
               {/* Loading text */}
               <div className="space-y-2">
-                <p className="text-[var(--color-text-muted)] text-sm tracking-[0.3em] uppercase font-medium">
+                <p className="text-nebula text-lg tracking-[0.3em] uppercase font-bold">
                   Initializing Dream Machine
                 </p>
                 <motion.p
@@ -237,10 +237,10 @@ export default function IntroPage() {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
               >
-                <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-4">
+                <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-4 text-nebula-glow">
                   ULTIMATE
                   <br />
-                  <span className="text-[var(--color-secondary)]">IMAGE</span>
+                  IMAGE
                   <br />
                   GENERATOR
                 </h1>

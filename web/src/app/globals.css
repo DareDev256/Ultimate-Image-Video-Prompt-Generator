@@ -125,6 +125,35 @@ h1 {
     0 0 40px currentColor;
 }
 
+/* Nebula text effect - use on any text element */
+.text-nebula {
+  background-image: url('/images/nebula.jpg');
+  background-size: 200% auto;
+  background-position: center;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter:
+    drop-shadow(0 0 6px rgba(100, 180, 255, 0.5))
+    drop-shadow(0 0 15px rgba(180, 100, 255, 0.3));
+  animation: nebulaDrift 20s ease-in-out infinite;
+}
+
+/* Nebula text with stronger glow for titles */
+.text-nebula-glow {
+  background-image: url('/images/nebula.jpg');
+  background-size: 180% auto;
+  background-position: center;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter:
+    drop-shadow(0 0 10px rgba(100, 180, 255, 0.7))
+    drop-shadow(0 0 25px rgba(180, 100, 255, 0.5))
+    drop-shadow(0 0 40px rgba(255, 100, 200, 0.3));
+  animation: nebulaDrift 15s ease-in-out infinite;
+}
+
 .text-lcd {
   font-family: var(--font-mono);
   font-size: 1.5rem;
