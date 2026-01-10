@@ -282,6 +282,7 @@ export default function IntroPage() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 1, duration: 0.6 }}
+                className="flex flex-col items-center gap-4"
               >
                 <motion.button
                   onClick={handleEnter}
@@ -297,6 +298,15 @@ export default function IntroPage() {
                   >
                     →
                   </motion.span>
+                </motion.button>
+
+                <motion.button
+                  onClick={() => router.push('/showcase')}
+                  className="text-[var(--color-text-muted)] hover:text-[var(--color-secondary)] text-sm font-medium tracking-wider transition-colors"
+                  whileHover={{ scale: 1.02 }}
+                  disabled={phase !== 'ready'}
+                >
+                  See Examples →
                 </motion.button>
               </motion.div>
 

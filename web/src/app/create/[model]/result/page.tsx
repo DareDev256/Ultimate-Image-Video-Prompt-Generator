@@ -16,6 +16,9 @@ import {
   ChevronUp,
   Plus,
   Sparkles,
+  Twitter,
+  Link2,
+  MessageCircle,
 } from 'lucide-react';
 import { Particles } from '@/components/effects/Particles';
 import { ModelType } from '@/context/WizardContext';
@@ -41,6 +44,8 @@ export default function ResultPage() {
   const [showPrompt, setShowPrompt] = useState(true); // Show prompt by default
   const [copied, setCopied] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
+  const [showShareMenu, setShowShareMenu] = useState(false);
 
   const modelNames: Record<ModelType, string> = {
     'nano-banana': 'Nano Banana',
@@ -124,6 +129,36 @@ export default function ResultPage() {
     await navigator.clipboard.writeText(result.prompt);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleShareToTwitter = () => {
+    if (!result) return;
+    const promptSnippet = result.prompt.length > 100
+      ? result.prompt.substring(0, 100) + '...'
+      : result.prompt;
+    const text = `Just generated this with AI! 🎨\n\nPrompt: "${promptSnippet}"\n\nMade with Ultimate Image Generator`;
+    const url = 'https://web-ten-vert-46.vercel.app';
+    window.open(
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
+      '_blank'
+    );
+  };
+
+  const handleShareToReddit = () => {
+    if (!result) return;
+    const title = `AI Generated Image - ${modelNames[modelId]}`;
+    const url = 'https://web-ten-vert-46.vercel.app';
+    window.open(
+      `https://reddit.com/submit?title=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`,
+      '_blank'
+    );
+  };
+
+  const handleCopyLink = async () => {
+    const url = 'https://web-ten-vert-46.vercel.app';
+    await navigator.clipboard.writeText(url);
+    setLinkCopied(true);
+    setTimeout(() => setLinkCopied(false), 2000);
   };
 
   const handleStartFresh = () => {
@@ -246,22 +281,57 @@ export default function ResultPage() {
               >
                 <Download size={18} />
               </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => {
-                  if (mediaUrl) {
-                    navigator.share?.({
-                      title: 'AI Generated Image',
-                      url: mediaUrl,
-                    });
-                  }
-                }}
-                className="p-2 rounded-full bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 transition-colors"
-                title="Share"
-              >
-                <Share2 size={18} />
-              </motion.button>
+              <div className="relative">
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setShowShareMenu(!showShareMenu)}
+                  className="p-2 rounded-full bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 transition-colors"
+                  title="Share"
+                >
+                  <Share2 size={18} />
+                </motion.button>
+
+                {/* Share menu dropdown */}
+                {showShareMenu && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    className="absolute top-full right-0 mt-2 w-48 rounded-xl bg-[var(--color-bg-card)] border border-[var(--color-border)] shadow-xl overflow-hidden"
+                  >
+                    <button
+                      onClick={() => { handleShareToTwitter(); setShowShareMenu(false); }}
+                      className="w-full px-4 py-3 flex items-center gap-3 hover:bg-[var(--color-bg-elevated)] transition-colors text-left"
+                    >
+                      <Twitter size={18} className="text-[#1DA1F2]" />
+                      <span className="text-sm">Share to X</span>
+                    </button>
+                    <button
+                      onClick={() => { handleShareToReddit(); setShowShareMenu(false); }}
+                      className="w-full px-4 py-3 flex items-center gap-3 hover:bg-[var(--color-bg-elevated)] transition-colors text-left"
+                    >
+                      <MessageCircle size={18} className="text-[#FF4500]" />
+                      <span className="text-sm">Share to Reddit</span>
+                    </button>
+                    <button
+                      onClick={() => { handleCopyLink(); setShowShareMenu(false); }}
+                      className="w-full px-4 py-3 flex items-center gap-3 hover:bg-[var(--color-bg-elevated)] transition-colors text-left"
+                    >
+                      {linkCopied ? (
+                        <>
+                          <Check size={18} className="text-[var(--color-success)]" />
+                          <span className="text-sm text-[var(--color-success)]">Link Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Link2 size={18} className="text-[var(--color-text-muted)]" />
+                          <span className="text-sm">Copy Link</span>
+                        </>
+                      )}
+                    </button>
+                  </motion.div>
+                )}
+              </div>
             </div>
 
             {saved && (

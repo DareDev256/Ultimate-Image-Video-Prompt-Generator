@@ -64,13 +64,18 @@ export default function CreatePage() {
   const router = useRouter();
   const [hoveredModel, setHoveredModel] = useState<ModelType | null>(null);
   const [selectedModel, setSelectedModel] = useState<ModelType | null>(null);
+  const [mode, setMode] = useState<'wizard' | 'quick'>('wizard');
 
   const handleSelectModel = (modelId: ModelType) => {
     setSelectedModel(modelId);
 
     // Dramatic transition delay
     setTimeout(() => {
-      router.push(`/create/${modelId}`);
+      if (mode === 'quick') {
+        router.push(`/create/${modelId}/quick`);
+      } else {
+        router.push(`/create/${modelId}`);
+      }
     }, 600);
   };
 
@@ -108,7 +113,7 @@ export default function CreatePage() {
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-center mb-12 z-10"
+        className="text-center mb-8 z-10"
       >
         <h1 className="text-3xl md:text-4xl font-bold mb-3">
           Choose Your Canvas
@@ -116,6 +121,43 @@ export default function CreatePage() {
         <p className="text-[var(--color-text-secondary)] text-lg">
           Select the AI model that matches your vision
         </p>
+      </motion.div>
+
+      {/* Mode Toggle */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="flex items-center gap-2 mb-8 z-10 p-1 rounded-full bg-[var(--color-bg-card)] border border-[var(--color-border)]"
+      >
+        <button
+          onClick={() => setMode('wizard')}
+          className={`
+            px-4 py-2 rounded-full text-sm font-medium transition-all duration-300
+            flex items-center gap-2
+            ${mode === 'wizard'
+              ? 'bg-[var(--color-primary)] text-black'
+              : 'text-[var(--color-text-muted)] hover:text-white'
+            }
+          `}
+        >
+          <Wand2 size={14} />
+          <span>Wizard Mode</span>
+        </button>
+        <button
+          onClick={() => setMode('quick')}
+          className={`
+            px-4 py-2 rounded-full text-sm font-medium transition-all duration-300
+            flex items-center gap-2
+            ${mode === 'quick'
+              ? 'bg-[var(--color-secondary)] text-black'
+              : 'text-[var(--color-text-muted)] hover:text-white'
+            }
+          `}
+        >
+          <Zap size={14} />
+          <span>Quick Mode</span>
+        </button>
       </motion.div>
 
       {/* Model Cards */}
