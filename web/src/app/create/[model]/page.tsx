@@ -55,9 +55,15 @@ function WizardContent() {
     }
   }, [isFirstStep, prevStep, router]);
 
-  // Keyboard navigation
+  // Keyboard navigation (skip if user is typing in an input)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't intercept keyboard when user is typing
+      const target = e.target as HTMLElement;
+      const isTyping = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable;
+
+      if (isTyping) return;
+
       if (e.key === 'ArrowRight' || e.key === 'Enter') {
         handleNext();
       } else if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
