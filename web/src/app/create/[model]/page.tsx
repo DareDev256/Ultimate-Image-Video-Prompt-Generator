@@ -21,20 +21,29 @@ function WizardContent() {
     isFirstStep,
     isLastStep,
     setModel,
+    restoreState,
     nextStep,
     prevStep,
   } = useWizard();
 
   const [direction, setDirection] = useState(0);
 
-  // Initialize model on mount
+  // Initialize model on mount - restore from localStorage if available
   useEffect(() => {
     if (modelId && ['nano-banana', 'openai', 'kling'].includes(modelId)) {
+      const savedState = localStorage.getItem('wizardState');
+      if (savedState) {
+        const parsed = JSON.parse(savedState);
+        if (parsed.model === modelId && Object.keys(parsed.formData || {}).length > 0) {
+          restoreState(parsed);
+          return;
+        }
+      }
       setModel(modelId);
     } else {
       router.push('/create');
     }
-  }, [modelId, setModel, router]);
+  }, [modelId, setModel, restoreState, router]);
 
   const handleNext = useCallback(() => {
     setDirection(1);
@@ -74,6 +83,13 @@ function WizardContent() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleNext, handlePrev]);
+
+  // Save state to localStorage on changes
+  useEffect(() => {
+    if (state.model && Object.keys(state.formData).length > 0) {
+      localStorage.setItem('wizardState', JSON.stringify(state));
+    }
+  }, [state]);
 
   const modelNames: Record<ModelType, string> = {
     'nano-banana': 'Nano Banana',

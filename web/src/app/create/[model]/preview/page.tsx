@@ -19,7 +19,7 @@ function PreviewContent() {
   const params = useParams();
   const modelId = params.model as ModelType;
 
-  const { state, setModel, getFormattedPrompt, reset } = useWizard();
+  const { state, setModel, restoreState, getFormattedPrompt, reset } = useWizard();
   const [copied, setCopied] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [hasApiKey, setHasApiKey] = useState(false);
@@ -31,12 +31,15 @@ function PreviewContent() {
       const savedState = localStorage.getItem('wizardState');
       if (savedState) {
         const parsed = JSON.parse(savedState);
-        if (parsed.model === modelId) {
+        if (parsed.model === modelId && Object.keys(parsed.formData || {}).length > 0) {
+          // Restore full state including formData
+          restoreState(parsed);
+        } else {
           setModel(modelId);
-          // Restore form data - need to update context
         }
+      } else {
+        setModel(modelId);
       }
-      setModel(modelId);
 
       // Check for API key
       const apiKey = localStorage.getItem(`${modelId}ApiKey`);
@@ -44,7 +47,7 @@ function PreviewContent() {
     } else {
       router.push('/create');
     }
-  }, [modelId, setModel, router]);
+  }, [modelId, setModel, restoreState, router]);
 
   // Save state to localStorage on changes
   useEffect(() => {

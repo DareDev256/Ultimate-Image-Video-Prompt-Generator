@@ -22,6 +22,7 @@ interface WizardContextType {
 
   // Actions
   setModel: (model: ModelType) => void;
+  restoreState: (savedState: WizardState) => void;
   nextStep: () => void;
   prevStep: () => void;
   goToStep: (step: number) => void;
@@ -49,6 +50,16 @@ export function WizardProvider({ children }: { children: React.ReactNode }) {
       model,
       currentStep: 0,
       formData: {},
+      categories,
+    });
+  }, []);
+
+  const restoreState = useCallback((savedState: WizardState) => {
+    // Restore state from localStorage, but regenerate categories
+    const isVideo = savedState.model === 'kling';
+    const categories = getCategoriesForModel(isVideo ? 'video' : 'image');
+    setState({
+      ...savedState,
       categories,
     });
   }, []);
@@ -219,6 +230,7 @@ export function WizardProvider({ children }: { children: React.ReactNode }) {
     isFirstStep,
     isLastStep,
     setModel,
+    restoreState,
     nextStep,
     prevStep,
     goToStep,
