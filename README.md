@@ -13,30 +13,35 @@
 ## Features
 
 **Step-by-Step Wizard**
+
 - 9 guided categories: Subject, Setting, Style, Lighting, Camera, Mood, Color, Film Look, Vibes
 - Click-to-use suggestions or type your own
 - Randomize button for instant inspiration
 - Keyboard navigation (arrow keys)
 
 **Multi-Model Support**
+
 - **Nano Banana (Gemini)** - Google's image generation with structured JSON prompts
 - **DALL-E 3 (OpenAI)** - Natural language prompts with revised prompt feedback
 - **Kling** - AI video generation with motion controls
 
 **Flash Site Era Aesthetic (2002-2006)**
+
 - Theatrical animated intro with skip option
-- Glossy buttons with gradient effects
+- Glossy buttons with gradient effects  
 - Floating particle background
 - Cyan/pink/gold/green neon color palette
 - Orbitron + Exo 2 typography
 
 **Generation Flow**
+
 - Live preview of assembled prompt (JSON or natural language)
 - Animated generation progress
 - Love It / Tweak It / Remix result actions
 - Gallery to save and revisit creations
 
 **Privacy First**
+
 - BYOK (Bring Your Own Keys) - API keys stored in localStorage only
 - No server-side storage of prompts or images
 - Direct API calls from your browser
@@ -66,7 +71,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/ultimate-image-prompt-generator.git
+git clone https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator.git
 cd ultimate-image-prompt-generator
 
 # Install dependencies
