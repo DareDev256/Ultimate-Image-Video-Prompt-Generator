@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Heart, ImageIcon, Video } from 'lucide-react';
+import { Heart, ImageIcon, FileText } from 'lucide-react';
 import type { ImagePrompt, VideoPrompt } from '@/hooks/useInspirationData';
 
 interface PromptCardProps {
@@ -30,13 +30,26 @@ export function PromptCard({
   const title = prompt.title;
   const tags = isImage ? imagePrompt.tags : [videoPrompt.category];
 
+  // Get preview text for video prompts
+  const getVideoPreview = () => {
+    if (isImage) return '';
+    const text = videoPrompt.promptEn || '';
+    // Clean up JSON-like content for preview
+    const cleaned = text
+      .replace(/[{}"]/g, '')
+      .replace(/\n+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    return cleaned.length > 120 ? cleaned.slice(0, 120) + '...' : cleaned;
+  };
+
   return (
     <div
       onClick={onClick}
       className="group relative aspect-square rounded-lg overflow-hidden cursor-pointer bg-[var(--color-bg-elevated)] border border-[var(--color-border)] hover:border-[var(--color-primary)] transition-colors"
     >
-      {/* Image or placeholder */}
-      {coverImage && !imageError ? (
+      {/* Image prompts show cover image */}
+      {isImage && coverImage && !imageError ? (
         <Image
           src={coverImage}
           alt={title}
@@ -45,28 +58,31 @@ export function PromptCard({
           sizes="(max-width: 768px) 50vw, 33vw"
           onError={() => setImageError(true)}
         />
-      ) : (
+      ) : isImage ? (
         <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[var(--color-bg-elevated)] to-[var(--color-bg-deep)]">
-          {isImage ? (
-            <ImageIcon size={24} className="text-[var(--color-text-muted)]" />
-          ) : (
-            <Video size={24} className="text-[var(--color-text-muted)]" />
-          )}
+          <ImageIcon size={24} className="text-[var(--color-text-muted)]" />
+        </div>
+      ) : (
+        /* Video prompts show text preview */
+        <div className="absolute inset-0 p-2.5 bg-gradient-to-br from-[var(--color-bg-elevated)] to-[var(--color-bg-deep)] flex flex-col">
+          <div className="flex items-center gap-1.5 mb-2">
+            <FileText size={12} className="text-[var(--color-secondary)]" />
+            <span className="text-[10px] font-medium text-[var(--color-secondary)]">VIDEO PROMPT</span>
+          </div>
+          <p className="text-[10px] leading-relaxed text-[var(--color-text-secondary)] line-clamp-6 flex-1">
+            {getVideoPreview()}
+          </p>
         </div>
       )}
 
-      {/* Type badge */}
-      <div className="absolute top-2 left-2">
-        <span
-          className={`px-1.5 py-0.5 text-[10px] font-bold uppercase rounded ${
-            isImage
-              ? 'bg-[var(--color-primary)]/80 text-black'
-              : 'bg-[var(--color-secondary)]/80 text-black'
-          }`}
-        >
-          {isImage ? 'IMG' : 'VID'}
-        </span>
-      </div>
+      {/* Type badge - only show for images (video cards have their own header) */}
+      {isImage && (
+        <div className="absolute top-2 left-2">
+          <span className="px-1.5 py-0.5 text-[10px] font-bold uppercase rounded bg-[var(--color-primary)]/80 text-black">
+            IMG
+          </span>
+        </div>
+      )}
 
       {/* Favorite button */}
       <button
@@ -83,31 +99,42 @@ export function PromptCard({
         <Heart size={12} fill={isFavorite ? 'currentColor' : 'none'} />
       </button>
 
-      {/* Overlay on hover */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-        <div className="absolute bottom-0 left-0 right-0 p-2">
-          <h3 className="text-xs font-medium text-white line-clamp-2 mb-1">
-            {title}
-          </h3>
-          {tags && tags.length > 0 && (
-            <div className="flex flex-wrap gap-1">
-              {tags.slice(0, 2).map((tag) => (
-                <span
-                  key={tag}
-                  className="px-1 py-0.5 text-[9px] rounded bg-white/20 text-white/80"
-                >
-                  {tag}
-                </span>
-              ))}
-              {tags.length > 2 && (
-                <span className="px-1 py-0.5 text-[9px] rounded bg-white/20 text-white/80">
-                  +{tags.length - 2}
-                </span>
-              )}
-            </div>
-          )}
+      {/* Overlay on hover - only for image prompts */}
+      {isImage && (
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          <div className="absolute bottom-0 left-0 right-0 p-2">
+            <h3 className="text-xs font-medium text-white line-clamp-2 mb-1">
+              {title}
+            </h3>
+            {tags && tags.length > 0 && (
+              <div className="flex flex-wrap gap-1">
+                {tags.slice(0, 2).map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-1 py-0.5 text-[9px] rounded bg-white/20 text-white/80"
+                  >
+                    {tag}
+                  </span>
+                ))}
+                {tags.length > 2 && (
+                  <span className="px-1 py-0.5 text-[9px] rounded bg-white/20 text-white/80">
+                    +{tags.length - 2}
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Category badge for video prompts */}
+      {!isImage && tags && tags[0] && (
+        <div className="absolute bottom-2 left-2">
+          <span className="px-1.5 py-0.5 text-[9px] rounded bg-[var(--color-secondary)]/20 text-[var(--color-secondary)]">
+            {tags[0]}
+          </span>
+        </div>
+      )}
     </div>
   );
 }

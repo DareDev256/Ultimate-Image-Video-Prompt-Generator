@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Pin, PinOff, Image as ImageIcon, Video, Heart, Loader2 } from 'lucide-react';
+import { X, Pin, PinOff, Image as ImageIcon, Video, Heart, Loader2, Info } from 'lucide-react';
 import { useInspirationData, type ImagePrompt, type VideoPrompt } from '@/hooks/useInspirationData';
 import { useFavorites } from '@/hooks/useFavorites';
 import { SearchBar } from './SearchBar';
@@ -199,6 +199,18 @@ export function InspirationPanel({ isOpen, onClose, onUseAsTemplate }: Inspirati
 
             {/* Content */}
             <div className="flex-1 overflow-y-auto p-4">
+              {/* Video prompts info banner */}
+              {activeTab === 'videos' && !loading && (
+                <div className="mb-3 p-2.5 rounded-lg bg-[var(--color-secondary)]/10 border border-[var(--color-secondary)]/30">
+                  <div className="flex items-start gap-2">
+                    <Info size={14} className="text-[var(--color-secondary)] mt-0.5 flex-shrink-0" />
+                    <p className="text-xs text-[var(--color-text-secondary)]">
+                      These are <strong>text prompts</strong> for generating videos with AI tools like Kling, Veo3, or Hailuo. Copy and paste them into your preferred video generation tool.
+                    </p>
+                  </div>
+                </div>
+              )}
+
               {loading ? (
                 <div className="flex items-center justify-center h-32">
                   <Loader2 className="animate-spin text-[var(--color-primary)]" size={24} />
