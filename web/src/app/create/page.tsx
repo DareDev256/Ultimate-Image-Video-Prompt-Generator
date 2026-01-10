@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Particles } from '@/components/effects/Particles';
+import { InspirationButton } from '@/components/inspiration';
 import {
   ImageIcon,
   Video,
@@ -332,6 +333,9 @@ export default function CreatePage() {
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-64 h-64 border-l border-t border-[var(--color-border)] opacity-20" />
       <div className="absolute bottom-0 right-0 w-64 h-64 border-r border-b border-[var(--color-border)] opacity-20" />
+
+      {/* Inspiration Panel */}
+      <InspirationButton />
     </div>
   );
 }

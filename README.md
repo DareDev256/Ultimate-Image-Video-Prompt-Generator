@@ -48,6 +48,15 @@
 - Love It / Tweak It / Remix result actions
 - Gallery to save and revisit creations
 
+**Inspiration Gallery**
+
+- 1,050+ curated image prompts from the community
+- 50+ video prompts for Veo3/Kling/Hailuo
+- Search and filter by tags (fashion, portrait, 3D, anime, etc.)
+- Save favorites for quick access
+- "Use as Template" to jumpstart your creation
+- Pattern library with extracted lighting, cameras, moods, and styles
+
 **Privacy First**
 
 - BYOK (Bring Your Own Keys) - API keys stored in localStorage only
@@ -172,6 +181,15 @@ Contributions are welcome! Feel free to:
 - Report bugs
 - Suggest features
 - Submit pull requests
+
+## Community Prompts Attribution
+
+The Inspiration Gallery includes curated prompts from [@songguoxs](https://github.com/songguoxs):
+
+- **[gpt4o-image-prompts](https://github.com/songguoxs/gpt4o-image-prompts)** - 1,050+ GPT-4o/Nano Banana image prompts
+- **[awesome-video-prompts](https://github.com/songguoxs/awesome-video-prompts)** - 50+ Veo3/Kling video prompts
+
+Thank you for sharing these amazing resources with the community!
 
 ## License
 

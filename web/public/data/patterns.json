@@ -1,0 +1,2172 @@
+{
+  "lighting": [
+    {
+      "term": "led",
+      "count": 345,
+      "examples": [
+        "prompt-0",
+        "prompt-4",
+        "prompt-9"
+      ]
+    },
+    {
+      "term": "studio light",
+      "count": 94,
+      "examples": [
+        "prompt-37",
+        "prompt-40",
+        "prompt-45"
+      ]
+    },
+    {
+      "term": "ambient",
+      "count": 67,
+      "examples": [
+        "prompt-28",
+        "prompt-34",
+        "prompt-65"
+      ]
+    },
+    {
+      "term": "diffused",
+      "count": 64,
+      "examples": [
+        "prompt-18",
+        "prompt-23",
+        "prompt-34"
+      ]
+    },
+    {
+      "term": "neon",
+      "count": 63,
+      "examples": [
+        "prompt-34",
+        "prompt-58",
+        "prompt-120"
+      ]
+    },
+    {
+      "term": "bokeh",
+      "count": 60,
+      "examples": [
+        "prompt-13",
+        "prompt-34",
+        "prompt-37"
+      ]
+    },
+    {
+      "term": "cinematic lighting",
+      "count": 48,
+      "examples": [
+        "prompt-0",
+        "prompt-13",
+        "prompt-86"
+      ]
+    },
+    {
+      "term": "sunlight",
+      "count": 45,
+      "examples": [
+        "prompt-13",
+        "prompt-30",
+        "prompt-126"
+      ]
+    },
+    {
+      "term": "soft light",
+      "count": 39,
+      "examples": [
+        "prompt-45",
+        "prompt-55",
+        "prompt-106"
+      ]
+    },
+    {
+      "term": "natural light",
+      "count": 34,
+      "examples": [
+        "prompt-20",
+        "prompt-53",
+        "prompt-54"
+      ]
+    },
+    {
+      "term": "rim light",
+      "count": 29,
+      "examples": [
+        "prompt-54",
+        "prompt-176",
+        "prompt-184"
+      ]
+    },
+    {
+      "term": "golden hour",
+      "count": 24,
+      "examples": [
+        "prompt-13",
+        "prompt-47",
+        "prompt-188"
+      ]
+    },
+    {
+      "term": "volumetric",
+      "count": 21,
+      "examples": [
+        "prompt-30",
+        "prompt-65",
+        "prompt-71"
+      ]
+    },
+    {
+      "term": "sunset",
+      "count": 15,
+      "examples": [
+        "prompt-47",
+        "prompt-120",
+        "prompt-388"
+      ]
+    },
+    {
+      "term": "overcast",
+      "count": 11,
+      "examples": [
+        "prompt-74",
+        "prompt-76",
+        "prompt-139"
+      ]
+    },
+    {
+      "term": "lens flare",
+      "count": 8,
+      "examples": [
+        "prompt-13",
+        "prompt-23",
+        "prompt-583"
+      ]
+    },
+    {
+      "term": "neon lights",
+      "count": 7,
+      "examples": [
+        "prompt-120",
+        "prompt-376",
+        "prompt-388"
+      ]
+    },
+    {
+      "term": "backlit",
+      "count": 7,
+      "examples": [
+        "prompt-50",
+        "prompt-210",
+        "prompt-750"
+      ]
+    },
+    {
+      "term": "twilight",
+      "count": 7,
+      "examples": [
+        "prompt-11",
+        "prompt-244",
+        "prompt-388"
+      ]
+    },
+    {
+      "term": "moonlight",
+      "count": 6,
+      "examples": [
+        "prompt-387",
+        "prompt-477",
+        "prompt-728"
+      ]
+    },
+    {
+      "term": "dramatic lighting",
+      "count": 6,
+      "examples": [
+        "prompt-26",
+        "prompt-536",
+        "prompt-1282"
+      ]
+    },
+    {
+      "term": "window light",
+      "count": 6,
+      "examples": [
+        "prompt-65",
+        "prompt-583",
+        "prompt-746"
+      ]
+    },
+    {
+      "term": "fluorescent",
+      "count": 6,
+      "examples": [
+        "prompt-390",
+        "prompt-542",
+        "prompt-685"
+      ]
+    },
+    {
+      "term": "side light",
+      "count": 5,
+      "examples": [
+        "prompt-363",
+        "prompt-460",
+        "prompt-1092"
+      ]
+    },
+    {
+      "term": "chiaroscuro",
+      "count": 5,
+      "examples": [
+        "prompt-114",
+        "prompt-487",
+        "prompt-491"
+      ]
+    },
+    {
+      "term": "tungsten",
+      "count": 5,
+      "examples": [
+        "prompt-63",
+        "prompt-67",
+        "prompt-252"
+      ]
+    },
+    {
+      "term": "neon glow",
+      "count": 4,
+      "examples": [
+        "prompt-587",
+        "prompt-675",
+        "prompt-1348"
+      ]
+    },
+    {
+      "term": "backlighting",
+      "count": 3,
+      "examples": [
+        "prompt-50",
+        "prompt-811",
+        "prompt-1434"
+      ]
+    },
+    {
+      "term": "dusk",
+      "count": 3,
+      "examples": [
+        "prompt-633",
+        "prompt-675",
+        "prompt-904"
+      ]
+    },
+    {
+      "term": "low key",
+      "count": 2,
+      "examples": [
+        "prompt-414",
+        "prompt-487"
+      ]
+    }
+  ],
+  "cameras": [
+    {
+      "term": "close-up",
+      "count": 86,
+      "examples": [
+        "prompt-4",
+        "prompt-11",
+        "prompt-34"
+      ]
+    },
+    {
+      "term": "85mm",
+      "count": 75,
+      "examples": [
+        "prompt-18",
+        "prompt-19",
+        "prompt-34"
+      ]
+    },
+    {
+      "term": "shallow depth of field",
+      "count": 70,
+      "examples": [
+        "prompt-0",
+        "prompt-13",
+        "prompt-18"
+      ]
+    },
+    {
+      "term": "bokeh",
+      "count": 60,
+      "examples": [
+        "prompt-13",
+        "prompt-34",
+        "prompt-37"
+      ]
+    },
+    {
+      "term": "macro",
+      "count": 53,
+      "examples": [
+        "prompt-13",
+        "prompt-32",
+        "prompt-33"
+      ]
+    },
+    {
+      "term": "35mm",
+      "count": 46,
+      "examples": [
+        "prompt-20",
+        "prompt-21",
+        "prompt-63"
+      ]
+    },
+    {
+      "term": "f/1.8",
+      "count": 26,
+      "examples": [
+        "prompt-51",
+        "prompt-52",
+        "prompt-204"
+      ]
+    },
+    {
+      "term": "50mm",
+      "count": 25,
+      "examples": [
+        "prompt-23",
+        "prompt-24",
+        "prompt-65"
+      ]
+    },
+    {
+      "term": "medium shot",
+      "count": 19,
+      "examples": [
+        "prompt-11",
+        "prompt-50",
+        "prompt-116"
+      ]
+    },
+    {
+      "term": "pov",
+      "count": 19,
+      "examples": [
+        "prompt-74",
+        "prompt-126",
+        "prompt-130"
+      ]
+    },
+    {
+      "term": "low angle",
+      "count": 17,
+      "examples": [
+        "prompt-99",
+        "prompt-196",
+        "prompt-210"
+      ]
+    },
+    {
+      "term": "high angle",
+      "count": 16,
+      "examples": [
+        "prompt-76",
+        "prompt-99",
+        "prompt-139"
+      ]
+    },
+    {
+      "term": "fisheye",
+      "count": 12,
+      "examples": [
+        "prompt-96",
+        "prompt-315",
+        "prompt-412"
+      ]
+    },
+    {
+      "term": "extreme close-up",
+      "count": 12,
+      "examples": [
+        "prompt-204",
+        "prompt-258",
+        "prompt-412"
+      ]
+    },
+    {
+      "term": "24mm",
+      "count": 10,
+      "examples": [
+        "prompt-93",
+        "prompt-252",
+        "prompt-253"
+      ]
+    },
+    {
+      "term": "prime lens",
+      "count": 10,
+      "examples": [
+        "prompt-18",
+        "prompt-283",
+        "prompt-695"
+      ]
+    },
+    {
+      "term": "f/1.4",
+      "count": 10,
+      "examples": [
+        "prompt-623",
+        "prompt-624",
+        "prompt-662"
+      ]
+    },
+    {
+      "term": "wide angle",
+      "count": 9,
+      "examples": [
+        "prompt-247",
+        "prompt-252",
+        "prompt-283"
+      ]
+    },
+    {
+      "term": "wide shot",
+      "count": 9,
+      "examples": [
+        "prompt-11",
+        "prompt-47",
+        "prompt-237"
+      ]
+    },
+    {
+      "term": "f/2.8",
+      "count": 8,
+      "examples": [
+        "prompt-54",
+        "prompt-460",
+        "prompt-461"
+      ]
+    },
+    {
+      "term": "portrait lens",
+      "count": 7,
+      "examples": [
+        "prompt-34",
+        "prompt-37",
+        "prompt-65"
+      ]
+    },
+    {
+      "term": "deep depth of field",
+      "count": 7,
+      "examples": [
+        "prompt-134",
+        "prompt-210",
+        "prompt-434"
+      ]
+    },
+    {
+      "term": "f/8",
+      "count": 7,
+      "examples": [
+        "prompt-210",
+        "prompt-412",
+        "prompt-413"
+      ]
+    },
+    {
+      "term": "28mm",
+      "count": 6,
+      "examples": [
+        "prompt-40",
+        "prompt-41",
+        "prompt-252"
+      ]
+    },
+    {
+      "term": "f/4",
+      "count": 6,
+      "examples": [
+        "prompt-54",
+        "prompt-460",
+        "prompt-461"
+      ]
+    },
+    {
+      "term": "f/11",
+      "count": 6,
+      "examples": [
+        "prompt-536",
+        "prompt-537",
+        "prompt-687"
+      ]
+    },
+    {
+      "term": "handheld",
+      "count": 6,
+      "examples": [
+        "prompt-174",
+        "prompt-252",
+        "prompt-383"
+      ]
+    },
+    {
+      "term": "sony",
+      "count": 6,
+      "examples": [
+        "prompt-296",
+        "prompt-758",
+        "prompt-764"
+      ]
+    },
+    {
+      "term": "tilt-shift",
+      "count": 5,
+      "examples": [
+        "prompt-289",
+        "prompt-425",
+        "prompt-500"
+      ]
+    },
+    {
+      "term": "eye level",
+      "count": 5,
+      "examples": [
+        "prompt-252",
+        "prompt-258",
+        "prompt-1100"
+      ]
+    }
+  ],
+  "moods": [
+    {
+      "term": "cinematic",
+      "count": 228,
+      "examples": [
+        "prompt-0",
+        "prompt-4",
+        "prompt-11"
+      ]
+    },
+    {
+      "term": "subtle",
+      "count": 222,
+      "examples": [
+        "prompt-4",
+        "prompt-9",
+        "prompt-20"
+      ]
+    },
+    {
+      "term": "dark",
+      "count": 167,
+      "examples": [
+        "prompt-0",
+        "prompt-9",
+        "prompt-13"
+      ]
+    },
+    {
+      "term": "warm",
+      "count": 163,
+      "examples": [
+        "prompt-0",
+        "prompt-7",
+        "prompt-9"
+      ]
+    },
+    {
+      "term": "raw",
+      "count": 125,
+      "examples": [
+        "prompt-2",
+        "prompt-9",
+        "prompt-35"
+      ]
+    },
+    {
+      "term": "vibrant",
+      "count": 118,
+      "examples": [
+        "prompt-9",
+        "prompt-13",
+        "prompt-34"
+      ]
+    },
+    {
+      "term": "bold",
+      "count": 118,
+      "examples": [
+        "prompt-7",
+        "prompt-34",
+        "prompt-51"
+      ]
+    },
+    {
+      "term": "playful",
+      "count": 117,
+      "examples": [
+        "prompt-4",
+        "prompt-18",
+        "prompt-37"
+      ]
+    },
+    {
+      "term": "dynamic",
+      "count": 103,
+      "examples": [
+        "prompt-23",
+        "prompt-32",
+        "prompt-37"
+      ]
+    },
+    {
+      "term": "minimalist",
+      "count": 90,
+      "examples": [
+        "prompt-9",
+        "prompt-18",
+        "prompt-20"
+      ]
+    },
+    {
+      "term": "dramatic",
+      "count": 82,
+      "examples": [
+        "prompt-23",
+        "prompt-26",
+        "prompt-45"
+      ]
+    },
+    {
+      "term": "gentle",
+      "count": 81,
+      "examples": [
+        "prompt-9",
+        "prompt-34",
+        "prompt-35"
+      ]
+    },
+    {
+      "term": "surreal",
+      "count": 70,
+      "examples": [
+        "prompt-13",
+        "prompt-168",
+        "prompt-217"
+      ]
+    },
+    {
+      "term": "calm",
+      "count": 49,
+      "examples": [
+        "prompt-0",
+        "prompt-94",
+        "prompt-116"
+      ]
+    },
+    {
+      "term": "dreamy",
+      "count": 46,
+      "examples": [
+        "prompt-0",
+        "prompt-18",
+        "prompt-30"
+      ]
+    },
+    {
+      "term": "cozy",
+      "count": 42,
+      "examples": [
+        "prompt-0",
+        "prompt-9",
+        "prompt-35"
+      ]
+    },
+    {
+      "term": "muted",
+      "count": 42,
+      "examples": [
+        "prompt-0",
+        "prompt-92",
+        "prompt-120"
+      ]
+    },
+    {
+      "term": "moody",
+      "count": 39,
+      "examples": [
+        "prompt-11",
+        "prompt-114",
+        "prompt-188"
+      ]
+    },
+    {
+      "term": "tense",
+      "count": 35,
+      "examples": [
+        "prompt-23",
+        "prompt-114",
+        "prompt-196"
+      ]
+    },
+    {
+      "term": "intense",
+      "count": 35,
+      "examples": [
+        "prompt-23",
+        "prompt-114",
+        "prompt-196"
+      ]
+    },
+    {
+      "term": "whimsical",
+      "count": 30,
+      "examples": [
+        "prompt-0",
+        "prompt-13",
+        "prompt-47"
+      ]
+    },
+    {
+      "term": "intimate",
+      "count": 30,
+      "examples": [
+        "prompt-74",
+        "prompt-231",
+        "prompt-235"
+      ]
+    },
+    {
+      "term": "epic",
+      "count": 30,
+      "examples": [
+        "prompt-47",
+        "prompt-114",
+        "prompt-134"
+      ]
+    },
+    {
+      "term": "nostalgic",
+      "count": 26,
+      "examples": [
+        "prompt-47",
+        "prompt-58",
+        "prompt-120"
+      ]
+    },
+    {
+      "term": "energetic",
+      "count": 25,
+      "examples": [
+        "prompt-50",
+        "prompt-54",
+        "prompt-58"
+      ]
+    },
+    {
+      "term": "powerful",
+      "count": 23,
+      "examples": [
+        "prompt-23",
+        "prompt-114",
+        "prompt-243"
+      ]
+    },
+    {
+      "term": "ethereal",
+      "count": 18,
+      "examples": [
+        "prompt-13",
+        "prompt-18",
+        "prompt-30"
+      ]
+    },
+    {
+      "term": "romantic",
+      "count": 18,
+      "examples": [
+        "prompt-30",
+        "prompt-47",
+        "prompt-120"
+      ]
+    },
+    {
+      "term": "chaotic",
+      "count": 18,
+      "examples": [
+        "prompt-126",
+        "prompt-367",
+        "prompt-431"
+      ]
+    },
+    {
+      "term": "cold",
+      "count": 17,
+      "examples": [
+        "prompt-4",
+        "prompt-49",
+        "prompt-139"
+      ]
+    }
+  ],
+  "colorGrades": [
+    {
+      "term": "lut",
+      "count": 229,
+      "examples": [
+        "prompt-0",
+        "prompt-7",
+        "prompt-11"
+      ]
+    },
+    {
+      "term": "log",
+      "count": 208,
+      "examples": [
+        "prompt-4",
+        "prompt-13",
+        "prompt-20"
+      ]
+    },
+    {
+      "term": "raw",
+      "count": 125,
+      "examples": [
+        "prompt-2",
+        "prompt-9",
+        "prompt-35"
+      ]
+    },
+    {
+      "term": "vibrant",
+      "count": 118,
+      "examples": [
+        "prompt-9",
+        "prompt-13",
+        "prompt-34"
+      ]
+    },
+    {
+      "term": "neutral",
+      "count": 112,
+      "examples": [
+        "prompt-18",
+        "prompt-20",
+        "prompt-28"
+      ]
+    },
+    {
+      "term": "pastel",
+      "count": 80,
+      "examples": [
+        "prompt-0",
+        "prompt-2",
+        "prompt-9"
+      ]
+    },
+    {
+      "term": "golden",
+      "count": 70,
+      "examples": [
+        "prompt-13",
+        "prompt-28",
+        "prompt-34"
+      ]
+    },
+    {
+      "term": "high contrast",
+      "count": 45,
+      "examples": [
+        "prompt-2",
+        "prompt-101",
+        "prompt-114"
+      ]
+    },
+    {
+      "term": "silver",
+      "count": 45,
+      "examples": [
+        "prompt-18",
+        "prompt-28",
+        "prompt-40"
+      ]
+    },
+    {
+      "term": "vintage",
+      "count": 44,
+      "examples": [
+        "prompt-15",
+        "prompt-18",
+        "prompt-85"
+      ]
+    },
+    {
+      "term": "retro",
+      "count": 35,
+      "examples": [
+        "prompt-134",
+        "prompt-149",
+        "prompt-254"
+      ]
+    },
+    {
+      "term": "color grading",
+      "count": 30,
+      "examples": [
+        "prompt-11",
+        "prompt-54",
+        "prompt-105"
+      ]
+    },
+    {
+      "term": "film grain",
+      "count": 28,
+      "examples": [
+        "prompt-4",
+        "prompt-63",
+        "prompt-67"
+      ]
+    },
+    {
+      "term": "monochrome",
+      "count": 16,
+      "examples": [
+        "prompt-50",
+        "prompt-184",
+        "prompt-202"
+      ]
+    },
+    {
+      "term": "warm tones",
+      "count": 15,
+      "examples": [
+        "prompt-20",
+        "prompt-23",
+        "prompt-34"
+      ]
+    },
+    {
+      "term": "black and white",
+      "count": 14,
+      "examples": [
+        "prompt-50",
+        "prompt-136",
+        "prompt-202"
+      ]
+    },
+    {
+      "term": "desaturated",
+      "count": 10,
+      "examples": [
+        "prompt-184",
+        "prompt-192",
+        "prompt-315"
+      ]
+    },
+    {
+      "term": "faded",
+      "count": 9,
+      "examples": [
+        "prompt-118",
+        "prompt-412",
+        "prompt-485"
+      ]
+    },
+    {
+      "term": "cool tones",
+      "count": 8,
+      "examples": [
+        "prompt-244",
+        "prompt-296",
+        "prompt-460"
+      ]
+    },
+    {
+      "term": "sepia",
+      "count": 8,
+      "examples": [
+        "prompt-15",
+        "prompt-18",
+        "prompt-404"
+      ]
+    },
+    {
+      "term": "low contrast",
+      "count": 5,
+      "examples": [
+        "prompt-56",
+        "prompt-623",
+        "prompt-647"
+      ]
+    },
+    {
+      "term": "copper",
+      "count": 5,
+      "examples": [
+        "prompt-71",
+        "prompt-596",
+        "prompt-1003"
+      ]
+    },
+    {
+      "term": "oversaturated",
+      "count": 4,
+      "examples": [
+        "prompt-321",
+        "prompt-623",
+        "prompt-738"
+      ]
+    },
+    {
+      "term": "muted colors",
+      "count": 4,
+      "examples": [
+        "prompt-92",
+        "prompt-564",
+        "prompt-607"
+      ]
+    },
+    {
+      "term": "fuji",
+      "count": 4,
+      "examples": [
+        "prompt-120",
+        "prompt-756",
+        "prompt-758"
+      ]
+    },
+    {
+      "term": "complementary",
+      "count": 4,
+      "examples": [
+        "prompt-34",
+        "prompt-379",
+        "prompt-844"
+      ]
+    },
+    {
+      "term": "kodak portra",
+      "count": 3,
+      "examples": [
+        "prompt-283",
+        "prompt-508",
+        "prompt-1189"
+      ]
+    },
+    {
+      "term": "earth tones",
+      "count": 3,
+      "examples": [
+        "prompt-210",
+        "prompt-1506",
+        "prompt-1646"
+      ]
+    },
+    {
+      "term": "bronze",
+      "count": 3,
+      "examples": [
+        "prompt-28",
+        "prompt-756",
+        "prompt-1653"
+      ]
+    },
+    {
+      "term": "neon colors",
+      "count": 2,
+      "examples": [
+        "prompt-807",
+        "prompt-972"
+      ]
+    }
+  ],
+  "styles": [
+    {
+      "term": "portrait",
+      "count": 170,
+      "examples": [
+        "prompt-4",
+        "prompt-7",
+        "prompt-34"
+      ]
+    },
+    {
+      "term": "photorealistic",
+      "count": 144,
+      "examples": [
+        "prompt-9",
+        "prompt-11",
+        "prompt-20"
+      ]
+    },
+    {
+      "term": "illustration",
+      "count": 109,
+      "examples": [
+        "prompt-0",
+        "prompt-9",
+        "prompt-35"
+      ]
+    },
+    {
+      "term": "cartoon",
+      "count": 106,
+      "examples": [
+        "prompt-9",
+        "prompt-20",
+        "prompt-35"
+      ]
+    },
+    {
+      "term": "fashion",
+      "count": 101,
+      "examples": [
+        "prompt-4",
+        "prompt-18",
+        "prompt-19"
+      ]
+    },
+    {
+      "term": "hyper-realistic",
+      "count": 97,
+      "examples": [
+        "prompt-7",
+        "prompt-13",
+        "prompt-32"
+      ]
+    },
+    {
+      "term": "minimalist",
+      "count": 90,
+      "examples": [
+        "prompt-9",
+        "prompt-18",
+        "prompt-20"
+      ]
+    },
+    {
+      "term": "editorial",
+      "count": 90,
+      "examples": [
+        "prompt-18",
+        "prompt-20",
+        "prompt-45"
+      ]
+    },
+    {
+      "term": "3d render",
+      "count": 59,
+      "examples": [
+        "prompt-9",
+        "prompt-35",
+        "prompt-55"
+      ]
+    },
+    {
+      "term": "ultra-realistic",
+      "count": 49,
+      "examples": [
+        "prompt-26",
+        "prompt-45",
+        "prompt-58"
+      ]
+    },
+    {
+      "term": "collage",
+      "count": 46,
+      "examples": [
+        "prompt-4",
+        "prompt-18",
+        "prompt-37"
+      ]
+    },
+    {
+      "term": "anime",
+      "count": 42,
+      "examples": [
+        "prompt-40",
+        "prompt-74",
+        "prompt-120"
+      ]
+    },
+    {
+      "term": "painting",
+      "count": 37,
+      "examples": [
+        "prompt-32",
+        "prompt-56",
+        "prompt-106"
+      ]
+    },
+    {
+      "term": "commercial",
+      "count": 34,
+      "examples": [
+        "prompt-7",
+        "prompt-30",
+        "prompt-40"
+      ]
+    },
+    {
+      "term": "landscape",
+      "count": 29,
+      "examples": [
+        "prompt-7",
+        "prompt-45",
+        "prompt-54"
+      ]
+    },
+    {
+      "term": "architectural",
+      "count": 28,
+      "examples": [
+        "prompt-18",
+        "prompt-20",
+        "prompt-47"
+      ]
+    },
+    {
+      "term": "cgi",
+      "count": 27,
+      "examples": [
+        "prompt-74",
+        "prompt-75",
+        "prompt-178"
+      ]
+    },
+    {
+      "term": "hyperrealistic",
+      "count": 26,
+      "examples": [
+        "prompt-243",
+        "prompt-281",
+        "prompt-431"
+      ]
+    },
+    {
+      "term": "abstract",
+      "count": 24,
+      "examples": [
+        "prompt-0",
+        "prompt-65",
+        "prompt-217"
+      ]
+    },
+    {
+      "term": "pixar",
+      "count": 16,
+      "examples": [
+        "prompt-0",
+        "prompt-86",
+        "prompt-105"
+      ]
+    },
+    {
+      "term": "digital art",
+      "count": 16,
+      "examples": [
+        "prompt-56",
+        "prompt-247",
+        "prompt-279"
+      ]
+    },
+    {
+      "term": "advertising",
+      "count": 15,
+      "examples": [
+        "prompt-23",
+        "prompt-58",
+        "prompt-170"
+      ]
+    },
+    {
+      "term": "manga",
+      "count": 14,
+      "examples": [
+        "prompt-2",
+        "prompt-452",
+        "prompt-609"
+      ]
+    },
+    {
+      "term": "conceptual",
+      "count": 12,
+      "examples": [
+        "prompt-184",
+        "prompt-217",
+        "prompt-264"
+      ]
+    },
+    {
+      "term": "watercolor",
+      "count": 11,
+      "examples": [
+        "prompt-9",
+        "prompt-35",
+        "prompt-118"
+      ]
+    },
+    {
+      "term": "disney",
+      "count": 10,
+      "examples": [
+        "prompt-81",
+        "prompt-105",
+        "prompt-645"
+      ]
+    },
+    {
+      "term": "cyberpunk",
+      "count": 9,
+      "examples": [
+        "prompt-32",
+        "prompt-126",
+        "prompt-300"
+      ]
+    },
+    {
+      "term": "gothic",
+      "count": 9,
+      "examples": [
+        "prompt-45",
+        "prompt-300",
+        "prompt-346"
+      ]
+    },
+    {
+      "term": "acrylic",
+      "count": 9,
+      "examples": [
+        "prompt-54",
+        "prompt-56",
+        "prompt-574"
+      ]
+    },
+    {
+      "term": "charcoal",
+      "count": 9,
+      "examples": [
+        "prompt-28",
+        "prompt-176",
+        "prompt-270"
+      ]
+    }
+  ],
+  "compositions": [
+    {
+      "term": "depth",
+      "count": 244,
+      "examples": [
+        "prompt-0",
+        "prompt-7",
+        "prompt-13"
+      ]
+    },
+    {
+      "term": "contrast",
+      "count": 188,
+      "examples": [
+        "prompt-2",
+        "prompt-9",
+        "prompt-32"
+      ]
+    },
+    {
+      "term": "flat",
+      "count": 99,
+      "examples": [
+        "prompt-9",
+        "prompt-18",
+        "prompt-34"
+      ]
+    },
+    {
+      "term": "vertical",
+      "count": 99,
+      "examples": [
+        "prompt-34",
+        "prompt-40",
+        "prompt-45"
+      ]
+    },
+    {
+      "term": "framing",
+      "count": 95,
+      "examples": [
+        "prompt-28",
+        "prompt-44",
+        "prompt-47"
+      ]
+    },
+    {
+      "term": "1:1",
+      "count": 82,
+      "examples": [
+        "prompt-55",
+        "prompt-92",
+        "prompt-105"
+      ]
+    },
+    {
+      "term": "balance",
+      "count": 74,
+      "examples": [
+        "prompt-20",
+        "prompt-34",
+        "prompt-45"
+      ]
+    },
+    {
+      "term": "centered",
+      "count": 73,
+      "examples": [
+        "prompt-34",
+        "prompt-47",
+        "prompt-54"
+      ]
+    },
+    {
+      "term": "pattern",
+      "count": 65,
+      "examples": [
+        "prompt-13",
+        "prompt-28",
+        "prompt-34"
+      ]
+    },
+    {
+      "term": "16:9",
+      "count": 58,
+      "examples": [
+        "prompt-6",
+        "prompt-17",
+        "prompt-45"
+      ]
+    },
+    {
+      "term": "layered",
+      "count": 53,
+      "examples": [
+        "prompt-0",
+        "prompt-9",
+        "prompt-18"
+      ]
+    },
+    {
+      "term": "full body",
+      "count": 31,
+      "examples": [
+        "prompt-18",
+        "prompt-34",
+        "prompt-40"
+      ]
+    },
+    {
+      "term": "horizontal",
+      "count": 28,
+      "examples": [
+        "prompt-34",
+        "prompt-54",
+        "prompt-58"
+      ]
+    },
+    {
+      "term": "circular",
+      "count": 21,
+      "examples": [
+        "prompt-34",
+        "prompt-186",
+        "prompt-214"
+      ]
+    },
+    {
+      "term": "tension",
+      "count": 19,
+      "examples": [
+        "prompt-192",
+        "prompt-243",
+        "prompt-343"
+      ]
+    },
+    {
+      "term": "symmetrical",
+      "count": 18,
+      "examples": [
+        "prompt-45",
+        "prompt-188",
+        "prompt-192"
+      ]
+    },
+    {
+      "term": "4:3",
+      "count": 15,
+      "examples": [
+        "prompt-404",
+        "prompt-405",
+        "prompt-427"
+      ]
+    },
+    {
+      "term": "negative space",
+      "count": 13,
+      "examples": [
+        "prompt-32",
+        "prompt-45",
+        "prompt-134"
+      ]
+    },
+    {
+      "term": "diagonal",
+      "count": 11,
+      "examples": [
+        "prompt-200",
+        "prompt-244",
+        "prompt-431"
+      ]
+    },
+    {
+      "term": "square format",
+      "count": 9,
+      "examples": [
+        "prompt-7",
+        "prompt-673",
+        "prompt-691"
+      ]
+    },
+    {
+      "term": "spiral",
+      "count": 7,
+      "examples": [
+        "prompt-32",
+        "prompt-677",
+        "prompt-678"
+      ]
+    },
+    {
+      "term": "s-curve",
+      "count": 5,
+      "examples": [
+        "prompt-243",
+        "prompt-1102",
+        "prompt-1141"
+      ]
+    },
+    {
+      "term": "panoramic",
+      "count": 5,
+      "examples": [
+        "prompt-247",
+        "prompt-302",
+        "prompt-427"
+      ]
+    },
+    {
+      "term": "asymmetrical",
+      "count": 4,
+      "examples": [
+        "prompt-45",
+        "prompt-192",
+        "prompt-210"
+      ]
+    },
+    {
+      "term": "leading lines",
+      "count": 4,
+      "examples": [
+        "prompt-343",
+        "prompt-381",
+        "prompt-425"
+      ]
+    },
+    {
+      "term": "repetition",
+      "count": 4,
+      "examples": [
+        "prompt-302",
+        "prompt-343",
+        "prompt-379"
+      ]
+    },
+    {
+      "term": "headshot",
+      "count": 4,
+      "examples": [
+        "prompt-415",
+        "prompt-475",
+        "prompt-1021"
+      ]
+    },
+    {
+      "term": "3:2",
+      "count": 4,
+      "examples": [
+        "prompt-20",
+        "prompt-21",
+        "prompt-105"
+      ]
+    },
+    {
+      "term": "minimalist composition",
+      "count": 3,
+      "examples": [
+        "prompt-32",
+        "prompt-164",
+        "prompt-1626"
+      ]
+    },
+    {
+      "term": "portrait orientation",
+      "count": 3,
+      "examples": [
+        "prompt-7",
+        "prompt-538",
+        "prompt-673"
+      ]
+    }
+  ],
+  "subjects": [
+    {
+      "term": "cat",
+      "count": 291,
+      "examples": [
+        "prompt-9",
+        "prompt-13",
+        "prompt-20"
+      ]
+    },
+    {
+      "term": "man",
+      "count": 268,
+      "examples": [
+        "prompt-0",
+        "prompt-2",
+        "prompt-4"
+      ]
+    },
+    {
+      "term": "character",
+      "count": 222,
+      "examples": [
+        "prompt-2",
+        "prompt-11",
+        "prompt-34"
+      ]
+    },
+    {
+      "term": "woman",
+      "count": 154,
+      "examples": [
+        "prompt-0",
+        "prompt-4",
+        "prompt-11"
+      ]
+    },
+    {
+      "term": "object",
+      "count": 142,
+      "examples": [
+        "prompt-28",
+        "prompt-86",
+        "prompt-128"
+      ]
+    },
+    {
+      "term": "product",
+      "count": 106,
+      "examples": [
+        "prompt-20",
+        "prompt-28",
+        "prompt-32"
+      ]
+    },
+    {
+      "term": "person",
+      "count": 94,
+      "examples": [
+        "prompt-34",
+        "prompt-37",
+        "prompt-40"
+      ]
+    },
+    {
+      "term": "model",
+      "count": 81,
+      "examples": [
+        "prompt-28",
+        "prompt-71",
+        "prompt-130"
+      ]
+    },
+    {
+      "term": "nature",
+      "count": 54,
+      "examples": [
+        "prompt-56",
+        "prompt-126",
+        "prompt-172"
+      ]
+    },
+    {
+      "term": "interior",
+      "count": 49,
+      "examples": [
+        "prompt-54",
+        "prompt-63",
+        "prompt-65"
+      ]
+    },
+    {
+      "term": "urban",
+      "count": 42,
+      "examples": [
+        "prompt-81",
+        "prompt-120",
+        "prompt-130"
+      ]
+    },
+    {
+      "term": "building",
+      "count": 31,
+      "examples": [
+        "prompt-71",
+        "prompt-120",
+        "prompt-210"
+      ]
+    },
+    {
+      "term": "landscape",
+      "count": 29,
+      "examples": [
+        "prompt-7",
+        "prompt-45",
+        "prompt-54"
+      ]
+    },
+    {
+      "term": "food",
+      "count": 27,
+      "examples": [
+        "prompt-46",
+        "prompt-72",
+        "prompt-120"
+      ]
+    },
+    {
+      "term": "animal",
+      "count": 25,
+      "examples": [
+        "prompt-56",
+        "prompt-388",
+        "prompt-522"
+      ]
+    },
+    {
+      "term": "plant",
+      "count": 23,
+      "examples": [
+        "prompt-40",
+        "prompt-54",
+        "prompt-126"
+      ]
+    },
+    {
+      "term": "flower",
+      "count": 23,
+      "examples": [
+        "prompt-11",
+        "prompt-13",
+        "prompt-56"
+      ]
+    },
+    {
+      "term": "architecture",
+      "count": 19,
+      "examples": [
+        "prompt-71",
+        "prompt-139",
+        "prompt-192"
+      ]
+    },
+    {
+      "term": "child",
+      "count": 18,
+      "examples": [
+        "prompt-9",
+        "prompt-35",
+        "prompt-81"
+      ]
+    },
+    {
+      "term": "group",
+      "count": 17,
+      "examples": [
+        "prompt-18",
+        "prompt-19",
+        "prompt-212"
+      ]
+    },
+    {
+      "term": "crowd",
+      "count": 14,
+      "examples": [
+        "prompt-56",
+        "prompt-120",
+        "prompt-192"
+      ]
+    },
+    {
+      "term": "bird",
+      "count": 14,
+      "examples": [
+        "prompt-7",
+        "prompt-79",
+        "prompt-277"
+      ]
+    },
+    {
+      "term": "mountain",
+      "count": 12,
+      "examples": [
+        "prompt-11",
+        "prompt-81",
+        "prompt-126"
+      ]
+    },
+    {
+      "term": "cityscape",
+      "count": 8,
+      "examples": [
+        "prompt-42",
+        "prompt-272",
+        "prompt-431"
+      ]
+    },
+    {
+      "term": "exterior",
+      "count": 7,
+      "examples": [
+        "prompt-196",
+        "prompt-283",
+        "prompt-552"
+      ]
+    },
+    {
+      "term": "couple",
+      "count": 5,
+      "examples": [
+        "prompt-56",
+        "prompt-231",
+        "prompt-250"
+      ]
+    },
+    {
+      "term": "dog",
+      "count": 5,
+      "examples": [
+        "prompt-456",
+        "prompt-653",
+        "prompt-776"
+      ]
+    },
+    {
+      "term": "elderly",
+      "count": 3,
+      "examples": [
+        "prompt-237",
+        "prompt-835",
+        "prompt-1189"
+      ]
+    },
+    {
+      "term": "wildlife",
+      "count": 1,
+      "examples": [
+        "prompt-1036"
+      ]
+    },
+    {
+      "term": "seascape",
+      "count": 1,
+      "examples": [
+        "prompt-728"
+      ]
+    }
+  ],
+  "environments": [
+    {
+      "term": "clean",
+      "count": 236,
+      "examples": [
+        "prompt-2",
+        "prompt-7",
+        "prompt-9"
+      ]
+    },
+    {
+      "term": "studio",
+      "count": 188,
+      "examples": [
+        "prompt-18",
+        "prompt-20",
+        "prompt-23"
+      ]
+    },
+    {
+      "term": "city",
+      "count": 106,
+      "examples": [
+        "prompt-7",
+        "prompt-18",
+        "prompt-26"
+      ]
+    },
+    {
+      "term": "street",
+      "count": 60,
+      "examples": [
+        "prompt-50",
+        "prompt-101",
+        "prompt-120"
+      ]
+    },
+    {
+      "term": "nature",
+      "count": 54,
+      "examples": [
+        "prompt-56",
+        "prompt-126",
+        "prompt-172"
+      ]
+    },
+    {
+      "term": "bar",
+      "count": 53,
+      "examples": [
+        "prompt-32",
+        "prompt-39",
+        "prompt-92"
+      ]
+    },
+    {
+      "term": "interior",
+      "count": 49,
+      "examples": [
+        "prompt-54",
+        "prompt-63",
+        "prompt-65"
+      ]
+    },
+    {
+      "term": "messy",
+      "count": 46,
+      "examples": [
+        "prompt-49",
+        "prompt-50",
+        "prompt-94"
+      ]
+    },
+    {
+      "term": "urban",
+      "count": 42,
+      "examples": [
+        "prompt-81",
+        "prompt-120",
+        "prompt-130"
+      ]
+    },
+    {
+      "term": "futuristic",
+      "count": 39,
+      "examples": [
+        "prompt-155",
+        "prompt-214",
+        "prompt-254"
+      ]
+    },
+    {
+      "term": "indoor",
+      "count": 36,
+      "examples": [
+        "prompt-18",
+        "prompt-23",
+        "prompt-65"
+      ]
+    },
+    {
+      "term": "asian",
+      "count": 36,
+      "examples": [
+        "prompt-99",
+        "prompt-139",
+        "prompt-186"
+      ]
+    },
+    {
+      "term": "japanese",
+      "count": 29,
+      "examples": [
+        "prompt-45",
+        "prompt-277",
+        "prompt-308"
+      ]
+    },
+    {
+      "term": "fantasy",
+      "count": 24,
+      "examples": [
+        "prompt-13",
+        "prompt-114",
+        "prompt-168"
+      ]
+    },
+    {
+      "term": "outdoor",
+      "count": 19,
+      "examples": [
+        "prompt-96",
+        "prompt-134",
+        "prompt-239"
+      ]
+    },
+    {
+      "term": "cluttered",
+      "count": 19,
+      "examples": [
+        "prompt-20",
+        "prompt-34",
+        "prompt-49"
+      ]
+    },
+    {
+      "term": "bedroom",
+      "count": 17,
+      "examples": [
+        "prompt-132",
+        "prompt-235",
+        "prompt-308"
+      ]
+    },
+    {
+      "term": "forest",
+      "count": 16,
+      "examples": [
+        "prompt-13",
+        "prompt-34",
+        "prompt-76"
+      ]
+    },
+    {
+      "term": "lake",
+      "count": 13,
+      "examples": [
+        "prompt-11",
+        "prompt-71",
+        "prompt-123"
+      ]
+    },
+    {
+      "term": "mountain",
+      "count": 12,
+      "examples": [
+        "prompt-11",
+        "prompt-81",
+        "prompt-126"
+      ]
+    },
+    {
+      "term": "river",
+      "count": 12,
+      "examples": [
+        "prompt-81",
+        "prompt-120",
+        "prompt-283"
+      ]
+    },
+    {
+      "term": "industrial",
+      "count": 11,
+      "examples": [
+        "prompt-28",
+        "prompt-108",
+        "prompt-174"
+      ]
+    },
+    {
+      "term": "historical",
+      "count": 10,
+      "examples": [
+        "prompt-15",
+        "prompt-32",
+        "prompt-118"
+      ]
+    },
+    {
+      "term": "ocean",
+      "count": 9,
+      "examples": [
+        "prompt-285",
+        "prompt-421",
+        "prompt-758"
+      ]
+    },
+    {
+      "term": "kitchen",
+      "count": 9,
+      "examples": [
+        "prompt-15",
+        "prompt-118",
+        "prompt-289"
+      ]
+    },
+    {
+      "term": "alley",
+      "count": 8,
+      "examples": [
+        "prompt-120",
+        "prompt-412",
+        "prompt-623"
+      ]
+    },
+    {
+      "term": "rooftop",
+      "count": 8,
+      "examples": [
+        "prompt-120",
+        "prompt-126",
+        "prompt-514"
+      ]
+    },
+    {
+      "term": "cafe",
+      "count": 8,
+      "examples": [
+        "prompt-74",
+        "prompt-321",
+        "prompt-371"
+      ]
+    },
+    {
+      "term": "beach",
+      "count": 7,
+      "examples": [
+        "prompt-210",
+        "prompt-357",
+        "prompt-421"
+      ]
+    },
+    {
+      "term": "living room",
+      "count": 7,
+      "examples": [
+        "prompt-65",
+        "prompt-168",
+        "prompt-738"
+      ]
+    }
+  ]
+}

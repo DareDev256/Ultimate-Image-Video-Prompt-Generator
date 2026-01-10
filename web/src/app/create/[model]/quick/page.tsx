@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
@@ -12,8 +12,10 @@ import {
   Check,
 } from 'lucide-react';
 import { Particles } from '@/components/effects/Particles';
+import { InspirationButton } from '@/components/inspiration';
 import { ModelType } from '@/context/WizardContext';
 import { wizardCategories } from '@/lib/categories';
+import type { ImagePrompt, VideoPrompt } from '@/hooks/useInspirationData';
 
 export default function QuickModePage() {
   const router = useRouter();
@@ -93,6 +95,23 @@ export default function QuickModePage() {
   };
 
   const isJson = modelId === 'nano-banana';
+
+  // Handle using a prompt from the inspiration panel
+  const handleUseAsTemplate = useCallback(
+    (inspirationPrompt: ImagePrompt | VideoPrompt, type: 'image' | 'video') => {
+      if (type === 'image') {
+        const imgPrompt = inspirationPrompt as ImagePrompt;
+        // Use the first prompt text
+        const promptText = imgPrompt.prompts?.[0] || '';
+        setPrompt(promptText);
+      } else {
+        const vidPrompt = inspirationPrompt as VideoPrompt;
+        // Use the English prompt
+        setPrompt(vidPrompt.promptEn || vidPrompt.promptZh || '');
+      }
+    },
+    []
+  );
 
   return (
     <div className="relative min-h-screen flex flex-col overflow-hidden">
@@ -243,6 +262,9 @@ export default function QuickModePage() {
       {/* Decorative corners */}
       <div className="absolute top-0 left-0 w-32 h-32 border-l-2 border-t-2 border-[var(--color-border)] opacity-20" />
       <div className="absolute bottom-0 right-0 w-32 h-32 border-r-2 border-b-2 border-[var(--color-border)] opacity-20" />
+
+      {/* Inspiration Panel */}
+      <InspirationButton onUseAsTemplate={handleUseAsTemplate} />
     </div>
   );
 }

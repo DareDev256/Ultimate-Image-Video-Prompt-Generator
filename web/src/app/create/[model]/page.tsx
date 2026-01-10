@@ -5,6 +5,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Eye, Sparkles } from 'lucide-react';
 import { Particles } from '@/components/effects/Particles';
+import { InspirationButton } from '@/components/inspiration';
 import { WizardProgress } from '@/components/wizard/WizardProgress';
 import { WizardStep } from '@/components/wizard/WizardStep';
 import { WizardProvider, useWizard, ModelType } from '@/context/WizardContext';
@@ -213,6 +214,9 @@ function WizardContent() {
       <div className="absolute bottom-20 left-1/2 -translate-x-1/2 text-[var(--color-text-muted)] text-xs opacity-50">
         Use ← → arrows or Enter to navigate
       </div>
+
+      {/* Inspiration Panel */}
+      <InspirationButton />
     </div>
   );
 }

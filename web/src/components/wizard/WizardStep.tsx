@@ -2,9 +2,24 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shuffle, ChevronDown, Sparkles } from 'lucide-react';
+import { Shuffle, ChevronDown, Sparkles, Users } from 'lucide-react';
 import { WizardCategory } from '@/lib/categories';
 import { useWizard } from '@/context/WizardContext';
+import { usePatterns, PatternCategory } from '@/hooks/usePatterns';
+
+// Map wizard field keys to pattern categories
+const fieldToPatternMap: Record<string, PatternCategory> = {
+  'subject.description': 'subjects',
+  'subject.expression': 'moods',
+  'environment.location': 'environments',
+  'lighting.source': 'lighting',
+  'lighting.mood': 'lighting',
+  'camera.position': 'compositions',
+  'camera.lens': 'cameras',
+  'atmosphere.mood': 'moods',
+  'color.grade': 'colorGrades',
+  'vibes.reference': 'styles',
+};
 
 interface WizardStepProps {
   category: WizardCategory;
@@ -14,6 +29,7 @@ interface WizardStepProps {
 export function WizardStep({ category, direction }: WizardStepProps) {
   const { state, updateField } = useWizard();
   const [expandedField, setExpandedField] = useState<string | null>(null);
+  const { getSuggestions, loading: patternsLoading } = usePatterns();
 
   const handleSuggestionClick = (fieldKey: string, suggestion: string) => {
     updateField(fieldKey, suggestion);
@@ -183,6 +199,49 @@ export function WizardStep({ category, direction }: WizardStepProps) {
                 </motion.div>
               )}
             </AnimatePresence>
+
+            {/* Community patterns - show if this field has pattern mapping */}
+            {(() => {
+              const patternCategory = fieldToPatternMap[field.key];
+              if (!patternCategory || patternsLoading) return null;
+
+              const communityPatterns = getSuggestions(patternCategory, 8);
+              if (communityPatterns.length === 0) return null;
+
+              return (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="mt-2"
+                >
+                  <div className="flex items-center gap-2 mb-2 text-xs text-[var(--color-text-muted)]">
+                    <Users size={10} className="text-[var(--color-secondary)]" />
+                    <span>Popular from community</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {communityPatterns.map((pattern, i) => (
+                      <button
+                        key={i}
+                        type="button"
+                        onClick={() => updateField(field.key, pattern)}
+                        className={`
+                          px-2 py-1 text-xs rounded-md
+                          transition-all duration-200
+                          ${
+                            state.formData[field.key] === pattern
+                              ? 'bg-[var(--color-secondary)] text-black'
+                              : 'bg-[var(--color-bg-deep)] text-[var(--color-text-muted)] hover:bg-[var(--color-secondary)] hover:text-black'
+                          }
+                        `}
+                      >
+                        {pattern}
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              );
+            })()}
           </motion.div>
         ))}
       </div>
