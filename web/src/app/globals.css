@@ -101,31 +101,21 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: clamp(2rem, 5vw, 4rem);
-  background:
-    radial-gradient(ellipse at 15% 25%, rgba(138, 43, 226, 0.9) 0%, transparent 40%),
-    radial-gradient(ellipse at 85% 20%, rgba(0, 212, 255, 0.8) 0%, transparent 35%),
-    radial-gradient(ellipse at 50% 80%, rgba(255, 0, 170, 0.7) 0%, transparent 45%),
-    radial-gradient(ellipse at 30% 60%, rgba(75, 0, 130, 0.8) 0%, transparent 30%),
-    radial-gradient(ellipse at 70% 50%, rgba(0, 191, 255, 0.6) 0%, transparent 35%),
-    radial-gradient(circle at 20% 40%, rgba(255, 255, 255, 0.9) 0%, transparent 3%),
-    radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.8) 0%, transparent 2%),
-    radial-gradient(circle at 60% 70%, rgba(255, 255, 255, 0.7) 0%, transparent 2%),
-    radial-gradient(circle at 35% 85%, rgba(255, 255, 255, 0.6) 0%, transparent 2%),
-    radial-gradient(circle at 90% 60%, rgba(255, 255, 255, 0.5) 0%, transparent 1.5%),
-    linear-gradient(135deg, #0a0015 0%, #1a0030 25%, #0d001a 50%, #150025 75%, #0a0015 100%);
-  background-size: 200% 200%;
+  background-image: url('/images/nebula.jpg');
+  background-size: 150% auto;
+  background-position: center;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 20px var(--color-primary-glow));
-  animation: galaxyShift 15s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 6px rgba(100, 180, 255, 0.5))
+    drop-shadow(0 0 15px rgba(180, 100, 255, 0.3));
+  animation: nebulaDrift 20s ease-in-out infinite;
 }
 
-@keyframes galaxyShift {
-  0%, 100% { background-position: 0% 0%; }
-  25% { background-position: 50% 25%; }
-  50% { background-position: 100% 50%; }
-  75% { background-position: 50% 75%; }
+@keyframes nebulaDrift {
+  0%, 100% { background-position: 30% center; }
+  50% { background-position: 70% center; }
 }
 
 .text-glow {
