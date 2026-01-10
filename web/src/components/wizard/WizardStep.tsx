@@ -50,17 +50,17 @@ export function WizardStep({ category, direction }: WizardStepProps) {
       animate="center"
       exit="exit"
       transition={{
-        x: { type: 'spring', stiffness: 300, damping: 30 },
-        opacity: { duration: 0.2 },
+        x: { type: 'spring', stiffness: 400, damping: 35 },
+        opacity: { duration: 0.15 },
       }}
       className="w-full"
     >
       {/* Category Header */}
       <div className="text-center mb-8">
         <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: 'spring', stiffness: 200, delay: 0.1 }}
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.15 }}
           className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4"
           style={{
             background: 'linear-gradient(135deg, var(--color-bg-elevated) 0%, var(--color-bg-card) 100%)',
@@ -71,17 +71,17 @@ export function WizardStep({ category, direction }: WizardStepProps) {
           <span className="text-3xl">{category.emoji}</span>
         </motion.div>
         <motion.h2
-          initial={{ y: 20, opacity: 0 }}
+          initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2 }}
+          transition={{ duration: 0.15, delay: 0.05 }}
           className="text-2xl font-bold text-white mb-2"
         >
           {category.name}
         </motion.h2>
         <motion.p
-          initial={{ y: 20, opacity: 0 }}
+          initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.3 }}
+          transition={{ duration: 0.15, delay: 0.1 }}
           className="text-[var(--color-text-secondary)]"
         >
           {category.description}
@@ -93,9 +93,9 @@ export function WizardStep({ category, direction }: WizardStepProps) {
         {category.fields.map((field, index) => (
           <motion.div
             key={field.key}
-            initial={{ y: 30, opacity: 0 }}
+            initial={{ y: 15, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 + index * 0.1 }}
+            transition={{ duration: 0.15, delay: 0.1 + index * 0.03 }}
             className="relative"
           >
             <label className="block text-sm font-medium text-[var(--color-text-secondary)] mb-2">
@@ -160,9 +160,9 @@ export function WizardStep({ category, direction }: WizardStepProps) {
                       {field.suggestions.map((suggestion, i) => (
                         <motion.button
                           key={i}
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{ delay: i * 0.02 }}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.1, delay: i * 0.01 }}
                           type="button"
                           onClick={() => handleSuggestionClick(field.key, suggestion)}
                           className={`

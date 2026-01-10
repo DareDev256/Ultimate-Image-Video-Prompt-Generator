@@ -145,7 +145,7 @@ function WizardContent() {
       {/* Main Content */}
       <main className="flex-1 relative z-10 px-6 py-8 overflow-y-auto">
         <div className="max-w-2xl mx-auto">
-          <AnimatePresence mode="wait" custom={direction}>
+          <AnimatePresence mode="popLayout" custom={direction}>
             <WizardStep
               key={currentCategory.id}
               category={currentCategory}

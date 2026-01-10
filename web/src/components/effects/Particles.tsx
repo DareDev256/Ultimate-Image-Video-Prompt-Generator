@@ -32,14 +32,15 @@ export function Particles() {
     };
 
     const createParticles = () => {
-      const count = Math.floor((canvas.width * canvas.height) / 15000);
+      // Reduced count for better performance (was /15000, now /35000)
+      const count = Math.min(50, Math.floor((canvas.width * canvas.height) / 35000));
       particlesRef.current = Array.from({ length: count }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
+        vx: (Math.random() - 0.5) * 0.3, // Slower movement
+        vy: (Math.random() - 0.5) * 0.3,
         size: Math.random() * 2 + 1,
-        opacity: Math.random() * 0.5 + 0.2,
+        opacity: Math.random() * 0.4 + 0.2,
         color: colors[Math.floor(Math.random() * colors.length)],
       }));
     };
@@ -69,23 +70,28 @@ export function Particles() {
         ctx.shadowColor = particle.color;
       });
 
-      // Draw connections
-      ctx.globalAlpha = 0.1;
+      // Draw connections (optimized - limit connections per particle)
       ctx.strokeStyle = '#00d4ff';
       ctx.lineWidth = 0.5;
+      const maxConnections = 3;
+      const connectionDist = 120;
+      const connectionDistSq = connectionDist * connectionDist;
 
       for (let i = 0; i < particlesRef.current.length; i++) {
-        for (let j = i + 1; j < particlesRef.current.length; j++) {
+        let connections = 0;
+        for (let j = i + 1; j < particlesRef.current.length && connections < maxConnections; j++) {
           const dx = particlesRef.current[i].x - particlesRef.current[j].x;
           const dy = particlesRef.current[i].y - particlesRef.current[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+          const distSq = dx * dx + dy * dy; // Skip sqrt for performance
 
-          if (distance < 100) {
-            ctx.globalAlpha = (100 - distance) / 1000;
+          if (distSq < connectionDistSq) {
+            const dist = Math.sqrt(distSq);
+            ctx.globalAlpha = (connectionDist - dist) / 1200;
             ctx.beginPath();
             ctx.moveTo(particlesRef.current[i].x, particlesRef.current[i].y);
             ctx.lineTo(particlesRef.current[j].x, particlesRef.current[j].y);
             ctx.stroke();
+            connections++;
           }
         }
       }

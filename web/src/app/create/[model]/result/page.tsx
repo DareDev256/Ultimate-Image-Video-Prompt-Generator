@@ -38,7 +38,7 @@ export default function ResultPage() {
   const modelId = params.model as ModelType;
 
   const [result, setResult] = useState<GenerationResult | null>(null);
-  const [showPrompt, setShowPrompt] = useState(false);
+  const [showPrompt, setShowPrompt] = useState(true); // Show prompt by default
   const [copied, setCopied] = useState(false);
   const [saved, setSaved] = useState(false);
 
@@ -294,16 +294,11 @@ export default function ResultPage() {
               }}
             >
               <div className="flex flex-col items-center gap-3">
-                <motion.div
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 1, repeat: Infinity }}
-                >
-                  <Heart
-                    size={32}
-                    className="text-[var(--color-success)]"
-                    fill="currentColor"
-                  />
-                </motion.div>
+                <Heart
+                  size={32}
+                  className="text-[var(--color-success)] group-hover:scale-110 transition-transform"
+                  fill="currentColor"
+                />
                 <span className="text-lg font-bold text-[var(--color-success)]">
                   Love It
                 </span>
@@ -324,12 +319,10 @@ export default function ResultPage() {
               }}
             >
               <div className="flex flex-col items-center gap-3">
-                <motion.div
-                  animate={{ rotate: [0, 10, -10, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  <Wrench size={32} className="text-[var(--color-primary)]" />
-                </motion.div>
+                <Wrench
+                  size={32}
+                  className="text-[var(--color-primary)] group-hover:rotate-12 transition-transform"
+                />
                 <span className="text-lg font-bold text-[var(--color-primary)]">
                   Tweak It
                 </span>
@@ -350,12 +343,10 @@ export default function ResultPage() {
               }}
             >
               <div className="flex flex-col items-center gap-3">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
-                >
-                  <Shuffle size={32} className="text-[var(--color-accent)]" />
-                </motion.div>
+                <Shuffle
+                  size={32}
+                  className="text-[var(--color-accent)] group-hover:rotate-180 transition-transform duration-300"
+                />
                 <span className="text-lg font-bold text-[var(--color-accent)]">
                   Remix
                 </span>
