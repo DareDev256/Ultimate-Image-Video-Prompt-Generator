@@ -1,0 +1,36 @@
+WILDERNESS SOUL
+Style: Environmental Portrait
+Description: Rugged adventurer in dramatic mountain landscape
+
+PROMPT BREAKDOWN:
+
+Subject: Weather-beaten man in his 40s with grey-streaked beard and sun-creased eyes
+Expression: Contemplative gaze toward distant horizon
+
+Environment: Alpine meadow with snow-capped peaks behind
+Condition: Wild and untamed, early morning mist
+
+Clothing: Worn wool sweater and waxed canvas jacket
+Accessories: Leather hiking boots, coiled rope over shoulder
+
+Lighting: Soft dawn light breaking through clouds
+Mood: Ethereal and spiritual
+
+Camera: Environmental wide shot with subject in lower third
+Lens: 35mm to capture landscape context
+
+Atmosphere: Solitude and connection to nature
+Elements: Morning mist rolling through valley
+
+Color Grade: Cool blues and greens with warm skin
+Skin: Weathered tan with natural texture
+
+Film: Medium format film grain
+Format: 3:2 landscape orientation
+
+Reference: Jimmy Chin adventure photography
+Vibes: Epic scale meets intimate humanity
+
+---
+Generated with Ultimate Image Prompt Generator
+https://web-ten-vert-46.vercel.app

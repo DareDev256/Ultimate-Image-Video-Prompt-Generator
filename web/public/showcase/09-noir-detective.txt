@@ -1,0 +1,36 @@
+NOIR DETECTIVE
+Style: Cinematic
+Description: Classic film noir with rain-slicked streets and shadows
+
+PROMPT BREAKDOWN:
+
+Subject: World-weary detective in his 50s, heavy-lidded eyes and cigarette-roughened face
+Expression: Suspicious sideways glance, paranoid vigilance
+
+Environment: Rain-soaked alley with fire escapes and steam vents
+Condition: Grimy urban decay, 1940s aesthetic
+
+Clothing: Rumpled trench coat with upturned collar
+Accessories: Fedora hat tilted low, unlit cigarette
+
+Lighting: Single streetlamp creating venetian blind shadows
+Mood: High contrast chiaroscuro
+
+Camera: Dutch angle tilted 15 degrees
+Lens: 40mm classic cinema
+
+Atmosphere: Danger lurking in shadows
+Elements: Rain falling through light beam
+
+Color Grade: Pure black and white with deep blacks
+Skin: High contrast with visible pores
+
+Film: Heavy noir grain, pushed processing
+Format: 2.39:1 anamorphic widescreen
+
+Reference: Film noir cinematography, Double Indemnity
+Vibes: Fatalistic doom, moral ambiguity
+
+---
+Generated with Ultimate Image Prompt Generator
+https://web-ten-vert-46.vercel.app
