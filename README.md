@@ -7,8 +7,16 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?style=flat-square&logo=tailwindcss)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-ff69b4?style=flat-square&logo=framer)
 
-<!-- Add your screenshots here -->
-<!-- ![Demo](./screenshots/demo.gif) -->
+## Screenshots
+
+### Landing Page
+![Landing Page](./screenshots/intro-loading.png)
+
+### Model Selection
+![Model Selection](./screenshots/model-selection.png)
+
+### Wizard Interface
+![Wizard](./screenshots/wizard-step.png)
 
 ## Features
 
@@ -136,6 +144,26 @@ This project embraces the **Flash Site Era** aesthetic (2002-2006) - a time when
 - **Particle Systems** - Canvas-based floating particles
 - **Sound Design** - (Optional) Click sounds and transitions
 - **Over-the-top Transitions** - Page slides, scale animations, staggered reveals
+
+## Challenges & Solutions
+
+Building this project involved several interesting technical challenges:
+
+**State Persistence Across Animated Page Transitions**
+- Problem: Framer Motion page transitions unmount components, losing wizard state
+- Solution: Used React Context with localStorage sync to persist selections across route changes while maintaining smooth animations
+
+**Keyboard Navigation in Dynamic Content**
+- Problem: Arrow key navigation conflicted with text input in suggestion fields
+- Solution: Implemented focus detection to disable keyboard shortcuts when users are typing, with automatic re-enabling on blur
+
+**Performance with Canvas Particle Systems**
+- Problem: Initial particle implementation caused frame drops on lower-end devices
+- Solution: Reduced particle count, implemented requestAnimationFrame throttling, and added `will-change` hints for GPU acceleration
+
+**Multi-Model API Abstraction**
+- Problem: Each AI model (Gemini, DALL-E, Kling) has different prompt formats and response structures
+- Solution: Created a unified generation interface with model-specific adapters that transform wizard output into the appropriate format
 
 ## Contributing
 
