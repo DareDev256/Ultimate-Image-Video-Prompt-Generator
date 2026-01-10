@@ -15,6 +15,7 @@ import {
   Video,
   Sparkles,
   Plus,
+  Info,
 } from 'lucide-react';
 import { Particles } from '@/components/effects/Particles';
 import { ModelType } from '@/context/WizardContext';
@@ -124,6 +125,18 @@ export default function GalleryPage() {
           </div>
         </div>
       </header>
+
+      {/* Local Storage Notice */}
+      <div className="relative z-10 px-6 pt-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-start gap-3 p-3 rounded-lg bg-[var(--color-bg-card)]/50 border border-[var(--color-border)]/50 text-sm">
+            <Info size={16} className="text-[var(--color-text-muted)] flex-shrink-0 mt-0.5" />
+            <p className="text-[var(--color-text-muted)]">
+              Your gallery is saved locally in your browser. It won&apos;t sync across devices or browsers, and will be cleared if you clear browser data.
+            </p>
+          </div>
+        </div>
+      </div>
 
       {/* Main Content */}
       <main className="flex-1 relative z-10 px-6 py-8 overflow-y-auto">

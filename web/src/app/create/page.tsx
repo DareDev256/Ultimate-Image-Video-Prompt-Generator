@@ -307,20 +307,27 @@ export default function CreatePage() {
       </div>
 
       {/* Helper text */}
-      <motion.p
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
-        className="text-[var(--color-text-muted)] text-sm mt-8 z-10"
+        className="text-center mt-8 z-10 max-w-lg mx-auto space-y-2"
       >
-        Don&apos;t have API keys?{' '}
-        <button
-          onClick={() => router.push('/settings')}
-          className="text-[var(--color-primary)] hover:underline"
-        >
-          Configure them in settings
-        </button>
-      </motion.p>
+        <p className="text-[var(--color-text-muted)] text-sm">
+          <span className="text-[var(--color-text-secondary)]">Option 1:</span>{' '}
+          <button
+            onClick={() => router.push('/settings')}
+            className="text-[var(--color-primary)] hover:underline"
+          >
+            Add your API keys
+          </button>
+          {' '}to generate directly in-app
+        </p>
+        <p className="text-[var(--color-text-muted)] text-sm">
+          <span className="text-[var(--color-text-secondary)]">Option 2:</span>{' '}
+          Use the wizard to build your prompt, copy the JSON, and paste it into any GenAI (Gemini, ChatGPT, Midjourney, Runway, etc.)
+        </p>
+      </motion.div>
 
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-64 h-64 border-l border-t border-[var(--color-border)] opacity-20" />
