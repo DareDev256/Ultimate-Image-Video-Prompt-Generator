@@ -1,0 +1,36 @@
+DESERT WANDERER
+Style: Documentary Portrait
+Description: Tuareg traveler weathering a Saharan sandstorm
+
+PROMPT BREAKDOWN:
+
+Subject: Tuareg man in his 50s with weathered sun-darkened skin
+Expression: Eyes squinting against sand, determined resilience
+
+Environment: Saharan desert during sandstorm
+Condition: Golden dust clouds, epic dunes
+
+Clothing: Traditional indigo blue tagelmust headwrap
+Accessories: Silver Tuareg cross pendant
+
+Lighting: Golden hour filtering through dust
+Mood: Ethereal and epic
+
+Camera: Eye level, environmental portrait
+Lens: 85mm portrait
+
+Atmosphere: Solitude and endurance
+Elements: Sand particles in air, dust clouds
+
+Color Grade: Warm golds and deep blues
+Skin: Weathered tan with dust
+
+Film: Medium format texture
+Format: 3:2 landscape
+
+Reference: Steve McCurry, National Geographic
+Vibes: Human resilience against nature
+
+---
+Generated with Ultimate Image Prompt Generator
+https://web-ten-vert-46.vercel.app

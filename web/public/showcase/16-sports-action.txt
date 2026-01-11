@@ -1,0 +1,36 @@
+SPORTS ACTION
+Style: Sports Photography
+Description: Peak action basketball dunk with frozen motion
+
+PROMPT BREAKDOWN:
+
+Subject: Professional basketball player mid-dunk
+Expression: Intense determination, battle cry
+
+Environment: Basketball arena
+Condition: Crowd blurred in background
+
+Clothing: Team jersey, muscles tensed
+Accessories: Sweatband, athletic shoes
+
+Lighting: Arena lights creating rim light
+Mood: Dramatic and high contrast
+
+Camera: Low angle from baseline
+Lens: 70-200mm telephoto
+
+Atmosphere: Peak athletic moment
+Elements: Sweat droplets frozen in air
+
+Color Grade: High contrast, saturated
+Skin: Glistening with sweat
+
+Film: Clean digital, razor sharp
+Format: 3:2 action crop
+
+Reference: Sports Illustrated cover
+Vibes: Frozen perfection, athletic poetry
+
+---
+Generated with Ultimate Image Prompt Generator
+https://web-ten-vert-46.vercel.app

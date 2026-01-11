@@ -1,0 +1,36 @@
+VICTORIAN GOTHIC
+Style: Period Drama
+Description: Dark romantic portrait in candlelit manor
+
+PROMPT BREAKDOWN:
+
+Subject: Pale aristocratic woman with raven black hair in elaborate updo
+Expression: Melancholic, distant gaze
+
+Environment: Candlelit Victorian manor
+Condition: Velvet drapes, antique furniture
+
+Clothing: Black lace high-collar dress
+Accessories: Cameo brooch, jet mourning jewelry
+
+Lighting: Candelabra creating chiaroscuro
+Mood: Moody and dramatic
+
+Camera: Three-quarter angle
+Lens: 85mm with soft edges
+
+Atmosphere: Dark romance and mystery
+Elements: Candle smoke, dust motes
+
+Color Grade: Desaturated with warm candlelight
+Skin: Porcelain pale
+
+Film: Daguerreotype aesthetic
+Format: 4:5 portrait
+
+Reference: Tim Burton, Crimson Peak
+Vibes: Gothic beauty, haunted elegance
+
+---
+Generated with Ultimate Image Prompt Generator
+https://web-ten-vert-46.vercel.app

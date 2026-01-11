@@ -1,0 +1,36 @@
+CYBERPUNK VENDOR
+Style: Sci-Fi Portrait
+Description: Neon-lit street food scene with Blade Runner vibes
+
+PROMPT BREAKDOWN:
+
+Subject: Southeast Asian woman in her 30s with cybernetic augments
+Expression: Focused concentration, slight knowing smile
+
+Environment: Neon-lit food cart in rain-slicked alley
+Condition: Steam rising from woks, colorful signs reflecting
+
+Clothing: Utilitarian apron over tech-wear
+Accessories: LED earpiece, holographic menu display
+
+Lighting: Neon signs and food cart glow
+Mood: Atmospheric and cinematic
+
+Camera: Low angle looking up
+Lens: 35mm wide
+
+Atmosphere: Urban alienation meets warmth
+Elements: Steam, rain, neon reflections
+
+Color Grade: Cyan and magenta dominant, Blade Runner
+Skin: Warm against cool neon
+
+Film: Digital noise, high ISO look
+Format: 16:9 cinematic widescreen
+
+Reference: Blade Runner, Ghost in the Shell
+Vibes: Near-future street life, human connection in tech world
+
+---
+Generated with Ultimate Image Prompt Generator
+https://web-ten-vert-46.vercel.app
