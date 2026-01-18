@@ -1,9 +1,12 @@
 {
-  "lastFetched": "2026-01-10T22:00:43.337Z",
-  "imagePromptsCount": 1050,
+  "lastFetched": "2026-01-18T21:07:35.507Z",
+  "imagePromptsCount": 1180,
   "videoPromptsCount": 50,
   "sources": {
-    "imagePrompts": "https://github.com/songguoxs/gpt4o-image-prompts",
+    "imagePrompts": [
+      "https://github.com/songguoxs/gpt4o-image-prompts",
+      "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts"
+    ],
     "videoPrompts": "https://github.com/songguoxs/awesome-video-prompts"
   }
 }
