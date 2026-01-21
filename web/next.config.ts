@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: 'raw.githubusercontent.com',
         pathname: '/songguoxs/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cms-assets.youmind.com',
+        pathname: '/**',
+      },
     ],
   },
 };
