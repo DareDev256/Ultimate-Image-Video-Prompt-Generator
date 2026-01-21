@@ -46,7 +46,13 @@ export function PromptDetail({
   const imagePrompt = prompt as ImagePrompt;
   const videoPrompt = prompt as VideoPrompt;
 
-  const images = isImage ? imagePrompt.images : [];
+  // Build image list - include generated image first if available
+  const images = isImage
+    ? [
+        ...(imagePrompt.generatedImage ? [imagePrompt.generatedImage] : []),
+        ...(imagePrompt.images || []),
+      ]
+    : [];
   const currentImage = images[currentImageIndex] || (isImage ? imagePrompt.coverImage : null);
   const promptTexts = isImage ? imagePrompt.prompts : [videoPrompt.promptEn, videoPrompt.promptZh].filter(Boolean);
 

@@ -26,7 +26,10 @@ export function PromptCard({
   const imagePrompt = prompt as ImagePrompt;
   const videoPrompt = prompt as VideoPrompt;
 
-  const coverImage = isImage ? imagePrompt.coverImage : null;
+  // Prefer locally generated image over external cover image
+  const coverImage = isImage
+    ? (imagePrompt.generatedImage || imagePrompt.coverImage)
+    : null;
   const title = prompt.title;
   const tags = isImage ? imagePrompt.tags : [videoPrompt.category];
 

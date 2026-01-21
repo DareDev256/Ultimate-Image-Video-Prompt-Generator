@@ -12,6 +12,7 @@ export interface ImagePrompt {
   prompts: string[];
   tags: string[];
   coverImage: string | null;
+  generatedImage?: string | null;
 }
 
 export interface VideoPrompt {
