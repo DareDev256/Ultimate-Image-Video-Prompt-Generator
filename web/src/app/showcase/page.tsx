@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
@@ -12,6 +12,8 @@ import {
   Sparkles,
   ChevronLeft,
   ChevronRight,
+  Crown,
+  Wand2,
 } from 'lucide-react';
 import { Particles } from '@/components/effects/Particles';
 
@@ -21,7 +23,7 @@ interface ShowcaseItem {
   image: string;
   style: string;
   description: string;
-  prompt: {
+  prompt?: {
     subject: { description: string; expression: string };
     environment: { location: string; condition: string };
     clothing: { main: string; accessories: string };
@@ -32,6 +34,9 @@ interface ShowcaseItem {
     film: { grain: string; format: string };
     vibes: { reference: string; description: string };
   };
+  rawPrompt?: string;
+  model?: string;
+  source?: { name: string; url: string };
 }
 
 const showcaseItems: ShowcaseItem[] = [
@@ -347,29 +352,52 @@ export default function ShowcasePage() {
   const router = useRouter();
   const [selectedItem, setSelectedItem] = useState<ShowcaseItem | null>(null);
   const [copied, setCopied] = useState(false);
+  const [activeTab, setActiveTab] = useState<'curated' | 'generated'>('curated');
+  const [generatedItems, setGeneratedItems] = useState<ShowcaseItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Load generated showcase items
+  useEffect(() => {
+    async function loadGenerated() {
+      try {
+        const res = await fetch('/data/generated-showcase.json');
+        if (res.ok) {
+          const data = await res.json();
+          setGeneratedItems(data);
+        }
+      } catch (err) {
+        console.error('Failed to load generated showcase:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadGenerated();
+  }, []);
+
+  const currentItems = activeTab === 'curated' ? showcaseItems : generatedItems;
 
   const handleCopyPrompt = async () => {
     if (!selectedItem) return;
-    const promptJson = JSON.stringify(selectedItem.prompt, null, 2);
-    await navigator.clipboard.writeText(promptJson);
+    const textToCopy = selectedItem.rawPrompt || JSON.stringify(selectedItem.prompt, null, 2);
+    await navigator.clipboard.writeText(textToCopy);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   const handleTryPrompt = () => {
     if (!selectedItem) return;
-    const promptJson = JSON.stringify(selectedItem.prompt, null, 2);
-    localStorage.setItem('generatingPrompt', promptJson);
+    const promptText = selectedItem.rawPrompt || JSON.stringify(selectedItem.prompt, null, 2);
+    localStorage.setItem('generatingPrompt', promptText);
     router.push('/create/nano-banana/quick');
   };
 
   const navigateShowcase = (direction: 'prev' | 'next') => {
     if (!selectedItem) return;
-    const currentIndex = showcaseItems.findIndex(item => item.id === selectedItem.id);
+    const currentIndex = currentItems.findIndex(item => item.id === selectedItem.id);
     const newIndex = direction === 'next'
-      ? (currentIndex + 1) % showcaseItems.length
-      : (currentIndex - 1 + showcaseItems.length) % showcaseItems.length;
-    setSelectedItem(showcaseItems[newIndex]);
+      ? (currentIndex + 1) % currentItems.length
+      : (currentIndex - 1 + currentItems.length) % currentItems.length;
+    setSelectedItem(currentItems[newIndex]);
   };
 
   return (
@@ -408,7 +436,7 @@ export default function ShowcasePage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12"
+            className="text-center mb-8"
           >
             <h2 className="text-3xl font-bold mb-3">
               See What&apos;s Possible
@@ -418,9 +446,45 @@ export default function ShowcasePage() {
             </p>
           </motion.div>
 
+          {/* Tabs */}
+          <div className="flex justify-center gap-2 mb-8">
+            <button
+              onClick={() => setActiveTab('curated')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
+                activeTab === 'curated'
+                  ? 'bg-[var(--color-primary)] text-black'
+                  : 'bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)] hover:text-white'
+              }`}
+            >
+              <Crown size={16} />
+              <span>Curated</span>
+              <span className="text-xs opacity-70">({showcaseItems.length})</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('generated')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
+                activeTab === 'generated'
+                  ? 'bg-[var(--color-secondary)] text-black'
+                  : 'bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)] hover:text-white'
+              }`}
+            >
+              <Wand2 size={16} />
+              <span>AI Generated</span>
+              <span className="text-xs opacity-70">({generatedItems.length})</span>
+            </button>
+          </div>
+
           {/* Gallery Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {showcaseItems.map((item, index) => (
+            {loading && activeTab === 'generated' ? (
+              <div className="col-span-full text-center py-12 text-[var(--color-text-muted)]">
+                Loading generated examples...
+              </div>
+            ) : currentItems.length === 0 ? (
+              <div className="col-span-full text-center py-12 text-[var(--color-text-muted)]">
+                No examples available
+              </div>
+            ) : currentItems.map((item, index) => (
               <motion.div
                 key={item.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -521,11 +585,30 @@ export default function ShowcasePage() {
                       {selectedItem.description}
                     </p>
 
+                    {/* Model & Source for generated items */}
+                    {selectedItem.model && (
+                      <div className="flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
+                        <span className="px-2 py-0.5 rounded bg-[var(--color-bg-elevated)]">
+                          {selectedItem.model}
+                        </span>
+                        {selectedItem.source?.name && (
+                          <a
+                            href={selectedItem.source.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-[var(--color-primary)] transition-colors"
+                          >
+                            by {selectedItem.source.name}
+                          </a>
+                        )}
+                      </div>
+                    )}
+
                     {/* Prompt preview */}
                     <div>
                       <div className="flex items-center justify-between mb-2">
                         <h3 className="text-sm font-medium text-[var(--color-text-muted)]">
-                          JSON Prompt
+                          {selectedItem.rawPrompt ? 'Prompt' : 'JSON Prompt'}
                         </h3>
                         <button
                           onClick={handleCopyPrompt}
@@ -544,8 +627,8 @@ export default function ShowcasePage() {
                           )}
                         </button>
                       </div>
-                      <pre className="p-3 rounded-lg bg-[var(--color-bg-deep)] text-xs text-[var(--color-text-secondary)] overflow-x-auto max-h-48">
-                        {JSON.stringify(selectedItem.prompt, null, 2)}
+                      <pre className="p-3 rounded-lg bg-[var(--color-bg-deep)] text-xs text-[var(--color-text-secondary)] overflow-x-auto max-h-48 whitespace-pre-wrap">
+                        {selectedItem.rawPrompt || JSON.stringify(selectedItem.prompt, null, 2)}
                       </pre>
                     </div>
 
