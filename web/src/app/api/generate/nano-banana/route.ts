@@ -1,10 +1,74 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Simple in-memory rate limiting for server-side protection
+// In production, consider using Redis or a proper rate limiter
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+const FREE_TIER_DAILY_LIMIT = 10;
+const RATE_LIMIT_WINDOW_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+function getClientIdentifier(request: NextRequest): string {
+  // Use a combination of IP and user agent for basic fingerprinting
+  const forwarded = request.headers.get('x-forwarded-for');
+  const ip = forwarded ? forwarded.split(',')[0].trim() : 'unknown';
+  const userAgent = request.headers.get('user-agent') || 'unknown';
+  return `${ip}-${userAgent.slice(0, 50)}`;
+}
+
+function checkRateLimit(clientId: string): { allowed: boolean; remaining: number } {
+  const now = Date.now();
+  const entry = rateLimitMap.get(clientId);
+
+  if (!entry || now > entry.resetTime) {
+    // New entry or expired, reset count
+    rateLimitMap.set(clientId, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
+    return { allowed: true, remaining: FREE_TIER_DAILY_LIMIT - 1 };
+  }
+
+  if (entry.count >= FREE_TIER_DAILY_LIMIT) {
+    return { allowed: false, remaining: 0 };
+  }
+
+  entry.count += 1;
+  return { allowed: true, remaining: FREE_TIER_DAILY_LIMIT - entry.count };
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const { prompt, apiKey } = await request.json();
+    const { prompt, apiKey, useFreeMode } = await request.json();
 
-    if (!prompt || !apiKey) {
+    let finalApiKey = apiKey;
+
+    if (useFreeMode) {
+      // Use server-side API key for free tier
+      const serverApiKey = process.env.GEMINI_API_KEY;
+      if (!serverApiKey) {
+        return NextResponse.json(
+          { error: 'Free tier is temporarily unavailable. Please use your own API key.' },
+          { status: 503 }
+        );
+      }
+
+      // Check rate limit for free tier
+      const clientId = getClientIdentifier(request);
+      const { allowed, remaining } = checkRateLimit(clientId);
+
+      if (!allowed) {
+        return NextResponse.json(
+          {
+            error: 'Daily free tier limit reached. Please try again tomorrow or use your own API key.',
+            remaining: 0
+          },
+          { status: 429 }
+        );
+      }
+
+      finalApiKey = serverApiKey;
+
+      // Include remaining count in successful responses (will be added to response below)
+      request.headers.set('x-free-tier-remaining', remaining.toString());
+    }
+
+    if (!prompt || !finalApiKey) {
       return NextResponse.json(
         { error: 'Missing prompt or API key' },
         { status: 400 }
@@ -14,7 +78,7 @@ export async function POST(request: NextRequest) {
     // Nano Banana uses Gemini API for image generation
     // The prompt should be JSON formatted for structured control
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent?key=${finalApiKey}`,
       {
         method: 'POST',
         headers: {

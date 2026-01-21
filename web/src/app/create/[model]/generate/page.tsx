@@ -3,9 +3,10 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, AlertCircle, ArrowLeft } from 'lucide-react';
+import { Sparkles, AlertCircle, ArrowLeft, Gift } from 'lucide-react';
 import { Particles } from '@/components/effects/Particles';
 import { ModelType } from '@/context/WizardContext';
+import { useFreeTier } from '@/hooks/useFreeTier';
 
 const loadingMessages = [
   'Initializing creative engine...',
@@ -23,11 +24,13 @@ export default function GeneratePage() {
   const router = useRouter();
   const params = useParams();
   const modelId = params.model as ModelType;
+  const { canUseFreeTier, remaining, incrementUsage, isLoaded } = useFreeTier();
 
   const [progress, setProgress] = useState(0);
   const [messageIndex, setMessageIndex] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(true);
+  const [usingFreeTier, setUsingFreeTier] = useState(false);
 
   const modelNames: Record<ModelType, string> = {
     'nano-banana': 'Nano Banana',
@@ -44,6 +47,7 @@ export default function GeneratePage() {
   const generate = useCallback(async () => {
     const prompt = localStorage.getItem('generatingPrompt');
     const apiKey = localStorage.getItem(`${modelId}ApiKey`);
+    const willUseFreeMode = !apiKey && modelId === 'nano-banana' && canUseFreeTier;
 
     if (!prompt) {
       setError('No prompt found. Please go back and create one.');
@@ -51,11 +55,20 @@ export default function GeneratePage() {
       return;
     }
 
-    if (!apiKey) {
-      setError('No API key configured. Please add your API key in settings.');
+    // Check if we can proceed with generation
+    if (!apiKey && !willUseFreeMode) {
+      if (modelId === 'nano-banana' && !canUseFreeTier) {
+        setError('Daily free tier limit reached. Please add your own API key in settings or try again tomorrow.');
+      } else if (modelId !== 'nano-banana') {
+        setError('No API key configured. Free tier is only available for Nano Banana. Please add your API key in settings.');
+      } else {
+        setError('No API key configured. Please add your API key in settings.');
+      }
       setIsGenerating(false);
       return;
     }
+
+    setUsingFreeTier(willUseFreeMode);
 
     try {
       // Simulate progress while waiting for API
@@ -79,7 +92,8 @@ export default function GeneratePage() {
         },
         body: JSON.stringify({
           prompt,
-          apiKey,
+          apiKey: apiKey || undefined,
+          useFreeMode: willUseFreeMode,
         }),
       });
 
@@ -93,12 +107,18 @@ export default function GeneratePage() {
 
       const data = await response.json();
 
+      // Increment free tier usage if used
+      if (willUseFreeMode) {
+        incrementUsage();
+      }
+
       // Store result and navigate
       localStorage.setItem('generationResult', JSON.stringify({
         prompt,
         result: data,
         model: modelId,
         timestamp: Date.now(),
+        usedFreeTier: willUseFreeMode,
       }));
 
       setProgress(100);
@@ -112,26 +132,32 @@ export default function GeneratePage() {
       setError(err instanceof Error ? err.message : 'Generation failed');
       setIsGenerating(false);
     }
-  }, [modelId, router]);
+  }, [modelId, router, canUseFreeTier, incrementUsage]);
 
   useEffect(() => {
     generate();
   }, [generate]);
 
-  // If no API key or prompt, show error state
+  // Wait for free tier data to load before starting generation
   useEffect(() => {
+    if (!isLoaded) return;
+
     const prompt = localStorage.getItem('generatingPrompt');
     const apiKey = localStorage.getItem(`${modelId}ApiKey`);
+    const canUseFree = modelId === 'nano-banana' && canUseFreeTier;
 
-    if (!prompt || !apiKey) {
+    if (!prompt) {
       setIsGenerating(false);
-      if (!prompt) {
-        setError('No prompt found. Please go back and create one.');
-      } else if (!apiKey) {
-        setError('No API key configured. Please add your API key in settings.');
+      setError('No prompt found. Please go back and create one.');
+    } else if (!apiKey && !canUseFree) {
+      setIsGenerating(false);
+      if (modelId === 'nano-banana') {
+        setError('Daily free tier limit reached. Please add your own API key or try again tomorrow.');
+      } else {
+        setError('Free tier is only available for Nano Banana. Please add your API key in settings.');
       }
     }
-  }, [modelId]);
+  }, [modelId, isLoaded, canUseFreeTier]);
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -217,6 +243,18 @@ export default function GeneratePage() {
                 >
                   {modelNames[modelId]}
                 </h2>
+                {usingFreeTier && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-center justify-center gap-1.5 mt-2"
+                  >
+                    <Gift size={14} className="text-[var(--color-accent)]" />
+                    <span className="text-xs text-[var(--color-accent)]">
+                      Free tier ({remaining} left today)
+                    </span>
+                  </motion.div>
+                )}
               </div>
 
               {/* Progress bar */}

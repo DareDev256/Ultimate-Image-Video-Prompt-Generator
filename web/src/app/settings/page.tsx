@@ -12,8 +12,10 @@ import {
   ExternalLink,
   Trash2,
   AlertCircle,
+  Gift,
 } from 'lucide-react';
 import { Particles } from '@/components/effects/Particles';
+import { useFreeTier } from '@/hooks/useFreeTier';
 
 interface ApiKeyConfig {
   id: string;
@@ -56,6 +58,7 @@ export default function SettingsPage() {
   const [keys, setKeys] = useState<Record<string, string>>({});
   const [showKey, setShowKey] = useState<Record<string, boolean>>({});
   const [saved, setSaved] = useState<Record<string, boolean>>({});
+  const { remaining, limit, used, isLoaded } = useFreeTier();
 
   // Load keys from localStorage
   useEffect(() => {
@@ -260,19 +263,31 @@ export default function SettingsPage() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="p-6 rounded-xl bg-gradient-to-r from-[var(--color-primary)]10 to-[var(--color-secondary)]10 border border-[var(--color-border)]"
+            className="p-6 rounded-xl bg-gradient-to-r from-[var(--color-primary)]/10 to-[var(--color-secondary)]/10 border border-[var(--color-border)]"
           >
-            <h3 className="font-bold text-white mb-2">About Free Tier</h3>
+            <div className="flex items-center gap-2 mb-2">
+              <Gift size={18} className="text-[var(--color-accent)]" />
+              <h3 className="font-bold text-white">Free Tier</h3>
+            </div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-              This app offers a hybrid model: use your own API keys for unlimited
-              generations, or enjoy 3 free generations per day using our shared
-              quota.
+              Try Nano Banana free with {limit} generations per day. No API key needed!
+              For unlimited generations or other models, add your own API keys above.
             </p>
             <div className="grid grid-cols-3 gap-4 text-center">
               <div className="p-3 rounded-lg bg-[var(--color-bg-surface)]">
-                <div className="text-2xl font-bold text-[var(--color-primary)]">3</div>
+                <div className="text-2xl font-bold text-[var(--color-primary)]">
+                  {isLoaded ? remaining : '-'}
+                </div>
                 <div className="text-xs text-[var(--color-text-muted)]">
-                  Free daily
+                  Remaining today
+                </div>
+              </div>
+              <div className="p-3 rounded-lg bg-[var(--color-bg-surface)]">
+                <div className="text-2xl font-bold text-[var(--color-accent)]">
+                  {isLoaded ? used : '-'}
+                </div>
+                <div className="text-xs text-[var(--color-text-muted)]">
+                  Used today
                 </div>
               </div>
               <div className="p-3 rounded-lg bg-[var(--color-bg-surface)]">
@@ -281,13 +296,23 @@ export default function SettingsPage() {
                   With your keys
                 </div>
               </div>
-              <div className="p-3 rounded-lg bg-[var(--color-bg-surface)]">
-                <div className="text-2xl font-bold text-[var(--color-accent)]">0</div>
-                <div className="text-xs text-[var(--color-text-muted)]">
-                  Data stored
-                </div>
-              </div>
             </div>
+            {/* Progress bar */}
+            {isLoaded && (
+              <div className="mt-4">
+                <div className="h-2 bg-[var(--color-bg-surface)] rounded-full overflow-hidden">
+                  <motion.div
+                    className="h-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${(remaining / limit) * 100}%` }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                  />
+                </div>
+                <p className="text-xs text-[var(--color-text-muted)] mt-1 text-center">
+                  {remaining}/{limit} free generations remaining
+                </p>
+              </div>
+            )}
           </motion.div>
         </div>
       </main>
