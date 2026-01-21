@@ -1,0 +1,32 @@
+[
+  {
+    "id": 10001,
+    "slug": "nano-banana-1",
+    "status": "success",
+    "path": "/Users/t./Documents/Projects/Ultimate Image Prompt Generator/web/public/generated-inspiration/nano-banana-1.png"
+  },
+  {
+    "id": 10003,
+    "slug": "nano-banana-3",
+    "status": "success",
+    "path": "/Users/t./Documents/Projects/Ultimate Image Prompt Generator/web/public/generated-inspiration/nano-banana-3.png"
+  },
+  {
+    "id": 10005,
+    "slug": "nano-banana-5",
+    "status": "success",
+    "path": "/Users/t./Documents/Projects/Ultimate Image Prompt Generator/web/public/generated-inspiration/nano-banana-5.png"
+  },
+  {
+    "id": 10006,
+    "slug": "nano-banana-6",
+    "status": "success",
+    "path": "/Users/t./Documents/Projects/Ultimate Image Prompt Generator/web/public/generated-inspiration/nano-banana-6.png"
+  },
+  {
+    "id": 10007,
+    "slug": "nano-banana-7",
+    "status": "success",
+    "path": "/Users/t./Documents/Projects/Ultimate Image Prompt Generator/web/public/generated-inspiration/nano-banana-7.png"
+  }
+]
