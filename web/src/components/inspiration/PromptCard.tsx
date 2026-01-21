@@ -60,7 +60,6 @@ export function PromptCard({
           className="object-cover transition-transform duration-300 group-hover:scale-105"
           sizes="(max-width: 768px) 50vw, 33vw"
           onError={() => setImageError(true)}
-          unoptimized={coverImage.startsWith('/')}
         />
       ) : isImage ? (
         <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[var(--color-bg-elevated)] to-[var(--color-bg-deep)]">
