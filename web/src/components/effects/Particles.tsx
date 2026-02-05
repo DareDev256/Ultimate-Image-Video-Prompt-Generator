@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 
 interface Particle {
   x: number;
@@ -12,10 +12,32 @@ interface Particle {
   color: string;
 }
 
+const PARTICLE_COLORS = ['#00d4ff', '#ff00aa', '#ffcc00', '#00ff88'] as const;
+const CONNECTION_DISTANCE = 120;
+const MAX_CONNECTIONS_PER_PARTICLE = 3;
+const MAX_PARTICLE_COUNT = 50;
+const PARTICLE_DENSITY_DIVISOR = 35000;
+
 export function Particles() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const animationRef = useRef<number | null>(null);
+
+  const createParticles = useCallback((canvas: HTMLCanvasElement) => {
+    const count = Math.min(
+      MAX_PARTICLE_COUNT,
+      Math.floor((canvas.width * canvas.height) / PARTICLE_DENSITY_DIVISOR)
+    );
+    particlesRef.current = Array.from({ length: count }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      size: Math.random() * 2 + 1,
+      opacity: Math.random() * 0.4 + 0.2,
+      color: PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)],
+    }));
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -24,25 +46,10 @@ export function Particles() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const colors = ['#00d4ff', '#ff00aa', '#ffcc00', '#00ff88'];
-
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-    };
-
-    const createParticles = () => {
-      // Reduced count for better performance (was /15000, now /35000)
-      const count = Math.min(50, Math.floor((canvas.width * canvas.height) / 35000));
-      particlesRef.current = Array.from({ length: count }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3, // Slower movement
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 2 + 1,
-        opacity: Math.random() * 0.4 + 0.2,
-        color: colors[Math.floor(Math.random() * colors.length)],
-      }));
+      createParticles(canvas);
     };
 
     const animate = () => {
@@ -58,35 +65,36 @@ export function Particles() {
         if (particle.y < 0) particle.y = canvas.height;
         if (particle.y > canvas.height) particle.y = 0;
 
-        // Draw particle
+        // Draw particle with glow
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fillStyle = particle.color;
         ctx.globalAlpha = particle.opacity;
-        ctx.fill();
-
-        // Draw glow
         ctx.shadowBlur = 10;
         ctx.shadowColor = particle.color;
+        ctx.fill();
       });
 
-      // Draw connections (optimized - limit connections per particle)
+      // Draw connections between nearby particles
       ctx.strokeStyle = '#00d4ff';
       ctx.lineWidth = 0.5;
-      const maxConnections = 3;
-      const connectionDist = 120;
-      const connectionDistSq = connectionDist * connectionDist;
+      ctx.shadowBlur = 0;
+      const connectionDistSq = CONNECTION_DISTANCE * CONNECTION_DISTANCE;
 
       for (let i = 0; i < particlesRef.current.length; i++) {
         let connections = 0;
-        for (let j = i + 1; j < particlesRef.current.length && connections < maxConnections; j++) {
+        for (
+          let j = i + 1;
+          j < particlesRef.current.length && connections < MAX_CONNECTIONS_PER_PARTICLE;
+          j++
+        ) {
           const dx = particlesRef.current[i].x - particlesRef.current[j].x;
           const dy = particlesRef.current[i].y - particlesRef.current[j].y;
-          const distSq = dx * dx + dy * dy; // Skip sqrt for performance
+          const distSq = dx * dx + dy * dy;
 
           if (distSq < connectionDistSq) {
             const dist = Math.sqrt(distSq);
-            ctx.globalAlpha = (connectionDist - dist) / 1200;
+            ctx.globalAlpha = (CONNECTION_DISTANCE - dist) / 1200;
             ctx.beginPath();
             ctx.moveTo(particlesRef.current[i].x, particlesRef.current[i].y);
             ctx.lineTo(particlesRef.current[j].x, particlesRef.current[j].y);
@@ -97,19 +105,13 @@ export function Particles() {
       }
 
       ctx.globalAlpha = 1;
-      ctx.shadowBlur = 0;
-
       animationRef.current = requestAnimationFrame(animate);
     };
 
     resize();
-    createParticles();
     animate();
 
-    window.addEventListener('resize', () => {
-      resize();
-      createParticles();
-    });
+    window.addEventListener('resize', resize);
 
     return () => {
       if (animationRef.current) {
@@ -117,7 +119,7 @@ export function Particles() {
       }
       window.removeEventListener('resize', resize);
     };
-  }, []);
+  }, [createParticles]);
 
   return (
     <canvas
