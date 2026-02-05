@@ -68,9 +68,16 @@ export async function POST(request: NextRequest) {
       request.headers.set('x-free-tier-remaining', remaining.toString());
     }
 
-    if (!prompt || !finalApiKey) {
+    if (!prompt || typeof prompt !== 'string') {
       return NextResponse.json(
-        { error: 'Missing prompt or API key' },
+        { error: 'Missing or invalid prompt' },
+        { status: 400 }
+      );
+    }
+
+    if (!finalApiKey || typeof finalApiKey !== 'string') {
+      return NextResponse.json(
+        { error: 'Missing or invalid API key' },
         { status: 400 }
       );
     }

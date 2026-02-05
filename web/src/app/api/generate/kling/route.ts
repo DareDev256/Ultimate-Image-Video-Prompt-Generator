@@ -4,13 +4,53 @@ import { NextRequest, NextResponse } from 'next/server';
 // Note: Kling's API may vary - this is a general implementation
 // You may need to adjust based on their actual API documentation
 
+// Valid Kling video durations (in seconds)
+const VALID_DURATIONS = [5, 10] as const;
+type ValidDuration = (typeof VALID_DURATIONS)[number];
+
+// Valid Kling aspect ratios
+const VALID_ASPECT_RATIOS = ['16:9', '9:16', '1:1'] as const;
+type ValidAspectRatio = (typeof VALID_ASPECT_RATIOS)[number];
+
+function isValidDuration(duration: unknown): duration is ValidDuration {
+  return typeof duration === 'number' && VALID_DURATIONS.includes(duration as ValidDuration);
+}
+
+function isValidAspectRatio(ratio: unknown): ratio is ValidAspectRatio {
+  return typeof ratio === 'string' && VALID_ASPECT_RATIOS.includes(ratio as ValidAspectRatio);
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const { prompt, apiKey, duration = 5, aspectRatio = '16:9' } = await request.json();
+    const body = await request.json();
+    const { prompt, apiKey } = body;
+    const duration = body.duration ?? 5;
+    const aspectRatio = body.aspectRatio ?? '16:9';
 
-    if (!prompt || !apiKey) {
+    if (!prompt || typeof prompt !== 'string') {
       return NextResponse.json(
-        { error: 'Missing prompt or API key' },
+        { error: 'Missing or invalid prompt' },
+        { status: 400 }
+      );
+    }
+
+    if (!apiKey || typeof apiKey !== 'string') {
+      return NextResponse.json(
+        { error: 'Missing or invalid API key' },
+        { status: 400 }
+      );
+    }
+
+    if (!isValidDuration(duration)) {
+      return NextResponse.json(
+        { error: `Invalid duration. Must be one of: ${VALID_DURATIONS.join(', ')} seconds` },
+        { status: 400 }
+      );
+    }
+
+    if (!isValidAspectRatio(aspectRatio)) {
+      return NextResponse.json(
+        { error: `Invalid aspect ratio. Must be one of: ${VALID_ASPECT_RATIOS.join(', ')}` },
         { status: 400 }
       );
     }

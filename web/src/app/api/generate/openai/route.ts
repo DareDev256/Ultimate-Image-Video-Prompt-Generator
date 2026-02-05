@@ -1,12 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// DALL-E 3 supported image sizes
+const VALID_SIZES = ['1024x1024', '1792x1024', '1024x1792'] as const;
+type ValidSize = (typeof VALID_SIZES)[number];
+
+function isValidSize(size: unknown): size is ValidSize {
+  return typeof size === 'string' && VALID_SIZES.includes(size as ValidSize);
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const { prompt, apiKey, size = '1024x1024' } = await request.json();
+    const body = await request.json();
+    const { prompt, apiKey } = body;
+    const size = body.size ?? '1024x1024';
 
-    if (!prompt || !apiKey) {
+    if (!prompt || typeof prompt !== 'string') {
       return NextResponse.json(
-        { error: 'Missing prompt or API key' },
+        { error: 'Missing or invalid prompt' },
+        { status: 400 }
+      );
+    }
+
+    if (!apiKey || typeof apiKey !== 'string') {
+      return NextResponse.json(
+        { error: 'Missing or invalid API key' },
+        { status: 400 }
+      );
+    }
+
+    if (!isValidSize(size)) {
+      return NextResponse.json(
+        { error: `Invalid size. Must be one of: ${VALID_SIZES.join(', ')}` },
         { status: 400 }
       );
     }
