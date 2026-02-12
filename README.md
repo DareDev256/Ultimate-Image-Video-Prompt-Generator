@@ -2,6 +2,8 @@
 
 > Dual-platform AI prompt builder — a Flash-era web wizard **and** a powerful CLI — that walks you through crafting hyper-detailed image and video prompts, then generates them with your choice of model.
 
+**[Try the Live Demo](https://web-ten-vert-46.vercel.app)** · [Report Bug](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues) · [Request Feature](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues)
+
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?style=flat-square&logo=tailwindcss)
@@ -47,12 +49,12 @@ An interactive terminal interface for rapid prompt building with presets, templa
 
 ### Inspiration Gallery
 
-- **1,050+ curated image prompts** from the community
+- **1,180+ curated image prompts** from the community
 - **50+ video prompts** for Veo3/Kling/Hailuo
 - Search and filter by tags (fashion, portrait, 3D, anime, etc.)
 - Save favorites for quick access
 - **"Use as Template"** to pre-fill the wizard
-- **Pattern library** — extracted lighting setups, camera angles, moods, and styles from across all 1,050+ prompts
+- **Pattern library** — extracted lighting setups, camera angles, moods, and styles from across all 1,180+ prompts
 
 ### Generation Flow
 
@@ -73,6 +75,14 @@ bun run index.ts --load my-preset         # Load a saved preset
 bun run index.ts --list-templates         # Browse available templates
 bun run index.ts --favorites list         # Manage favorite suggestions
 ```
+
+### API Key Pricing
+
+| Model | Provider | Cost per Image | Get a Key |
+|-------|----------|---------------|-----------|
+| Nano Banana | Google Gemini | ~$0.03 | [ai.google.dev](https://ai.google.dev/tutorials/setup) |
+| DALL-E 3 | OpenAI | ~$0.04–0.12 | [platform.openai.com](https://platform.openai.com/api-keys) |
+| Kling | Kling AI | Varies | [klingai.com](https://klingai.com) |
 
 ### Privacy First
 
@@ -121,6 +131,26 @@ bun install
 bun run index.ts
 ```
 
+### Environment Variables
+
+| Variable | Required | Scope | Description |
+|----------|----------|-------|-------------|
+| `GEMINI_API_KEY` | No | Server | Enables the free tier (10 generations/day) for users without their own keys |
+
+User-provided API keys (Gemini, OpenAI, Kling) are entered in the browser at `/settings` and stored in `localStorage` only — they never touch the server.
+
+### Deploy Your Own
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator&root-directory=web)
+
+Or manually:
+
+```bash
+cd web && npm run build && npx vercel --prod
+```
+
+Add `GEMINI_API_KEY` as an environment variable in your Vercel dashboard to enable the free tier for your users.
+
 ## Project Structure
 
 ```
@@ -141,7 +171,7 @@ bun run index.ts
 │   │   ├── context/              # WizardContext (state + persistence), SoundContext
 │   │   ├── hooks/                # useFavorites, useFreeTier, useInspirationData, usePatterns
 │   │   └── lib/                  # Categories, sounds
-│   └── public/data/              # 1,050+ prompts, patterns, showcase metadata
+│   └── public/data/              # Prompt library, patterns, showcase metadata
 │
 ├── src/                          # CLI tool (Bun)
 │   ├── index.ts                  # Entry point with arg parsing
@@ -227,7 +257,7 @@ Each AI model has different prompt formats and response structures. Created a un
 
 The Inspiration Gallery includes curated prompts from [@songguoxs](https://github.com/songguoxs):
 
-- **[gpt4o-image-prompts](https://github.com/songguoxs/gpt4o-image-prompts)** — 1,050+ GPT-4o/Nano Banana image prompts
+- **[gpt4o-image-prompts](https://github.com/songguoxs/gpt4o-image-prompts)** — Image prompt collection (1,180+ curated prompts)
 - **[awesome-video-prompts](https://github.com/songguoxs/awesome-video-prompts)** — 50+ Veo3/Kling video prompts
 
 ## Contributing

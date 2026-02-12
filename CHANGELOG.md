@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.2] - 2026-02-12
+
+### Changed
+- Added live demo link, bug report, and feature request links to README header
+- Added environment variables table documenting `GEMINI_API_KEY` server-side scope
+- Added "Deploy Your Own" section with Vercel one-click deploy button and manual instructions
+- Added API key pricing table with per-image costs for Gemini, DALL-E 3, and Kling
+- Fixed prompt count discrepancy: updated from 1,050+ to 1,180+ to match actual data
+
 ## [0.2.1] - 2026-02-12
 
 ### Changed
