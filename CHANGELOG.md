@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.1] - 2026-02-12
+
+### Changed
+- Rewrote README as portfolio-grade documentation covering both web app and CLI tool
+- Added multi-model comparison table, free tier documentation, CLI command reference
+- Added architecture section with composable pipeline diagram and page flow
+- Restructured project tree to reflect full codebase (analyzer, hooks, inspiration, data pipeline)
+- Screenshots now displayed in responsive table layout
+- Tech stack shown as web/CLI comparison table
+- Added badges for Bun runtime and MIT license
+
 ## [0.2.0] - 2026-02-12
 
 ### Changed
