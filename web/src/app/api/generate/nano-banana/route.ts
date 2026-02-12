@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { validatePrompt, validateApiKey } from '@/lib/validation';
 
 // Simple in-memory rate limiting for server-side protection
 // In production, consider using Redis or a proper rate limiter
@@ -68,24 +69,14 @@ export async function POST(request: NextRequest) {
       request.headers.set('x-free-tier-remaining', remaining.toString());
     }
 
-    if (!prompt || typeof prompt !== 'string') {
-      return NextResponse.json(
-        { error: 'Missing or invalid prompt' },
-        { status: 400 }
-      );
-    }
+    const promptResult = validatePrompt(prompt);
+    if (!promptResult.valid) return promptResult.error;
 
-    if (!finalApiKey || typeof finalApiKey !== 'string') {
-      return NextResponse.json(
-        { error: 'Missing or invalid API key' },
-        { status: 400 }
-      );
-    }
+    const keyResult = validateApiKey(finalApiKey);
+    if (!keyResult.valid) return keyResult.error;
 
-    // Nano Banana uses Gemini API for image generation
-    // The prompt should be JSON formatted for structured control
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent?key=${finalApiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent?key=${keyResult.key}`,
       {
         method: 'POST',
         headers: {
@@ -96,7 +87,7 @@ export async function POST(request: NextRequest) {
             {
               parts: [
                 {
-                  text: prompt,
+                  text: promptResult.sanitized,
                 },
               ],
             },

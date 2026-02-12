@@ -84,11 +84,13 @@ bun run index.ts --favorites list         # Manage favorite suggestions
 | DALL-E 3 | OpenAI | ~$0.04–0.12 | [platform.openai.com](https://platform.openai.com/api-keys) |
 | Kling | Kling AI | Varies | [klingai.com](https://klingai.com) |
 
-### Privacy First
+### Privacy & Security
 
 - API keys stored in `localStorage` only — never sent to any server
 - No server-side storage of prompts or images
 - Direct API calls from your browser (except free tier)
+- Server-side input validation: prompt length limits, control character stripping, API key format validation
+- Rate limiting on free tier (10 generations/day per client)
 
 ## Tech Stack
 

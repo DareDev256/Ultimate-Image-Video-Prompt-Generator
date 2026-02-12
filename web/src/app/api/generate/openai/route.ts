@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { validatePrompt, validateApiKey } from '@/lib/validation';
 
 // DALL-E 3 supported image sizes
 const VALID_SIZES = ['1024x1024', '1792x1024', '1024x1792'] as const;
@@ -14,19 +15,11 @@ export async function POST(request: NextRequest) {
     const { prompt, apiKey } = body;
     const size = body.size ?? '1024x1024';
 
-    if (!prompt || typeof prompt !== 'string') {
-      return NextResponse.json(
-        { error: 'Missing or invalid prompt' },
-        { status: 400 }
-      );
-    }
+    const promptResult = validatePrompt(prompt);
+    if (!promptResult.valid) return promptResult.error;
 
-    if (!apiKey || typeof apiKey !== 'string') {
-      return NextResponse.json(
-        { error: 'Missing or invalid API key' },
-        { status: 400 }
-      );
-    }
+    const keyResult = validateApiKey(apiKey);
+    if (!keyResult.valid) return keyResult.error;
 
     if (!isValidSize(size)) {
       return NextResponse.json(
@@ -40,11 +33,11 @@ export async function POST(request: NextRequest) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Bearer ${keyResult.key}`,
       },
       body: JSON.stringify({
         model: 'dall-e-3',
-        prompt,
+        prompt: promptResult.sanitized,
         n: 1,
         size,
         quality: 'hd',

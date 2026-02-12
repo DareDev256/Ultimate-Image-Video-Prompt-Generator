@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { validatePrompt, validateApiKey } from '@/lib/validation';
 
 // Kling API configuration
 // Note: Kling's API may vary - this is a general implementation
@@ -27,19 +28,11 @@ export async function POST(request: NextRequest) {
     const duration = body.duration ?? 5;
     const aspectRatio = body.aspectRatio ?? '16:9';
 
-    if (!prompt || typeof prompt !== 'string') {
-      return NextResponse.json(
-        { error: 'Missing or invalid prompt' },
-        { status: 400 }
-      );
-    }
+    const promptResult = validatePrompt(prompt);
+    if (!promptResult.valid) return promptResult.error;
 
-    if (!apiKey || typeof apiKey !== 'string') {
-      return NextResponse.json(
-        { error: 'Missing or invalid API key' },
-        { status: 400 }
-      );
-    }
+    const keyResult = validateApiKey(apiKey);
+    if (!keyResult.valid) return keyResult.error;
 
     if (!isValidDuration(duration)) {
       return NextResponse.json(
@@ -60,11 +53,11 @@ export async function POST(request: NextRequest) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Bearer ${keyResult.key}`,
       },
       body: JSON.stringify({
         model: 'kling-v1',
-        prompt,
+        prompt: promptResult.sanitized,
         duration: String(duration),
         aspect_ratio: aspectRatio,
         cfg_scale: 0.5,
@@ -102,7 +95,7 @@ export async function POST(request: NextRequest) {
         {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${apiKey}`,
+            Authorization: `Bearer ${keyResult.key}`,
           },
         }
       );

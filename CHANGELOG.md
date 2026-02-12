@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.3] - 2026-02-12
+
+### Security
+- Added centralized input validation and sanitization for all API routes (nano-banana, openai, kling)
+- Enforce 10,000 character prompt length limit to prevent abuse via oversized payloads
+- Strip control characters (null bytes, C0/C1 range) from prompts before forwarding to APIs
+- Validate API key format and length (max 256 chars, alphanumeric + limited special chars)
+- Updated Next.js from 16.1.1 to 16.1.6 to fix 3 high-severity vulnerabilities (DoS via Image Optimizer, HTTP deserialization DoS, unbounded memory via PPR)
+- Verified no hardcoded API keys or secrets anywhere in codebase
+
 ## [0.2.2] - 2026-02-12
 
 ### Changed
