@@ -126,12 +126,16 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 │   │   └── lib/                   # Categories, sounds
 │   └── ...
 ├── src/                   # CLI tool (Bun)
+│   └── generators/
+│       ├── sections.ts    # Composable prompt section generators
+│       ├── natural.ts     # Natural language pipeline (uses sections)
+│       └── json.ts        # JSON output generator
 └── docs/                  # Design documents
 ```
 
 ## Testing
 
-The CLI prompt generators have comprehensive unit tests covering edge cases, section ordering, and output formatting:
+The CLI prompt generators use a composable section architecture with comprehensive unit tests covering edge cases, section ordering, and output formatting:
 
 ```bash
 bun test
