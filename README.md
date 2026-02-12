@@ -129,6 +129,14 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 └── docs/                  # Design documents
 ```
 
+## Testing
+
+The CLI prompt generators have comprehensive unit tests covering edge cases, section ordering, and output formatting:
+
+```bash
+bun test
+```
+
 ## CLI Tool
 
 There's also a command-line version for quick prompt generation:

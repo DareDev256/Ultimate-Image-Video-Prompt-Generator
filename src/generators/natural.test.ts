@@ -120,6 +120,7 @@ describe('generateNaturalLanguage', () => {
     test('includes location', () => {
       const prompt: ImagePrompt = {
         prompt_type: 'generate',
+        subject: { description: 'A wanderer' },
         environment: { location: 'a neon-lit Tokyo alley' },
       };
 
@@ -133,6 +134,7 @@ describe('generateNaturalLanguage', () => {
     test('includes camera position and lens', () => {
       const prompt: ImagePrompt = {
         prompt_type: 'generate',
+        subject: { description: 'A portrait' },
         scene: {
           camera: {
             position: 'eye level',
@@ -152,6 +154,7 @@ describe('generateNaturalLanguage', () => {
     test('includes lighting source and effect', () => {
       const prompt: ImagePrompt = {
         prompt_type: 'generate',
+        subject: { description: 'A scene' },
         lighting: {
           primary_source: 'golden hour sunlight',
           primary_effect: 'rim lighting',
@@ -169,6 +172,7 @@ describe('generateNaturalLanguage', () => {
     test('includes mood and elements', () => {
       const prompt: ImagePrompt = {
         prompt_type: 'generate',
+        subject: { description: 'A landscape' },
         atmosphere: {
           mood: 'mysterious and ethereal',
           elements: 'light fog',
@@ -186,6 +190,7 @@ describe('generateNaturalLanguage', () => {
     test('includes grain and lens quality', () => {
       const prompt: ImagePrompt = {
         prompt_type: 'generate',
+        subject: { description: 'A photo' },
         film_texture: {
           grain: 'fine film grain',
           lens_quality: 'slightly soft focus',
@@ -201,6 +206,7 @@ describe('generateNaturalLanguage', () => {
     test('includes date stamp when not "none"', () => {
       const prompt: ImagePrompt = {
         prompt_type: 'generate',
+        subject: { description: 'A snapshot' },
         film_texture: {
           date_stamp: '1999-08-15',
         },
@@ -229,6 +235,7 @@ describe('generateNaturalLanguage', () => {
     test('handles single vibe', () => {
       const prompt: ImagePrompt = {
         prompt_type: 'generate',
+        subject: { description: 'A scene' },
         vibes: ['cyberpunk'],
       };
 
@@ -240,6 +247,7 @@ describe('generateNaturalLanguage', () => {
     test('handles two vibes', () => {
       const prompt: ImagePrompt = {
         prompt_type: 'generate',
+        subject: { description: 'A scene' },
         vibes: ['cyberpunk', 'noir'],
       };
 
@@ -251,6 +259,7 @@ describe('generateNaturalLanguage', () => {
     test('handles three or more vibes', () => {
       const prompt: ImagePrompt = {
         prompt_type: 'generate',
+        subject: { description: 'A scene' },
         vibes: ['cyberpunk', 'noir', 'vintage'],
       };
 
@@ -290,6 +299,7 @@ describe('generateNaturalLanguage', () => {
     test('includes color grade', () => {
       const prompt: ImagePrompt = {
         prompt_type: 'generate',
+        subject: { description: 'A portrait' },
         color: { grade: 'warm tones with teal shadows' },
       };
 

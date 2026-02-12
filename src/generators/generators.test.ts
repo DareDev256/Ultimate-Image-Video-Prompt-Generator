@@ -107,18 +107,19 @@ describe('Natural Language Generator', () => {
   });
 
   it('should handle single vibe with "aesthetic" suffix', () => {
-    const prompt: ImagePrompt = { prompt_type: 'generate', vibes: ['cyberpunk'] };
+    const prompt: ImagePrompt = { prompt_type: 'generate', subject: { description: 'A scene' }, vibes: ['cyberpunk'] };
     expect(generateNaturalLanguage(prompt)).toContain('cyberpunk aesthetic');
   });
 
   it('should handle two vibes with "meets" connector', () => {
-    const prompt: ImagePrompt = { prompt_type: 'generate', vibes: ['noir', 'retro'] };
+    const prompt: ImagePrompt = { prompt_type: 'generate', subject: { description: 'A scene' }, vibes: ['noir', 'retro'] };
     expect(generateNaturalLanguage(prompt)).toContain('noir meets retro energy');
   });
 
   it('should handle three+ vibes with "influences" suffix', () => {
     const prompt: ImagePrompt = {
       prompt_type: 'generate',
+      subject: { description: 'A scene' },
       vibes: ['vintage', 'warm', 'nostalgic'],
     };
     expect(generateNaturalLanguage(prompt)).toContain('vintage, warm and nostalgic influences');
@@ -127,6 +128,7 @@ describe('Natural Language Generator', () => {
   it('should include camera details', () => {
     const prompt: ImagePrompt = {
       prompt_type: 'generate',
+      subject: { description: 'A portrait' },
       scene: { camera: { position: 'low angle', lens_mm: '35mm' } },
     };
     const result = generateNaturalLanguage(prompt);
