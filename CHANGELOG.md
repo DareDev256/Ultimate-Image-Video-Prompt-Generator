@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.0] - 2026-02-12
+
+### Changed
+- Extracted generic `JsonStore<T>` class into `src/lib/json-store.ts` to eliminate duplicated load/save boilerplate across storage modules
+- Refactored `config.ts`, `favorites.ts`, and `presets.ts` to use `JsonStore` — reduced combined storage code by ~30% (52 deletions, 35 insertions)
+- `presets.ts` uses a `storeFor(name)` factory pattern for its directory-backed collection
+- Deep-clones default values to prevent shared-reference mutation bugs
+
 ## [0.2.3] - 2026-02-12
 
 ### Security

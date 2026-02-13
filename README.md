@@ -184,7 +184,9 @@ Add `GEMINI_API_KEY` as an environment variable in your Vercel dashboard to enab
 │   │   ├── sections.ts           # 13 pure section generators
 │   │   ├── natural.ts            # Natural language assembly (flatMap pipeline)
 │   │   └── json.ts               # JSON output with recursive cleanup
-│   ├── storage/                  # Config, presets, favorites (file-based)
+│   ├── lib/                      # Shared utilities
+│   │   └── json-store.ts         # Generic typed JSON file storage
+│   ├── storage/                  # Config, presets, favorites (via JsonStore)
 │   └── types/                    # ImagePrompt interface (12 nested types)
 │
 ├── scripts/                      # Data pipeline (fetch, extract, translate, generate)

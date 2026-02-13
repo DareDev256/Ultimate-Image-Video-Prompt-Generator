@@ -1,39 +1,36 @@
 import { join } from 'path';
-import { existsSync, readFileSync, writeFileSync, readdirSync, unlinkSync } from 'fs';
+import { existsSync, readdirSync, unlinkSync } from 'fs';
 import { getConfigDir, ensureConfigDir } from './config';
+import { JsonStore } from '../lib/json-store';
 import type { ImagePrompt } from '../types';
 
 const PRESETS_DIR = join(getConfigDir(), 'presets');
 
-export function savePreset(name: string, prompt: ImagePrompt) {
-  ensureConfigDir();
-  const filePath = join(PRESETS_DIR, `${name}.json`);
-  writeFileSync(filePath, JSON.stringify(prompt, null, 2));
+function storeFor(name: string) {
+  return new JsonStore<ImagePrompt | null>(
+    join(PRESETS_DIR, `${name}.json`),
+    null,
+    ensureConfigDir,
+  );
 }
 
-export function loadPreset(name: string): ImagePrompt | null {
-  const filePath = join(PRESETS_DIR, `${name}.json`);
-  if (!existsSync(filePath)) {
-    return null;
-  }
-  return JSON.parse(readFileSync(filePath, 'utf-8'));
-}
+export const savePreset = (name: string, prompt: ImagePrompt) =>
+  storeFor(name).save(prompt);
+
+export const loadPreset = (name: string): ImagePrompt | null =>
+  storeFor(name).load();
 
 export function listPresets(): string[] {
   ensureConfigDir();
-  if (!existsSync(PRESETS_DIR)) {
-    return [];
-  }
+  if (!existsSync(PRESETS_DIR)) return [];
   return readdirSync(PRESETS_DIR)
     .filter(f => f.endsWith('.json'))
     .map(f => f.replace('.json', ''));
 }
 
 export function deletePreset(name: string): boolean {
-  const filePath = join(PRESETS_DIR, `${name}.json`);
-  if (!existsSync(filePath)) {
-    return false;
-  }
-  unlinkSync(filePath);
+  const store = storeFor(name);
+  if (!store.exists()) return false;
+  unlinkSync(join(PRESETS_DIR, `${name}.json`));
   return true;
 }

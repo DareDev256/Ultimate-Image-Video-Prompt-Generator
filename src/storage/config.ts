@@ -1,6 +1,7 @@
 import { homedir } from 'os';
 import { join } from 'path';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync } from 'fs';
+import { JsonStore } from '../lib/json-store';
 
 export interface Config {
   defaultPreset: string;
@@ -9,6 +10,8 @@ export interface Config {
 
 const CONFIG_DIR = join(homedir(), '.prompt-gen');
 const CONFIG_FILE = join(CONFIG_DIR, 'config.json');
+
+const DEFAULT_CONFIG: Config = { defaultPreset: 'standard', lastUsedTemplate: '' };
 
 export function ensureConfigDir() {
   if (!existsSync(CONFIG_DIR)) {
@@ -20,19 +23,8 @@ export function ensureConfigDir() {
   }
 }
 
-export function loadConfig(): Config {
-  ensureConfigDir();
-  if (!existsSync(CONFIG_FILE)) {
-    return { defaultPreset: 'standard', lastUsedTemplate: '' };
-  }
-  return JSON.parse(readFileSync(CONFIG_FILE, 'utf-8'));
-}
+const store = new JsonStore<Config>(CONFIG_FILE, DEFAULT_CONFIG, ensureConfigDir);
 
-export function saveConfig(config: Config) {
-  ensureConfigDir();
-  writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
-}
-
-export function getConfigDir() {
-  return CONFIG_DIR;
-}
+export const loadConfig = () => store.load();
+export const saveConfig = (config: Config) => store.save(config);
+export const getConfigDir = () => CONFIG_DIR;

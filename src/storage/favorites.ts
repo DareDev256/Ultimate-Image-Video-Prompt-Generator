@@ -1,23 +1,17 @@
 import { join } from 'path';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { getConfigDir, ensureConfigDir } from './config';
-
-const FAVORITES_FILE = join(getConfigDir(), 'favorites.json');
+import { JsonStore } from '../lib/json-store';
 
 export type Favorites = Record<string, string[]>;
 
-export function loadFavorites(): Favorites {
-  ensureConfigDir();
-  if (!existsSync(FAVORITES_FILE)) {
-    return {};
-  }
-  return JSON.parse(readFileSync(FAVORITES_FILE, 'utf-8'));
-}
+const store = new JsonStore<Favorites>(
+  join(getConfigDir(), 'favorites.json'),
+  {},
+  ensureConfigDir,
+);
 
-export function saveFavorites(favorites: Favorites) {
-  ensureConfigDir();
-  writeFileSync(FAVORITES_FILE, JSON.stringify(favorites, null, 2));
-}
+export const loadFavorites = () => store.load();
+export const saveFavorites = (favorites: Favorites) => store.save(favorites);
 
 export function addFavorite(field: string, value: string) {
   const favorites = loadFavorites();
@@ -25,9 +19,9 @@ export function addFavorite(field: string, value: string) {
     favorites[field] = [];
   }
   if (!favorites[field].includes(value)) {
-    favorites[field].unshift(value); // Add to front
+    favorites[field].unshift(value);
     if (favorites[field].length > 10) {
-      favorites[field] = favorites[field].slice(0, 10); // Keep max 10
+      favorites[field] = favorites[field].slice(0, 10);
     }
     saveFavorites(favorites);
   }
