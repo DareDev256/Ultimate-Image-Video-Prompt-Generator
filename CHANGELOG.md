@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.1] - 2026-02-13
+
+### Fixed
+- Fixed Passion Agent failures caused by hardcoded hook paths in `~/.claude/settings.json` — replaced `/Users/t./` with `$HOME` so hooks resolve correctly on both MacBook Pro and Mac Mini
+- Root-caused 6 consecutive agent failures: SessionEnd hook `session-auto-save.mjs` couldn't be found on Mac Mini (user `tdot`) because paths were synced from MacBook Pro (user `t.`) via Syncthing
+
+### Added
+- Unit tests for CLI argument parser (`src/cli/args.test.ts`) — 22 tests covering all 15 flag branches, shorthand aliases, pack comma-splitting, favorites subcommands, and combined flag handling
+
 ## [0.3.0] - 2026-02-12
 
 ### Changed

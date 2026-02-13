@@ -223,13 +223,14 @@ State persists across all page transitions via React Context + localStorage sync
 bun test
 ```
 
-Covers the composable section generators with tests for:
+120 tests across 6 test files covering:
 - Section ordering and output formatting
 - Action/body_position precedence logic
 - Deep nesting cleanup in JSON output
 - Unicode handling
 - Generator consistency between JSON and natural language modes
 - Storage layer (config, presets, favorites)
+- CLI argument parser (flags, shorthands, packs, presets, favorites subcommands)
 
 ## Design Philosophy
 
