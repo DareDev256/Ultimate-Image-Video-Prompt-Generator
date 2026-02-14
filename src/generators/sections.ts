@@ -4,9 +4,16 @@ import type { ImagePrompt } from '../types';
  * A PromptSection is a pure function that extracts and formats
  * one logical section of a prompt into natural language fragments.
  * Returns an empty array when the section has no data.
+ *
+ * All 13 sections are composed in {@link PROMPT_SECTIONS} and consumed
+ * by {@link generateNaturalLanguage} via `flatMap`. Each section is
+ * independently testable and reorderable.
+ *
+ * @returns string fragments to be joined with `. ` in the final prompt
  */
 export type PromptSection = (prompt: ImagePrompt) => string[];
 
+/** Extracts the top-level subject description — the seed of every prompt. */
 export const subjectSection: PromptSection = (prompt) => {
   if (prompt.subject?.description) {
     return [prompt.subject.description];
@@ -14,6 +21,7 @@ export const subjectSection: PromptSection = (prompt) => {
   return [];
 };
 
+/** Formats hair style and structure. Skips `structure` if identical to `style` to avoid redundancy. */
 export const hairSection: PromptSection = (prompt) => {
   const hair = prompt.subject?.hair;
   if (!hair) return [];
@@ -27,6 +35,7 @@ export const hairSection: PromptSection = (prompt) => {
   return parts;
 };
 
+/** Formats the main garment and optional hardware details as "wearing X with Y". */
 export const clothingSection: PromptSection = (prompt) => {
   const clothing = prompt.subject?.clothing;
   if (!clothing?.main_garment) return [];
@@ -37,6 +46,7 @@ export const clothingSection: PromptSection = (prompt) => {
   return parts;
 };
 
+/** Extracts action or body position. Action takes precedence — body_position is the fallback. */
 export const actionSection: PromptSection = (prompt) => {
   if (prompt.subject?.action) {
     return [prompt.subject.action];
@@ -47,6 +57,7 @@ export const actionSection: PromptSection = (prompt) => {
   return [];
 };
 
+/** Formats the location as "in {location}". */
 export const environmentSection: PromptSection = (prompt) => {
   if (prompt.environment?.location) {
     return [`in ${prompt.environment.location}`];
@@ -54,6 +65,7 @@ export const environmentSection: PromptSection = (prompt) => {
   return [];
 };
 
+/** Joins hands, jewelry, and footwear accessories into "with X, Y, Z". */
 export const accessoriesSection: PromptSection = (prompt) => {
   const acc = prompt.subject?.accessories;
   if (!acc) return [];
@@ -67,6 +79,7 @@ export const accessoriesSection: PromptSection = (prompt) => {
   return [];
 };
 
+/** Formats camera position and lens as "shot from {position}, {lens_mm} lens". */
 export const cameraSection: PromptSection = (prompt) => {
   const cam = prompt.scene?.camera;
   if (!cam) return [];
@@ -76,6 +89,7 @@ export const cameraSection: PromptSection = (prompt) => {
   return camParts.length > 0 ? [camParts.join(', ')] : [];
 };
 
+/** Extracts primary light source and its visual effect as separate fragments. */
 export const lightingSection: PromptSection = (prompt) => {
   const light = prompt.lighting;
   if (!light) return [];
@@ -85,6 +99,7 @@ export const lightingSection: PromptSection = (prompt) => {
   return parts;
 };
 
+/** Extracts mood and atmospheric elements as separate fragments. */
 export const atmosphereSection: PromptSection = (prompt) => {
   const parts: string[] = [];
   if (prompt.atmosphere?.mood) parts.push(prompt.atmosphere.mood);
@@ -92,6 +107,7 @@ export const atmosphereSection: PromptSection = (prompt) => {
   return parts;
 };
 
+/** Joins grain, lens quality, and date stamp into a single comma-separated fragment. Skips date_stamp if "none". */
 export const filmTextureSection: PromptSection = (prompt) => {
   const film = prompt.film_texture;
   if (!film) return [];
@@ -104,6 +120,7 @@ export const filmTextureSection: PromptSection = (prompt) => {
   return filmParts.length > 0 ? [filmParts.join(', ')] : [];
 };
 
+/** Formats vibes array with contextual phrasing: 1→"X aesthetic", 2→"X meets Y energy", 3+→"X, Y and Z influences". */
 export const vibesSection: PromptSection = (prompt) => {
   if (!prompt.vibes || prompt.vibes.length === 0) return [];
   if (prompt.vibes.length === 1) {
@@ -115,6 +132,7 @@ export const vibesSection: PromptSection = (prompt) => {
   return [`${prompt.vibes.slice(0, -1).join(', ')} and ${prompt.vibes[prompt.vibes.length - 1]} influences`];
 };
 
+/** Formats the aspect ratio as "{ratio} aspect ratio". */
 export const technicalSection: PromptSection = (prompt) => {
   if (prompt.technical?.aspect_ratio) {
     return [`${prompt.technical.aspect_ratio} aspect ratio`];
@@ -122,6 +140,7 @@ export const technicalSection: PromptSection = (prompt) => {
   return [];
 };
 
+/** Extracts the color grade as a standalone fragment. */
 export const colorSection: PromptSection = (prompt) => {
   if (prompt.color?.grade) {
     return [prompt.color.grade];

@@ -205,6 +205,8 @@ ImagePrompt → [subjectSection, hairSection, clothingSection, ...13 total] → 
 
 Sections can be composed, reordered, or extended without touching other sections. The natural language generator is just 18 lines — a `flatMap` over the section array.
 
+All types, section generators, and output formatters are fully documented with TSDoc — including `@example` blocks, `{@link}` cross-references, and field-level descriptions for every property in the `ImagePrompt` type tree.
+
 ### Web App Page Flow
 
 ```

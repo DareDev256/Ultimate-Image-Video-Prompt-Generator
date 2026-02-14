@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.1] - 2026-02-14
+
+### Added
+- Comprehensive TSDoc for the entire `ImagePrompt` type tree (`src/types/prompt.ts`) — every interface and field now has descriptions, examples, and cross-references
+- JSDoc for all 13 section generators in `sections.ts` — documents output format, precedence rules, and edge cases
+- JSDoc for `generateNaturalLanguage`, `generateJSON`, `generateCompactJSON`, and `cleanObject` with `@example` blocks and `{@link}` references
+- Architecture note in README referencing inline documentation
+
 ## [0.4.0] - 2026-02-14
 
 ### Changed
