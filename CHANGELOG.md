@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.4.2] - 2026-02-14
+
+### Added
+- Unit tests for all 13 section generator functions (`src/generators/sections.test.ts`) — 56 tests covering empty inputs, partial data, deduplication logic (hair style vs structure), action/body_position precedence, accessory field filtering, film texture date_stamp "none" exclusion, vibes formatting tiers (1/2/3+/4+), and PROMPT_SECTIONS pipeline order verification
+
 ## [0.4.1] - 2026-02-14
 
 ### Added

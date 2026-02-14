@@ -225,7 +225,8 @@ State persists across all page transitions via React Context + localStorage sync
 bun test
 ```
 
-149 tests across 8 test files covering:
+205 tests across 9 test files covering:
+- **Section generators** — all 13 pure functions tested in isolation (edge cases, empty inputs, dedup logic, fallback precedence)
 - Section ordering and output formatting
 - Action/body_position precedence logic
 - Deep nesting cleanup in JSON output
