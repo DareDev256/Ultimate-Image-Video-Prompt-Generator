@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback } from 'react';
+import { useLocalStorage } from './useLocalStorage';
 
 const FREE_TIER_LIMIT = 10;
-const STORAGE_KEY = 'freeTierUsage';
 
 interface FreeTierUsage {
   count: number;
@@ -14,68 +14,34 @@ function getTodayDate(): string {
   return new Date().toISOString().split('T')[0];
 }
 
-function getStoredUsage(): FreeTierUsage {
-  if (typeof window === 'undefined') {
-    return { count: 0, date: getTodayDate() };
-  }
-
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      const usage = JSON.parse(stored) as FreeTierUsage;
-      // Reset if it's a new day
-      if (usage.date !== getTodayDate()) {
-        return { count: 0, date: getTodayDate() };
-      }
-      return usage;
-    }
-  } catch {
-    // Invalid stored data
-  }
-
-  return { count: 0, date: getTodayDate() };
-}
-
-function saveUsage(usage: FreeTierUsage): void {
-  if (typeof window === 'undefined') return;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(usage));
-}
-
 export function useFreeTier() {
-  const [usage, setUsage] = useState<FreeTierUsage>({ count: 0, date: getTodayDate() });
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [usage, setUsage, isLoaded] = useLocalStorage<FreeTierUsage>(
+    'freeTierUsage',
+    { count: 0, date: getTodayDate() }
+  );
 
-  // Load usage on mount
-  useEffect(() => {
-    const stored = getStoredUsage();
-    setUsage(stored);
-    setIsLoaded(true);
-  }, []);
-
-  const remaining = Math.max(0, FREE_TIER_LIMIT - usage.count);
+  // Auto-reset on day change: if stored date differs from today, treat as zero
+  const effectiveCount = usage.date === getTodayDate() ? usage.count : 0;
+  const remaining = Math.max(0, FREE_TIER_LIMIT - effectiveCount);
   const canUseFreeTier = remaining > 0;
 
   const incrementUsage = useCallback(() => {
     setUsage((prev) => {
       const today = getTodayDate();
-      const newUsage = {
+      return {
         count: prev.date === today ? prev.count + 1 : 1,
         date: today,
       };
-      saveUsage(newUsage);
-      return newUsage;
     });
-  }, []);
+  }, [setUsage]);
 
   const resetUsage = useCallback(() => {
-    const newUsage = { count: 0, date: getTodayDate() };
-    saveUsage(newUsage);
-    setUsage(newUsage);
-  }, []);
+    setUsage({ count: 0, date: getTodayDate() });
+  }, [setUsage]);
 
   return {
     remaining,
-    used: usage.count,
+    used: effectiveCount,
     limit: FREE_TIER_LIMIT,
     canUseFreeTier,
     isLoaded,

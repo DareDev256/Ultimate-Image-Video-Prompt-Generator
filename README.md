@@ -171,7 +171,7 @@ Add `GEMINI_API_KEY` as an environment variable in your Vercel dashboard to enab
 │   │   │   ├── effects/          # Canvas particle system
 │   │   │   └── inspiration/      # Gallery panel, search, filters, cards
 │   │   ├── context/              # WizardContext (state + persistence), SoundContext
-│   │   ├── hooks/                # useFavorites, useFreeTier, useInspirationData, usePatterns
+│   │   ├── hooks/                # useLocalStorage, useFavorites, useFreeTier, useInspirationData, usePatterns
 │   │   └── lib/                  # Categories, sounds
 │   └── public/data/              # Prompt library, patterns, showcase metadata
 │

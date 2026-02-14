@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0] - 2026-02-14
+
+### Changed
+- Extracted generic `useLocalStorage<T>` hook (`web/src/hooks/useLocalStorage.ts`) — typed, SSR-safe localStorage sync with cross-tab updates via `StorageEvent`
+- Refactored `useFavorites` to use `useLocalStorage` — eliminated manual load/save boilerplate, fixed stale-closure bug in `toggleFavorite` by making it atomic
+- Refactored `useFreeTier` to use `useLocalStorage` — removed standalone `getStoredUsage`/`saveUsage` functions, reduced from 86 to 52 lines
+
 ## [0.3.2] - 2026-02-13
 
 ### Added
