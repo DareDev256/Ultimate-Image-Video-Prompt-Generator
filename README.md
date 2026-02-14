@@ -223,7 +223,7 @@ State persists across all page transitions via React Context + localStorage sync
 bun test
 ```
 
-120 tests across 6 test files covering:
+149 tests across 8 test files covering:
 - Section ordering and output formatting
 - Action/body_position precedence logic
 - Deep nesting cleanup in JSON output
@@ -231,6 +231,9 @@ bun test
 - Generator consistency between JSON and natural language modes
 - Storage layer (config, presets, favorites)
 - CLI argument parser (flags, shorthands, packs, presets, favorites subcommands)
+- JsonStore persistence (file I/O, defaults, deep-clone isolation, roundtripping)
+- Pack composition and preset expansion (deduplication, always-core invariant, full coverage)
+- Template registry (lookup, listing, data integrity, uniqueness constraints)
 
 ## Design Philosophy
 

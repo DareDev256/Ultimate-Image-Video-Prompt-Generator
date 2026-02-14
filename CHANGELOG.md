@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.2] - 2026-02-13
+
+### Added
+- Unit tests for `JsonStore` (`src/lib/json-store.test.ts`) — 11 tests covering load defaults, deep-clone isolation, save/overwrite, roundtripping complex structures, exists check, and ensureDir callback
+- Unit tests for packs and templates (`src/core/core.test.ts`) — 18 tests covering pack composition, preset expansion, deduplication, always-include-core invariant, full-coverage assertion, template integrity, unique names, and listing API surface
+
 ## [0.3.1] - 2026-02-13
 
 ### Fixed
