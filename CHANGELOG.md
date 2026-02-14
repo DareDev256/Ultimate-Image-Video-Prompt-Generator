@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.3] - 2026-02-14
+
+### Security
+- Added HTTP security headers middleware (`web/src/middleware.ts`) — CSP, HSTS, X-Frame-Options (DENY), X-Content-Type-Options (nosniff), Referrer-Policy, Permissions-Policy
+- CSP restricts script/style/image/connect sources to only trusted origins (self + Google Fonts + 3 AI API endpoints + GitHub/YouMind CDN)
+- Blocks clickjacking via `frame-ancestors 'none'` + `X-Frame-Options: DENY`
+- Disables unnecessary browser APIs (camera, microphone, geolocation, payment) via Permissions-Policy
+- Full security audit: npm audit clean, bun audit clean, no hardcoded secrets, no dependency vulnerabilities
+
 ## [0.3.2] - 2026-02-13
 
 ### Added

@@ -91,6 +91,7 @@ bun run index.ts --favorites list         # Manage favorite suggestions
 - Direct API calls from your browser (except free tier)
 - Server-side input validation: prompt length limits, control character stripping, API key format validation
 - Rate limiting on free tier (10 generations/day per client)
+- HTTP security headers via middleware: CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy
 
 ## Tech Stack
 
