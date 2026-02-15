@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.5] - 2026-02-15
+
+### Added
+- API reference documentation (`docs/API.md`) covering all three generation endpoints (Nano Banana, DALL-E 3, Kling) with request/response schemas, validation rules, error codes, and rate limiting behavior
+- Full CLI command reference with all flags, shortcuts, and usage examples
+- Validation rules table documenting prompt length limits, control character stripping, and API key format requirements
+- Documentation section in README linking to API reference and contributing guide
+
 ## [0.4.4] - 2026-02-15
 
 ### Changed

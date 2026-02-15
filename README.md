@@ -295,6 +295,11 @@ The Inspiration Gallery includes curated prompts from [@songguoxs](https://githu
 - **[gpt4o-image-prompts](https://github.com/songguoxs/gpt4o-image-prompts)** — 1,180+ curated image prompts
 - **[awesome-video-prompts](https://github.com/songguoxs/awesome-video-prompts)** — 50+ Veo3/Kling video prompts
 
+## Documentation
+
+- **[API Reference](./docs/API.md)** — Generation endpoints, CLI commands, validation rules, and error codes
+- **[Contributing Guide](./CONTRIBUTING.md)** — Code style, component patterns, and PR process
+
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines. Bug reports, feature suggestions, and pull requests are welcome.
