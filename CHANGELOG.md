@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.4.4] - 2026-02-15
+
+### Changed
+- Redesigned README as a portfolio-grade landing page with centered hero section, test count badge, and "Why This Exists" value proposition
+- Added Quick Start section for instant onboarding (clone → run in 2 commands)
+- Replaced ASCII architecture diagrams with Mermaid flowcharts (renders natively on GitHub)
+- Restructured testing section as a scannable table with per-module test counts
+- Converted Challenges & Solutions from prose paragraphs to a comparison table
+- Promoted Privacy & Security to its own top-level section
+- Added back-to-top navigation link and centered footer
+
 ## [0.4.3] - 2026-02-15
 
 ### Added

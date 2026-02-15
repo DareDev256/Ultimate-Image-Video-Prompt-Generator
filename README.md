@@ -1,96 +1,109 @@
-# Ultimate Image & Video Prompt Generator
+<div align="center">
 
-> Dual-platform AI prompt builder — a Flash-era web wizard **and** a powerful CLI — that walks you through crafting hyper-detailed image and video prompts, then generates them with your choice of model.
+# 🎬 Ultimate Image & Video Prompt Generator
 
-**[Try the Live Demo](https://web-ten-vert-46.vercel.app)** · [Report Bug](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues) · [Request Feature](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues)
+**Craft hyper-detailed AI image and video prompts through a guided wizard — on the web or in your terminal.**
+
+A dual-platform prompt builder with a Flash Site Era (2002-2006) aesthetic that turns prompt engineering from guesswork into a guided creative process.
+
+**[🚀 Try the Live Demo](https://web-ten-vert-46.vercel.app)** · [Report Bug](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues) · [Request Feature](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues)
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?style=flat-square&logo=tailwindcss)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-ff69b4?style=flat-square&logo=framer)
 ![Bun](https://img.shields.io/badge/Bun-runtime-f9f1e1?style=flat-square&logo=bun)
+![Tests](https://img.shields.io/badge/Tests-248_passing-brightgreen?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
-## Screenshots
+</div>
+
+---
 
 | Landing Page | Model Selection | Wizard |
 |:---:|:---:|:---:|
 | ![Landing](./screenshots/intro-loading.png) | ![Models](./screenshots/model-selection.png) | ![Wizard](./screenshots/wizard-step.png) |
 
-## Two Ways to Create
+## Quick Start
 
-### Web App — Visual Wizard
+```bash
+# Web app (no API key needed — free tier included)
+git clone https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator.git
+cd Ultimate-Image-Video-Prompt-Generator/web && npm install && npm run dev
 
-A step-by-step guided experience with a Flash Site Era (2002-2006) aesthetic. Choose your model, walk through 9-11 categories, preview your assembled prompt, and generate — all in the browser.
+# CLI tool
+cd Ultimate-Image-Video-Prompt-Generator && bun install && bun run index.ts
+```
 
-### CLI Tool — Terminal Power
+Open [localhost:3000](http://localhost:3000) and start generating — the free tier gives you 10 Nano Banana generations per day, no key required.
+
+## Why This Exists
+
+Most AI image tools give you a blank text box and wish you luck. This project solves that with **guided prompt engineering** — walking you through 13 categories (subject, camera, lighting, atmosphere, etc.) with curated suggestions for each field, then assembling everything into the exact format your chosen model expects.
+
+The result: prompts that are 10× more detailed than what you'd write freehand, produced in a fraction of the time.
+
+## Two Platforms, One Pipeline
+
+### 🌐 Web App — Visual Wizard
+
+A step-by-step guided experience with theatrical animations, particle effects, and a neon UI. Choose your model, walk through 9-11 categories, preview your assembled prompt, and generate — all in the browser.
+
+### ⌨️ CLI Tool — Terminal Power
 
 An interactive terminal interface for rapid prompt building with presets, templates, favorites, and image-to-prompt reverse engineering. Built on Bun with `@clack/prompts`.
-
-## Features
-
-### Guided Prompt Building
-
-- **13 deep categories** with 3-7 fields each: Subject, Camera, Fashion, Environment, Lighting, Atmosphere, Composition, Color, Film, Technical, Vibes, and more
-- **Curated suggestions** per field (8-10 hyper-specific options like "six thick rope braids radiating outward from skull")
-- **Randomize** button for instant inspiration
-- **Keyboard navigation** with smart focus detection
-
-### Multi-Model Generation
-
-| Model | Type | Prompt Format | Free Tier |
-|-------|------|--------------|-----------|
-| **Nano Banana** (Gemini) | Image | Structured JSON | 10/day |
-| **DALL-E 3** (OpenAI) | Image | Natural language | BYOK only |
-| **Kling** | Video (5s/10s) | Natural language | BYOK only |
-
-- **Free Tier** — Try Nano Banana without an API key (10 generations/day, server-side Gemini)
-- **BYOK** — Bring Your Own Keys for unlimited use (keys stored in localStorage only)
-
-### Inspiration Gallery
-
-- **1,180+ curated image prompts** from the community
-- **50+ video prompts** for Veo3/Kling/Hailuo
-- Search and filter by tags (fashion, portrait, 3D, anime, etc.)
-- Save favorites for quick access
-- **"Use as Template"** to pre-fill the wizard
-- **Pattern library** — extracted lighting setups, camera angles, moods, and styles from across all 1,180+ prompts
-
-### Generation Flow
-
-- Live preview of assembled prompt (JSON or natural language depending on model)
-- Animated generation progress
-- **Love It / Tweak It / Remix** result actions
-- Gallery to save and revisit creations
-- 30 pre-generated **Showcase** examples
-
-### CLI Power Features
 
 ```bash
 bun run index.ts                          # Interactive wizard
 bun run index.ts --analyze photo.png      # Reverse-engineer a prompt from an image
 bun run index.ts --template "Subway Flash" # Start from a built-in template
-bun run index.ts --preset fashion         # Use a category pack (quick/standard/full/fashion/street)
-bun run index.ts --load my-preset         # Load a saved preset
-bun run index.ts --list-templates         # Browse available templates
+bun run index.ts --preset fashion         # Use a category pack
 bun run index.ts --favorites list         # Manage favorite suggestions
 ```
 
-### API Key Pricing
+## Features
+
+### 🎯 Guided Prompt Building
+
+- **13 deep categories** with 3-7 fields each — Subject, Camera, Fashion, Environment, Lighting, Atmosphere, Composition, Color, Film, Technical, Vibes, and more
+- **Curated suggestions** per field (8-10 hyper-specific options like "six thick rope braids radiating outward from skull")
+- **Randomize** button for instant inspiration
+- **Keyboard navigation** with smart focus detection
+
+### 🤖 Multi-Model Generation
+
+| Model | Type | Prompt Format | Free Tier |
+|-------|------|--------------|-----------|
+| **Nano Banana** (Gemini) | Image | Structured JSON | ✅ 10/day |
+| **DALL-E 3** (OpenAI) | Image | Natural language | BYOK only |
+| **Kling** | Video (5s/10s) | Natural language | BYOK only |
+
+- **Free Tier** — Try Nano Banana without an API key (10 generations/day, server-side Gemini)
+- **BYOK** — Bring Your Own Keys for unlimited use (keys stored in `localStorage` only)
+
+### 💡 Inspiration Gallery
+
+- **1,180+ curated image prompts** from the community
+- **50+ video prompts** for Veo3/Kling/Hailuo
+- Search and filter by tags (fashion, portrait, 3D, anime, etc.)
+- **"Use as Template"** to pre-fill the wizard from any community prompt
+- **Pattern library** — extracted lighting setups, camera angles, moods, and styles
+
+### 🎨 Generation Flow
+
+- Live preview of assembled prompt (JSON or natural language depending on model)
+- Animated generation progress with theatrical transitions
+- **Love It / Tweak It / Remix** result actions
+- Gallery to save and revisit creations
+- 30 pre-generated **Showcase** examples
+
+### 💰 API Key Pricing
 
 | Model | Provider | Cost per Image | Get a Key |
 |-------|----------|---------------|-----------|
 | Nano Banana | Google Gemini | ~$0.03 | [ai.google.dev](https://ai.google.dev/tutorials/setup) |
 | DALL-E 3 | OpenAI | ~$0.04–0.12 | [platform.openai.com](https://platform.openai.com/api-keys) |
 | Kling | Kling AI | Varies | [klingai.com](https://klingai.com) |
-
-### Privacy & Security
-
-- API keys stored in `localStorage` only — never sent to any server
-- No server-side storage of prompts or images
-- Direct API calls from your browser (except free tier)
-- Server-side input validation: prompt length limits, control character stripping, API key format validation
-- Rate limiting on free tier (10 generations/day per client)
 
 ## Tech Stack
 
@@ -101,7 +114,7 @@ bun run index.ts --favorites list         # Manage favorite suggestions
 | Styling | Tailwind CSS v4 | picocolors |
 | Animations | Framer Motion 12 | — |
 | UI | React 19 + Lucide icons | @clack/prompts |
-| State | React Context + localStorage | File-based storage |
+| State | React Context + localStorage | File-based (JsonStore) |
 | APIs | Gemini, OpenAI, Kling | Gemini Vision (analyzer) |
 
 ## Getting Started
@@ -109,7 +122,7 @@ bun run index.ts --favorites list         # Manage favorite suggestions
 ### Prerequisites
 
 - **Node.js 18+** (web) or **Bun** (CLI + web)
-- API keys (optional — free tier available for Nano Banana):
+- API keys are optional — the free tier works out of the box:
   - [Google AI Studio](https://ai.google.dev/tutorials/setup) — Gemini / Nano Banana
   - [OpenAI Platform](https://platform.openai.com/api-keys) — DALL-E 3
   - [Kling AI](https://klingai.com) — Video
@@ -145,13 +158,47 @@ User-provided API keys (Gemini, OpenAI, Kling) are entered in the browser at `/s
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator&root-directory=web)
 
-Or manually:
-
 ```bash
+# Or manually
 cd web && npm run build && npx vercel --prod
 ```
 
-Add `GEMINI_API_KEY` as an environment variable in your Vercel dashboard to enable the free tier for your users.
+Add `GEMINI_API_KEY` as an environment variable in Vercel to enable the free tier for your users.
+
+## Architecture
+
+### Composable Section Pipeline
+
+The prompt generator uses a **functional pipeline** where each prompt section is an independent pure function:
+
+```mermaid
+flowchart LR
+    A[ImagePrompt] --> B["13 Section Functions<br/>(subject, hair, clothing,<br/>camera, environment...)"]
+    B --> C[flatMap]
+    C --> D{Output Format}
+    D -->|Nano Banana| E[Structured JSON]
+    D -->|DALL-E / Kling| F[Natural Language]
+```
+
+Sections can be composed, reordered, or extended without touching other sections. The natural language generator is just **18 lines** — a `flatMap` over the section array.
+
+### Web App Page Flow
+
+```mermaid
+flowchart LR
+    A["/ <br/>Theatrical Intro"] --> B["/create<br/>Model Selection"]
+    B --> C["/create/[model]<br/>Wizard Steps"]
+    C --> D["/preview<br/>Assembled Prompt"]
+    C --> Q["/quick<br/>Freeform Mode"]
+    D --> E["/generate<br/>API Call + Progress"]
+    E --> F["/result<br/>Love It / Tweak It / Remix"]
+```
+
+State persists across all page transitions via React Context + localStorage sync, surviving Framer Motion route animations.
+
+### Inline Documentation
+
+All types, section generators, and output formatters are documented with TSDoc — including `@example` blocks, `{@link}` cross-references, and field-level descriptions for every property in the `ImagePrompt` type tree.
 
 ## Project Structure
 
@@ -171,7 +218,7 @@ Add `GEMINI_API_KEY` as an environment variable in your Vercel dashboard to enab
 │   │   │   ├── effects/          # Canvas particle system
 │   │   │   └── inspiration/      # Gallery panel, search, filters, cards
 │   │   ├── context/              # WizardContext (state + persistence), SoundContext
-│   │   ├── hooks/                # useLocalStorage, useFavorites, useFreeTier, useInspirationData, usePatterns
+│   │   ├── hooks/                # useLocalStorage, useFavorites, useFreeTier, useInspirationData
 │   │   └── lib/                  # Categories, sounds
 │   └── public/data/              # Prompt library, patterns, showcase metadata
 │
@@ -193,53 +240,24 @@ Add `GEMINI_API_KEY` as an environment variable in your Vercel dashboard to enab
 └── docs/                         # Design documents and plans
 ```
 
-## Architecture
-
-### Composable Section Pipeline
-
-The prompt generator uses a **functional pipeline** architecture. Each prompt section is an independent pure function that extracts and formats one concern:
-
-```
-ImagePrompt → [subjectSection, hairSection, clothingSection, ...13 total] → flatMap → join → final prompt
-```
-
-Sections can be composed, reordered, or extended without touching other sections. The natural language generator is just 18 lines — a `flatMap` over the section array.
-
-All types, section generators, and output formatters are fully documented with TSDoc — including `@example` blocks, `{@link}` cross-references, and field-level descriptions for every property in the `ImagePrompt` type tree.
-
-### Web App Page Flow
-
-```
-/ (Intro) → /create (Model Selection) → /create/[model] (Wizard Steps)
-                                          ├── /quick (Freeform mode)
-                                          ├── /preview (Assembled prompt)
-                                          ├── /generate (API call + progress)
-                                          └── /result (Love It / Tweak It / Remix)
-```
-
-State persists across all page transitions via React Context + localStorage sync, surviving Framer Motion route animations.
-
 ## Testing
 
 ```bash
 bun test
 ```
 
-248 tests across 12 test files covering:
-- **Section generators** — all 13 pure functions tested in isolation (edge cases, empty inputs, dedup logic, fallback precedence)
-- Section ordering and output formatting
-- Action/body_position precedence logic
-- Deep nesting cleanup in JSON output
-- Unicode handling
-- Generator consistency between JSON and natural language modes
-- Storage layer (config, presets, favorites)
-- CLI argument parser (flags, shorthands, packs, presets, favorites subcommands)
-- JsonStore persistence (file I/O, defaults, deep-clone isolation, roundtripping)
-- Pack composition and preset expansion (deduplication, always-core invariant, full coverage)
-- Template registry (lookup, listing, data integrity, uniqueness constraints)
-- **Category data integrity** — unique names/emojis, field key dot-notation, no duplicate keys, suggestion validity
-- **Display text wrapping** — word boundaries, unicode, edge cases, displayOutput integration
-- **Gemini analyzer** — error paths (missing key, missing file), MIME detection, JSON markdown stripping
+**248 tests** across 12 test files:
+
+| Module | Tests | Coverage |
+|--------|-------|----------|
+| Section generators | 56 | All 13 pure functions — edge cases, dedup, fallback precedence |
+| Category data integrity | 16 | Unique names/emojis, field keys, suggestion validity |
+| CLI argument parser | 22 | All 15 flags, shorthands, pack splitting, subcommands |
+| JsonStore persistence | 11 | File I/O, defaults, deep-clone isolation, roundtripping |
+| Pack/template registry | 18 | Composition, dedup, always-core invariant, uniqueness |
+| Display text wrapping | 11 | Word boundaries, unicode, edge cases |
+| Gemini analyzer | 14 | Error paths, MIME detection, markdown stripping |
+| Prompt building | — | Ordering, nesting cleanup, unicode, JSON/NL consistency |
 
 ## Design Philosophy
 
@@ -255,23 +273,26 @@ This project embraces the **Flash Site Era** aesthetic (2002-2006) — when webs
 
 ## Challenges & Solutions
 
-**State Persistence Across Animated Page Transitions**
-Framer Motion page transitions unmount components, losing wizard state. Solved with React Context + localStorage sync to persist selections across route changes while maintaining smooth animations.
+| Challenge | Solution |
+|-----------|----------|
+| **State loss during page transitions** | Framer Motion unmounts components on route change. Solved with React Context + localStorage sync to persist wizard state across animated transitions. |
+| **Keyboard nav vs. text input** | Arrow keys conflicted with suggestion field typing. Implemented focus detection to disable shortcuts during input, re-enable on blur. |
+| **Canvas particle performance** | Frame drops on lower-end devices. Reduced particle count, added `requestAnimationFrame` throttling and `will-change` GPU hints. |
+| **Multi-model prompt formats** | Each AI model expects different formats. Built a unified generation interface with model-specific adapters (JSON for Nano Banana, natural language for DALL-E/Kling). |
 
-**Keyboard Navigation in Dynamic Content**
-Arrow key navigation conflicted with text input in suggestion fields. Implemented focus detection to disable keyboard shortcuts when users are typing, with automatic re-enabling on blur.
+## Privacy & Security
 
-**Performance with Canvas Particle Systems**
-Initial particle implementation caused frame drops on lower-end devices. Reduced particle count, implemented `requestAnimationFrame` throttling, and added `will-change` hints for GPU acceleration.
-
-**Multi-Model API Abstraction**
-Each AI model has different prompt formats and response structures. Created a unified generation interface with model-specific adapters that transform wizard output into the appropriate format (JSON for Nano Banana, natural language for DALL-E/Kling).
+- API keys stored in `localStorage` only — **never sent to any server**
+- No server-side storage of prompts or images
+- Direct API calls from your browser (except free tier)
+- Server-side input validation: prompt length limits, control character stripping, API key format checks
+- Rate limiting on free tier (10 generations/day per client)
 
 ## Community Prompts Attribution
 
 The Inspiration Gallery includes curated prompts from [@songguoxs](https://github.com/songguoxs):
 
-- **[gpt4o-image-prompts](https://github.com/songguoxs/gpt4o-image-prompts)** — Image prompt collection (1,180+ curated prompts)
+- **[gpt4o-image-prompts](https://github.com/songguoxs/gpt4o-image-prompts)** — 1,180+ curated image prompts
 - **[awesome-video-prompts](https://github.com/songguoxs/awesome-video-prompts)** — 50+ Veo3/Kling video prompts
 
 ## Contributing
@@ -284,4 +305,10 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines. Bug reports, feature su
 
 ---
 
+<div align="center">
+
 Built with caffeine and nostalgia for the early 2000s web.
+
+**[⬆ Back to Top](#-ultimate-image--video-prompt-generator)**
+
+</div>
