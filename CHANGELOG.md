@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.3] - 2026-02-15
+
+### Added
+- Unit tests for category data integrity (`src/core/categories.test.ts`) — 16 tests validating all 13 categories are in `allCategories` and `categoryMap`, unique names and emojis, field key dot-notation validity, no duplicate keys across categories, non-empty suggestions, and core category prompt_type/subject.description presence
+- Unit tests for display text wrapping (`src/cli/display.test.ts`) — 11 tests covering word-boundary wrapping, exact-width boundaries, long words exceeding width, unicode wrapping, empty input, and displayOutput integration via console capture
+- Unit tests for Gemini analyzer error paths and parsing (`src/analyzer/gemini.test.ts`) — 14 tests covering missing API key error, missing file error, JSON markdown fence stripping (`\`\`\`json` and plain `\`\`\``), MIME type detection for all 5 supported formats plus fallback, and documents a known limitation where triple backticks inside JSON string values get silently stripped
+
 ## [0.4.2] - 2026-02-14
 
 ### Added

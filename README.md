@@ -225,7 +225,7 @@ State persists across all page transitions via React Context + localStorage sync
 bun test
 ```
 
-205 tests across 9 test files covering:
+248 tests across 12 test files covering:
 - **Section generators** — all 13 pure functions tested in isolation (edge cases, empty inputs, dedup logic, fallback precedence)
 - Section ordering and output formatting
 - Action/body_position precedence logic
@@ -237,6 +237,9 @@ bun test
 - JsonStore persistence (file I/O, defaults, deep-clone isolation, roundtripping)
 - Pack composition and preset expansion (deduplication, always-core invariant, full coverage)
 - Template registry (lookup, listing, data integrity, uniqueness constraints)
+- **Category data integrity** — unique names/emojis, field key dot-notation, no duplicate keys, suggestion validity
+- **Display text wrapping** — word boundaries, unicode, edge cases, displayOutput integration
+- **Gemini analyzer** — error paths (missing key, missing file), MIME detection, JSON markdown stripping
 
 ## Design Philosophy
 
