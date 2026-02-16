@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.3] - 2026-02-16
+
+### Added
+- Cross-cutting test suite (`src/cross-cutting.test.ts`) — 24 tests covering cross-format consistency (NL vs JSON generators stay in sync on the same ImagePrompt), cleanObject edge cases (nested array filtering, deep empty object collapse, falsy value preservation), PROMPT_SECTIONS pipeline invariants (purity, return type contracts, fragment validation), and parseArgs boundary conditions (missing flag values, unknown flags, trailing commas)
+- Documents intentional asymmetry: `semantic_negatives` is JSON-only, no NL section handles it
+- Total tests: 327 (up from 303)
+
 ## [0.5.2] - 2026-02-16
 
 ### Added
