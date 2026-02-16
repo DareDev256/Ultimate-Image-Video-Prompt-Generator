@@ -13,7 +13,7 @@ A dual-platform prompt builder with a Flash Site Era (2002-2006) aesthetic that 
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?style=flat-square&logo=tailwindcss)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-ff69b4?style=flat-square&logo=framer)
 ![Bun](https://img.shields.io/badge/Bun-runtime-f9f1e1?style=flat-square&logo=bun)
-![Tests](https://img.shields.io/badge/Tests-267_passing-brightgreen?style=flat-square)
+![Tests](https://img.shields.io/badge/Tests-303_passing-brightgreen?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
 </div>
@@ -247,11 +247,12 @@ All types, section generators, and output formatters are documented with TSDoc �
 bun test
 ```
 
-**261 tests** across 13 test files:
+**303 tests** across 14 test files:
 
 | Module | Tests | Coverage |
 |--------|-------|----------|
 | Section generators | 56 | All 13 pure functions — edge cases, dedup, fallback precedence |
+| Template→pipeline integration | 36 | Every template through NL+JSON generators, merge behavior, data integrity |
 | Category data integrity | 16 | Unique names/emojis, field keys, suggestion validity |
 | CLI argument parser | 22 | All 15 flags, shorthands, pack splitting, subcommands |
 | JsonStore persistence | 11 | File I/O, defaults, deep-clone isolation, roundtripping |

@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.2] - 2026-02-16
+
+### Added
+- Template-through-pipeline integration tests (`src/core/templates.test.ts`) — 36 tests verifying every built-in template produces valid natural language and JSON output, vibes survive the pipeline, deep nested fields survive cleanObject, template merging with user data works correctly, and template data integrity (slug format, description length, aspect ratio consistency)
+- Total tests: 303 (up from 267)
+
 ## [0.5.1] - 2026-02-16
 
 ### Fixed
