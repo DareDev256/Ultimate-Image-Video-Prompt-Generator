@@ -24,6 +24,21 @@ A dual-platform prompt builder with a Flash Site Era (2002-2006) aesthetic that 
 |:---:|:---:|:---:|
 | ![Landing](./screenshots/intro-loading.png) | ![Models](./screenshots/model-selection.png) | ![Wizard](./screenshots/wizard-step.png) |
 
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [How It Works](#how-it-works)
+- [Two Platforms, One Pipeline](#two-platforms-one-pipeline)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Architecture](#architecture)
+- [Testing](#testing)
+- [Design Philosophy](#design-philosophy)
+- [Privacy & Security](#privacy--security)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+
 ## Quick Start
 
 ```bash
@@ -36,6 +51,22 @@ cd Ultimate-Image-Video-Prompt-Generator && bun install && bun run index.ts
 ```
 
 Open [localhost:3000](http://localhost:3000) and start generating — the free tier gives you 10 Nano Banana generations per day, no key required.
+
+## How It Works
+
+```
+┌─────────────────┐     ┌──────────────────────┐     ┌─────────────────────┐
+│  1. CHOOSE       │     │  2. BUILD             │     │  3. GENERATE         │
+│                  │     │                       │     │                      │
+│  Pick your AI    │ ──▸ │  Walk through 13      │ ──▸ │  One click sends     │
+│  model: Nano     │     │  guided categories    │     │  your assembled      │
+│  Banana, DALL-E  │     │  with curated         │     │  prompt to the API   │
+│  3, or Kling     │     │  suggestions per      │     │  and returns your    │
+│                  │     │  field                │     │  generated image     │
+└─────────────────┘     └──────────────────────┘     └─────────────────────┘
+```
+
+> **Quick Mode** — Don't want to fill every field? Describe your idea in one sentence and let AI expand it into a full 13-category prompt automatically.
 
 ## Why This Exists
 
@@ -67,6 +98,7 @@ bun run index.ts --favorites list         # Manage favorite suggestions
 
 - **13 deep categories** with 3-7 fields each — Subject, Camera, Fashion, Environment, Lighting, Atmosphere, Composition, Color, Film, Technical, Vibes, and more
 - **Curated suggestions** per field (8-10 hyper-specific options like "six thick rope braids radiating outward from skull")
+- **Quick Mode** — describe your idea in plain English, AI expands to full structured prompt
 - **Randomize** button for instant inspiration
 - **Keyboard navigation** with smart focus detection
 
@@ -95,7 +127,7 @@ bun run index.ts --favorites list         # Manage favorite suggestions
 - Animated generation progress with theatrical transitions
 - **Love It / Tweak It / Remix** result actions
 - Gallery to save and revisit creations
-- 30 pre-generated **Showcase** examples
+- 30 pre-generated **Showcase** examples + 113 AI-generated community examples
 
 ### 💰 API Key Pricing
 
@@ -200,7 +232,8 @@ State persists across all page transitions via React Context + localStorage sync
 
 All types, section generators, and output formatters are documented with TSDoc — including `@example` blocks, `{@link}` cross-references, and field-level descriptions for every property in the `ImagePrompt` type tree.
 
-## Project Structure
+<details>
+<summary><strong>📁 Project Structure</strong></summary>
 
 ```
 .
@@ -241,25 +274,28 @@ All types, section generators, and output formatters are documented with TSDoc �
 └── docs/                         # Design documents and plans
 ```
 
+</details>
+
 ## Testing
 
 ```bash
 bun test
 ```
 
-**303 tests** across 14 test files:
+**327 tests** across 15 test files:
 
 | Module | Tests | Coverage |
 |--------|-------|----------|
 | Section generators | 56 | All 13 pure functions — edge cases, dedup, fallback precedence |
 | Template→pipeline integration | 36 | Every template through NL+JSON generators, merge behavior, data integrity |
-| Category data integrity | 16 | Unique names/emojis, field keys, suggestion validity |
+| Cross-cutting invariants | 24 | NL/JSON consistency, cleanObject edge cases, pipeline purity, parseArgs boundaries |
 | CLI argument parser | 22 | All 15 flags, shorthands, pack splitting, subcommands |
-| JsonStore persistence | 11 | File I/O, defaults, deep-clone isolation, roundtripping |
 | Pack/template registry | 18 | Composition, dedup, always-core invariant, uniqueness |
-| Display text wrapping | 11 | Word boundaries, unicode, edge cases |
+| Category data integrity | 16 | Unique names/emojis, field keys, suggestion validity |
 | Gemini analyzer | 14 | Error paths, MIME detection, markdown stripping |
 | Nested path utilities | 13 | Dot-notation get/set, missing paths, intermediate creation |
+| Display text wrapping | 11 | Word boundaries, unicode, edge cases |
+| JsonStore persistence | 11 | File I/O, defaults, deep-clone isolation, roundtripping |
 | Prompt building | — | Ordering, nesting cleanup, unicode, JSON/NL consistency |
 
 ## Design Philosophy
@@ -274,7 +310,8 @@ This project embraces the **Flash Site Era** aesthetic (2002-2006) — when webs
 - **Neon Palette** — Cyan `#00d4ff`, pink `#ff00aa`, green `#00ff88`, gold `#ffd700`
 - **Typography** — Orbitron (headings) + Exo 2 (body)
 
-## Challenges & Solutions
+<details>
+<summary><strong>🧩 Challenges & Solutions</strong></summary>
 
 | Challenge | Solution |
 |-----------|----------|
@@ -282,6 +319,8 @@ This project embraces the **Flash Site Era** aesthetic (2002-2006) — when webs
 | **Keyboard nav vs. text input** | Arrow keys conflicted with suggestion field typing. Implemented focus detection to disable shortcuts during input, re-enable on blur. |
 | **Canvas particle performance** | Frame drops on lower-end devices. Reduced particle count, added `requestAnimationFrame` throttling and `will-change` GPU hints. |
 | **Multi-model prompt formats** | Each AI model expects different formats. Built a unified generation interface with model-specific adapters (JSON for Nano Banana, natural language for DALL-E/Kling). |
+
+</details>
 
 ## Privacy & Security
 
@@ -315,7 +354,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines. Bug reports, feature su
 
 <div align="center">
 
-Built with caffeine and nostalgia for the early 2000s web.
+Built with caffeine and nostalgia for the early 2000s web by [DareDev256](https://github.com/DareDev256).
 
 **[⬆ Back to Top](#-ultimate-image--video-prompt-generator)**
 

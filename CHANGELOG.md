@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.4] - 2026-02-16
+
+### Changed
+- Upgraded README to portfolio-grade with table of contents for quick navigation
+- Added "How It Works" 3-step visual flow diagram for instant comprehension of the product
+- Promoted Quick Mode feature to prominent callout (was previously undocumented in README)
+- Updated testing section to reflect 327 tests across 15 test files (was stale at 303/14)
+- Added cross-cutting invariants row to test table (24 tests were missing from the table)
+- Wrapped Project Structure and Challenges & Solutions in collapsible `<details>` sections to reduce scroll fatigue
+- Added author attribution link in footer
+- Added showcase count detail (30 hand-picked + 113 AI-generated)
+
 ## [0.5.3] - 2026-02-16
 
 ### Added
