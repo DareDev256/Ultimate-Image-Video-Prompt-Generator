@@ -13,7 +13,7 @@ A dual-platform prompt builder with a Flash Site Era (2002-2006) aesthetic that 
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?style=flat-square&logo=tailwindcss)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-ff69b4?style=flat-square&logo=framer)
 ![Bun](https://img.shields.io/badge/Bun-runtime-f9f1e1?style=flat-square&logo=bun)
-![Tests](https://img.shields.io/badge/Tests-261_passing-brightgreen?style=flat-square)
+![Tests](https://img.shields.io/badge/Tests-267_passing-brightgreen?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
 </div>

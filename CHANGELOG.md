@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.5.1] - 2026-02-16
+
+### Fixed
+- Widened `getNestedValue` type signature to accept `null | undefined` roots without throwing — matches runtime behavior that the function already handled safely
+- Recovered 6 edge-case tests from failed agent branch (`passion/tests-diversity-picked-tests-mlofibhk`) that targeted the wrong file path after a refactor moved `setNestedValue`/`getNestedValue` to `lib/nested.ts`
+
+### Added
+- Tests for null/undefined root objects, falsy value preservation (`''`, `0`, `false`), in-place intermediate mutation, independent branch isolation, and a full wizard simulation roundtrip (267 total tests, up from 261)
+
 ## [0.5.0] - 2026-02-15
 
 ### Changed

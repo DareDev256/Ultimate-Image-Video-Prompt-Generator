@@ -4,8 +4,9 @@
  * using category field keys like `"subject.description"` or `"camera.angle"`.
  */
 
-/** Get a deeply nested value using dot notation (e.g. `"subject.description"`). */
-export function getNestedValue<T = unknown>(obj: Record<string, unknown>, path: string): T | undefined {
+/** Get a deeply nested value using dot notation (e.g. `"subject.description"`).
+ *  Safe to call with null/undefined — returns undefined without throwing. */
+export function getNestedValue<T = unknown>(obj: Record<string, unknown> | null | undefined, path: string): T | undefined {
   const parts = path.split('.');
   let current: unknown = obj;
 

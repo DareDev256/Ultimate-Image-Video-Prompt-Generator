@@ -33,6 +33,21 @@ describe('getNestedValue', () => {
     const obj = { vibes: ['cinematic', 'moody'] };
     expect(getNestedValue(obj, 'vibes')).toEqual(['cinematic', 'moody']);
   });
+
+  test('returns undefined for undefined root', () => {
+    expect(getNestedValue(undefined, 'any.path')).toBeUndefined();
+  });
+
+  test('returns undefined for null root', () => {
+    expect(getNestedValue(null, 'any.path')).toBeUndefined();
+  });
+
+  test('preserves falsy values (empty string, 0, false)', () => {
+    const obj = { a: '', b: 0, c: false } as Record<string, unknown>;
+    expect(getNestedValue(obj, 'a')).toBe('');
+    expect(getNestedValue(obj, 'b')).toBe(0);
+    expect(getNestedValue(obj, 'c')).toBe(false);
+  });
 });
 
 describe('setNestedValue', () => {
@@ -71,5 +86,40 @@ describe('setNestedValue', () => {
     const obj: Record<string, unknown> = { a: 'string-value' };
     setNestedValue(obj, 'a.b', 'nested');
     expect(getNestedValue(obj, 'a.b')).toBe('nested');
+  });
+
+  test('mutates existing intermediate object in place', () => {
+    const hair = { style: 'braids' };
+    const obj: Record<string, unknown> = { subject: { hair } };
+    setNestedValue(obj, 'subject.hair.color', 'black');
+    expect((obj.subject as any).hair).toBe(hair); // same reference
+    expect(getNestedValue(obj, 'subject.hair.color')).toBe('black');
+  });
+
+  test('independent branches do not interfere', () => {
+    const obj: Record<string, unknown> = {};
+    setNestedValue(obj, 'lighting.source', 'flash');
+    setNestedValue(obj, 'atmosphere.mood', 'dark');
+    expect(getNestedValue(obj, 'lighting.source')).toBe('flash');
+    expect(getNestedValue(obj, 'atmosphere.mood')).toBe('dark');
+  });
+});
+
+describe('set + get roundtrip (wizard simulation)', () => {
+  test('full ImagePrompt wizard pass sets and retrieves all fields', () => {
+    const prompt: Record<string, unknown> = { prompt_type: 'generate' };
+
+    setNestedValue(prompt, 'subject.description', 'A striking woman');
+    setNestedValue(prompt, 'subject.hair.style', 'box braids');
+    setNestedValue(prompt, 'subject.clothing.main_garment', 'trench coat');
+    setNestedValue(prompt, 'scene.camera.position', 'eye level');
+    setNestedValue(prompt, 'vibes', ['editorial', 'moody']);
+
+    expect(getNestedValue(prompt, 'subject.description')).toBe('A striking woman');
+    expect(getNestedValue(prompt, 'subject.hair.style')).toBe('box braids');
+    expect(getNestedValue(prompt, 'subject.clothing.main_garment')).toBe('trench coat');
+    expect(getNestedValue(prompt, 'scene.camera.position')).toBe('eye level');
+    expect(getNestedValue(prompt, 'vibes')).toEqual(['editorial', 'moody']);
+    expect(prompt.prompt_type).toBe('generate'); // untouched
   });
 });
