@@ -9,7 +9,7 @@ import type { ImagePrompt } from '../types';
  * This ensures the JSON output contains only populated fields,
  * keeping payloads minimal for the Nano Banana (Gemini) API.
  */
-function cleanObject(obj: any): any {
+function cleanObject(obj: unknown): unknown {
   if (obj === null || obj === undefined) {
     return undefined;
   }
@@ -20,7 +20,7 @@ function cleanObject(obj: any): any {
   }
 
   if (typeof obj === 'object') {
-    const cleaned: any = {};
+    const cleaned: Record<string, unknown> = {};
     for (const [key, value] of Object.entries(obj)) {
       const cleanedValue = cleanObject(value);
       if (cleanedValue !== undefined) {
@@ -34,28 +34,29 @@ function cleanObject(obj: any): any {
 }
 
 /**
- * Generates a pretty-printed JSON string from an {@link ImagePrompt},
+ * Generates a JSON string from an {@link ImagePrompt},
  * with all empty/undefined fields recursively stripped.
  *
  * This is the primary output format for Nano Banana (Gemini) — the API
  * expects structured JSON describing the desired image.
  *
  * @param prompt - The structured prompt data
- * @returns Pretty-printed JSON string (2-space indent)
+ * @param compact - When true, outputs minified JSON (no whitespace). Defaults to false (pretty-printed, 2-space indent).
+ * @returns JSON string
  */
-export function generateJSON(prompt: ImagePrompt): string {
+export function generateJSON(prompt: ImagePrompt, compact?: boolean): string {
   const cleaned = cleanObject(prompt);
-  return JSON.stringify(cleaned, null, 2);
+  return compact ? JSON.stringify(cleaned) : JSON.stringify(cleaned, null, 2);
 }
 
 /**
- * Same as {@link generateJSON} but without whitespace — for clipboard/API payloads
+ * Same as `generateJSON(prompt, true)` — minified JSON for clipboard/API payloads
  * where size matters.
  *
+ * @deprecated Use `generateJSON(prompt, true)` instead. Kept for backward compatibility.
  * @param prompt - The structured prompt data
  * @returns Minified JSON string
  */
 export function generateCompactJSON(prompt: ImagePrompt): string {
-  const cleaned = cleanObject(prompt);
-  return JSON.stringify(cleaned);
+  return generateJSON(prompt, true);
 }

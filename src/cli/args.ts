@@ -17,7 +17,14 @@ export interface CliArgs {
   };
 }
 
-const presetFlags: PresetPackName[] = ['quick', 'standard', 'full', 'fashion', 'street'];
+/** Maps CLI flags to their preset pack name. Add new presets here — no parser changes needed. */
+const PRESET_FLAGS: Record<string, PresetPackName> = {
+  '--quick': 'quick',
+  '--standard': 'standard',
+  '--full': 'full',
+  '--fashion': 'fashion',
+  '--street': 'street',
+};
 
 export function parseArgs(args: string[]): CliArgs {
   const result: CliArgs = {};
@@ -36,16 +43,8 @@ export function parseArgs(args: string[]): CliArgs {
     } else if (arg === '--pack' || arg === '-p') {
       const packArg = args[++i] ?? '';
       result.packs = packArg.split(',') as PackName[];
-    } else if (arg === '--full') {
-      result.preset = 'full';
-    } else if (arg === '--quick') {
-      result.preset = 'quick';
-    } else if (arg === '--standard') {
-      result.preset = 'standard';
-    } else if (arg === '--fashion') {
-      result.preset = 'fashion';
-    } else if (arg === '--street') {
-      result.preset = 'street';
+    } else if (arg in PRESET_FLAGS) {
+      result.preset = PRESET_FLAGS[arg];
     } else if (arg === '--analyze' || arg === '-a') {
       result.analyze = args[++i];
     } else if (arg === 'favorites') {

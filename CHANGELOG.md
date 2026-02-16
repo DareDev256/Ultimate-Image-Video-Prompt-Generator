@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.0] - 2026-02-16
+
+### Changed
+- Eliminated all `any` types from `cleanObject` in `src/generators/json.ts` — replaced with `unknown` for full type safety at the serialization boundary
+- Unified `generateJSON` and `generateCompactJSON` into a single `generateJSON(prompt, compact?)` API — `generateCompactJSON` is kept as a deprecated re-export for backward compatibility
+- Replaced 5-branch `else if` preset parsing chain in `src/cli/args.ts` with a data-driven `PRESET_FLAGS` lookup map — adding new presets is now a one-line change
+- Removed dead `presetFlags` array from `args.ts` (declared but never referenced)
+
 ## [0.5.4] - 2026-02-16
 
 ### Changed
