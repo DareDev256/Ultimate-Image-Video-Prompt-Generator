@@ -2,36 +2,15 @@ import * as p from '@clack/prompts';
 import pc from 'picocolors';
 import { categoryMap, type CategoryDefinition, type FieldDefinition } from '../core/categories';
 import { getFavoritesForField, addFavorite } from '../storage/favorites';
+import { getNestedValue, setNestedValue } from '../lib/nested';
 import type { ImagePrompt } from '../types';
 
-// Set a nested value in an object using dot notation
-function setNestedValue(obj: any, path: string, value: any) {
-  const parts = path.split('.');
-  let current = obj;
-
-  for (let i = 0; i < parts.length - 1; i++) {
-    const part = parts[i]!;
-    if (!current[part]) {
-      current[part] = {};
-    }
-    current = current[part];
+/** Cancel the current operation and exit. Narrows cancelled prompts in one place. */
+function exitIfCancelled<T>(value: T | symbol): asserts value is T {
+  if (p.isCancel(value)) {
+    p.cancel('Cancelled');
+    process.exit(0);
   }
-
-  const lastPart = parts[parts.length - 1]!;
-  current[lastPart] = value;
-}
-
-// Get a nested value from an object using dot notation
-function getNestedValue(obj: any, path: string): any {
-  const parts = path.split('.');
-  let current = obj;
-
-  for (const part of parts) {
-    if (current === undefined || current === null) return undefined;
-    current = current[part];
-  }
-
-  return current;
 }
 
 export async function promptForField(
@@ -53,10 +32,7 @@ export async function promptForField(
     defaultValue: defaultValue,
   });
 
-  if (p.isCancel(result)) {
-    p.cancel('Cancelled');
-    process.exit(0);
-  }
+  exitIfCancelled(result);
 
   // Handle ? for favorites
   if (result === '?') {
@@ -117,10 +93,7 @@ async function showFavoritesAndSuggestions(
     options
   });
 
-  if (p.isCancel(selected)) {
-    p.cancel('Cancelled');
-    process.exit(0);
-  }
+  exitIfCancelled(selected);
 
   if (selected === '__custom__') {
     return await promptForField(field, currentValue);
@@ -148,10 +121,7 @@ async function promptForVibes(
     required: false
   });
 
-  if (p.isCancel(selected)) {
-    p.cancel('Cancelled');
-    process.exit(0);
-  }
+  exitIfCancelled(selected);
 
   // Allow adding custom vibe
   const addCustom = await p.confirm({
@@ -159,10 +129,7 @@ async function promptForVibes(
     initialValue: false
   });
 
-  if (p.isCancel(addCustom)) {
-    p.cancel('Cancelled');
-    process.exit(0);
-  }
+  exitIfCancelled(addCustom);
 
   let result = selected as string[];
 
@@ -188,18 +155,18 @@ export async function promptForCategory(
   p.log.step(pc.cyan(`${category.emoji} ${category.name.toUpperCase()}`));
 
   for (const field of category.fields) {
-    const currentValue = getNestedValue(currentPrompt, field.key);
+    const currentValue = getNestedValue(currentPrompt as Record<string, unknown>, field.key);
 
     // Special handling for vibes (array field)
     if (field.key === 'vibes') {
-      const value = await promptForVibes(field, currentValue);
+      const value = await promptForVibes(field, currentValue as string[] | undefined);
       if (value !== undefined) {
-        setNestedValue(currentPrompt, field.key, value);
+        setNestedValue(currentPrompt as Record<string, unknown>, field.key, value);
       }
     } else {
-      const value = await promptForField(field, currentValue);
+      const value = await promptForField(field, currentValue as string | undefined);
       if (value !== undefined) {
-        setNestedValue(currentPrompt, field.key, value);
+        setNestedValue(currentPrompt as Record<string, unknown>, field.key, value);
       }
     }
   }
@@ -214,10 +181,7 @@ export async function askToRefineCategory(categoryName: string): Promise<boolean
     initialValue: false
   });
 
-  if (p.isCancel(refine)) {
-    p.cancel('Cancelled');
-    process.exit(0);
-  }
+  exitIfCancelled(refine);
 
   return refine;
 }

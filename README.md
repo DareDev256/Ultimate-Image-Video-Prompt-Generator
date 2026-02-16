@@ -13,7 +13,7 @@ A dual-platform prompt builder with a Flash Site Era (2002-2006) aesthetic that 
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?style=flat-square&logo=tailwindcss)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-ff69b4?style=flat-square&logo=framer)
 ![Bun](https://img.shields.io/badge/Bun-runtime-f9f1e1?style=flat-square&logo=bun)
-![Tests](https://img.shields.io/badge/Tests-248_passing-brightgreen?style=flat-square)
+![Tests](https://img.shields.io/badge/Tests-261_passing-brightgreen?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
 </div>
@@ -232,7 +232,8 @@ All types, section generators, and output formatters are documented with TSDoc �
 │   │   ├── natural.ts            # Natural language assembly (flatMap pipeline)
 │   │   └── json.ts               # JSON output with recursive cleanup
 │   ├── lib/                      # Shared utilities
-│   │   └── json-store.ts         # Generic typed JSON file storage
+│   │   ├── json-store.ts         # Generic typed JSON file storage
+│   │   └── nested.ts             # Dot-notation path traversal utilities
 │   ├── storage/                  # Config, presets, favorites (via JsonStore)
 │   └── types/                    # ImagePrompt interface (12 nested types)
 │
@@ -246,7 +247,7 @@ All types, section generators, and output formatters are documented with TSDoc �
 bun test
 ```
 
-**248 tests** across 12 test files:
+**261 tests** across 13 test files:
 
 | Module | Tests | Coverage |
 |--------|-------|----------|
@@ -257,6 +258,7 @@ bun test
 | Pack/template registry | 18 | Composition, dedup, always-core invariant, uniqueness |
 | Display text wrapping | 11 | Word boundaries, unicode, edge cases |
 | Gemini analyzer | 14 | Error paths, MIME detection, markdown stripping |
+| Nested path utilities | 13 | Dot-notation get/set, missing paths, intermediate creation |
 | Prompt building | — | Ordering, nesting cleanup, unicode, JSON/NL consistency |
 
 ## Design Philosophy

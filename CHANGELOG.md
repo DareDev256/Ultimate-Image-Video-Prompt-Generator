@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.5.0] - 2026-02-15
+
+### Changed
+- Converted `showPostGenerationMenu` from unbounded recursion to iterative `while` loop — eliminates stack overflow risk in long sessions with repeated copy/save actions
+- Replaced 5 duplicated `p.cancel('Cancelled'); process.exit(0)` blocks in `prompts.ts` with a single `exitIfCancelled` assertion function that also provides TypeScript type narrowing
+- Extracted `getNestedValue`/`setNestedValue` from `prompts.ts` into shared `src/lib/nested.ts` with proper `Record<string, unknown>` typing (replaced `any`), added guard against primitive intermediates in `setNestedValue`
+
+### Added
+- Unit tests for `getNestedValue` and `setNestedValue` (`src/lib/nested.test.ts`) — 13 tests covering dot-notation traversal, missing paths, null traversal, intermediate creation, sibling preservation, and primitive-to-object overwrite
+
 ## [0.4.5] - 2026-02-15
 
 ### Added
