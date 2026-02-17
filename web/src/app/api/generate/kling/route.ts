@@ -65,12 +65,12 @@ export async function POST(request: NextRequest) {
     });
 
     if (!createResponse.ok) {
-      const error = await createResponse.json();
+      const error = await createResponse.json().catch(() => ({}));
       console.error('Kling API create error:', error);
-      return NextResponse.json(
-        { error: error.message || 'Failed to start generation' },
-        { status: createResponse.status }
-      );
+      // Return generic message — don't leak upstream API error details to client
+      const status = createResponse.status === 401 ? 401 : createResponse.status === 429 ? 429 : 502;
+      const msg = status === 401 ? 'Invalid API key' : status === 429 ? 'Rate limit exceeded' : 'Upstream generation failed';
+      return NextResponse.json({ error: msg }, { status });
     }
 
     const createData = await createResponse.json();
@@ -101,11 +101,11 @@ export async function POST(request: NextRequest) {
       );
 
       if (!statusResponse.ok) {
-        const error = await statusResponse.json();
+        const error = await statusResponse.json().catch(() => ({}));
         console.error('Kling API status error:', error);
         return NextResponse.json(
-          { error: error.message || 'Failed to check status' },
-          { status: statusResponse.status }
+          { error: 'Failed to check generation status' },
+          { status: 502 }
         );
       }
 

@@ -329,6 +329,8 @@ This project embraces the **Flash Site Era** aesthetic (2002-2006) — when webs
 - Direct API calls from your browser (except free tier)
 - Server-side input validation: prompt length limits, control character stripping, API key format checks
 - Rate limiting on free tier (10 generations/day per client)
+- **HTTP security headers** on all routes: HSTS, X-Frame-Options (DENY), X-Content-Type-Options, Referrer-Policy, Permissions-Policy
+- Upstream API errors are sanitized — third-party error details are never leaked to the client
 
 ## Community Prompts Attribution
 

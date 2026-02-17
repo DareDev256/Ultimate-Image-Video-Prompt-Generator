@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.7.1] - 2026-02-17
+
+### Security
+- Added 7 HTTP security headers to all Next.js routes via `next.config.ts`: `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, `Strict-Transport-Security`, `X-XSS-Protection`, `X-DNS-Prefetch-Control`
+- Sanitized upstream API error responses in all 3 generation routes (nano-banana, openai, kling) — error messages from third-party APIs are no longer forwarded to the client, preventing info leakage of internal hostnames, request IDs, and API internals
+- Added `.catch()` guards on all upstream `response.json()` error parsing to prevent unhandled exceptions when APIs return non-JSON error bodies
+- Mapped upstream HTTP status codes to generic client-facing messages (401 → invalid key, 429 → rate limited, other → upstream failure)
+- Audited npm dependencies: 0 vulnerabilities in `web/` (root has no lockfile — CLI uses Bun)
+- Reviewed CLI arg parsing and API input validation — existing `validation.ts` sanitization (length limits, control char stripping, API key format regex) is solid, no injection vectors found
+
 ## [0.7.0] - 2026-02-16
 
 ### Changed

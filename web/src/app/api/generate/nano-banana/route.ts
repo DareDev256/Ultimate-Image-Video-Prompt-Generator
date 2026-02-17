@@ -100,12 +100,12 @@ export async function POST(request: NextRequest) {
     );
 
     if (!response.ok) {
-      const error = await response.json();
+      const error = await response.json().catch(() => ({}));
       console.error('Nano Banana API error:', error);
-      return NextResponse.json(
-        { error: error.error?.message || 'Generation failed' },
-        { status: response.status }
-      );
+      // Return generic message — don't leak upstream API error details to client
+      const status = response.status === 401 ? 401 : response.status === 429 ? 429 : 502;
+      const msg = status === 401 ? 'Invalid API key' : status === 429 ? 'Rate limit exceeded' : 'Upstream generation failed';
+      return NextResponse.json({ error: msg }, { status });
     }
 
     const data = await response.json();
