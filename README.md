@@ -39,6 +39,7 @@ A dual-platform prompt builder with a Flash Site Era (2002-2006) aesthetic that 
 - [Engineering Highlights](#engineering-highlights)
 - [Design Philosophy](#design-philosophy)
 - [Privacy & Security](#privacy--security)
+- [Data Pipeline](#data-pipeline)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 
@@ -107,22 +108,24 @@ bun run index.ts --favorites list         # Manage favorite suggestions
 
 ### 🤖 Multi-Model Generation
 
-| Model | Type | Prompt Format | Free Tier |
-|-------|------|--------------|-----------|
-| **Nano Banana** (Gemini) | Image | Structured JSON | ✅ 10/day |
-| **DALL-E 3** (OpenAI) | Image | Natural language | BYOK only |
-| **Kling** | Video (5s/10s) | Natural language | BYOK only |
+| Model | Type | Prompt Format | Free Tier | Notes |
+|-------|------|--------------|-----------|-------|
+| **Nano Banana** (Gemini) | Image | Structured JSON | ✅ 10/day | Instant response |
+| **DALL-E 3** (OpenAI) | Image | Natural language | BYOK only | Returns AI-revised prompt alongside your image |
+| **Kling** | Video (5s/10s) | Natural language | BYOK only | Async polling — generates in up to 5 min |
 
 - **Free Tier** — Try Nano Banana without an API key (10 generations/day, server-side Gemini)
 - **BYOK** — Bring Your Own Keys for unlimited use (keys stored in `localStorage` only)
+- **Kling video generation** uses a two-phase async pattern: POST to create task → poll every 5s until complete. Supports 16:9, 9:16, and 1:1 aspect ratios
 
-### 💡 Inspiration Gallery
+### 💡 Inspiration Gallery & Showcase
 
-- **1,180+ curated image prompts** from the community
+- **1,180+ curated image prompts** from the community + **5,600+ Nano Banana prompts**
 - **50+ video prompts** for Veo3/Kling/Hailuo
 - Search and filter by tags (fashion, portrait, 3D, anime, etc.)
 - **"Use as Template"** to pre-fill the wizard from any community prompt
-- **Pattern library** — extracted lighting setups, camera angles, moods, and styles
+- **Pattern library** — 240 extracted patterns across lighting, cameras, moods, color grades, and styles
+- **Showcase** — 30 editorially curated examples with full 13-category prompt breakdowns and image carousels
 
 ### 🎨 Generation Flow
 
@@ -273,7 +276,7 @@ All types, section generators, and output formatters are documented with TSDoc �
 │   │   │   ├── effects/          # Canvas particle system
 │   │   │   └── inspiration/      # Gallery panel, search, filters, cards
 │   │   ├── context/              # WizardContext (state + persistence), SoundContext
-│   │   ├── hooks/                # useLocalStorage, useDiversePick, useFavorites, useFreeTier, usePatterns
+│   │   ├── hooks/                # useLocalStorage, useDiversePick, useFavorites, useFreeTier, usePatterns, useInspirationData
 │   │   └── lib/                  # Categories, diverse-pick, validation, sounds
 │   └── public/data/              # Prompt library, patterns, showcase metadata
 │
@@ -340,7 +343,7 @@ This project embraces the **Flash Site Era** aesthetic (2002-2006) — when webs
 - **Theatrical Loading** — Animated intro with progress bar and skip option
 - **Glossy Everything** — Buttons with gradients, shadows, and glow effects
 - **Particle Systems** — Canvas-based floating particles with GPU acceleration
-- **Sound Design** — Optional click sounds and transitions
+- **Sound Design** — 5 named sounds (click, whoosh, hover, success, processing) — off by default, opt-in via settings, preference persisted in `localStorage`
 - **Over-the-top Transitions** — Page slides, scale animations, staggered reveals
 - **Neon Palette** — Cyan `#00d4ff`, pink `#ff00aa`, green `#00ff88`, gold `#ffd700`
 - **Typography** — Orbitron (headings) + Exo 2 (body)
@@ -369,12 +372,29 @@ This project embraces the **Flash Site Era** aesthetic (2002-2006) — when webs
 - **HTTP security headers** on all routes: HSTS, X-Frame-Options (DENY), X-Content-Type-Options, Referrer-Policy, Permissions-Policy
 - Upstream API errors are sanitized — third-party error details are never leaked to the client
 
+## Data Pipeline
+
+The `scripts/` directory contains a full pipeline for refreshing and expanding the prompt library:
+
+| Script | What it does |
+|--------|-------------|
+| `fetch-prompts.ts` | Fetches image + video prompts from upstream repos |
+| `fetch-nano-banana-prompts.ts` | Fetches 5,600+ prompts from YouMind-OpenLab |
+| `extract-patterns.ts` | Mines the corpus to build 240 patterns (lighting, cameras, moods, etc.) |
+| `translate-titles.ts` | Extracts English titles from bilingual EN/ZH content |
+| `batch-generate-inspiration.py` | Batch-generates preview images via Gemini 3 Pro |
+| `update-prompts-with-generated.py` | Writes generated image paths back into prompt JSON |
+
+```
+fetch → translate → extract patterns → generate images → update JSON
+```
+
 ## Community Prompts Attribution
 
-The Inspiration Gallery includes curated prompts from [@songguoxs](https://github.com/songguoxs):
+The Inspiration Gallery includes curated prompts from:
 
-- **[gpt4o-image-prompts](https://github.com/songguoxs/gpt4o-image-prompts)** — 1,180+ curated image prompts
-- **[awesome-video-prompts](https://github.com/songguoxs/awesome-video-prompts)** — 50+ Veo3/Kling video prompts
+- **[@songguoxs](https://github.com/songguoxs)**: [gpt4o-image-prompts](https://github.com/songguoxs/gpt4o-image-prompts) (1,180+ image prompts) · [awesome-video-prompts](https://github.com/songguoxs/awesome-video-prompts) (50+ video prompts)
+- **[@YouMind-OpenLab](https://github.com/YouMind-OpenLab)**: [awesome-nano-banana-pro-prompts](https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts) (5,600+ Nano Banana prompts)
 
 ## Documentation
 

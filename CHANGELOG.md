@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.7.3] - 2026-02-17
+
+### Changed
+- Added "Data Pipeline" section to README documenting the 6 scripts that refresh and expand the prompt library (fetch → translate → extract → generate → update)
+- Credited second prompt source `@YouMind-OpenLab/awesome-nano-banana-pro-prompts` (5,600+ prompts) — was previously undocumented
+- Expanded multi-model table with per-model behavioral notes: DALL-E 3's revised-prompt feature, Kling's two-phase async polling architecture
+- Updated Inspiration Gallery section with concrete numbers: 240 patterns across 5 categories, Showcase page with 13-category breakdowns
+- Added `useInspirationData` hook to project structure (lazy-loading data layer for all prompt files)
+- Expanded sound system description: 5 named sounds, off by default, opt-in, persisted preference
+- Added Data Pipeline link to table of contents
+
 ## [0.7.2] - 2026-02-17
 
 ### Changed
