@@ -14,6 +14,8 @@ A dual-platform prompt builder with a Flash Site Era (2002-2006) aesthetic that 
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-ff69b4?style=flat-square&logo=framer)
 ![Bun](https://img.shields.io/badge/Bun-runtime-f9f1e1?style=flat-square&logo=bun)
 ![Tests](https://img.shields.io/badge/Tests-327_passing-brightgreen?style=flat-square)
+![Assertions](https://img.shields.io/badge/Assertions-1,458-brightgreen?style=flat-square)
+![Zero Any](https://img.shields.io/badge/any_types-0-blueviolet?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
 </div>
@@ -34,6 +36,7 @@ A dual-platform prompt builder with a Flash Site Era (2002-2006) aesthetic that 
 - [Getting Started](#getting-started)
 - [Architecture](#architecture)
 - [Testing](#testing)
+- [Engineering Highlights](#engineering-highlights)
 - [Design Philosophy](#design-philosophy)
 - [Privacy & Security](#privacy--security)
 - [Documentation](#documentation)
@@ -228,6 +231,25 @@ flowchart LR
 
 State persists across all page transitions via React Context + localStorage sync, surviving Framer Motion route animations.
 
+### Diversity-Aware Randomization
+
+The "Randomize" button uses a sliding-window exclusion algorithm so consecutive clicks cycle through varied suggestions instead of repeating:
+
+```
+diversePick(options, recent) → exclude recent → pick from remaining → push to window
+```
+
+The pure function (`diversePick`) lives in `web/src/lib/diverse-pick.ts`, wrapped by `useDiversePick` hook for per-field-key tracking via `useRef`. Both the wizard step and Quick Mode share the same algorithm.
+
+### Input Validation & Sanitization
+
+All three API routes (`/api/generate/nano-banana`, `openai`, `kling`) share a centralized validation layer (`web/src/lib/validation.ts`):
+
+- Prompt length limit (10,000 chars) to prevent oversized payloads
+- Control character stripping (null bytes, C0/C1 range)
+- API key format validation (alphanumeric + limited special chars, max 256 chars)
+- Upstream error sanitization — third-party error details are never leaked to the client
+
 ### Inline Documentation
 
 All types, section generators, and output formatters are documented with TSDoc — including `@example` blocks, `{@link}` cross-references, and field-level descriptions for every property in the `ImagePrompt` type tree.
@@ -251,8 +273,8 @@ All types, section generators, and output formatters are documented with TSDoc �
 │   │   │   ├── effects/          # Canvas particle system
 │   │   │   └── inspiration/      # Gallery panel, search, filters, cards
 │   │   ├── context/              # WizardContext (state + persistence), SoundContext
-│   │   ├── hooks/                # useLocalStorage, useFavorites, useFreeTier, useInspirationData
-│   │   └── lib/                  # Categories, sounds
+│   │   ├── hooks/                # useLocalStorage, useDiversePick, useFavorites, useFreeTier, usePatterns
+│   │   └── lib/                  # Categories, diverse-pick, validation, sounds
 │   └── public/data/              # Prompt library, patterns, showcase metadata
 │
 ├── src/                          # CLI tool (Bun)
@@ -298,6 +320,19 @@ bun test
 | JsonStore persistence | 11 | File I/O, defaults, deep-clone isolation, roundtripping |
 | Prompt building | — | Ordering, nesting cleanup, unicode, JSON/NL consistency |
 
+## Engineering Highlights
+
+Things I'm particularly proud of in this codebase:
+
+| Area | What | Why it matters |
+|------|------|----------------|
+| **Zero `any` types** | Entire codebase uses `unknown` at serialization boundaries with type narrowing | Catches bugs at compile time that `any` would silently pass through — especially in the JSON serializer where nested data arrives as `unknown` |
+| **Composable pipeline** | 13 section generators are pure functions composed via `flatMap` | Adding a new prompt section is one function + one array entry — no touch points in existing code |
+| **Diversity-aware randomization** | Sliding-window exclusion algorithm shared between wizard and Quick Mode | Extracts a pure function (`diversePick`) with a React hook wrapper — testable logic separated from React lifecycle |
+| **Centralized input validation** | Shared `validation.ts` with prompt sanitization, key format checks, and length limits | One place to audit, one place to fix — not scattered across 3 API routes |
+| **Data-driven preset parsing** | Replaced 5-branch `else if` chain with a `PRESET_FLAGS` lookup map | Adding a new preset is a one-line map entry instead of a new branch |
+| **327 tests / 1,458 assertions** | Every generator, every template, every CLI flag, cross-format consistency checks | Not just coverage — tests document *invariants* like "NL and JSON generators stay in sync on the same input" |
+
 ## Design Philosophy
 
 This project embraces the **Flash Site Era** aesthetic (2002-2006) — when websites were *experiences*, not just pages:
@@ -319,6 +354,8 @@ This project embraces the **Flash Site Era** aesthetic (2002-2006) — when webs
 | **Keyboard nav vs. text input** | Arrow keys conflicted with suggestion field typing. Implemented focus detection to disable shortcuts during input, re-enable on blur. |
 | **Canvas particle performance** | Frame drops on lower-end devices. Reduced particle count, added `requestAnimationFrame` throttling and `will-change` GPU hints. |
 | **Multi-model prompt formats** | Each AI model expects different formats. Built a unified generation interface with model-specific adapters (JSON for Nano Banana, natural language for DALL-E/Kling). |
+| **Randomize repeats same values** | Naive `Math.random()` frequently repeats the same suggestion. Implemented a sliding-window exclusion algorithm (`diversePick`) that tracks recent picks per field and excludes them from the candidate pool. |
+| **Type safety at serialization boundaries** | `cleanObject` recursively processes prompt data of unknown shape. Replaced `any` with `unknown` + type narrowing to catch bugs at compile time instead of runtime. |
 
 </details>
 

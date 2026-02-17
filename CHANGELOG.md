@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.7.2] - 2026-02-17
+
+### Changed
+- Added "Engineering Highlights" section to README — showcases technical decisions (zero-`any` types, composable pipeline, diversity-aware randomization, centralized validation, data-driven parsing, test invariants) with rationale for each
+- Added "Diversity-Aware Randomization" and "Input Validation & Sanitization" architecture subsections documenting the sliding-window algorithm and centralized validation layer
+- Updated project structure tree to reflect new files: `diverse-pick.ts`, `validation.ts`, `useDiversePick.ts`, `usePatterns.ts`
+- Added 2 new Challenges & Solutions entries: randomize repetition fix and type safety at serialization boundaries
+- Added "Zero Any" and "Assertions: 1,458" badges to header badge row
+
 ## [0.7.1] - 2026-02-17
 
 ### Security
