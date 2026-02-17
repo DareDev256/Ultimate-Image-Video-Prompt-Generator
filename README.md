@@ -13,8 +13,8 @@ A dual-platform prompt builder with a Flash Site Era (2002-2006) aesthetic that 
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?style=flat-square&logo=tailwindcss)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-ff69b4?style=flat-square&logo=framer)
 ![Bun](https://img.shields.io/badge/Bun-runtime-f9f1e1?style=flat-square&logo=bun)
-![Tests](https://img.shields.io/badge/Tests-327_passing-brightgreen?style=flat-square)
-![Assertions](https://img.shields.io/badge/Assertions-1,458-brightgreen?style=flat-square)
+![Tests](https://img.shields.io/badge/Tests-379_passing-brightgreen?style=flat-square)
+![Assertions](https://img.shields.io/badge/Assertions-1,687-brightgreen?style=flat-square)
 ![Zero Any](https://img.shields.io/badge/any_types-0-blueviolet?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
@@ -307,14 +307,16 @@ All types, section generators, and output formatters are documented with TSDoc �
 bun test
 ```
 
-**327 tests** across 15 test files:
+**379 tests** across 17 test files:
 
 | Module | Tests | Coverage |
 |--------|-------|----------|
 | Section generators | 56 | All 13 pure functions — edge cases, dedup, fallback precedence |
 | Template→pipeline integration | 36 | Every template through NL+JSON generators, merge behavior, data integrity |
+| Diversity-aware randomization | 30 | diversePick exclusion, fallback, statistical diversity, pushRecent sliding window, integration |
 | Cross-cutting invariants | 24 | NL/JSON consistency, cleanObject edge cases, pipeline purity, parseArgs boundaries |
 | CLI argument parser | 22 | All 15 flags, shorthands, pack splitting, subcommands |
+| Input validation & sanitization | 22 | Prompt length/type/control-char stripping, API key format/injection defense |
 | Pack/template registry | 18 | Composition, dedup, always-core invariant, uniqueness |
 | Category data integrity | 16 | Unique names/emojis, field keys, suggestion validity |
 | Gemini analyzer | 14 | Error paths, MIME detection, markdown stripping |
@@ -334,7 +336,7 @@ Things I'm particularly proud of in this codebase:
 | **Diversity-aware randomization** | Sliding-window exclusion algorithm shared between wizard and Quick Mode | Extracts a pure function (`diversePick`) with a React hook wrapper — testable logic separated from React lifecycle |
 | **Centralized input validation** | Shared `validation.ts` with prompt sanitization, key format checks, and length limits | One place to audit, one place to fix — not scattered across 3 API routes |
 | **Data-driven preset parsing** | Replaced 5-branch `else if` chain with a `PRESET_FLAGS` lookup map | Adding a new preset is a one-line map entry instead of a new branch |
-| **327 tests / 1,458 assertions** | Every generator, every template, every CLI flag, cross-format consistency checks | Not just coverage — tests document *invariants* like "NL and JSON generators stay in sync on the same input" |
+| **379 tests / 1,687 assertions** | Every generator, every template, every CLI flag, cross-format consistency checks, web-side validation & diversity logic | Not just coverage — tests document *invariants* like "NL and JSON generators stay in sync on the same input" |
 
 ## Design Philosophy
 

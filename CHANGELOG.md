@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.7.4] - 2026-02-17
+
+### Added
+- 52 tests for web-side pure functions (`diverse-pick.ts`, `validation.ts`) — first test coverage for the web layer
+- `diversePick` tests: empty array throw, exclusion behavior, full-pool fallback, statistical diversity, readonly safety, integration with `pushRecent` sliding window
+- `validatePrompt` tests: type rejection (null/undefined/number/object/array/boolean), whitespace-only rejection, 10K char boundary, C0/C1 control char stripping, unicode preservation
+- `validateApiKey` tests: format validation, injection defense (SQL, XSS, header injection), 256-char boundary, special character allowlist
+- Total test count: 327 → 379 (17 files), assertions: 1,458 → 1,687
+
 ## [0.7.3] - 2026-02-17
 
 ### Changed
