@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.0] - 2026-02-16
+
+### Changed
+- Extracted `diversePick` pure function and `pushRecent` helper into `web/src/lib/diverse-pick.ts` — diversity-aware random selection with sliding-window recent exclusion
+- Created `useDiversePick` React hook (`web/src/hooks/useDiversePick.ts`) wrapping the pure function with per-field-key recent tracking via `useRef`
+- Refactored `WizardStep.tsx` randomize handler to use `useDiversePick` instead of naive `Math.random()` — consecutive clicks now cycle through varied suggestions
+- Refactored Quick Mode `handleRandomize` to use `useDiversePick` — full-prompt randomization avoids repeating the same suggestion per field across clicks
+
 ## [0.6.0] - 2026-02-16
 
 ### Changed

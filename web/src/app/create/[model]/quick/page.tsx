@@ -15,6 +15,7 @@ import { Particles } from '@/components/effects/Particles';
 import { InspirationButton } from '@/components/inspiration';
 import { ModelType } from '@/context/WizardContext';
 import { wizardCategories } from '@/lib/categories';
+import { useDiversePick } from '@/hooks/useDiversePick';
 import type { ImagePrompt, VideoPrompt } from '@/hooks/useInspirationData';
 
 export default function QuickModePage() {
@@ -38,24 +39,23 @@ export default function QuickModePage() {
     kling: '#ff00aa',
   };
 
+  const diversePick = useDiversePick();
+
   useEffect(() => {
     const apiKey = localStorage.getItem(`${modelId}ApiKey`);
     setHasApiKey(!!apiKey);
   }, [modelId]);
 
   const handleRandomize = () => {
-    // Build a random prompt from all categories
     const randomPrompt: Record<string, Record<string, string>> = {};
 
     wizardCategories.forEach((category) => {
       const categoryData: Record<string, string> = {};
       category.fields.forEach((field) => {
-        const randomIndex = Math.floor(Math.random() * field.suggestions.length);
         const keyParts = field.key.split('.');
         const lastKey = keyParts[keyParts.length - 1];
-        categoryData[lastKey] = field.suggestions[randomIndex];
+        categoryData[lastKey] = diversePick(field.key, field.suggestions);
       });
-      // Get category key from first field
       const categoryKey = category.fields[0]?.key.split('.')[0] || category.id;
       randomPrompt[categoryKey] = categoryData;
     });
@@ -63,7 +63,6 @@ export default function QuickModePage() {
     if (modelId === 'nano-banana') {
       setPrompt(JSON.stringify(randomPrompt, null, 2));
     } else {
-      // Convert to natural language for other models
       const parts: string[] = [];
       Object.entries(randomPrompt).forEach(([, fields]) => {
         Object.values(fields).forEach((value) => {

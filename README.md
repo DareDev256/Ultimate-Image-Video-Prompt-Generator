@@ -99,7 +99,7 @@ bun run index.ts --favorites list         # Manage favorite suggestions
 - **13 deep categories** with 3-7 fields each — Subject, Camera, Fashion, Environment, Lighting, Atmosphere, Composition, Color, Film, Technical, Vibes, and more
 - **Curated suggestions** per field (8-10 hyper-specific options like "six thick rope braids radiating outward from skull")
 - **Quick Mode** — describe your idea in plain English, AI expands to full structured prompt
-- **Randomize** button for instant inspiration
+- **Diversity-aware Randomize** — tracks recent picks per field so consecutive clicks cycle through varied suggestions instead of repeating
 - **Keyboard navigation** with smart focus detection
 
 ### 🤖 Multi-Model Generation

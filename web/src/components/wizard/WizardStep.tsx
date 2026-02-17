@@ -6,6 +6,7 @@ import { Shuffle, ChevronDown, Sparkles, Users } from 'lucide-react';
 import { WizardCategory } from '@/lib/categories';
 import { useWizard } from '@/context/WizardContext';
 import { usePatterns, PatternCategory } from '@/hooks/usePatterns';
+import { useDiversePick } from '@/hooks/useDiversePick';
 
 // Map wizard field keys to pattern categories
 const fieldToPatternMap: Record<string, PatternCategory> = {
@@ -30,15 +31,15 @@ export function WizardStep({ category, direction }: WizardStepProps) {
   const { state, updateField } = useWizard();
   const [expandedField, setExpandedField] = useState<string | null>(null);
   const { getSuggestions, loading: patternsLoading } = usePatterns();
+  const diversePick = useDiversePick();
 
   const handleSuggestionClick = (fieldKey: string, suggestion: string) => {
     updateField(fieldKey, suggestion);
     setExpandedField(null);
   };
 
-  const handleRandomize = (fieldKey: string, suggestions: string[]) => {
-    const random = suggestions[Math.floor(Math.random() * suggestions.length)];
-    updateField(fieldKey, random);
+  const handleRandomize = (fieldKey: string, suggestions: readonly string[]) => {
+    updateField(fieldKey, diversePick(fieldKey, suggestions));
   };
 
   const slideVariants = {
