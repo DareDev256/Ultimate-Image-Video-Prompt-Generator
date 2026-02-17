@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.5] - 2026-02-17
+
+### Changed
+- Extracted `buildRandomPrompt` and `flattenPromptToText` pure functions from Quick Mode page into `diverse-pick.ts` — prompt assembly is now testable and reusable without React
+- Made `useDiversePick` hook generic over value type `T` (default `string`) instead of hardcoded to `string`
+- Reduced Quick Mode's `handleRandomize` from 18 lines of inline logic to 6 lines composing extracted utilities
+
 ## [0.7.4] - 2026-02-17
 
 ### Added

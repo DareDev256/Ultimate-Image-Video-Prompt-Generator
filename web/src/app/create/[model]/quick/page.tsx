@@ -15,6 +15,7 @@ import { Particles } from '@/components/effects/Particles';
 import { InspirationButton } from '@/components/inspiration';
 import { ModelType } from '@/context/WizardContext';
 import { wizardCategories } from '@/lib/categories';
+import { buildRandomPrompt, flattenPromptToText } from '@/lib/diverse-pick';
 import { useDiversePick } from '@/hooks/useDiversePick';
 import type { ImagePrompt, VideoPrompt } from '@/hooks/useInspirationData';
 
@@ -47,30 +48,13 @@ export default function QuickModePage() {
   }, [modelId]);
 
   const handleRandomize = () => {
-    const randomPrompt: Record<string, Record<string, string>> = {};
+    const randomPrompt = buildRandomPrompt(wizardCategories, diversePick);
 
-    wizardCategories.forEach((category) => {
-      const categoryData: Record<string, string> = {};
-      category.fields.forEach((field) => {
-        const keyParts = field.key.split('.');
-        const lastKey = keyParts[keyParts.length - 1];
-        categoryData[lastKey] = diversePick(field.key, field.suggestions);
-      });
-      const categoryKey = category.fields[0]?.key.split('.')[0] || category.id;
-      randomPrompt[categoryKey] = categoryData;
-    });
-
-    if (modelId === 'nano-banana') {
-      setPrompt(JSON.stringify(randomPrompt, null, 2));
-    } else {
-      const parts: string[] = [];
-      Object.entries(randomPrompt).forEach(([, fields]) => {
-        Object.values(fields).forEach((value) => {
-          if (value) parts.push(value);
-        });
-      });
-      setPrompt(parts.join(', '));
-    }
+    setPrompt(
+      modelId === 'nano-banana'
+        ? JSON.stringify(randomPrompt, null, 2)
+        : flattenPromptToText(randomPrompt),
+    );
   };
 
   const handleCopy = async () => {

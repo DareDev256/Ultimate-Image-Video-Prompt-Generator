@@ -242,7 +242,7 @@ The "Randomize" button uses a sliding-window exclusion algorithm so consecutive 
 diversePick(options, recent) → exclude recent → pick from remaining → push to window
 ```
 
-The pure function (`diversePick`) lives in `web/src/lib/diverse-pick.ts`, wrapped by `useDiversePick` hook for per-field-key tracking via `useRef`. Both the wizard step and Quick Mode share the same algorithm.
+The pure functions (`diversePick`, `buildRandomPrompt`, `flattenPromptToText`) live in `web/src/lib/diverse-pick.ts`, wrapped by a generic `useDiversePick<T>` hook for per-field-key tracking via `useRef`. Both the wizard step and Quick Mode share the same algorithm — Quick Mode composes `buildRandomPrompt` with the hook's picker function for zero-duplication prompt assembly.
 
 ### Input Validation & Sanitization
 
