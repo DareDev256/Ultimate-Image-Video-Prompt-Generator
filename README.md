@@ -258,6 +258,22 @@ Click 6: pool=[C]          recent=[A,E,D,B]→ picks C → recent=[E,D,B,C]  ←
 
 Both the wizard and Quick Mode share the identical algorithm — Quick Mode composes `buildRandomPrompt` with the hook's picker function for zero-duplication prompt assembly across all 13 categories in a single click.
 
+<details>
+<summary><strong>Proven properties (35 tests)</strong></summary>
+
+| Property | What the tests prove |
+|----------|---------------------|
+| **Exclusion correctness** | When alternatives exist, items in the recent window are never picked |
+| **Graceful degradation** | When every option is recent (or recent is a superset), the algorithm falls back to the full pool — never deadlocks |
+| **Type generality** | Works with strings, numbers, and frozen `readonly` arrays without mutation |
+| **Statistical diversity** | Over 100 picks from 5 options, at least 3 distinct values appear (probabilistic smoke test) |
+| **Window sliding** | `pushRecent` trims to `maxSize`, preserves immutability, handles edge windows (size=1, size=100) |
+| **Integration** | Sliding window + picker composed together: no 3 consecutive identical picks over 12-round sequences |
+| **Key derivation** | `buildRandomPrompt` derives output keys from field key prefixes (not category IDs), falling back to `category.id` only for empty categories |
+| **Round-trip fidelity** | `buildRandomPrompt → flattenPromptToText` preserves all non-empty values through the pipeline, including unicode |
+
+</details>
+
 ### Input Validation & Sanitization
 
 All three API routes (`/api/generate/nano-banana`, `openai`, `kling`) share a centralized validation layer (`web/src/lib/validation.ts`):
@@ -327,7 +343,7 @@ bun test
 |--------|-------|----------|
 | Section generators | 56 | All 13 pure functions — edge cases, dedup, fallback precedence |
 | Template→pipeline integration | 36 | Every template through NL+JSON generators, merge behavior, data integrity |
-| Diversity-aware randomization | 35 | `diversePick` exclusion, full-pool fallback, statistical diversity proof, `pushRecent` sliding window, `buildRandomPrompt` category key derivation + field pass-through, `flattenPromptToText` empty/unicode handling, build-flatten round-trip integration |
+| Diversity-aware randomization | 35 | `diversePick` exclusion, full-pool fallback, superset recent, statistical diversity proof, `pushRecent` sliding window + immutability, `buildRandomPrompt` key derivation from field prefixes + empty-category fallback, `flattenPromptToText` empty/unicode handling, 12-round no-triple-repeat integration, build→flatten round-trip with diversity picker |
 | Cross-cutting invariants | 24 | NL/JSON consistency, cleanObject edge cases, pipeline purity, parseArgs boundaries |
 | CLI argument parser | 22 | All 15 flags, shorthands, pack splitting, subcommands |
 | Input validation & sanitization | 22 | Prompt length/type/control-char stripping, API key format/injection defense |
@@ -347,7 +363,7 @@ Things I'm particularly proud of in this codebase:
 |------|------|----------------|
 | **Zero `any` types** | Entire codebase uses `unknown` at serialization boundaries with type narrowing | Catches bugs at compile time that `any` would silently pass through — especially in the JSON serializer where nested data arrives as `unknown` |
 | **Composable pipeline** | 13 section generators are pure functions composed via `flatMap` | Adding a new prompt section is one function + one array entry — no touch points in existing code |
-| **Diversity-aware randomization** | Sliding-window exclusion algorithm ([detail](#diversity-aware-randomization)) shared between wizard and Quick Mode | Pure function `diversePick` with a generic React hook wrapper — 30 tests prove exclusion, fallback, and statistical diversity properties |
+| **Diversity-aware randomization** | Sliding-window exclusion algorithm ([detail](#diversity-aware-randomization)) shared between wizard and Quick Mode | Pure function `diversePick` + `buildRandomPrompt` + `flattenPromptToText` with exported `PickableField`/`PickableCategory` interfaces — 35 tests prove exclusion, graceful degradation, key derivation, and round-trip fidelity ([proven properties](#diversity-aware-randomization)) |
 | **Centralized input validation** | Shared `validation.ts` with prompt sanitization, key format checks, and length limits | One place to audit, one place to fix — not scattered across 3 API routes |
 | **Data-driven preset parsing** | Replaced 5-branch `else if` chain with a `PRESET_FLAGS` lookup map | Adding a new preset is a one-line map entry instead of a new branch |
 | **393 tests / 1,707 assertions** | Every generator, every template, every CLI flag, cross-format consistency checks, web-side validation & diversity logic | Not just coverage — tests document *invariants* like "NL and JSON generators stay in sync on the same input" |

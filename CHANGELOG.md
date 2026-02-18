@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.8] - 2026-02-18
+
+### Changed
+- Added collapsible "Proven properties" table to Diversity-Aware Randomization README section — documents 8 algorithmic properties verified by the 35-test suite (exclusion, graceful degradation, type generality, statistical diversity, window sliding, integration, key derivation, round-trip fidelity)
+- Updated Engineering Highlights diversity row with exported interfaces, full function inventory, and cross-link to proven properties
+- Refined test table description for diversity suite with superset-recent, immutability, 12-round no-triple-repeat, and build→flatten round-trip detail
+
 ## [0.7.7] - 2026-02-18
 
 ### Changed
