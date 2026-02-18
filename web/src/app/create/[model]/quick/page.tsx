@@ -15,8 +15,10 @@ import { Particles } from '@/components/effects/Particles';
 import { InspirationButton } from '@/components/inspiration';
 import { ModelType } from '@/context/WizardContext';
 import { wizardCategories } from '@/lib/categories';
+import { MODEL_NAMES, MODEL_COLORS } from '@/lib/models';
 import { buildRandomPrompt, flattenPromptToText } from '@/lib/diverse-pick';
 import { useDiversePick } from '@/hooks/useDiversePick';
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import type { ImagePrompt, VideoPrompt } from '@/hooks/useInspirationData';
 
 export default function QuickModePage() {
@@ -25,20 +27,8 @@ export default function QuickModePage() {
   const modelId = params.model as ModelType;
 
   const [prompt, setPrompt] = useState('');
-  const [copied, setCopied] = useState(false);
   const [hasApiKey, setHasApiKey] = useState(false);
-
-  const modelNames: Record<ModelType, string> = {
-    'nano-banana': 'Nano Banana',
-    openai: 'DALL-E 3',
-    kling: 'Kling',
-  };
-
-  const modelColors: Record<ModelType, string> = {
-    'nano-banana': '#00d4ff',
-    openai: '#00ff88',
-    kling: '#ff00aa',
-  };
+  const { copied, copy: copyToClipboard } = useCopyToClipboard();
 
   const diversePick = useDiversePick();
 
@@ -57,11 +47,7 @@ export default function QuickModePage() {
     );
   };
 
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(prompt);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  const handleCopy = () => copyToClipboard(prompt);
 
   const handleGenerate = () => {
     if (!hasApiKey) {
@@ -112,19 +98,19 @@ export default function QuickModePage() {
           </button>
 
           <div className="flex items-center gap-2">
-            <Zap size={16} style={{ color: modelColors[modelId] }} />
+            <Zap size={16} style={{ color: MODEL_COLORS[modelId] }} />
             <span className="text-sm font-bold tracking-wider">QUICK MODE</span>
           </div>
 
           <div
             className="px-3 py-1 text-xs font-bold tracking-wider rounded-full"
             style={{
-              backgroundColor: `${modelColors[modelId]}20`,
-              color: modelColors[modelId],
-              border: `1px solid ${modelColors[modelId]}40`,
+              backgroundColor: `${MODEL_COLORS[modelId]}20`,
+              color: MODEL_COLORS[modelId],
+              border: `1px solid ${MODEL_COLORS[modelId]}40`,
             }}
           >
-            {modelNames[modelId]}
+            {MODEL_NAMES[modelId]}
           </div>
         </div>
       </header>
@@ -231,7 +217,7 @@ export default function QuickModePage() {
               whileTap={{ scale: 0.98 }}
               style={{
                 background: prompt.trim()
-                  ? `linear-gradient(135deg, ${modelColors[modelId]} 0%, ${modelColors[modelId]}cc 100%)`
+                  ? `linear-gradient(135deg, ${MODEL_COLORS[modelId]} 0%, ${MODEL_COLORS[modelId]}cc 100%)`
                   : undefined,
               }}
             >

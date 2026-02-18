@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, AlertCircle, ArrowLeft, Gift } from 'lucide-react';
 import { Particles } from '@/components/effects/Particles';
 import { ModelType } from '@/context/WizardContext';
+import { MODEL_NAMES, MODEL_COLORS } from '@/lib/models';
 import { useFreeTier } from '@/hooks/useFreeTier';
 
 const loadingMessages = [
@@ -31,18 +32,6 @@ export default function GeneratePage() {
   const [error, setError] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(true);
   const [usingFreeTier, setUsingFreeTier] = useState(false);
-
-  const modelNames: Record<ModelType, string> = {
-    'nano-banana': 'Nano Banana',
-    openai: 'DALL-E 3',
-    kling: 'Kling',
-  };
-
-  const modelColors: Record<ModelType, string> = {
-    'nano-banana': '#00d4ff',
-    openai: '#00ff88',
-    kling: '#ff00aa',
-  };
 
   const generate = useCallback(async () => {
     const prompt = localStorage.getItem('generatingPrompt');
@@ -169,10 +158,10 @@ export default function GeneratePage() {
         className="absolute inset-0 pointer-events-none"
         animate={{
           background: [
-            `radial-gradient(circle at 50% 50%, ${modelColors[modelId]}20 0%, transparent 50%)`,
-            `radial-gradient(circle at 30% 70%, ${modelColors[modelId]}30 0%, transparent 50%)`,
-            `radial-gradient(circle at 70% 30%, ${modelColors[modelId]}20 0%, transparent 50%)`,
-            `radial-gradient(circle at 50% 50%, ${modelColors[modelId]}20 0%, transparent 50%)`,
+            `radial-gradient(circle at 50% 50%, ${MODEL_COLORS[modelId]}20 0%, transparent 50%)`,
+            `radial-gradient(circle at 30% 70%, ${MODEL_COLORS[modelId]}30 0%, transparent 50%)`,
+            `radial-gradient(circle at 70% 30%, ${MODEL_COLORS[modelId]}20 0%, transparent 50%)`,
+            `radial-gradient(circle at 50% 50%, ${MODEL_COLORS[modelId]}20 0%, transparent 50%)`,
           ],
         }}
         transition={{ duration: 4, repeat: Infinity }}
@@ -194,7 +183,7 @@ export default function GeneratePage() {
                 {/* Outer ring */}
                 <motion.div
                   className="absolute inset-0 rounded-full border-4"
-                  style={{ borderColor: `${modelColors[modelId]}40` }}
+                  style={{ borderColor: `${MODEL_COLORS[modelId]}40` }}
                   animate={{ rotate: 360 }}
                   transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
                 />
@@ -202,7 +191,7 @@ export default function GeneratePage() {
                 {/* Middle ring */}
                 <motion.div
                   className="absolute inset-4 rounded-full border-4 border-t-transparent border-l-transparent"
-                  style={{ borderColor: modelColors[modelId] }}
+                  style={{ borderColor: MODEL_COLORS[modelId] }}
                   animate={{ rotate: -360 }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
                 />
@@ -210,7 +199,7 @@ export default function GeneratePage() {
                 {/* Inner ring */}
                 <motion.div
                   className="absolute inset-8 rounded-full border-4 border-r-transparent border-b-transparent"
-                  style={{ borderColor: `${modelColors[modelId]}80` }}
+                  style={{ borderColor: `${MODEL_COLORS[modelId]}80` }}
                   animate={{ rotate: 360 }}
                   transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
                 />
@@ -223,7 +212,7 @@ export default function GeneratePage() {
                 >
                   <Sparkles
                     className="w-8 h-8"
-                    style={{ color: modelColors[modelId] }}
+                    style={{ color: MODEL_COLORS[modelId] }}
                   />
                 </motion.div>
               </div>
@@ -239,9 +228,9 @@ export default function GeneratePage() {
                 </motion.p>
                 <h2
                   className="text-2xl font-bold tracking-wide"
-                  style={{ color: modelColors[modelId] }}
+                  style={{ color: MODEL_COLORS[modelId] }}
                 >
-                  {modelNames[modelId]}
+                  {MODEL_NAMES[modelId]}
                 </h2>
                 {usingFreeTier && (
                   <motion.div
@@ -262,7 +251,7 @@ export default function GeneratePage() {
                 <motion.div
                   className="progress-bar"
                   style={{
-                    background: `linear-gradient(90deg, ${modelColors[modelId]} 0%, ${modelColors[modelId]}80 100%)`,
+                    background: `linear-gradient(90deg, ${MODEL_COLORS[modelId]} 0%, ${MODEL_COLORS[modelId]}80 100%)`,
                   }}
                   initial={{ width: 0 }}
                   animate={{ width: `${progress}%` }}

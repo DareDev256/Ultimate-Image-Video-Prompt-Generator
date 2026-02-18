@@ -22,6 +22,8 @@ import {
 } from 'lucide-react';
 import { Particles } from '@/components/effects/Particles';
 import { ModelType } from '@/context/WizardContext';
+import { MODEL_NAMES, MODEL_COLORS } from '@/lib/models';
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 
 interface GenerationResult {
   prompt: string;
@@ -41,23 +43,11 @@ export default function ResultPage() {
   const modelId = params.model as ModelType;
 
   const [result, setResult] = useState<GenerationResult | null>(null);
-  const [showPrompt, setShowPrompt] = useState(true); // Show prompt by default
-  const [copied, setCopied] = useState(false);
+  const [showPrompt, setShowPrompt] = useState(true);
+  const { copied, copy: copyPrompt } = useCopyToClipboard();
+  const { copied: linkCopied, copy: copyLink } = useCopyToClipboard();
   const [saved, setSaved] = useState(false);
-  const [linkCopied, setLinkCopied] = useState(false);
   const [showShareMenu, setShowShareMenu] = useState(false);
-
-  const modelNames: Record<ModelType, string> = {
-    'nano-banana': 'Nano Banana',
-    openai: 'DALL-E 3',
-    kling: 'Kling',
-  };
-
-  const modelColors: Record<ModelType, string> = {
-    'nano-banana': '#00d4ff',
-    openai: '#00ff88',
-    kling: '#ff00aa',
-  };
 
   useEffect(() => {
     const storedResult = localStorage.getItem('generationResult');
@@ -124,11 +114,9 @@ export default function ResultPage() {
     }
   };
 
-  const handleCopyPrompt = async () => {
+  const handleCopyPrompt = () => {
     if (!result) return;
-    await navigator.clipboard.writeText(result.prompt);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    copyPrompt(result.prompt);
   };
 
   const handleShareToTwitter = () => {
@@ -146,7 +134,7 @@ export default function ResultPage() {
 
   const handleShareToReddit = () => {
     if (!result) return;
-    const title = `AI Generated Image - ${modelNames[modelId]}`;
+    const title = `AI Generated Image - ${MODEL_NAMES[modelId]}`;
     const url = 'https://web-ten-vert-46.vercel.app';
     window.open(
       `https://reddit.com/submit?title=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`,
@@ -154,11 +142,8 @@ export default function ResultPage() {
     );
   };
 
-  const handleCopyLink = async () => {
-    const url = 'https://web-ten-vert-46.vercel.app';
-    await navigator.clipboard.writeText(url);
-    setLinkCopied(true);
-    setTimeout(() => setLinkCopied(false), 2000);
+  const handleCopyLink = () => {
+    copyLink('https://web-ten-vert-46.vercel.app');
   };
 
   const handleStartFresh = () => {
@@ -196,7 +181,7 @@ export default function ResultPage() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
         style={{
-          background: `radial-gradient(circle at 50% 30%, ${modelColors[modelId]}15 0%, transparent 50%)`,
+          background: `radial-gradient(circle at 50% 30%, ${MODEL_COLORS[modelId]}15 0%, transparent 50%)`,
         }}
       />
 
@@ -210,10 +195,10 @@ export default function ResultPage() {
           >
             <div
               className="w-3 h-3 rounded-full animate-pulse"
-              style={{ backgroundColor: modelColors[modelId] }}
+              style={{ backgroundColor: MODEL_COLORS[modelId] }}
             />
             <span className="text-sm text-[var(--color-text-muted)]">
-              Generated with {modelNames[modelId]}
+              Generated with {MODEL_NAMES[modelId]}
             </span>
           </motion.div>
 
@@ -239,7 +224,7 @@ export default function ResultPage() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="relative rounded-xl overflow-hidden mb-8"
             style={{
-              boxShadow: `0 0 60px ${modelColors[modelId]}30`,
+              boxShadow: `0 0 60px ${MODEL_COLORS[modelId]}30`,
             }}
           >
             {isVideo ? (

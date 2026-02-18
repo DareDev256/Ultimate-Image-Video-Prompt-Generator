@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0] - 2026-02-18
+
+### Changed
+- Extracted `MODEL_NAMES`, `MODEL_COLORS`, and `isValidModel` type guard into shared `web/src/lib/models.ts` — eliminates 4× copy-pasted model metadata across wizard, quick, preview, and generate pages
+- Created `useCopyToClipboard` hook (`web/src/hooks/useCopyToClipboard.ts`) — replaces 3× duplicated `useState`/`setTimeout` clipboard pattern in quick, preview, and result pages, with proper timer cleanup via `useRef`
+- Replaced raw `['nano-banana', 'openai', 'kling'].includes()` checks with `isValidModel()` type guard in wizard and preview pages — adding a model is now a single-file change
+
 ## [0.7.9] - 2026-02-18
 
 ### Added

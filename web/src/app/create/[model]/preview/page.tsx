@@ -13,6 +13,8 @@ import {
 } from 'lucide-react';
 import { Particles } from '@/components/effects/Particles';
 import { WizardProvider, useWizard, ModelType } from '@/context/WizardContext';
+import { MODEL_NAMES, MODEL_COLORS, isValidModel } from '@/lib/models';
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 
 function PreviewContent() {
   const router = useRouter();
@@ -20,13 +22,13 @@ function PreviewContent() {
   const modelId = params.model as ModelType;
 
   const { state, setModel, restoreState, getFormattedPrompt, reset } = useWizard();
-  const [copied, setCopied] = useState(false);
+  const { copied, copy: copyToClipboard } = useCopyToClipboard();
   const [isGenerating, setIsGenerating] = useState(false);
   const [hasApiKey, setHasApiKey] = useState(false);
 
   // Initialize from localStorage
   useEffect(() => {
-    if (modelId && ['nano-banana', 'openai', 'kling'].includes(modelId)) {
+    if (isValidModel(modelId)) {
       // Load wizard state from localStorage if available
       const savedState = localStorage.getItem('wizardState');
       if (savedState) {
@@ -59,11 +61,7 @@ function PreviewContent() {
   const prompt = getFormattedPrompt();
   const isJson = modelId === 'nano-banana';
 
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(prompt);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  const handleCopy = () => copyToClipboard(prompt);
 
   const handleGenerate = () => {
     if (!hasApiKey) {
@@ -79,18 +77,6 @@ function PreviewContent() {
 
   const handleEdit = () => {
     router.push(`/create/${modelId}`);
-  };
-
-  const modelNames: Record<ModelType, string> = {
-    'nano-banana': 'Nano Banana',
-    openai: 'DALL-E 3',
-    kling: 'Kling',
-  };
-
-  const modelColors: Record<ModelType, string> = {
-    'nano-banana': '#00d4ff',
-    openai: '#00ff88',
-    kling: '#ff00aa',
   };
 
   const filledFields = Object.values(state.formData).filter(Boolean).length;
@@ -117,12 +103,12 @@ function PreviewContent() {
           <div
             className="px-3 py-1 text-xs font-bold tracking-wider rounded-full"
             style={{
-              backgroundColor: `${modelColors[modelId]}20`,
-              color: modelColors[modelId],
-              border: `1px solid ${modelColors[modelId]}40`,
+              backgroundColor: `${MODEL_COLORS[modelId]}20`,
+              color: MODEL_COLORS[modelId],
+              border: `1px solid ${MODEL_COLORS[modelId]}40`,
             }}
           >
-            {modelNames[modelId]}
+            {MODEL_NAMES[modelId]}
           </div>
         </div>
       </header>
@@ -214,7 +200,7 @@ function PreviewContent() {
               <AlertCircle className="w-5 h-5 text-[var(--color-accent)] flex-shrink-0 mt-0.5" />
               <div>
                 <p className="text-sm text-[var(--color-text-primary)]">
-                  No API key configured for {modelNames[modelId]}
+                  No API key configured for {MODEL_NAMES[modelId]}
                 </p>
                 <p className="text-sm text-[var(--color-text-muted)] mt-1">
                   You can still copy the prompt, or{' '}

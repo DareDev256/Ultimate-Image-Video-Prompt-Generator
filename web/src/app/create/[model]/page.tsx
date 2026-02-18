@@ -9,6 +9,7 @@ import { InspirationButton } from '@/components/inspiration';
 import { WizardProgress } from '@/components/wizard/WizardProgress';
 import { WizardStep } from '@/components/wizard/WizardStep';
 import { WizardProvider, useWizard, ModelType } from '@/context/WizardContext';
+import { MODEL_NAMES, MODEL_COLORS, isValidModel } from '@/lib/models';
 
 function WizardContent() {
   const router = useRouter();
@@ -31,7 +32,7 @@ function WizardContent() {
 
   // Initialize model on mount - restore from localStorage if available
   useEffect(() => {
-    if (modelId && ['nano-banana', 'openai', 'kling'].includes(modelId)) {
+    if (isValidModel(modelId)) {
       const savedState = localStorage.getItem('wizardState');
       if (savedState) {
         const parsed = JSON.parse(savedState);
@@ -92,18 +93,6 @@ function WizardContent() {
     }
   }, [state]);
 
-  const modelNames: Record<ModelType, string> = {
-    'nano-banana': 'Nano Banana',
-    openai: 'DALL-E 3',
-    kling: 'Kling',
-  };
-
-  const modelColors: Record<ModelType, string> = {
-    'nano-banana': '#00d4ff',
-    openai: '#00ff88',
-    kling: '#ff00aa',
-  };
-
   if (!currentCategory) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -139,12 +128,12 @@ function WizardContent() {
             <span
               className="px-3 py-1 text-xs font-bold tracking-wider rounded-full"
               style={{
-                backgroundColor: `${modelColors[modelId]}20`,
-                color: modelColors[modelId],
-                border: `1px solid ${modelColors[modelId]}40`,
+                backgroundColor: `${MODEL_COLORS[modelId]}20`,
+                color: MODEL_COLORS[modelId],
+                border: `1px solid ${MODEL_COLORS[modelId]}40`,
               }}
             >
-              {modelNames[modelId]}
+              {MODEL_NAMES[modelId]}
             </span>
           </div>
 
