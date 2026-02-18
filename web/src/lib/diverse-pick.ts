@@ -22,13 +22,13 @@ export function diversePick<T>(options: readonly T[], recent: readonly T[]): T {
 export const DEFAULT_RECENT_WINDOW = 5;
 
 /** Minimal field shape needed for prompt assembly */
-interface PickableField {
+export interface PickableField {
   key: string;
   suggestions: readonly string[];
 }
 
 /** Minimal category shape needed for prompt assembly */
-interface PickableCategory {
+export interface PickableCategory {
   id: string;
   fields: readonly PickableField[];
 }
@@ -51,7 +51,10 @@ export function buildRandomPrompt(
       const lastKey = field.key.split('.').pop()!;
       categoryData[lastKey] = picker(field.key, field.suggestions);
     }
-    const categoryKey = category.fields[0]?.key.split('.')[0] || category.id;
+    // Derive output key from field key prefix (e.g. "subject.description" → "subject").
+    // Field prefixes map to the data model, while category.id is a UI label that may differ
+    // (e.g. id="setting" but fields use "environment.*"). Fallback to id if category has no fields.
+    const categoryKey = category.fields[0]?.key.split('.')[0] ?? category.id;
     result[categoryKey] = categoryData;
   }
 

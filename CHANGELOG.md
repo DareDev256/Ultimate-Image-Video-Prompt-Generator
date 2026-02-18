@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.7.7] - 2026-02-18
+
+### Changed
+- Exported `PickableField` and `PickableCategory` interfaces from `diverse-pick.ts` — consumers can now type-check against the expected shape instead of duck-typing
+- Replaced `||` with `??` (nullish coalescing) in `buildRandomPrompt` category key derivation — only falls back to `category.id` when no fields exist, not on empty string
+- Added inline documentation explaining why output keys derive from field key prefixes rather than category IDs (data model vs UI label divergence)
+
+### Added
+- 14 tests for `buildRandomPrompt` and `flattenPromptToText` — covers category key derivation, field pass-through, empty categories, unicode handling, empty value filtering, and build-flatten round-trip integration with diversity picker
+- Total test count: 379 → 393 (17 files), assertions: 1,687 → 1,707
+
 ## [0.7.6] - 2026-02-17
 
 ### Changed

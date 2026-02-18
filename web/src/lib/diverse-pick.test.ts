@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'bun:test';
-import { diversePick, pushRecent, DEFAULT_RECENT_WINDOW } from './diverse-pick';
+import { diversePick, pushRecent, DEFAULT_RECENT_WINDOW, buildRandomPrompt, flattenPromptToText } from './diverse-pick';
+import type { PickableCategory } from './diverse-pick';
 
 describe('diversePick', () => {
   test('throws on empty options array', () => {
@@ -158,5 +159,167 @@ describe('diversePick + pushRecent integration', () => {
         expect(pick).not.toBe(recent.length > 1 ? recent[recent.length - 2] : undefined);
       }
     }
+  });
+});
+
+describe('buildRandomPrompt', () => {
+  const makeCategories = (...specs: Array<{ id: string; fields: Array<{ key: string; suggestions: string[] }> }>): PickableCategory[] =>
+    specs.map((s) => ({ id: s.id, fields: s.fields }));
+
+  test('calls picker once per field and returns structured output', () => {
+    const calls: Array<{ fieldKey: string; suggestions: readonly string[] }> = [];
+    const picker = (fieldKey: string, suggestions: readonly string[]) => {
+      calls.push({ fieldKey, suggestions });
+      return suggestions[0];
+    };
+
+    const categories = makeCategories({
+      id: 'cat1',
+      fields: [
+        { key: 'subject.description', suggestions: ['a portrait'] },
+        { key: 'subject.expression', suggestions: ['smiling'] },
+      ],
+    });
+
+    const result = buildRandomPrompt(categories, picker);
+
+    expect(calls).toHaveLength(2);
+    expect(calls[0].fieldKey).toBe('subject.description');
+    expect(calls[1].fieldKey).toBe('subject.expression');
+    // Output keyed by field prefix, not category id
+    expect(result).toEqual({
+      subject: { description: 'a portrait', expression: 'smiling' },
+    });
+  });
+
+  test('derives output key from field prefix, not category id', () => {
+    const picker = (_k: string, s: readonly string[]) => s[0];
+    // Simulates real data: id="setting" but fields use "environment.*"
+    const categories = makeCategories({
+      id: 'setting',
+      fields: [{ key: 'environment.location', suggestions: ['forest'] }],
+    });
+
+    const result = buildRandomPrompt(categories, picker);
+    expect(result['environment']).toBeDefined();
+    expect(result['setting']).toBeUndefined();
+  });
+
+  test('falls back to category.id when category has no fields', () => {
+    const picker = () => 'unused';
+    const categories: PickableCategory[] = [{ id: 'empty-cat', fields: [] }];
+
+    const result = buildRandomPrompt(categories, picker);
+    expect(result['empty-cat']).toEqual({});
+  });
+
+  test('handles multiple categories independently', () => {
+    let callCount = 0;
+    const picker = () => `pick-${++callCount}`;
+
+    const categories = makeCategories(
+      { id: 'a', fields: [{ key: 'alpha.one', suggestions: ['x'] }] },
+      { id: 'b', fields: [{ key: 'beta.two', suggestions: ['y'] }, { key: 'beta.three', suggestions: ['z'] }] },
+    );
+
+    const result = buildRandomPrompt(categories, picker);
+    expect(result).toEqual({
+      alpha: { one: 'pick-1' },
+      beta: { two: 'pick-2', three: 'pick-3' },
+    });
+  });
+
+  test('passes suggestions array unchanged to picker', () => {
+    const captured: Array<readonly string[]> = [];
+    const picker = (_k: string, s: readonly string[]) => {
+      captured.push(s);
+      return s[0];
+    };
+
+    const suggestions = Object.freeze(['a', 'b', 'c']) as readonly string[];
+    const categories: PickableCategory[] = [
+      { id: 'x', fields: [{ key: 'x.val', suggestions: suggestions as string[] }] },
+    ];
+
+    buildRandomPrompt(categories, picker);
+    expect(captured[0]).toBe(suggestions);
+  });
+
+  test('returns empty object for empty categories array', () => {
+    const result = buildRandomPrompt([], () => 'never');
+    expect(result).toEqual({});
+  });
+});
+
+describe('flattenPromptToText', () => {
+  test('joins all values with comma and space', () => {
+    const prompt = {
+      subject: { description: 'a woman', expression: 'smiling' },
+      environment: { location: 'forest' },
+    };
+    expect(flattenPromptToText(prompt)).toBe('a woman, smiling, forest');
+  });
+
+  test('skips empty string values', () => {
+    const prompt = {
+      subject: { description: 'portrait', expression: '' },
+      lighting: { source: 'golden hour' },
+    };
+    expect(flattenPromptToText(prompt)).toBe('portrait, golden hour');
+  });
+
+  test('returns empty string for empty prompt', () => {
+    expect(flattenPromptToText({})).toBe('');
+  });
+
+  test('returns empty string when all values are empty', () => {
+    expect(flattenPromptToText({ a: { x: '', y: '' } })).toBe('');
+  });
+
+  test('preserves unicode and special characters', () => {
+    const prompt = { vibes: { ref: '日本語テスト', desc: 'café noir' } };
+    expect(flattenPromptToText(prompt)).toBe('日本語テスト, café noir');
+  });
+
+  test('handles single category with single field', () => {
+    expect(flattenPromptToText({ subject: { description: 'solo' } })).toBe('solo');
+  });
+});
+
+describe('buildRandomPrompt + flattenPromptToText integration', () => {
+  test('round-trips through build and flatten', () => {
+    const picker = (_k: string, s: readonly string[]) => s[0];
+    const categories: PickableCategory[] = [
+      { id: 'cat', fields: [
+        { key: 'subject.desc', suggestions: ['portrait'] },
+        { key: 'subject.mood', suggestions: ['serene'] },
+      ]},
+    ];
+
+    const structured = buildRandomPrompt(categories, picker);
+    const text = flattenPromptToText(structured);
+    expect(text).toBe('portrait, serene');
+  });
+
+  test('diversity picker integrates with build and flatten', () => {
+    let recent: string[] = [];
+    const picker = (fieldKey: string, suggestions: readonly string[]) => {
+      const picked = diversePick(suggestions, recent);
+      recent = pushRecent(recent, picked, 3);
+      return picked;
+    };
+
+    const categories: PickableCategory[] = [
+      { id: 'x', fields: [
+        { key: 'x.a', suggestions: ['alpha', 'beta', 'gamma'] },
+        { key: 'x.b', suggestions: ['one', 'two', 'three'] },
+      ]},
+    ];
+
+    const result = flattenPromptToText(buildRandomPrompt(categories, picker));
+    const parts = result.split(', ');
+    expect(parts).toHaveLength(2);
+    expect(['alpha', 'beta', 'gamma']).toContain(parts[0]);
+    expect(['one', 'two', 'three']).toContain(parts[1]);
   });
 });
