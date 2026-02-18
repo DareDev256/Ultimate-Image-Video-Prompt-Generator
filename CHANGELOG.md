@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.7.6] - 2026-02-17
+
+### Changed
+- Expanded "Diversity-Aware Randomization" README section from 4-line overview to full algorithm walkthrough with step-by-step click trace showing window sliding and graceful fallback behavior
+- Added architecture table mapping the 4-layer stack (pure algorithm → React hook → wizard → Quick Mode) with file paths
+- Enhanced feature bullet with cross-link to architecture detail section
+- Updated Engineering Highlights and Challenges & Solutions entries with test counts, cross-links, and fallback documentation
+- Improved test table description for diversity suite to explicitly name all tested functions
+
 ## [0.7.5] - 2026-02-17
 
 ### Changed

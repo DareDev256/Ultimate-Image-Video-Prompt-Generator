@@ -103,7 +103,7 @@ bun run index.ts --favorites list         # Manage favorite suggestions
 - **13 deep categories** with 3-7 fields each — Subject, Camera, Fashion, Environment, Lighting, Atmosphere, Composition, Color, Film, Technical, Vibes, and more
 - **Curated suggestions** per field (8-10 hyper-specific options like "six thick rope braids radiating outward from skull")
 - **Quick Mode** — describe your idea in plain English, AI expands to full structured prompt
-- **Diversity-aware Randomize** — tracks recent picks per field so consecutive clicks cycle through varied suggestions instead of repeating
+- **Diversity-aware Randomize** — sliding-window exclusion algorithm tracks recent picks per field so consecutive clicks always surface fresh suggestions (see [algorithm detail](#diversity-aware-randomization))
 - **Keyboard navigation** with smart focus detection
 
 ### 🤖 Multi-Model Generation
@@ -236,13 +236,27 @@ State persists across all page transitions via React Context + localStorage sync
 
 ### Diversity-Aware Randomization
 
-The "Randomize" button uses a sliding-window exclusion algorithm so consecutive clicks cycle through varied suggestions instead of repeating:
+Most "randomize" buttons use naive `Math.random()` — click three times, get the same suggestion twice. This project uses a **sliding-window exclusion algorithm** inspired by shuffle-play systems:
 
 ```
-diversePick(options, recent) → exclude recent → pick from remaining → push to window
+Click 1: pool=[A,B,C,D,E] recent=[]       → picks C → recent=[C]
+Click 2: pool=[A,B,D,E]   recent=[C]      → picks A → recent=[C,A]
+Click 3: pool=[B,D,E]     recent=[C,A]    → picks E → recent=[C,A,E]
+Click 4: pool=[B,D]       recent=[C,A,E]  → picks D → recent=[C,A,E,D]
+Click 5: pool=[B]          recent=[C,A,E,D]→ picks B → recent=[A,E,D,B]  ← window slides
+Click 6: pool=[C]          recent=[A,E,D,B]→ picks C → recent=[E,D,B,C]  ← C is fresh again
 ```
 
-The pure functions (`diversePick`, `buildRandomPrompt`, `flattenPromptToText`) live in `web/src/lib/diverse-pick.ts`, wrapped by a generic `useDiversePick<T>` hook for per-field-key tracking via `useRef`. Both the wizard step and Quick Mode share the same algorithm — Quick Mode composes `buildRandomPrompt` with the hook's picker function for zero-duplication prompt assembly.
+**Graceful fallback**: when every option is in the recent window (small pools), exclusion is skipped and the full pool is used — the algorithm never deadlocks regardless of pool size vs window size.
+
+| Layer | File | Role |
+|-------|------|------|
+| Pure algorithm | `web/src/lib/diverse-pick.ts` | `diversePick`, `pushRecent`, `buildRandomPrompt`, `flattenPromptToText` — zero React dependencies, fully testable |
+| React binding | `web/src/hooks/useDiversePick.ts` | `useDiversePick<T>` hook — per-field-key recent tracking via `useRef` |
+| Wizard integration | `WizardStep.tsx` | Per-field randomize button |
+| Quick Mode integration | Quick Mode page | Full-prompt randomization via `buildRandomPrompt` composed with the hook's picker |
+
+Both the wizard and Quick Mode share the identical algorithm — Quick Mode composes `buildRandomPrompt` with the hook's picker function for zero-duplication prompt assembly across all 13 categories in a single click.
 
 ### Input Validation & Sanitization
 
@@ -313,7 +327,7 @@ bun test
 |--------|-------|----------|
 | Section generators | 56 | All 13 pure functions — edge cases, dedup, fallback precedence |
 | Template→pipeline integration | 36 | Every template through NL+JSON generators, merge behavior, data integrity |
-| Diversity-aware randomization | 30 | diversePick exclusion, fallback, statistical diversity, pushRecent sliding window, integration |
+| Diversity-aware randomization | 30 | `diversePick` exclusion, full-pool fallback, statistical diversity proof, `pushRecent` sliding window, `buildRandomPrompt` + `flattenPromptToText` integration |
 | Cross-cutting invariants | 24 | NL/JSON consistency, cleanObject edge cases, pipeline purity, parseArgs boundaries |
 | CLI argument parser | 22 | All 15 flags, shorthands, pack splitting, subcommands |
 | Input validation & sanitization | 22 | Prompt length/type/control-char stripping, API key format/injection defense |
@@ -333,7 +347,7 @@ Things I'm particularly proud of in this codebase:
 |------|------|----------------|
 | **Zero `any` types** | Entire codebase uses `unknown` at serialization boundaries with type narrowing | Catches bugs at compile time that `any` would silently pass through — especially in the JSON serializer where nested data arrives as `unknown` |
 | **Composable pipeline** | 13 section generators are pure functions composed via `flatMap` | Adding a new prompt section is one function + one array entry — no touch points in existing code |
-| **Diversity-aware randomization** | Sliding-window exclusion algorithm shared between wizard and Quick Mode | Extracts a pure function (`diversePick`) with a React hook wrapper — testable logic separated from React lifecycle |
+| **Diversity-aware randomization** | Sliding-window exclusion algorithm ([detail](#diversity-aware-randomization)) shared between wizard and Quick Mode | Pure function `diversePick` with a generic React hook wrapper — 30 tests prove exclusion, fallback, and statistical diversity properties |
 | **Centralized input validation** | Shared `validation.ts` with prompt sanitization, key format checks, and length limits | One place to audit, one place to fix — not scattered across 3 API routes |
 | **Data-driven preset parsing** | Replaced 5-branch `else if` chain with a `PRESET_FLAGS` lookup map | Adding a new preset is a one-line map entry instead of a new branch |
 | **379 tests / 1,687 assertions** | Every generator, every template, every CLI flag, cross-format consistency checks, web-side validation & diversity logic | Not just coverage — tests document *invariants* like "NL and JSON generators stay in sync on the same input" |
@@ -359,7 +373,7 @@ This project embraces the **Flash Site Era** aesthetic (2002-2006) — when webs
 | **Keyboard nav vs. text input** | Arrow keys conflicted with suggestion field typing. Implemented focus detection to disable shortcuts during input, re-enable on blur. |
 | **Canvas particle performance** | Frame drops on lower-end devices. Reduced particle count, added `requestAnimationFrame` throttling and `will-change` GPU hints. |
 | **Multi-model prompt formats** | Each AI model expects different formats. Built a unified generation interface with model-specific adapters (JSON for Nano Banana, natural language for DALL-E/Kling). |
-| **Randomize repeats same values** | Naive `Math.random()` frequently repeats the same suggestion. Implemented a sliding-window exclusion algorithm (`diversePick`) that tracks recent picks per field and excludes them from the candidate pool. |
+| **Randomize repeats same values** | Naive `Math.random()` frequently repeats the same suggestion. Implemented a [sliding-window exclusion algorithm](#diversity-aware-randomization) (`diversePick`) that tracks recent picks per field and excludes them from the candidate pool — with graceful fallback when the pool is smaller than the window. |
 | **Type safety at serialization boundaries** | `cleanObject` recursively processes prompt data of unknown shape. Replaced `any` with `unknown` + type narrowing to catch bugs at compile time instead of runtime. |
 
 </details>
