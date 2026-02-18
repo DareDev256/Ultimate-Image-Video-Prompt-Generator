@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.9] - 2026-02-18
+
+### Added
+- Technical reference document `docs/diversity-picking.md` — comprehensive deep-dive into the sliding-window exclusion algorithm covering the problem statement, step-by-step click trace, graceful degradation behavior, 4-layer architecture diagram (pure algorithm → composition → React binding → integration), full API reference for all 5 exported functions/hooks, 9 proven invariants table with consequence analysis, and design decision rationale (window vs shuffle, Set-based exclusion, key derivation strategy, default window sizing)
+- Linked new diversity-picking doc from README Documentation section
+
 ## [0.7.8] - 2026-02-18
 
 ### Changed
