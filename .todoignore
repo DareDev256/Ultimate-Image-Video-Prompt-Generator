@@ -1,0 +1,8 @@
+# Directories excluded from TODO/code-debt scanning
+# These contain upstream dependency internals, not project debt
+node_modules/
+.next/
+dist/
+build/
+coverage/
+.git/

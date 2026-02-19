@@ -292,6 +292,7 @@ All types, section generators, and output formatters are documented with TSDoc �
 
 ```
 .
+├── .todoignore                   # Excludes node_modules etc. from code-debt scanning
 ├── web/                          # Next.js web app
 │   ├── src/
 │   │   ├── app/

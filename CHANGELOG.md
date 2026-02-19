@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.1] - 2026-02-19
+
+### Fixed
+- Synced `web/package.json` version from `0.1.0` to `0.8.1` — was never bumped from the Next.js scaffold default, causing a 20-release drift from CHANGELOG versions
+
+### Changed
+- Added `.todoignore` at project root — excludes `node_modules/`, `.next/`, `dist/`, `build/`, `coverage/`, and `.git/` from TODO/code-debt scanning to prevent upstream dependency internals (e.g. Zod's `from-json-schema.js` TODOs for `uniqueItems`/`contains`) from being flagged as project debt
+
 ## [0.8.0] - 2026-02-18
 
 ### Changed
