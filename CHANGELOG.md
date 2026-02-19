@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.8.4] - 2026-02-19
+
+### Changed
+- Enhanced README hero section with a punchier tagline that sells the Flash Era personality and zero-blank-box-anxiety value prop
+- Added "At a Glance" quick-stats table below the badge row — 6 key numbers (13 categories, 7,000+ prompts, 3 models, 417 tests, 2 platforms, 240 patterns) for instant scanability
+- Added "What Makes This Different" subsection under "Why This Exists" — highlights diversity-aware randomization, model-aware output, composable architecture, and test invariants as portfolio differentiators
+- Improved screenshot alt text from generic labels to descriptive captions that communicate what each screen shows
+- Added "Why This Exists" entry to Table of Contents (was missing despite the section existing)
+- Polished footer with a thematic closing line that ties the Flash Era aesthetic to the engineering story
+
 ## [0.8.3] - 2026-02-19
 
 ### Added

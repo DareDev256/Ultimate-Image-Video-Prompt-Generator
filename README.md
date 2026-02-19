@@ -4,7 +4,7 @@
 
 **Craft hyper-detailed AI image and video prompts through a guided wizard — on the web or in your terminal.**
 
-A dual-platform prompt builder with a Flash Site Era (2002-2006) aesthetic that turns prompt engineering from guesswork into a guided creative process.
+A dual-platform prompt builder with a Flash Site Era (2002–2006) aesthetic that turns prompt engineering from guesswork into a guided creative process. Neon UI. Particle effects. 13 categories of curated suggestions. Zero blank-box anxiety.
 
 **[🚀 Try the Live Demo](https://web-ten-vert-46.vercel.app)** · [Report Bug](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues) · [Request Feature](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues)
 
@@ -22,14 +22,25 @@ A dual-platform prompt builder with a Flash Site Era (2002-2006) aesthetic that 
 
 ---
 
-| Landing Page | Model Selection | Wizard |
+### At a Glance
+
+| | |
+|---|---|
+| **13 guided categories** — subject, camera, lighting, atmosphere, composition, color, film, vibes… | **7,000+ curated prompts** — community-sourced inspiration library with search & filters |
+| **3 AI models** — Nano Banana (free tier), DALL-E 3, Kling video | **417 tests / 2,144 assertions** — every generator, every invariant, zero `any` types |
+| **2 platforms** — visual web wizard + interactive CLI with presets & templates | **240 extracted patterns** — lighting rigs, camera angles, moods, color grades, styles |
+
+---
+
+| Theatrical Intro | Model Selection | Guided Wizard |
 |:---:|:---:|:---:|
-| ![Landing](./screenshots/intro-loading.png) | ![Models](./screenshots/model-selection.png) | ![Wizard](./screenshots/wizard-step.png) |
+| ![Neon loading screen with animated progress bar and particle effects](./screenshots/intro-loading.png) | ![Choose between Nano Banana, DALL-E 3, and Kling video models](./screenshots/model-selection.png) | ![Step-by-step category wizard with curated suggestions per field](./screenshots/wizard-step.png) |
 
 ## Table of Contents
 
 - [Quick Start](#quick-start)
 - [How It Works](#how-it-works)
+- [Why This Exists](#why-this-exists)
 - [Two Platforms, One Pipeline](#two-platforms-one-pipeline)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
@@ -77,6 +88,15 @@ Open [localhost:3000](http://localhost:3000) and start generating — the free t
 Most AI image tools give you a blank text box and wish you luck. This project solves that with **guided prompt engineering** — walking you through 13 categories (subject, camera, lighting, atmosphere, etc.) with curated suggestions for each field, then assembling everything into the exact format your chosen model expects.
 
 The result: prompts that are 10× more detailed than what you'd write freehand, produced in a fraction of the time.
+
+### What Makes This Different
+
+Most prompt tools are either a glorified text box or a rigid template picker. This project sits in between — **structured enough to guide you, flexible enough to not constrain you**:
+
+- **Diversity-aware randomization** — a sliding-window exclusion algorithm (not naive `Math.random()`) ensures the "randomize" button always surfaces fresh suggestions. [Algorithm deep-dive →](#diversity-aware-randomization)
+- **Model-aware output** — the same wizard produces structured JSON for Gemini or natural language for DALL-E/Kling, automatically adapting to what each model expects
+- **Composable architecture** — 13 pure section generators composed via `flatMap`. Adding a new prompt category is one function + one array entry, zero touch points elsewhere
+- **Actually tested** — 417 tests prove invariants like "NL and JSON generators stay in sync on the same input" and "the randomizer never deadlocks regardless of pool size"
 
 ## Two Platforms, One Pipeline
 
@@ -449,6 +469,8 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines. Bug reports, feature su
 <div align="center">
 
 Built with caffeine and nostalgia for the early 2000s web by [DareDev256](https://github.com/DareDev256).
+
+*Remember when websites had loading screens, particle effects, and sound design? This is that energy — with modern engineering underneath.*
 
 **[⬆ Back to Top](#-ultimate-image--video-prompt-generator)**
 
