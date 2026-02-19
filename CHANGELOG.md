@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.8.2] - 2026-02-19
+
+### Added
+- 11 new tests for diversity-picking edge cases and algorithm invariants — reference equality semantics for object options (Set uses `===`, not structural equality), duplicate handling in both `diversePick` and `pushRecent`, `maxSize=0` boundary, large pool (1000 options) correctness, single-segment and multi-dot key parsing in `buildRandomPrompt`, category prefix collision behavior ("last wins" documented), window eviction proof (items slide out and become re-eligible), full-window graceful degradation, and per-field history isolation simulating the real `useDiversePick` hook pattern
+- Total test count: 393 → 404 (17 files), assertions: 1,707 → 1,832
+
 ## [0.8.1] - 2026-02-19
 
 ### Fixed

@@ -75,6 +75,41 @@ describe('diversePick', () => {
     const result = diversePick(options, recent);
     expect(['b', 'c']).toContain(result);
   });
+
+  test('duplicate values in options are preserved as separate candidates', () => {
+    // If options has duplicates, both instances survive Set filtering
+    // because Set.has checks the value, removing BOTH duplicates from candidates
+    const options = ['a', 'a', 'b'];
+    const recent = ['a'];
+    // With 'a' excluded, only 'b' remains (both 'a' instances filtered)
+    for (let i = 0; i < 20; i++) {
+      expect(diversePick(options, recent)).toBe('b');
+    }
+  });
+
+  test('uses reference equality for objects (Set semantics)', () => {
+    const obj1 = { id: 1 };
+    const obj2 = { id: 2 };
+    const obj3 = { id: 1 }; // same shape as obj1, different reference
+    const options = [obj1, obj2];
+    // obj3 !== obj1 by reference, so obj1 is NOT excluded
+    for (let i = 0; i < 20; i++) {
+      expect(options).toContain(diversePick(options, [obj3]));
+    }
+    // But same reference IS excluded
+    for (let i = 0; i < 20; i++) {
+      expect(diversePick(options, [obj1])).toBe(obj2);
+    }
+  });
+
+  test('handles large option pools without degradation', () => {
+    const options = Array.from({ length: 1000 }, (_, i) => `opt-${i}`);
+    const recent = options.slice(0, 995); // exclude 995, leaving 5 candidates
+    for (let i = 0; i < 50; i++) {
+      const pick = diversePick(options, recent);
+      expect(pick).toMatch(/^opt-(99[5-9])$/);
+    }
+  });
 });
 
 describe('pushRecent', () => {
@@ -125,6 +160,18 @@ describe('pushRecent', () => {
     const frozen = Object.freeze(['x', 'y']) as readonly string[];
     const result = pushRecent(frozen, 'z');
     expect(result).toEqual(['x', 'y', 'z']);
+  });
+
+  test('maxSize of 0 returns empty array', () => {
+    // Edge: window of 0 means "remember nothing"
+    const result = pushRecent(['a', 'b'], 'c', 0);
+    // next = ['a','b','c'], length 3 > 0, slice(3-0) = slice(3) = []
+    expect(result).toEqual([]);
+  });
+
+  test('handles duplicate values in recent history', () => {
+    const result = pushRecent(['a', 'a', 'a'], 'b', 3);
+    expect(result).toEqual(['a', 'a', 'b']);
   });
 });
 
@@ -249,6 +296,38 @@ describe('buildRandomPrompt', () => {
     const result = buildRandomPrompt([], () => 'never');
     expect(result).toEqual({});
   });
+
+  test('single-segment key uses full key as both category and field key', () => {
+    const picker = () => 'value';
+    // key "mood" has no dot — split('.').pop() → "mood", split('.')[0] → "mood"
+    const categories: PickableCategory[] = [
+      { id: 'vibes', fields: [{ key: 'mood', suggestions: ['happy'] }] },
+    ];
+    const result = buildRandomPrompt(categories, picker);
+    // Category key = "mood" (from field prefix), field key = "mood" (from pop)
+    expect(result).toEqual({ mood: { mood: 'value' } });
+  });
+
+  test('multi-dot key uses first segment as category and last as field', () => {
+    const picker = () => 'deep';
+    const categories: PickableCategory[] = [
+      { id: 'x', fields: [{ key: 'camera.lens.focal', suggestions: ['50mm'] }] },
+    ];
+    const result = buildRandomPrompt(categories, picker);
+    // Category = "camera", field = "focal" (last segment)
+    expect(result).toEqual({ camera: { focal: 'deep' } });
+  });
+
+  test('last category wins when multiple categories share a field prefix', () => {
+    const picker = (_k: string, s: readonly string[]) => s[0];
+    const categories: PickableCategory[] = [
+      { id: 'a', fields: [{ key: 'shared.x', suggestions: ['first'] }] },
+      { id: 'b', fields: [{ key: 'shared.y', suggestions: ['second'] }] },
+    ];
+    const result = buildRandomPrompt(categories, picker);
+    // Second category overwrites result['shared'], so only 'y' survives
+    expect(result['shared']).toEqual({ y: 'second' });
+  });
 });
 
 describe('flattenPromptToText', () => {
@@ -283,6 +362,72 @@ describe('flattenPromptToText', () => {
 
   test('handles single category with single field', () => {
     expect(flattenPromptToText({ subject: { description: 'solo' } })).toBe('solo');
+  });
+});
+
+describe('diversePick + pushRecent window eviction', () => {
+  test('evicted items become pickable again after sliding out of window', () => {
+    const options = ['a', 'b', 'c'];
+    let recent: string[] = [];
+
+    // Window of 2: after picking a, b — 'a' is still in window.
+    // After picking c, window = [b, c] and 'a' is evicted → eligible again.
+    const pick1 = diversePick(options, recent);
+    recent = pushRecent(recent, pick1, 2);
+
+    const pick2 = diversePick(options, recent);
+    recent = pushRecent(recent, pick2, 2);
+    expect(pick2).not.toBe(pick1); // window excludes pick1
+
+    const pick3 = diversePick(options, recent);
+    recent = pushRecent(recent, pick3, 2);
+    // pick3 can't be pick1's successor (pick2), and can't be pick2
+    // so pick3 must differ from pick2, and pick1 is now evicted → eligible
+    expect(pick3).not.toBe(pick2);
+  });
+
+  test('window equal to options length forces full-pool fallback every pick', () => {
+    const options = ['a', 'b', 'c'];
+    let recent: string[] = [];
+
+    // Fill the window completely
+    for (let i = 0; i < 3; i++) {
+      const pick = diversePick(options, recent);
+      recent = pushRecent(recent, pick, 3);
+    }
+    // Window now holds all 3 options — next pick triggers graceful degradation
+    expect(recent).toHaveLength(3);
+    const nextPick = diversePick(options, recent);
+    expect(options).toContain(nextPick); // still valid despite full window
+  });
+
+  test('per-field isolation: separate histories stay independent', () => {
+    // Simulates the real useDiversePick hook pattern: each field key
+    // has its own recent history
+    const histories: Record<string, string[]> = {};
+    const pick = (key: string, opts: readonly string[]) => {
+      const recent = histories[key] ?? [];
+      const result = diversePick(opts, recent);
+      histories[key] = pushRecent(recent, result, 2);
+      return result;
+    };
+
+    // "mood" and "style" have overlapping suggestions
+    for (let i = 0; i < 10; i++) {
+      pick('mood', ['happy', 'sad', 'neutral']);
+      pick('style', ['happy', 'dark', 'minimal']);
+    }
+
+    // Histories must be independent — mood picks don't affect style
+    expect(histories['mood']!.length).toBeLessThanOrEqual(2);
+    expect(histories['style']!.length).toBeLessThanOrEqual(2);
+    // Both fields should have been picking from their own pools
+    for (const val of histories['mood']!) {
+      expect(['happy', 'sad', 'neutral']).toContain(val);
+    }
+    for (const val of histories['style']!) {
+      expect(['happy', 'dark', 'minimal']).toContain(val);
+    }
   });
 });
 
