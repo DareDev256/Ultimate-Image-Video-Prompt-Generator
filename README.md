@@ -13,8 +13,8 @@ A dual-platform prompt builder with a Flash Site Era (2002-2006) aesthetic that 
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?style=flat-square&logo=tailwindcss)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-ff69b4?style=flat-square&logo=framer)
 ![Bun](https://img.shields.io/badge/Bun-runtime-f9f1e1?style=flat-square&logo=bun)
-![Tests](https://img.shields.io/badge/Tests-404_passing-brightgreen?style=flat-square)
-![Assertions](https://img.shields.io/badge/Assertions-1,832-brightgreen?style=flat-square)
+![Tests](https://img.shields.io/badge/Tests-417_passing-brightgreen?style=flat-square)
+![Assertions](https://img.shields.io/badge/Assertions-2,144-brightgreen?style=flat-square)
 ![Zero Any](https://img.shields.io/badge/any_types-0-blueviolet?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
@@ -338,13 +338,13 @@ All types, section generators, and output formatters are documented with TSDoc �
 bun test
 ```
 
-**404 tests** across 17 test files:
+**417 tests** across 17 test files:
 
 | Module | Tests | Coverage |
 |--------|-------|----------|
 | Section generators | 56 | All 13 pure functions — edge cases, dedup, fallback precedence |
 | Template→pipeline integration | 36 | Every template through NL+JSON generators, merge behavior, data integrity |
-| Diversity-aware randomization | 46 | `diversePick` exclusion, full-pool fallback, superset recent, statistical diversity proof, reference equality semantics for objects, duplicate filtering, large pool (1000 opts), `pushRecent` sliding window + immutability + `maxSize=0` boundary, `buildRandomPrompt` key derivation (single-segment, multi-dot, prefix collision), `flattenPromptToText` empty/unicode handling, window eviction proof, per-field history isolation, build→flatten round-trip with diversity picker |
+| Diversity-aware randomization | 59 | `diversePick` exclusion, full-pool fallback, superset recent, statistical diversity proof, **probabilistic fairness (distribution sanity)**, **pigeonhole coverage guarantee**, reference equality semantics for objects, duplicate filtering, large pool (1000 opts), `pushRecent` sliding window + immutability + `maxSize=0`/negative boundary, `buildRandomPrompt` key derivation (single-segment, multi-dot, prefix collision), **empty-suggestions contract propagation**, **field iteration order**, **mixed empty/populated categories**, `flattenPromptToText` empty/unicode/**whitespace-only**/insertion-order handling, window eviction proof, per-field history isolation, build→flatten round-trip with diversity picker, **full-cycle multi-category simulation** |
 | Cross-cutting invariants | 24 | NL/JSON consistency, cleanObject edge cases, pipeline purity, parseArgs boundaries |
 | CLI argument parser | 22 | All 15 flags, shorthands, pack splitting, subcommands |
 | Input validation & sanitization | 22 | Prompt length/type/control-char stripping, API key format/injection defense |
@@ -364,11 +364,11 @@ Things I'm particularly proud of in this codebase:
 |------|------|----------------|
 | **Zero `any` types** | Entire codebase uses `unknown` at serialization boundaries with type narrowing | Catches bugs at compile time that `any` would silently pass through — especially in the JSON serializer where nested data arrives as `unknown` |
 | **Composable pipeline** | 13 section generators are pure functions composed via `flatMap` | Adding a new prompt section is one function + one array entry — no touch points in existing code |
-| **Diversity-aware randomization** | Sliding-window exclusion algorithm ([detail](#diversity-aware-randomization)) shared between wizard and Quick Mode | Pure function `diversePick` + `buildRandomPrompt` + `flattenPromptToText` with exported `PickableField`/`PickableCategory` interfaces — 46 tests prove exclusion, graceful degradation, reference equality semantics, key derivation, window eviction, and round-trip fidelity ([proven properties](#diversity-aware-randomization)) |
+| **Diversity-aware randomization** | Sliding-window exclusion algorithm ([detail](#diversity-aware-randomization)) shared between wizard and Quick Mode | Pure function `diversePick` + `buildRandomPrompt` + `flattenPromptToText` with exported `PickableField`/`PickableCategory` interfaces — 59 tests prove exclusion, graceful degradation, probabilistic fairness, pigeonhole coverage, reference equality semantics, key derivation, window eviction, and round-trip fidelity ([proven properties](#diversity-aware-randomization)) |
 | **Centralized input validation** | Shared `validation.ts` with prompt sanitization, key format checks, and length limits | One place to audit, one place to fix — not scattered across 3 API routes |
 | **Single-source model registry** | `MODEL_NAMES`, `MODEL_COLORS`, `isValidModel` in `lib/models.ts` + `useCopyToClipboard` hook | Adding a model or changing brand colors is a 1-file change — replaces 4× duplicated metadata maps and 3× clipboard boilerplate |
 | **Data-driven preset parsing** | Replaced 5-branch `else if` chain with a `PRESET_FLAGS` lookup map | Adding a new preset is a one-line map entry instead of a new branch |
-| **404 tests / 1,832 assertions** | Every generator, every template, every CLI flag, cross-format consistency checks, web-side validation & diversity logic | Not just coverage — tests document *invariants* like "NL and JSON generators stay in sync on the same input" |
+| **417 tests / 2,144 assertions** | Every generator, every template, every CLI flag, cross-format consistency checks, web-side validation & diversity logic | Not just coverage — tests document *invariants* like "NL and JSON generators stay in sync on the same input" |
 
 ## Design Philosophy
 

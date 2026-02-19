@@ -468,3 +468,188 @@ describe('buildRandomPrompt + flattenPromptToText integration', () => {
     expect(['one', 'two', 'three']).toContain(parts[1]);
   });
 });
+
+// ── New tests: probabilistic invariants, boundary conditions, contract edges ──
+
+describe('diversePick probabilistic fairness', () => {
+  test('distributes roughly evenly with no history (chi-squared sanity)', () => {
+    const options = ['a', 'b', 'c', 'd'];
+    const counts: Record<string, number> = { a: 0, b: 0, c: 0, d: 0 };
+    const N = 1000;
+    for (let i = 0; i < N; i++) counts[diversePick(options, [])]++;
+    const expected = N / options.length; // 250
+    // Each bucket should be within ±40% of expected (very generous — catches broken RNG, not noise)
+    for (const key of options) {
+      expect(counts[key]).toBeGreaterThan(expected * 0.4);
+      expect(counts[key]).toBeLessThan(expected * 1.6);
+    }
+  });
+
+  test('exclusion shifts probability entirely to remaining candidates', () => {
+    const options = ['a', 'b', 'c'];
+    const counts = { b: 0, c: 0 };
+    for (let i = 0; i < 200; i++) {
+      const pick = diversePick(options, ['a']);
+      expect(pick).not.toBe('a');
+      counts[pick as 'b' | 'c']++;
+    }
+    // Both b and c should get picks — neither should be starved
+    expect(counts.b).toBeGreaterThan(30);
+    expect(counts.c).toBeGreaterThan(30);
+  });
+});
+
+describe('diversePick pigeonhole coverage', () => {
+  test('window = n-1 guarantees all options appear before any repeat', () => {
+    // With 4 options and window 3, every pick excludes 3 items → only 1 candidate left.
+    // This forces a deterministic round-robin through all options.
+    const options = ['a', 'b', 'c', 'd'];
+    let recent: string[] = [];
+    const seen = new Set<string>();
+    for (let i = 0; i < 4; i++) {
+      const pick = diversePick(options, recent);
+      seen.add(pick);
+      recent = pushRecent(recent, pick, 3); // window = options.length - 1
+    }
+    // Pigeonhole: all 4 must appear in first 4 picks
+    expect(seen.size).toBe(4);
+  });
+
+  test('window = n-1 produces no consecutive duplicates over many rounds', () => {
+    const options = ['x', 'y', 'z'];
+    let recent: string[] = [];
+    let prev = '';
+    for (let i = 0; i < 50; i++) {
+      const pick = diversePick(options, recent);
+      expect(pick).not.toBe(prev);
+      prev = pick;
+      recent = pushRecent(recent, pick, 2); // window = 3-1
+    }
+  });
+});
+
+describe('pushRecent boundary edges', () => {
+  test('negative maxSize behaves like maxSize=0 (remember nothing)', () => {
+    // slice(next.length - (-1)) = slice(len+1) = [] for any array
+    const result = pushRecent(['a', 'b'], 'c', -1);
+    expect(result).toEqual([]);
+  });
+
+  test('maxSize=1 with large existing history keeps only the newest', () => {
+    const result = pushRecent(['a', 'b', 'c', 'd', 'e'], 'f', 1);
+    expect(result).toEqual(['f']);
+  });
+});
+
+describe('buildRandomPrompt contract boundaries', () => {
+  test('propagates diversePick throw when field has empty suggestions', () => {
+    const categories: PickableCategory[] = [
+      { id: 'broken', fields: [{ key: 'x.y', suggestions: [] }] },
+    ];
+    // A picker that delegates to diversePick will throw on empty suggestions
+    const picker = (key: string, suggestions: readonly string[]) =>
+      diversePick(suggestions, []);
+    expect(() => buildRandomPrompt(categories, picker)).toThrow('options array must not be empty');
+  });
+
+  test('preserves field iteration order within a category', () => {
+    const order: string[] = [];
+    const picker = (key: string, s: readonly string[]) => {
+      order.push(key);
+      return s[0];
+    };
+    const categories: PickableCategory[] = [{
+      id: 'cat',
+      fields: [
+        { key: 'cat.alpha', suggestions: ['a'] },
+        { key: 'cat.beta', suggestions: ['b'] },
+        { key: 'cat.gamma', suggestions: ['c'] },
+      ],
+    }];
+    buildRandomPrompt(categories, picker);
+    expect(order).toEqual(['cat.alpha', 'cat.beta', 'cat.gamma']);
+  });
+
+  test('mixed empty and populated categories produce correct structure', () => {
+    const picker = (_k: string, s: readonly string[]) => s[0];
+    const categories: PickableCategory[] = [
+      { id: 'empty-one', fields: [] },
+      { id: 'filled', fields: [{ key: 'subject.desc', suggestions: ['portrait'] }] },
+      { id: 'empty-two', fields: [] },
+    ];
+    const result = buildRandomPrompt(categories, picker);
+    expect(result['empty-one']).toEqual({});
+    expect(result['subject']).toEqual({ desc: 'portrait' });
+    expect(result['empty-two']).toEqual({});
+  });
+});
+
+describe('flattenPromptToText edge behaviors', () => {
+  test('whitespace-only values are included (truthy)', () => {
+    // This documents current behavior: "  " is truthy, so it passes the if(value) check
+    const prompt = { a: { x: '  ', y: 'real' } };
+    expect(flattenPromptToText(prompt)).toBe('  , real');
+  });
+
+  test('preserves category iteration order in output', () => {
+    // Object.values follows insertion order in modern JS engines
+    const prompt: Record<string, Record<string, string>> = {};
+    prompt['second'] = { val: 'B' };
+    prompt['first'] = { val: 'A' };
+    expect(flattenPromptToText(prompt)).toBe('B, A');
+  });
+
+  test('handles deeply nested-looking keys without recursing', () => {
+    // flattenPromptToText only goes 2 levels deep by design
+    const prompt = { a: { 'b.c.d': 'flat-value' } };
+    expect(flattenPromptToText(prompt)).toBe('flat-value');
+  });
+});
+
+describe('full-cycle simulation', () => {
+  test('realistic multi-category prompt generation with diversity tracking', () => {
+    const histories: Record<string, string[]> = {};
+    const picker = (key: string, suggestions: readonly string[]) => {
+      const recent = histories[key] ?? [];
+      const value = diversePick(suggestions, recent);
+      histories[key] = pushRecent(recent, value, 3);
+      return value;
+    };
+
+    const categories: PickableCategory[] = [
+      { id: 'subject-info', fields: [
+        { key: 'subject.description', suggestions: ['a woman', 'a man', 'a child', 'an elder'] },
+        { key: 'subject.expression', suggestions: ['smiling', 'stoic', 'laughing', 'pensive'] },
+      ]},
+      { id: 'scene-setting', fields: [
+        { key: 'environment.location', suggestions: ['forest', 'city', 'beach', 'studio'] },
+      ]},
+      { id: 'mood', fields: [
+        { key: 'atmosphere.mood', suggestions: ['serene', 'dramatic', 'ethereal'] },
+      ]},
+    ];
+
+    // Generate 5 prompts and verify diversity + structure
+    const prompts: string[] = [];
+    for (let i = 0; i < 5; i++) {
+      const structured = buildRandomPrompt(categories, picker);
+      // Structure invariant: always has these keys
+      expect(structured).toHaveProperty('subject');
+      expect(structured).toHaveProperty('environment');
+      expect(structured).toHaveProperty('atmosphere');
+      // Each category has expected fields
+      expect(structured.subject).toHaveProperty('description');
+      expect(structured.subject).toHaveProperty('expression');
+      expect(structured.environment).toHaveProperty('location');
+      expect(structured.atmosphere).toHaveProperty('mood');
+
+      const text = flattenPromptToText(structured);
+      expect(text.split(', ')).toHaveLength(4);
+      prompts.push(text);
+    }
+
+    // Diversity invariant: not all 5 prompts should be identical
+    const unique = new Set(prompts);
+    expect(unique.size).toBeGreaterThan(1);
+  });
+});

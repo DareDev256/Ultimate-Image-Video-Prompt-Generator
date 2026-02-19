@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.8.3] - 2026-02-19
+
+### Added
+- 13 new tests for diversity-picking algorithm covering probabilistic fairness (chi-squared distribution sanity), pigeonhole coverage guarantee (window = n-1 forces all options before repeats), negative maxSize boundary, empty-suggestions contract propagation, field iteration order preservation, whitespace-only value behavior in flatten, mixed empty/populated category structure, insertion-order preservation in flatten output, and full-cycle multi-category simulation with diversity + structure invariants
+- Total test count: 404 → 417 (17 files), assertions: 1,832 → 2,144
+
 ## [0.8.2] - 2026-02-19
 
 ### Added
