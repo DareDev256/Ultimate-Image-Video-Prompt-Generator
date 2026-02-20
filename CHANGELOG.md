@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.8.5] - 2026-02-19
+
+### Added
+- Complexity analysis section in `docs/diversity-picking.md` — documents O(n) time/space for `diversePick`, O(w) for `pushRecent`, O(c×f) for `buildRandomPrompt`, and O(v) for `flattenPromptToText` with real-world scale context
+- Three usage examples in diversity-picking doc — per-field randomize button (React), full-prompt Quick Mode pattern, and headless usage outside React for tests/scripts
+- Six new proven invariants (#10–#15) in the invariants table: probabilistic fairness (chi-squared), pigeonhole coverage, reference equality semantics, large pool correctness, per-field isolation, and negative maxSize boundary
+
+### Changed
+- Updated test count in diversity-picking doc from 35 to 59 tests across 10 describe blocks — reflects all edge-case, probabilistic, and boundary tests added in 0.8.2–0.8.3
+- Updated README documentation section with expanded description of diversity-picking doc contents
+
 ## [0.8.4] - 2026-02-19
 
 ### Changed

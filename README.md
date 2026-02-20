@@ -453,7 +453,7 @@ The Inspiration Gallery includes curated prompts from:
 ## Documentation
 
 - **[API Reference](./docs/API.md)** — Generation endpoints, CLI commands, validation rules, and error codes
-- **[Diversity-Aware Randomization](./docs/diversity-picking.md)** — Algorithm deep-dive, 4-layer architecture, API reference, design decisions, and proven invariants
+- **[Diversity-Aware Randomization](./docs/diversity-picking.md)** — Algorithm deep-dive, 4-layer architecture, API reference, complexity analysis, usage examples, design decisions, and 15 proven invariants (59 tests)
 - **[Contributing Guide](./CONTRIBUTING.md)** — Code style, component patterns, and PR process
 
 ## Contributing

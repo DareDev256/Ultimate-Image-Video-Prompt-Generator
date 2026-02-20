@@ -112,9 +112,71 @@ Flatten the nested record into a comma-separated string. Skips empty values.
 
 React hook returning a stable picker function. Tracks recent picks per `fieldKey` in a `useRef` map — survives re-renders without triggering them.
 
+## Complexity
+
+| Operation | Time | Space | Notes |
+|-----------|------|-------|-------|
+| `diversePick` | O(n) | O(n) | `n = options.length`. One `Set` construction + one `filter` pass. The Set gives O(1) exclusion lookups but costs O(r) to build where `r = recent.length`. |
+| `pushRecent` | O(w) | O(w) | `w = maxSize`. Spread + conditional slice. No mutation. |
+| `buildRandomPrompt` | O(c × f) | O(c × f) | `c = categories`, `f = avg fields/category`. Calls `picker` once per field. |
+| `flattenPromptToText` | O(v) | O(v) | `v = total values across all categories`. Single pass, joins non-empty. |
+
+For this project's scale (13 categories, ~3 fields each, 8–10 suggestions per field), every operation completes in microseconds. The algorithm is designed for correctness and simplicity, not for 10M-element pools — but it handles 1,000-element pools correctly (proven by test).
+
+## Usage Examples
+
+### Per-field randomize button (React)
+
+```tsx
+import { useDiversePick } from '@/hooks/useDiversePick';
+
+function FieldRandomizer({ fieldKey, suggestions }: Props) {
+  const pick = useDiversePick();       // default window = 5
+  const [value, setValue] = useState(suggestions[0]);
+
+  return (
+    <button onClick={() => setValue(pick(fieldKey, suggestions))}>
+      🎲 Randomize
+    </button>
+  );
+}
+```
+
+Each `fieldKey` gets its own history — clicking "Randomize" on the subject field doesn't affect the lighting field's recent window.
+
+### Full-prompt randomization (Quick Mode)
+
+```tsx
+import { useDiversePick } from '@/hooks/useDiversePick';
+import { buildRandomPrompt, flattenPromptToText } from '@/lib/diverse-pick';
+
+function QuickMode({ categories }: Props) {
+  const pick = useDiversePick(4);      // tighter window for Quick Mode
+
+  const handleRandomize = () => {
+    const structured = buildRandomPrompt(categories, pick);
+    const text = flattenPromptToText(structured);
+    // text = "a woman, smiling, golden hour, forest, ..."
+  };
+}
+```
+
+### Outside React (tests, scripts, server-side)
+
+```ts
+import { diversePick, pushRecent } from '@/lib/diverse-pick';
+
+let recent: string[] = [];
+const options = ['forest', 'city', 'beach', 'studio'];
+
+const pick = diversePick(options, recent);    // e.g. 'city'
+recent = pushRecent(recent, pick, 3);         // recent = ['city']
+// Next pick excludes 'city' from candidates
+```
+
 ## Invariants (Proven by Tests)
 
-The test suite (`web/src/lib/diverse-pick.test.ts`, 35 tests) proves these properties:
+The test suite (`web/src/lib/diverse-pick.test.ts`, 59 tests across 10 describe blocks) proves these properties:
 
 | # | Property | What breaks if violated |
 |---|----------|------------------------|
@@ -127,6 +189,12 @@ The test suite (`web/src/lib/diverse-pick.test.ts`, 35 tests) proves these prope
 | 7 | **Integration** — 12-round sequence with window=3 has no triple repeats | Algorithm layers don't compose correctly |
 | 8 | **Key derivation** — output keys come from field prefixes, not category IDs | Prompt data model diverges from wizard structure |
 | 9 | **Round-trip fidelity** — `build → flatten` preserves all non-empty values including unicode | Prompt assembly silently drops user data |
+| 10 | **Probabilistic fairness** — 1,000 picks distribute within ±40% of expected (chi-squared sanity) | RNG bias or broken filtering skews output |
+| 11 | **Pigeonhole coverage** — window = n−1 forces all options to appear before any repeat | Deterministic round-robin guarantee fails |
+| 12 | **Reference equality** — `Set` uses `===`, not structural equality for object options | Structurally-equal but distinct objects incorrectly excluded |
+| 13 | **Large pool correctness** — 1,000 options with 995 excluded still picks only from remaining 5 | Candidate filtering breaks at scale |
+| 14 | **Per-field isolation** — separate field histories never interfere with each other | Cross-field contamination breaks randomization |
+| 15 | **Negative maxSize** — behaves like "remember nothing" (returns empty array) | Negative input causes crash or infinite window |
 
 ## Design Decisions
 
