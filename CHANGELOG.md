@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.10.0] - 2026-02-20
+
+### Added
+- `parseFieldKey` utility — single-responsibility parser for dot-delimited field keys, eliminates duplicated `split('.')` logic across `buildRandomPrompt`
+- 3 new tests for `parseFieldKey` covering two-segment, multi-dot, and single-segment keys
+
+### Changed
+- `buildRandomPrompt` now **merges** categories sharing a field prefix instead of overwriting — fixes data loss when multiple wizard categories contribute fields to the same data model key (e.g. `subject-info` + `subject-detail` both writing to `subject.*`)
+- `flattenPromptToText` now trims values before inclusion — whitespace-only strings are excluded from output instead of producing artifacts like `"  , real"`
+- Updated 2 existing tests to reflect corrected merge and trim behaviors
+
+### Fixed
+- Data loss bug: when two categories shared a field prefix (e.g. both using `shared.*`), the second category's fields completely replaced the first. Now both categories' fields are preserved via merge
+
 ## [0.9.0] - 2026-02-20
 
 ### Removed

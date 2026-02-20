@@ -13,8 +13,8 @@ A dual-platform prompt builder with a Flash Site Era (2002–2006) aesthetic tha
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?style=flat-square&logo=tailwindcss)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-ff69b4?style=flat-square&logo=framer)
 ![Bun](https://img.shields.io/badge/Bun-runtime-f9f1e1?style=flat-square&logo=bun)
-![Tests](https://img.shields.io/badge/Tests-417_passing-brightgreen?style=flat-square)
-![Assertions](https://img.shields.io/badge/Assertions-2,144-brightgreen?style=flat-square)
+![Tests](https://img.shields.io/badge/Tests-420_passing-brightgreen?style=flat-square)
+![Assertions](https://img.shields.io/badge/Assertions-2,147-brightgreen?style=flat-square)
 ![Zero Any](https://img.shields.io/badge/any_types-0-blueviolet?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
@@ -27,7 +27,7 @@ A dual-platform prompt builder with a Flash Site Era (2002–2006) aesthetic tha
 | | |
 |---|---|
 | **13 guided categories** — subject, camera, lighting, atmosphere, composition, color, film, vibes… | **7,000+ curated prompts** — community-sourced inspiration library with search & filters |
-| **3 AI models** — Nano Banana (free tier), DALL-E 3, Kling video | **417 tests / 2,144 assertions** — every generator, every invariant, zero `any` types |
+| **3 AI models** — Nano Banana (free tier), DALL-E 3, Kling video | **420 tests / 2,147 assertions** — every generator, every invariant, zero `any` types |
 | **2 platforms** — visual web wizard + interactive CLI with presets & templates | **240 extracted patterns** — lighting rigs, camera angles, moods, color grades, styles |
 
 ---

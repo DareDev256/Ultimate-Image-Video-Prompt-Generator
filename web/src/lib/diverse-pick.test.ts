@@ -1,6 +1,20 @@
 import { describe, expect, test } from 'bun:test';
-import { diversePick, pushRecent, DEFAULT_RECENT_WINDOW, buildRandomPrompt, flattenPromptToText } from './diverse-pick';
+import { diversePick, pushRecent, DEFAULT_RECENT_WINDOW, buildRandomPrompt, flattenPromptToText, parseFieldKey } from './diverse-pick';
 import type { PickableCategory } from './diverse-pick';
+
+describe('parseFieldKey', () => {
+  test('splits two-segment key into category and field', () => {
+    expect(parseFieldKey('subject.description')).toEqual({ categoryKey: 'subject', fieldKey: 'description' });
+  });
+
+  test('uses first and last segments for multi-dot keys', () => {
+    expect(parseFieldKey('camera.lens.focal')).toEqual({ categoryKey: 'camera', fieldKey: 'focal' });
+  });
+
+  test('uses same value for both when key has no dots', () => {
+    expect(parseFieldKey('mood')).toEqual({ categoryKey: 'mood', fieldKey: 'mood' });
+  });
+});
 
 describe('diversePick', () => {
   test('throws on empty options array', () => {
@@ -318,15 +332,15 @@ describe('buildRandomPrompt', () => {
     expect(result).toEqual({ camera: { focal: 'deep' } });
   });
 
-  test('last category wins when multiple categories share a field prefix', () => {
+  test('merges categories that share a field prefix instead of overwriting', () => {
     const picker = (_k: string, s: readonly string[]) => s[0];
     const categories: PickableCategory[] = [
       { id: 'a', fields: [{ key: 'shared.x', suggestions: ['first'] }] },
       { id: 'b', fields: [{ key: 'shared.y', suggestions: ['second'] }] },
     ];
     const result = buildRandomPrompt(categories, picker);
-    // Second category overwrites result['shared'], so only 'y' survives
-    expect(result['shared']).toEqual({ y: 'second' });
+    // Both categories contribute to 'shared' — no data loss
+    expect(result['shared']).toEqual({ x: 'first', y: 'second' });
   });
 });
 
@@ -585,10 +599,9 @@ describe('buildRandomPrompt contract boundaries', () => {
 });
 
 describe('flattenPromptToText edge behaviors', () => {
-  test('whitespace-only values are included (truthy)', () => {
-    // This documents current behavior: "  " is truthy, so it passes the if(value) check
+  test('whitespace-only values are trimmed and excluded', () => {
     const prompt = { a: { x: '  ', y: 'real' } };
-    expect(flattenPromptToText(prompt)).toBe('  , real');
+    expect(flattenPromptToText(prompt)).toBe('real');
   });
 
   test('preserves category iteration order in output', () => {

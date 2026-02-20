@@ -34,10 +34,28 @@ export interface PickableCategory {
 }
 
 /**
+ * Parses a dot-delimited field key into its category and field components.
+ *
+ * @example
+ * parseFieldKey('subject.hair.style') // → { categoryKey: 'subject', fieldKey: 'style' }
+ * parseFieldKey('mood')               // → { categoryKey: 'mood', fieldKey: 'mood' }
+ */
+export function parseFieldKey(key: string): { categoryKey: string; fieldKey: string } {
+  const segments = key.split('.');
+  return {
+    categoryKey: segments[0],
+    fieldKey: segments[segments.length - 1],
+  };
+}
+
+/**
  * Builds a randomized prompt from wizard categories using diversity-aware picking.
  *
  * `picker` is called once per field — pass the hook's pick function directly.
  * Returns a structured record keyed by top-level category (e.g. "subject", "environment").
+ *
+ * Categories sharing a field prefix are merged — both contribute fields to the
+ * same output key without data loss.
  */
 export function buildRandomPrompt(
   categories: readonly PickableCategory[],
@@ -46,16 +64,15 @@ export function buildRandomPrompt(
   const result: Record<string, Record<string, string>> = {};
 
   for (const category of categories) {
-    const categoryData: Record<string, string> = {};
     for (const field of category.fields) {
-      const lastKey = field.key.split('.').pop()!;
-      categoryData[lastKey] = picker(field.key, field.suggestions);
+      const { categoryKey, fieldKey } = parseFieldKey(field.key);
+      if (!result[categoryKey]) result[categoryKey] = {};
+      result[categoryKey][fieldKey] = picker(field.key, field.suggestions);
     }
-    // Derive output key from field key prefix (e.g. "subject.description" → "subject").
-    // Field prefixes map to the data model, while category.id is a UI label that may differ
-    // (e.g. id="setting" but fields use "environment.*"). Fallback to id if category has no fields.
-    const categoryKey = category.fields[0]?.key.split('.')[0] ?? category.id;
-    result[categoryKey] = categoryData;
+    // Ensure empty categories still produce an entry (keyed by id as fallback)
+    if (category.fields.length === 0 && !result[category.id]) {
+      result[category.id] = {};
+    }
   }
 
   return result;
@@ -63,12 +80,14 @@ export function buildRandomPrompt(
 
 /**
  * Flattens a structured prompt record into a comma-separated natural language string.
+ * Values are trimmed before inclusion — whitespace-only strings are excluded.
  */
 export function flattenPromptToText(prompt: Record<string, Record<string, string>>): string {
   const parts: string[] = [];
   for (const fields of Object.values(prompt)) {
     for (const value of Object.values(fields)) {
-      if (value) parts.push(value);
+      const trimmed = value.trim();
+      if (trimmed) parts.push(trimmed);
     }
   }
   return parts.join(', ');
