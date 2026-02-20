@@ -1,6 +1,6 @@
 {
   "name": "prompt-gen",
-  "version": "0.8.5",
+  "version": "0.9.0",
   "type": "module",
   "bin": {
     "prompt-gen": "./src/index.ts"

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { generateJSON, generateCompactJSON } from './json';
+import { generateJSON } from './json';
 import { generateNaturalLanguage } from './natural';
 import type { ImagePrompt } from '../types';
 
@@ -51,13 +51,13 @@ describe('JSON Generator', () => {
     });
   });
 
-  describe('generateCompactJSON', () => {
+  describe('generateJSON compact mode', () => {
     it('should generate compact JSON without whitespace', () => {
       const prompt: ImagePrompt = {
         prompt_type: 'generate',
         subject: { description: 'Test' },
       };
-      const result = generateCompactJSON(prompt);
+      const result = generateJSON(prompt, true);
       expect(result).not.toContain('\n');
       expect(result).not.toContain('  ');
       expect(() => JSON.parse(result)).not.toThrow();

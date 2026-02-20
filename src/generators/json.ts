@@ -49,14 +49,3 @@ export function generateJSON(prompt: ImagePrompt, compact?: boolean): string {
   return compact ? JSON.stringify(cleaned) : JSON.stringify(cleaned, null, 2);
 }
 
-/**
- * Same as `generateJSON(prompt, true)` — minified JSON for clipboard/API payloads
- * where size matters.
- *
- * @deprecated Use `generateJSON(prompt, true)` instead. Kept for backward compatibility.
- * @param prompt - The structured prompt data
- * @returns Minified JSON string
- */
-export function generateCompactJSON(prompt: ImagePrompt): string {
-  return generateJSON(prompt, true);
-}

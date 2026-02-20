@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'bun:test';
-import { generateJSON, generateCompactJSON } from './json';
+import { generateJSON } from './json';
 import type { ImagePrompt } from '../types';
 
 describe('generateJSON', () => {
@@ -134,20 +134,20 @@ describe('generateJSON', () => {
   });
 });
 
-describe('generateCompactJSON', () => {
+describe('generateJSON compact mode', () => {
   test('generates single-line JSON', () => {
     const prompt: ImagePrompt = {
       prompt_type: 'generate',
       subject: { description: 'a cat' },
     };
 
-    const result = generateCompactJSON(prompt);
+    const result = generateJSON(prompt, true);
 
     expect(result).not.toContain('\n');
     expect(result).toBe('{"prompt_type":"generate","subject":{"description":"a cat"}}');
   });
 
-  test('applies same cleaning as generateJSON', () => {
+  test('applies same cleaning as pretty mode', () => {
     const prompt: ImagePrompt = {
       prompt_type: 'generate',
       subject: {
@@ -157,7 +157,7 @@ describe('generateCompactJSON', () => {
       vibes: [],
     };
 
-    const result = generateCompactJSON(prompt);
+    const result = generateJSON(prompt, true);
     const parsed = JSON.parse(result);
 
     expect('hair' in parsed.subject).toBe(false);

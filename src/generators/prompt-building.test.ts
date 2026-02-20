@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'bun:test';
-import { generateJSON, generateCompactJSON } from './json';
+import { generateJSON } from './json';
 import { generateNaturalLanguage } from './natural';
 import type { ImagePrompt } from '../types';
 
@@ -219,7 +219,7 @@ describe('prompt building: generator consistency', () => {
 
   test('compact JSON is valid and equivalent to formatted JSON', () => {
     const formatted = JSON.parse(generateJSON(fullPrompt));
-    const compact = JSON.parse(generateCompactJSON(fullPrompt));
+    const compact = JSON.parse(generateJSON(fullPrompt, true));
 
     expect(compact).toEqual(formatted);
   });

@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'bun:test';
 import { builtInTemplates, getTemplate, listTemplates } from './templates';
 import { generateNaturalLanguage } from '../generators/natural';
-import { generateJSON, generateCompactJSON } from '../generators/json';
+import { generateJSON } from '../generators/json';
 import type { ImagePrompt, Template } from '../types';
 
 /**
@@ -88,7 +88,7 @@ describe('template → JSON pipeline', () => {
     test(`${template.name}: compact JSON equals formatted JSON`, () => {
       const prompt = templateToPrompt(template);
       const formatted = JSON.parse(generateJSON(prompt));
-      const compact = JSON.parse(generateCompactJSON(prompt));
+      const compact = JSON.parse(generateJSON(prompt, true));
 
       expect(compact).toEqual(formatted);
     });

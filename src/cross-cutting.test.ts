@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'bun:test';
-import { generateJSON, generateCompactJSON } from './generators/json';
+import { generateJSON } from './generators/json';
 import { generateNaturalLanguage } from './generators/natural';
 import { PROMPT_SECTIONS } from './generators/sections';
 import { parseArgs } from './cli/args';
@@ -87,7 +87,7 @@ describe('cross-format consistency', () => {
   test('compact JSON and pretty JSON always parse to identical objects', () => {
     // Using a prompt with every optional section to stress the cleaning
     const pretty = JSON.parse(generateJSON(richPrompt));
-    const compact = JSON.parse(generateCompactJSON(richPrompt));
+    const compact = JSON.parse(generateJSON(richPrompt, true));
     expect(compact).toEqual(pretty);
   });
 });

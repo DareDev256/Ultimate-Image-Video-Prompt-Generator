@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.9.0] - 2026-02-20
+
+### Removed
+- Deleted deprecated `generateCompactJSON` export — all callers migrated to `generateJSON(prompt, true)` which has been the canonical API since 0.7.0
+- Removed 10 stale imports of `generateCompactJSON` across 5 test files
+
+### Changed
+- Renamed `generateCompactJSON` describe blocks to `generateJSON compact mode` for clarity — tests now exercise the `compact` parameter directly instead of through a wrapper
+
 ## [0.8.5] - 2026-02-19
 
 ### Added
