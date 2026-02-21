@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.11.0] - 2026-02-21
+
+### Added
+- `pickWithHistory<T>(options, recent, maxSize)` — combined pick+push that returns `{ value, recent }` in one call, eliminating the temporal coupling between `diversePick` and `pushRecent`
+- `createPicker<T>(windowSize)` — stateful per-key picker factory for non-React consumers (tests, scripts, CLI), drop-in replacement for the `useDiversePick` hook's return value
+- `PickResult<T>` interface for typed pick-with-history return values
+- 12 new tests covering `pickWithHistory` (5 tests) and `createPicker` (4 tests) including sequential non-repeat guarantees, per-key isolation, and `buildRandomPrompt` integration
+
+### Changed
+- `useDiversePick` hook now delegates to `pickWithHistory` internally — same behavior, reduced surface area for bugs
+- Test count: 71 tests / 701 assertions in `diverse-pick.test.ts` (up from 59/~600)
+- Full suite: 429 tests / 2,200 assertions (up from 420/2,147)
+
 ## [0.10.0] - 2026-02-20
 
 ### Added

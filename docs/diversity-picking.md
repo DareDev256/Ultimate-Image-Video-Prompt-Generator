@@ -39,9 +39,11 @@ When the pool is smaller than or equal to the window (e.g., a field with only 2 
 │                                                                  │
 │  diversePick(options, recent) → T                                │
 │  pushRecent(recent, value, maxSize) → T[]                        │
+│  pickWithHistory(options, recent, maxSize) → { value, recent }   │
+│  createPicker(windowSize) → (fieldKey, options) → T              │
 │                                                                  │
 │  Zero dependencies. Works with any equatable type.               │
-│  Exported types: PickableField, PickableCategory                 │
+│  Exported types: PickableField, PickableCategory, PickResult     │
 ├──────────────────────────────────────────────────────────────────┤
 │  Layer 2: Composition                                            │
 │  web/src/lib/diverse-pick.ts                                     │
@@ -97,6 +99,26 @@ Append `value` to `recent` and trim to `maxSize`. Returns a new array (immutable
 | `value` | `T` | — | Value to append |
 | `maxSize` | `number` | `5` | Maximum window size |
 | **Returns** | `T[]` | — | New array, trimmed from the front |
+
+### `pickWithHistory<T>(options, recent, maxSize?): PickResult<T>`
+
+Combined pick+push operation. Returns `{ value: T, recent: T[] }` — eliminates the two-step `diversePick` → `pushRecent` pattern.
+
+| Param | Type | Default | Description |
+|-------|------|---------|-------------|
+| `options` | `readonly T[]` | — | Available items (must be non-empty) |
+| `recent` | `readonly T[]` | — | Items to exclude |
+| `maxSize` | `number` | `5` | Maximum window size |
+| **Returns** | `PickResult<T>` | — | `{ value, recent }` — the pick and updated window |
+
+### `createPicker<T>(windowSize?): (fieldKey, options) => T`
+
+Factory for stateful per-key pickers outside React. The returned function tracks per-key history internally — same interface as the hook's pick function, making it a drop-in replacement.
+
+| Param | Type | Default | Description |
+|-------|------|---------|-------------|
+| `windowSize` | `number` | `5` | Sliding window size |
+| **Returns** | `(fieldKey: string, options: readonly T[]) => T` | — | Stateful picker function |
 
 ### `buildRandomPrompt(categories, picker): Record<string, Record<string, string>>`
 
@@ -164,19 +186,27 @@ function QuickMode({ categories }: Props) {
 ### Outside React (tests, scripts, server-side)
 
 ```ts
-import { diversePick, pushRecent } from '@/lib/diverse-pick';
+import { createPicker } from '@/lib/diverse-pick';
+
+const pick = createPicker(3);  // window of 3, per-key history
+const location = pick('environment.location', ['forest', 'city', 'beach', 'studio']);
+// History tracked automatically — no manual pushRecent calls
+// Next pick for 'environment.location' excludes the picked value
+```
+
+Or use the lower-level `pickWithHistory` for manual control:
+
+```ts
+import { pickWithHistory } from '@/lib/diverse-pick';
 
 let recent: string[] = [];
-const options = ['forest', 'city', 'beach', 'studio'];
-
-const pick = diversePick(options, recent);    // e.g. 'city'
-recent = pushRecent(recent, pick, 3);         // recent = ['city']
-// Next pick excludes 'city' from candidates
+const { value, recent: next } = pickWithHistory(['forest', 'city', 'beach'], recent, 3);
+recent = next; // single assignment replaces the diversePick + pushRecent two-step
 ```
 
 ## Invariants (Proven by Tests)
 
-The test suite (`web/src/lib/diverse-pick.test.ts`, 59 tests across 10 describe blocks) proves these properties:
+The test suite (`web/src/lib/diverse-pick.test.ts`, 71 tests across 12 describe blocks) proves these properties:
 
 | # | Property | What breaks if violated |
 |---|----------|------------------------|

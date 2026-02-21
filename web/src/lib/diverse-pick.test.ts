@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { diversePick, pushRecent, DEFAULT_RECENT_WINDOW, buildRandomPrompt, flattenPromptToText, parseFieldKey } from './diverse-pick';
+import { diversePick, pushRecent, DEFAULT_RECENT_WINDOW, buildRandomPrompt, flattenPromptToText, parseFieldKey, pickWithHistory, createPicker } from './diverse-pick';
 import type { PickableCategory } from './diverse-pick';
 
 describe('parseFieldKey', () => {
@@ -664,5 +664,90 @@ describe('full-cycle simulation', () => {
     // Diversity invariant: not all 5 prompts should be identical
     const unique = new Set(prompts);
     expect(unique.size).toBeGreaterThan(1);
+  });
+});
+
+// ── pickWithHistory: combined pick+push in one call ──
+
+describe('pickWithHistory', () => {
+  test('returns picked value and updated recent array', () => {
+    const { value, recent } = pickWithHistory(['a', 'b', 'c'], [], 3);
+    expect(['a', 'b', 'c']).toContain(value);
+    expect(recent).toEqual([value]);
+  });
+
+  test('excludes recent items and advances window', () => {
+    const r1 = pickWithHistory(['a', 'b', 'c'], ['a', 'b'], 3);
+    expect(r1.value).toBe('c');
+    expect(r1.recent).toEqual(['a', 'b', 'c']);
+  });
+
+  test('trims window to maxSize', () => {
+    const { recent } = pickWithHistory(['a', 'b'], ['x', 'y', 'z'], 2);
+    expect(recent).toHaveLength(2);
+  });
+
+  test('sequential calls produce no consecutive repeats', () => {
+    const options = ['a', 'b', 'c', 'd'];
+    let recent: string[] = [];
+    let prev = '';
+    for (let i = 0; i < 20; i++) {
+      const result = pickWithHistory(options, recent, 2);
+      expect(result.value).not.toBe(prev);
+      prev = result.value;
+      recent = result.recent;
+    }
+  });
+
+  test('throws on empty options (delegates to diversePick)', () => {
+    expect(() => pickWithHistory([], [])).toThrow('options array must not be empty');
+  });
+});
+
+// ── createPicker: stateful per-key picker for non-React code ──
+
+describe('createPicker', () => {
+  test('returns a function with picker signature', () => {
+    const pick = createPicker(3);
+    expect(typeof pick).toBe('function');
+    const value = pick('field', ['a', 'b', 'c']);
+    expect(['a', 'b', 'c']).toContain(value);
+  });
+
+  test('tracks per-key history independently', () => {
+    const pick = createPicker(2);
+    // Exhaust field1 options so picks are deterministic
+    const f1a = pick('field1', ['x', 'y']);
+    const f1b = pick('field1', ['x', 'y']);
+    expect(f1b).not.toBe(f1a); // window=2 forces alternation with 2 options
+
+    // field2 has its own history — not contaminated by field1
+    const f2 = pick('field2', ['x', 'y']);
+    expect(['x', 'y']).toContain(f2);
+  });
+
+  test('avoids repeats across sequential picks for same key', () => {
+    const pick = createPicker(3);
+    const options = ['a', 'b', 'c', 'd'];
+    let prev = '';
+    for (let i = 0; i < 20; i++) {
+      const value = pick('key', options);
+      expect(value).not.toBe(prev);
+      prev = value;
+    }
+  });
+
+  test('works as drop-in for buildRandomPrompt picker parameter', () => {
+    const pick = createPicker(3);
+    const categories: PickableCategory[] = [
+      { id: 'cat', fields: [
+        { key: 'subject.desc', suggestions: ['portrait', 'landscape'] },
+        { key: 'subject.mood', suggestions: ['serene', 'tense'] },
+      ]},
+    ];
+    const result = buildRandomPrompt(categories, pick);
+    expect(result).toHaveProperty('subject');
+    expect(['portrait', 'landscape']).toContain(result.subject.desc);
+    expect(['serene', 'tense']).toContain(result.subject.mood);
   });
 });

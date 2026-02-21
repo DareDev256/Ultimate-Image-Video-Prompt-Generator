@@ -101,3 +101,56 @@ export function pushRecent<T>(recent: readonly T[], value: T, maxSize = DEFAULT_
   const next = [...recent, value];
   return next.length > maxSize ? next.slice(next.length - maxSize) : next;
 }
+
+/** Result of a pick-with-history operation */
+export interface PickResult<T> {
+  value: T;
+  recent: T[];
+}
+
+/**
+ * Picks a diverse value and returns the updated history in one call.
+ *
+ * Eliminates the temporal coupling between `diversePick` and `pushRecent` —
+ * callers no longer need to remember the two-step sequence.
+ *
+ * @example
+ * ```ts
+ * let recent: string[] = [];
+ * const { value, recent: next } = pickWithHistory(options, recent, 3);
+ * recent = next; // single assignment, no forgetting pushRecent
+ * ```
+ */
+export function pickWithHistory<T>(
+  options: readonly T[],
+  recent: readonly T[],
+  maxSize = DEFAULT_RECENT_WINDOW,
+): PickResult<T> {
+  const value = diversePick(options, recent);
+  return { value, recent: pushRecent(recent, value, maxSize) };
+}
+
+/**
+ * Creates a stateful picker that tracks per-key history internally.
+ *
+ * Use outside React — for tests, scripts, or server-side code where
+ * `useDiversePick` isn't available. The returned function has the same
+ * signature as the hook's pick function, making it a drop-in replacement.
+ *
+ * @example
+ * ```ts
+ * const pick = createPicker(3);
+ * const value = pick('subject.description', suggestions);
+ * // History tracked automatically — no manual pushRecent calls
+ * ```
+ */
+export function createPicker<T = string>(windowSize = DEFAULT_RECENT_WINDOW) {
+  const histories = new Map<string, T[]>();
+
+  return (fieldKey: string, options: readonly T[]): T => {
+    const recent = histories.get(fieldKey) ?? [];
+    const result = pickWithHistory(options, recent, windowSize);
+    histories.set(fieldKey, result.recent);
+    return result.value;
+  };
+}
