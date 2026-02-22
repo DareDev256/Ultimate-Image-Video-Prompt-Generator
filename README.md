@@ -268,15 +268,61 @@ Click 6: pool=[C]          recent=[A,E,D,B]→ picks C → recent=[E,D,B,C]  ←
 
 **Graceful fallback**: when every option is in the recent window (small pools), exclusion is skipped and the full pool is used — the algorithm never deadlocks regardless of pool size vs window size.
 
-| Layer | File | Role |
-|-------|------|------|
-| Pure algorithm | `web/src/lib/diverse-pick.ts` | `diversePick`, `pushRecent`, `pickWithHistory`, `createPicker`, `buildRandomPrompt`, `flattenPromptToText`, `parseFieldKey` — zero React dependencies, fully testable |
-| Stateful picker | `web/src/lib/diverse-pick.ts` | `createPicker<T>(windowSize)` — factory for non-React consumers (tests, scripts, CLI). Returns a `pick(options)` function with internal per-key state |
-| React binding | `web/src/hooks/useDiversePick.ts` | `useDiversePick<T>` hook — delegates to `pickWithHistory` internally, per-field-key tracking via `useRef` |
-| Wizard integration | `WizardStep.tsx` | Per-field randomize button |
-| Quick Mode integration | Quick Mode page | Full-prompt randomization via `buildRandomPrompt` composed with the hook's picker |
+#### API Layers
 
-Both the wizard and Quick Mode share the identical algorithm — Quick Mode composes `buildRandomPrompt` with the hook's picker function for zero-duplication prompt assembly across all 13 categories in a single click. Non-React consumers (tests, scripts) use `createPicker` for the same guarantees without hooks.
+The API is designed as a **progressive stack** — each layer wraps the one below it, adding exactly one concern:
+
+```
+diversePick          pure pick, no side effects     ← tests, one-off sampling
+    ↓
+pickWithHistory      pick + state update in one call ← eliminates temporal coupling
+    ↓
+createPicker         stateful factory, per-key memory ← scripts, CLI, non-React
+    ↓
+useDiversePick       React hook (useRef state)        ← components
+```
+
+<details>
+<summary><strong>Usage examples</strong></summary>
+
+```typescript
+// ① Pure function — caller manages state
+import { diversePick, pushRecent } from "@/lib/diverse-pick";
+
+let recent: string[] = [];
+const pick = diversePick(["A", "B", "C", "D", "E"], recent);  // never repeats recent
+recent = pushRecent(recent, pick, 4);                          // slide window forward
+
+// ② Combined pick + push — impossible to forget the state update
+import { pickWithHistory } from "@/lib/diverse-pick";
+
+let history: string[] = [];
+const result = pickWithHistory(["A", "B", "C", "D", "E"], history, 4);
+history = result.recent;  // { value: "C", recent: ["C"] }
+
+// ③ Stateful factory — drop-in for non-React consumers
+import { createPicker } from "@/lib/diverse-pick";
+
+const pick = createPicker<string>(4);
+pick("lighting.mood", ["golden hour", "overcast", "neon"]);   // per-key memory
+pick("camera.angle",  ["low", "eye-level", "bird's eye"]);    // separate history
+
+// ④ React hook — same guarantees, React lifecycle
+const pick = useDiversePick<string>(4);
+// identical call signature to createPicker — one migration path
+```
+
+</details>
+
+| Layer | File | Concern |
+|-------|------|---------|
+| Pure algorithm | `diverse-pick.ts` | `diversePick` · `pushRecent` · `parseFieldKey` — zero deps |
+| Combined | `diverse-pick.ts` | `pickWithHistory` — pick + state update, no temporal coupling |
+| Factory | `diverse-pick.ts` | `createPicker` — per-key state for scripts, tests, CLI |
+| React binding | `useDiversePick.ts` | `useDiversePick` — `useRef` state, same call signature as `createPicker` |
+| Composition | `WizardStep.tsx` / Quick Mode | `buildRandomPrompt` + `flattenPromptToText` — full 13-category assembly |
+
+Both the wizard and Quick Mode share the identical algorithm — Quick Mode composes `buildRandomPrompt` with the hook's picker for zero-duplication prompt assembly across all 13 categories in a single click. Non-React consumers use `createPicker` for the same guarantees without hooks.
 
 <details>
 <summary><strong>Proven properties (71 tests)</strong></summary>

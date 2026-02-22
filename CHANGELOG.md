@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.11.3] - 2026-02-22
+
+### Changed
+- Replaced flat diversity-picking architecture table with a progressive API Layers diagram — shows the `diversePick → pickWithHistory → createPicker → useDiversePick` stack visually as an ASCII tower
+- Added collapsible usage examples with copy-paste TypeScript for all 4 API layers (pure function, combined, factory, React hook)
+- Restructured architecture table to foreground *concern* per layer instead of listing every export — scannable at a glance
+- Noted migration path: `createPicker` and `useDiversePick` share an identical call signature, enabling React-free testing of the same logic
+
 ## [0.11.2] - 2026-02-22
 
 ### Changed
