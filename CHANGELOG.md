@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.11.2] - 2026-02-22
+
+### Changed
+- Redesigned README hero section — replaced wall-of-badges with a scannable layout: bold tagline, intentional badge colors (`#3178c6` TypeScript, `#0ea5e9` Tailwind, `#d946ef` Framer, `#8b5cf6` zero-any, `#22d3ee` MIT), and HTML table screenshots for consistent rendering
+- Replaced ASCII box-drawing `How It Works` diagram with rounded Unicode (`╭╰`) and circled numbers (`①②③`) for visual personality
+- Added inline blockquote accents to "What Makes This Different", "Engineering Highlights", and "Design Philosophy" sections for typographic rhythm
+- Consolidated at-a-glance stats into a single-line monospace counter strip — replaces the 3×2 table that repeated badge data
+- Tightened footer to a 3-line sign-off with `<sub>` tagline
+
 ## [0.11.1] - 2026-02-22
 
 ### Changed

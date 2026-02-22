@@ -2,39 +2,40 @@
 
 # 🎬 Ultimate Image & Video Prompt Generator
 
-**Craft hyper-detailed AI image and video prompts through a guided wizard — on the web or in your terminal.**
+### Stop staring at blank text boxes.
 
-A dual-platform prompt builder with a Flash Site Era (2002–2006) aesthetic that turns prompt engineering from guesswork into a guided creative process. Neon UI. Particle effects. 13 categories of curated suggestions. Zero blank-box anxiety.
+**13 guided categories. 7,000+ curated suggestions. Three AI models.**<br>
+**A prompt builder that turns guesswork into a creative process — on the web or in your terminal.**
+
+Neon UI · Particle effects · Flash Site Era energy · Zero blank-box anxiety
 
 **[🚀 Try the Live Demo](https://web-ten-vert-46.vercel.app)** · [Report Bug](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues) · [Request Feature](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues)
 
-![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?style=flat-square&logo=tailwindcss)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-ff69b4?style=flat-square&logo=framer)
-![Bun](https://img.shields.io/badge/Bun-runtime-f9f1e1?style=flat-square&logo=bun)
-![Tests](https://img.shields.io/badge/Tests-429_passing-brightgreen?style=flat-square)
-![Assertions](https://img.shields.io/badge/Assertions-2,200-brightgreen?style=flat-square)
-![Zero Any](https://img.shields.io/badge/any_types-0-blueviolet?style=flat-square)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+<br>
+
+![Next.js](https://img.shields.io/badge/Next.js-16-000?style=flat-square&logo=next.js&logoColor=fff)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?style=flat-square&logo=typescript&logoColor=fff)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-0ea5e9?style=flat-square&logo=tailwindcss&logoColor=fff)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-d946ef?style=flat-square&logo=framer&logoColor=fff)
+![Bun](https://img.shields.io/badge/Bun-runtime-fbf0df?style=flat-square&logo=bun)
+![Tests](https://img.shields.io/badge/429_tests-passing-10b981?style=flat-square)
+![Assertions](https://img.shields.io/badge/2,200_assertions-verified-10b981?style=flat-square)
+![Zero Any](https://img.shields.io/badge/any_types-0-8b5cf6?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-22d3ee?style=flat-square)
 
 </div>
 
----
+<br>
 
-### At a Glance
+<table>
+<tr>
+<td width="33%" align="center"><strong>Theatrical Intro</strong><br><br><img src="./screenshots/intro-loading.png" alt="Neon loading screen with animated progress bar and particle effects" width="280"></td>
+<td width="33%" align="center"><strong>Model Selection</strong><br><br><img src="./screenshots/model-selection.png" alt="Choose between Nano Banana, DALL-E 3, and Kling video models" width="280"></td>
+<td width="33%" align="center"><strong>Guided Wizard</strong><br><br><img src="./screenshots/wizard-step.png" alt="Step-by-step category wizard with curated suggestions per field" width="280"></td>
+</tr>
+</table>
 
-| | |
-|---|---|
-| **13 guided categories** — subject, camera, lighting, atmosphere, composition, color, film, vibes… | **7,000+ curated prompts** — community-sourced inspiration library with search & filters |
-| **3 AI models** — Nano Banana (free tier), DALL-E 3, Kling video | **429 tests / 2,200 assertions** — every generator, every invariant, zero `any` types |
-| **2 platforms** — visual web wizard + interactive CLI with presets & templates | **240 extracted patterns** — lighting rigs, camera angles, moods, color grades, styles |
-
----
-
-| Theatrical Intro | Model Selection | Guided Wizard |
-|:---:|:---:|:---:|
-| ![Neon loading screen with animated progress bar and particle effects](./screenshots/intro-loading.png) | ![Choose between Nano Banana, DALL-E 3, and Kling video models](./screenshots/model-selection.png) | ![Step-by-step category wizard with curated suggestions per field](./screenshots/wizard-step.png) |
+> **`13`** guided categories · **`3`** AI models · **`7,000+`** curated prompts · **`429`** tests / **`2,200`** assertions · **`240`** extracted patterns · **`0`** `any` types
 
 ## Table of Contents
 
@@ -70,28 +71,26 @@ Open [localhost:3000](http://localhost:3000) and start generating — the free t
 ## How It Works
 
 ```
-┌─────────────────┐     ┌──────────────────────┐     ┌─────────────────────┐
-│  1. CHOOSE       │     │  2. BUILD             │     │  3. GENERATE         │
-│                  │     │                       │     │                      │
-│  Pick your AI    │ ──▸ │  Walk through 13      │ ──▸ │  One click sends     │
-│  model: Nano     │     │  guided categories    │     │  your assembled      │
-│  Banana, DALL-E  │     │  with curated         │     │  prompt to the API   │
-│  3, or Kling     │     │  suggestions per      │     │  and returns your    │
-│                  │     │  field                │     │  generated image     │
-└─────────────────┘     └──────────────────────┘     └─────────────────────┘
+  ╭──────────────╮        ╭──────────────────╮        ╭───────────────────╮
+  │  ① CHOOSE    │        │  ② BUILD         │        │  ③ GENERATE       │
+  │              │        │                  │        │                   │
+  │  Nano Banana │  ───▸  │  13 categories   │  ───▸  │  One click →      │
+  │  DALL-E 3    │        │  with curated    │        │  assembled prompt │
+  │  Kling video │        │  suggestions     │        │  hits the API     │
+  ╰──────────────╯        ╰──────────────────╯        ╰───────────────────╯
 ```
 
-> **Quick Mode** — Don't want to fill every field? Describe your idea in one sentence and let AI expand it into a full 13-category prompt automatically.
+> 💡 **Quick Mode** — Describe your idea in one sentence and let AI expand it into a full 13-category prompt automatically. Skip the wizard entirely.
 
 ## Why This Exists
 
-Most AI image tools give you a blank text box and wish you luck. This project solves that with **guided prompt engineering** — walking you through 13 categories (subject, camera, lighting, atmosphere, etc.) with curated suggestions for each field, then assembling everything into the exact format your chosen model expects.
+Most AI image tools give you a blank text box and wish you luck.
 
-The result: prompts that are 10× more detailed than what you'd write freehand, produced in a fraction of the time.
+This project replaces the blank box with **guided prompt engineering** — 13 categories (subject, camera, lighting, atmosphere…) with curated suggestions per field, assembled into the exact format your chosen model expects. The result: prompts that are **10× more detailed** than freehand, produced in a fraction of the time.
 
 ### What Makes This Different
 
-Most prompt tools are either a glorified text box or a rigid template picker. This project sits in between — **structured enough to guide you, flexible enough to not constrain you**:
+> *Structured enough to guide you. Flexible enough to not constrain you.*
 
 - **Diversity-aware randomization** — a sliding-window exclusion algorithm (not naive `Math.random()`) ensures the "randomize" button always surfaces fresh suggestions. [Algorithm deep-dive →](#diversity-aware-randomization)
 - **Model-aware output** — the same wizard produces structured JSON for Gemini or natural language for DALL-E/Kling, automatically adapting to what each model expects
@@ -379,7 +378,7 @@ bun test
 
 ## Engineering Highlights
 
-Things I'm particularly proud of in this codebase:
+> *The stuff under the neon paint.*
 
 | Area | What | Why it matters |
 |------|------|----------------|
@@ -394,7 +393,9 @@ Things I'm particularly proud of in this codebase:
 
 ## Design Philosophy
 
-This project embraces the **Flash Site Era** aesthetic (2002-2006) — when websites were *experiences*, not just pages:
+> *Remember when websites had loading screens, particle effects, and sound design? This is that energy — with modern engineering underneath.*
+
+This project embraces the **Flash Site Era** aesthetic (2002–2006) — when websites were *experiences*, not just pages:
 
 - **Theatrical Loading** — Animated intro with progress bar and skip option
 - **Glossy Everything** — Buttons with gradients, shadows, and glow effects
@@ -470,10 +471,9 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines. Bug reports, feature su
 
 <div align="center">
 
-Built with caffeine and nostalgia for the early 2000s web by [DareDev256](https://github.com/DareDev256).
+<strong>Built with caffeine and nostalgia for the early 2000s web.</strong><br>
+<sub>429 tests. Zero `any` types. Maximum vibes.</sub>
 
-*Remember when websites had loading screens, particle effects, and sound design? This is that energy — with modern engineering underneath.*
-
-**[⬆ Back to Top](#-ultimate-image--video-prompt-generator)**
+[DareDev256](https://github.com/DareDev256) · **[⬆ Back to Top](#-ultimate-image--video-prompt-generator)**
 
 </div>
