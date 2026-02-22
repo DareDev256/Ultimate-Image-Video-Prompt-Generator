@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.11.1] - 2026-02-22
+
+### Changed
+- Synced all test counts in README to 429 tests / 2,200 assertions (was 417/2,144 in 6 locations) — reflects diversity-picking test additions from 0.8.2–0.11.0
+- Updated diversity-picking architecture table with `pickWithHistory`, `createPicker`, and `parseFieldKey` APIs added in 0.10.0–0.11.0
+- Added "Temporal coupling elimination" to Engineering Highlights — documents the `pickWithHistory` → `createPicker` layered API design
+- Updated diversity-picking doc reference to mention 71 tests and the full `diversePick → pickWithHistory → createPicker` API progression
+- Added `createPicker` as a dedicated architecture layer row — headless/non-React consumers now have a documented entry point
+
 ## [0.11.0] - 2026-02-21
 
 ### Added
