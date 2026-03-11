@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.0] - 2026-03-11
+
+### Changed
+- Stable release — unified CLI + web versions, 6 AI provider integrations, gallery system, prompt analysis
+
 ## [0.11.3] - 2026-02-22
 
 ### Changed
