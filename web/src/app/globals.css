@@ -2,47 +2,54 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════
-   EDITORIAL RESET — v3.0 wagyu pass
-   Cream paper, ink black, cobalt accent. AYNEB / Areeba lineage.
-   "The absence of decoration IS the signal."
+   HOLO RESET — v3.1 wagyu pass
+   Near-black substrate, paper-cream type, cobalt + iridescent halos.
+   Cards carry the color. The ground is the stage. WebGL is the hero.
    ═══════════════════════════════════════════════════════════════ */
 
 :root {
-  /* Editorial foundation */
-  --paper: #f4efe6;
-  --paper-soft: #ede7d9;
-  --paper-card: #faf5e9;
-  --ink: #0a0a0a;
-  --ink-2: #2a2a2a;
-  --ink-3: #6b6b6b;
-  --rule: rgba(10, 10, 10, 0.14);
-  --rule-strong: rgba(10, 10, 10, 0.32);
+  /* Substrate — holo stage */
+  --ink: #060608;        /* near-black, slight blue cast */
+  --ink-2: #0e0e14;      /* surface (cards, panels) */
+  --ink-3: #18181f;      /* elevated (hovers, popovers) */
+  --rule: rgba(244, 239, 230, 0.10);
+  --rule-strong: rgba(244, 239, 230, 0.26);
 
-  /* ONE accent — cobalt ink-blue */
-  --accent: #1a3aff;
-  --accent-soft: rgba(26, 58, 255, 0.10);
-  --accent-halo: rgba(26, 58, 255, 0.20);
-  --accent-ink: #0e1f99;
+  /* Type — paper on ink */
+  --paper: #f4efe6;
+  --paper-soft: #d8d4cb;
+  --paper-card: #9a9690;
+
+  /* Primary accent — electric cobalt */
+  --accent: #3a5cff;
+  --accent-soft: rgba(58, 92, 255, 0.14);
+  --accent-halo: rgba(58, 92, 255, 0.32);
+  --accent-ink: #1a3aff;
+
+  /* Iridescent palette — used in shaders + halos only, NEVER as flat UI fill */
+  --iri-cyan: #16e5ff;
+  --iri-magenta: #ff2bd1;
+  --iri-lime: #c8ff3a;
 
   /* Legacy variable map — keeps existing components rendering without rewrite.
-     All 26 consumer files continue to resolve, just on the editorial palette. */
+     All 26 consumer files continue to resolve, now on the dark holo substrate. */
   --color-primary: var(--accent);
   --color-primary-glow: var(--accent-halo);
-  --color-secondary: var(--accent);
-  --color-secondary-glow: var(--accent-halo);
-  --color-accent: var(--accent);
-  --color-accent-glow: var(--accent-halo);
-  --color-success: #2d6a4f;
-  --color-success-glow: rgba(45, 106, 79, 0.20);
+  --color-secondary: var(--iri-magenta);
+  --color-secondary-glow: rgba(255, 43, 209, 0.28);
+  --color-accent: var(--iri-cyan);
+  --color-accent-glow: rgba(22, 229, 255, 0.28);
+  --color-success: #5ee8a0;
+  --color-success-glow: rgba(94, 232, 160, 0.24);
 
-  --color-bg-deep: var(--paper);
-  --color-bg-surface: var(--paper-soft);
-  --color-bg-elevated: var(--paper-card);
-  --color-bg-card: var(--paper-card);
+  --color-bg-deep: var(--ink);
+  --color-bg-surface: var(--ink-2);
+  --color-bg-elevated: var(--ink-3);
+  --color-bg-card: var(--ink-2);
 
-  --color-text-primary: var(--ink);
-  --color-text-secondary: var(--ink-2);
-  --color-text-muted: var(--ink-3);
+  --color-text-primary: var(--paper);
+  --color-text-secondary: var(--paper-soft);
+  --color-text-muted: var(--paper-card);
 
   --color-border: var(--rule);
   --color-border-glow: var(--accent-halo);
@@ -63,8 +70,8 @@
 }
 
 @theme inline {
-  --color-background: var(--paper);
-  --color-foreground: var(--ink);
+  --color-background: var(--ink);
+  --color-foreground: var(--paper);
   --font-sans: var(--font-body);
   --font-mono: var(--font-mono);
 }
@@ -78,8 +85,8 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
   font-family: var(--font-body);
   font-weight: 400;
   min-height: 100vh;
@@ -87,6 +94,20 @@ body {
   position: relative;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Holo ground — radial vignette that hints at a stage spotlight. The hero
+   WebGL canvas sits over this so the bg never reads as flat. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(58, 92, 255, 0.10), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(255, 43, 209, 0.06), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 20% 90%, rgba(22, 229, 255, 0.05), transparent 70%);
+  z-index: 0;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -114,8 +135,12 @@ h1 {
   letter-spacing: -0.03em;
   font-weight: 900;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--paper);
   margin: 0;
+  /* Soft halo so the lockup pushes forward through the holo cloud */
+  text-shadow:
+    0 2px 18px rgba(6, 6, 8, 0.85),
+    0 0 1px rgba(6, 6, 8, 0.6);
 }
 
 .hero-lockup .highlight {
@@ -125,13 +150,15 @@ h1 {
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
   display: inline;
+  text-shadow: none;
+  box-shadow: 0 0 36px var(--accent-halo);
 }
 
 /* Legacy alias — used 9 times across blog/landing/settings/sources for big
    section heads. Redefine to a calmer editorial uppercase ink treatment so
    the cascade resolves correctly without those pages going neon. */
 .text-nebula-glow {
-  color: var(--ink);
+  color: var(--paper);
   font-family: var(--font-display);
   font-weight: 900;
   letter-spacing: -0.02em;
@@ -143,7 +170,7 @@ h1 {
 }
 
 .text-nebula {
-  color: var(--ink);
+  color: var(--paper);
   font-family: var(--font-display);
 }
 
@@ -168,7 +195,7 @@ h1 {
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--ink-2);
+  color: var(--paper-soft);
   margin-bottom: 14px;
   font-weight: 600;
 }
@@ -184,7 +211,7 @@ h1 {
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ink-2);
+  color: var(--paper-soft);
 }
 
 /* ── Comma-separated lowercase nav ── */
@@ -200,12 +227,12 @@ h1 {
 }
 
 .ed-nav a {
-  color: var(--ink);
+  color: var(--paper);
   text-decoration: none;
   transition: color var(--transition-fast) ease;
 }
 
-.ed-nav a:hover { color: var(--accent); }
+.ed-nav a:hover { color: var(--iri-cyan); }
 
 /* ═══════════════════════════════════════════════════════════════
    BUTTONS — flat editorial, no glow, no shine
@@ -233,15 +260,16 @@ h1 {
 }
 
 .btn-primary {
-  background: var(--ink);
-  color: var(--paper);
-  border-color: var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--paper);
 }
 
 .btn-primary:hover {
-  background: var(--accent);
+  background: transparent;
   border-color: var(--accent);
   color: var(--paper);
+  box-shadow: 0 0 0 1px var(--accent), 0 0 24px var(--accent-halo);
 }
 
 .btn-primary:active {
@@ -257,11 +285,12 @@ h1 {
 .btn-secondary:hover {
   background: var(--accent-ink);
   border-color: var(--accent-ink);
+  box-shadow: 0 0 24px var(--accent-halo);
 }
 
 .btn-ghost {
   background: transparent;
-  color: var(--ink);
+  color: var(--paper);
   border-color: var(--rule-strong);
 }
 
@@ -277,16 +306,17 @@ h1 {
 
 .card {
   position: relative;
-  background: var(--paper-card);
+  background: var(--ink-2);
   border: 1px solid var(--rule);
   border-radius: 2px;
   overflow: hidden;
-  transition: border-color var(--transition-fast) ease, transform var(--transition-fast) ease;
+  transition: border-color var(--transition-fast) ease, transform var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
 }
 
 .card:hover {
-  border-color: var(--ink);
+  border-color: var(--accent);
   transform: translateY(-2px);
+  box-shadow: 0 0 24px var(--accent-halo);
 }
 
 .card-interactive { cursor: pointer; }
@@ -305,15 +335,16 @@ h1 {
 
 .progress-bar {
   height: 100%;
-  background: var(--ink);
+  background: var(--paper);
   border-radius: 0;
   transition: width var(--transition-normal) ease;
 }
 
 .progress-bar-animated {
-  background: linear-gradient(90deg, var(--ink) 0%, var(--accent) 50%, var(--ink) 100%);
+  background: linear-gradient(90deg, var(--accent) 0%, var(--iri-cyan) 50%, var(--accent) 100%);
   background-size: 200% 100%;
   animation: editorialShimmer 1.6s ease infinite;
+  box-shadow: 0 0 10px var(--accent-halo);
 }
 
 @keyframes editorialShimmer {
@@ -330,20 +361,20 @@ h1 {
   padding: 0.875rem 1rem;
   font-family: var(--font-body);
   font-size: 1rem;
-  color: var(--ink);
-  background: var(--paper-card);
+  color: var(--paper);
+  background: var(--ink-2);
   border: 1px solid var(--rule-strong);
   border-radius: 2px;
   outline: none;
-  transition: border-color var(--transition-fast) ease;
+  transition: border-color var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
 }
 
 .input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
+  box-shadow: 0 0 0 3px var(--accent-soft), 0 0 20px var(--accent-halo);
 }
 
-.input::placeholder { color: var(--ink-3); }
+.input::placeholder { color: var(--paper-card); }
 
 .textarea {
   min-height: 120px;
@@ -415,18 +446,18 @@ h1 {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: var(--paper-card);
+  background: var(--ink-2);
   border: 1px solid var(--rule-strong);
   font-family: var(--font-mono);
   font-size: 0.8125rem;
-  color: var(--ink-3);
+  color: var(--paper-card);
   transition: all var(--transition-fast) ease;
 }
 
 .wizard-progress-step.active {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--paper);
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--ink);
 }
 
 .wizard-progress-step.completed {
@@ -449,9 +480,9 @@ h1 {
    ═══════════════════════════════════════════════════════════════ */
 
 ::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: var(--paper-soft); }
-::-webkit-scrollbar-thumb { background: var(--ink-3); border-radius: 0; }
-::-webkit-scrollbar-thumb:hover { background: var(--ink); }
+::-webkit-scrollbar-track { background: var(--ink-2); }
+::-webkit-scrollbar-thumb { background: var(--paper-card); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 /* ═══════════════════════════════════════════════════════════════
    SELECTION
@@ -472,7 +503,7 @@ h1 {
   font-weight: 400;
   font-size: clamp(1.0625rem, 1.15vw, 1.25rem);
   line-height: 1.55;
-  color: var(--ink-2);
+  color: var(--paper-soft);
 }
 
 .body-editorial {
@@ -480,7 +511,7 @@ h1 {
   font-weight: 400;
   font-size: clamp(0.95rem, 1.05vw, 1.0625rem);
   line-height: 1.6;
-  color: var(--ink-2);
+  color: var(--paper-soft);
 }
 
 /* Duotone tile — apply to a wrapper around an <img>/background.

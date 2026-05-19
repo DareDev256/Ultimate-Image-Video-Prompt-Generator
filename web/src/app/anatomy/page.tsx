@@ -141,7 +141,7 @@ const ENGINE_COMPARE = [
 
 export default function AnatomyPage() {
   return (
-    <main className="relative min-h-screen" style={{ background: 'var(--paper)' }}>
+    <main className="relative min-h-screen" style={{ background: 'var(--ink)' }}>
       {/* ── Hero ── */}
       <section
         className="relative"
@@ -198,7 +198,7 @@ export default function AnatomyPage() {
                   letterSpacing: '-0.02em',
                   textTransform: 'uppercase',
                   fontWeight: 900,
-                  color: 'var(--ink)',
+                  color: 'var(--paper)',
                   margin: 0,
                   lineHeight: 0.95,
                 }}
@@ -238,7 +238,7 @@ export default function AnatomyPage() {
               letterSpacing: '-0.025em',
               fontWeight: 900,
               textTransform: 'uppercase',
-              color: 'var(--ink)',
+              color: 'var(--paper)',
               margin: '0 0 4rem',
             }}
           >
@@ -259,7 +259,7 @@ export default function AnatomyPage() {
                       fontFamily: 'var(--font-mono)',
                       fontSize: '2.25rem',
                       fontWeight: 500,
-                      color: 'var(--ink)',
+                      color: 'var(--paper)',
                       lineHeight: 1,
                     }}
                   >
@@ -274,7 +274,7 @@ export default function AnatomyPage() {
                       letterSpacing: '-0.02em',
                       textTransform: 'uppercase',
                       fontWeight: 900,
-                      color: 'var(--ink)',
+                      color: 'var(--paper)',
                       margin: 0,
                       lineHeight: 0.95,
                     }}
@@ -292,9 +292,9 @@ export default function AnatomyPage() {
                       style={{
                         fontFamily: 'var(--font-mono)',
                         fontSize: '0.9375rem',
-                        color: 'var(--ink)',
+                        color: 'var(--paper)',
                         lineHeight: 1.55,
-                        background: 'var(--paper-card)',
+                        background: 'var(--ink-2)',
                         padding: '0.875rem 1rem',
                         border: '1px solid var(--rule-strong)',
                         borderRadius: 2,
@@ -320,7 +320,7 @@ export default function AnatomyPage() {
       <section
         style={{
           padding: 'clamp(72px, 9vw, 144px) var(--gutter)',
-          background: 'var(--paper-soft)',
+          background: 'var(--ink-2)',
           borderTop: '1px solid var(--rule-strong)',
           borderBottom: '1px solid var(--rule-strong)',
         }}
@@ -338,7 +338,7 @@ export default function AnatomyPage() {
               letterSpacing: '-0.025em',
               fontWeight: 900,
               textTransform: 'uppercase',
-              color: 'var(--ink)',
+              color: 'var(--paper)',
               margin: '0 0 1.5rem',
             }}
           >
@@ -385,7 +385,7 @@ export default function AnatomyPage() {
                       fontWeight: 700,
                       textTransform: 'uppercase',
                       letterSpacing: '-0.01em',
-                      color: 'var(--ink)',
+                      color: 'var(--paper)',
                     }}
                   >
                     {v.label}
@@ -395,7 +395,7 @@ export default function AnatomyPage() {
                     style={{
                       fontFamily: 'var(--font-body)',
                       fontSize: '0.8125rem',
-                      color: 'var(--ink-2)',
+                      color: 'var(--paper-soft)',
                       lineHeight: 1.45,
                     }}
                   >
@@ -425,7 +425,7 @@ export default function AnatomyPage() {
               letterSpacing: '-0.025em',
               fontWeight: 900,
               textTransform: 'uppercase',
-              color: 'var(--ink)',
+              color: 'var(--paper)',
               margin: '0 0 1.5rem',
             }}
           >
@@ -462,8 +462,10 @@ export default function AnatomyPage() {
       <section
         style={{
           padding: 'clamp(72px, 9vw, 144px) var(--gutter)',
-          background: 'var(--ink)',
+          background:
+            'radial-gradient(ellipse 80% 60% at 50% 50%, var(--accent-soft), var(--ink) 70%)',
           color: 'var(--paper)',
+          borderTop: '1px solid var(--rule-strong)',
         }}
       >
         <div className="mx-auto max-w-5xl text-center">
@@ -510,7 +512,7 @@ export default function AnatomyPage() {
               className="inline-flex items-center gap-2 px-7 py-3.5 text-sm uppercase tracking-[0.18em] font-bold"
               style={{
                 background: 'var(--paper)',
-                color: 'var(--ink)',
+                color: 'var(--paper)',
                 fontFamily: 'var(--font-display)',
                 borderRadius: 2,
               }}

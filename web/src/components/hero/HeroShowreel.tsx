@@ -1,78 +1,101 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
+
+import { HOLO_CARDS } from './holo-cards-manifest';
 
 /**
- * Editorial hero — cream paper, ink black, ONE cobalt accent.
+ * Holo hero — near-black stage, 110 photo cards scattered in 3D, cursor
+ * parallax, depth-of-field, iridescent rim shader. The product is an image
+ * generator; the hero shows the actual library floating through space. No
+ * curated thumbnail strip — the cloud IS the strip.
  *
- * Replaces the v2.0 Flash-era scrolling video showreel. The product is an
- * image generator; the hero now shows actual outputs (work strip) instead
- * of a cycling background. Headline gets a marker-highlight on the phrase
- * indexed by `highlightIndex` — the AYNEB / Areeba signature move.
- *
- * Legacy props (videoSrc, posterSrc, cycleMs) are kept in the interface as
- * `unknown` so existing call sites compile, but are ignored in render.
+ * Legacy v2.0 props (videoSrc, posterSrc, cycleMs, images) are still in the
+ * interface as no-ops so existing call sites keep compiling.
  */
 
+const HoloCardCloud = dynamic(
+  () => import('./HoloCardCloud').then((m) => m.HoloCardCloud),
+  { ssr: false }
+);
+
 export interface HeroShowreelProps {
-  /** Tiny ◆ label above the headline. */
   eyebrow: string;
-  /** Multi-line headline. Each entry becomes one stacked line. */
   headline: string[];
-  /** Which headline line gets the marker-highlight swipe. Default: last line. */
   highlightIndex?: number;
-  /** Subhead paragraph below the headline. */
   subhead?: string;
-  /** Thumbnail paths shown in the work strip below the CTAs. Defaults to a
-   *  curated 6 from /showcase. Pass `[]` to hide the strip. */
-  images?: string[];
-  /** 'landing' = full hero with work strip; 'feed' = compact, no work strip. */
   variant?: 'landing' | 'feed';
-  /** CTA buttons + secondary actions slot. */
   children?: React.ReactNode;
-  /** Live location/time meta city label. Default 'TORONTO'. */
   city?: string;
+  /** Max cards in the cloud. Smaller for `feed` variant. */
+  cardLimit?: number;
 
   /* Deprecated v2.0 props — accepted but no-op. */
+  images?: string[];
   cycleMs?: number;
   videoSrc?: string;
   posterSrc?: string;
 }
-
-const DEFAULT_WORK_STRIP = [
-  '/showcase/01-neon-noir.png',
-  '/showcase/03-golden-hour-ethereal.png',
-  '/showcase/04-brutalist-fashion.png',
-  '/showcase/06-vintage-hollywood.png',
-  '/showcase/08-avant-garde-editorial.png',
-  '/showcase/14-synthwave-retro.png',
-];
 
 export function HeroShowreel({
   eyebrow,
   headline,
   highlightIndex,
   subhead,
-  images = DEFAULT_WORK_STRIP,
   variant = 'landing',
   children,
   city = 'TORONTO',
+  cardLimit,
 }: HeroShowreelProps) {
   const reduce = useReducedMotion();
   const markIdx = highlightIndex ?? headline.length - 1;
   const heroMinHeight = variant === 'feed' ? 'min-h-[60vh]' : 'min-h-[92vh]';
-  const showWorkStrip = variant === 'landing' && images.length > 0;
+  const limit = cardLimit ?? (variant === 'feed' ? 36 : 110);
 
   return (
     <section
-      className={`relative w-full ${heroMinHeight} overflow-hidden`}
+      className={`relative isolate w-full ${heroMinHeight} overflow-hidden`}
       style={{
-        background: 'var(--paper)',
+        background: 'var(--ink)',
         borderBottom: '1px solid var(--rule-strong)',
       }}
     >
+      {/* ── Cloud canvas — fills the section, sits behind text ── */}
+      <div className="absolute inset-0 z-0" aria-hidden="true">
+        <HoloCardCloud cardLimit={limit} />
+      </div>
+
+      {/* ── Floor gradient — sells the depth, tucks the cards' bottom edge ── */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-40"
+        style={{
+          background: 'linear-gradient(to top, var(--ink) 5%, transparent 100%)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* ── Left wash — keeps the headline readable against the bright cloud
+            without sparsing out the field. Cobalt accent bleeds in for color
+            so the wash is "lit", not just black. ── */}
+      <div
+        className="pointer-events-none absolute inset-y-0 left-0 z-[1] w-[62%]"
+        style={{
+          background:
+            'linear-gradient(to right, var(--ink) 0%, rgba(6, 6, 8, 0.92) 30%, rgba(6, 6, 8, 0.55) 55%, transparent 100%)',
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-y-0 left-0 z-[1] w-[40%]"
+        style={{
+          background:
+            'radial-gradient(ellipse 80% 60% at 0% 50%, var(--accent-soft), transparent 70%)',
+        }}
+        aria-hidden="true"
+      />
+
       <div
         className="relative z-10 flex h-full min-h-inherit flex-col justify-between"
         style={{ padding: 'clamp(20px, 3.5vw, 56px) var(--gutter)' }}
@@ -137,43 +160,32 @@ export function HeroShowreel({
           )}
         </div>
 
-        {/* ── Work strip — the meh fix ── */}
-        {showWorkStrip && (
-          <motion.div
-            className="flex flex-col gap-3"
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.95, duration: 0.6 }}
-          >
-            <div className="flex items-center gap-4">
-              <span className="section-meta" style={{ marginBottom: 0 }}>
-                <span className="meta-bullet">◆</span>
-                Recent work
-              </span>
-              <span className="rule-h flex-1" />
-              <span className="meta-clock">{images.length} of 133</span>
-            </div>
-            <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 sm:gap-3">
-              {images.map((src) => (
-                <div
-                  key={src}
-                  className="duotone-soft relative aspect-[4/5] overflow-hidden"
-                  style={{ borderRadius: 2 }}
-                >
-                  <Image
-                    src={src}
-                    alt=""
-                    fill
-                    sizes="(max-width: 640px) 33vw, 16vw"
-                    style={{ objectFit: 'cover' }}
-                    priority={false}
-                  />
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
+        {/* ── Bottom meta ── */}
+        <motion.div
+          className="flex items-center gap-4"
+          initial={reduce ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.95, duration: 0.6 }}
+        >
+          <span className="section-meta" style={{ marginBottom: 0 }}>
+            <span className="meta-bullet">◆</span>
+            {HOLO_CARDS.length} pieces in the field
+          </span>
+          <span className="rule-h flex-1" />
+          <span className="meta-clock">move mouse · scroll to dive in</span>
+        </motion.div>
       </div>
+
+      {/* Hidden DOM mirror — a11y + SEO. The WebGL canvas is invisible to
+          crawlers and screen readers, so the same images render as a hidden
+          list. */}
+      <ul className="sr-only">
+        {HOLO_CARDS.slice(0, limit).map((src) => (
+          <li key={src}>
+            <img src={src} alt="" />
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
