@@ -1,11 +1,14 @@
 {
-  "lastFetched": "2026-01-18T21:07:35.507Z",
-  "imagePromptsCount": 1180,
+  "lastFetched": "2026-04-29T00:55:57.140Z",
+  "imagePromptsCount": 1377,
   "videoPromptsCount": 50,
   "sources": {
     "imagePrompts": [
       "https://github.com/songguoxs/gpt4o-image-prompts",
-      "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts"
+      "https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts",
+      "https://github.com/Anil-matcha/Awesome-GPT-Image-2-API-Prompts",
+      "https://github.com/ZeroLu/awesome-gpt-image",
+      "https://github.com/ImgEdify/Awesome-GPT4o-Image-Prompts"
     ],
     "videoPrompts": "https://github.com/songguoxs/awesome-video-prompts"
   }

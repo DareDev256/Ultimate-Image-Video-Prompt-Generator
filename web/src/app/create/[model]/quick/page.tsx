@@ -19,6 +19,7 @@ import { MODEL_NAMES, MODEL_COLORS } from '@/lib/models';
 import { buildRandomPrompt, flattenPromptToText } from '@/lib/diverse-pick';
 import { useDiversePick } from '@/hooks/useDiversePick';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
+import { readApiKey } from '@/lib/api-key-resolver';
 import type { ImagePrompt, VideoPrompt } from '@/hooks/useInspirationData';
 
 export default function QuickModePage() {
@@ -33,8 +34,9 @@ export default function QuickModePage() {
   const diversePick = useDiversePick();
 
   useEffect(() => {
-    const apiKey = localStorage.getItem(`${modelId}ApiKey`);
-    setHasApiKey(!!apiKey);
+    // Reads from the right localStorage slot — fal-hosted models share `falApiKey`,
+    // direct models use `<model>ApiKey`. Nano Banana also passes if free tier is available.
+    setHasApiKey(!!readApiKey(modelId) || modelId === 'nano-banana');
   }, [modelId]);
 
   const handleRandomize = () => {
@@ -64,6 +66,13 @@ export default function QuickModePage() {
   };
 
   const isJson = modelId === 'nano-banana';
+
+  // Pre-fill prompt from URL param (e.g., when remixing from a blog post or feed card)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const incoming = params.get('prompt');
+    if (incoming) setPrompt(incoming);
+  }, []);
 
   // Handle using a prompt from the inspiration panel
   const handleUseAsTemplate = useCallback(

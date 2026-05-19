@@ -4,8 +4,11 @@ import { validatePrompt, validateApiKey } from '@/lib/validation';
 // Simple in-memory rate limiting for server-side protection
 // In production, consider using Redis or a proper rate limiter
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-const FREE_TIER_DAILY_LIMIT = 10;
+// Gemini 3 Pro Image (Nano Banana Pro) free tier: 60 RPM / ~1500/day per project key.
+// We expose 25/day per IP so the project key isn't drained in a few hours.
+const FREE_TIER_DAILY_LIMIT = 25;
 const RATE_LIMIT_WINDOW_MS = 24 * 60 * 60 * 1000; // 24 hours
+const GEMINI_MODEL_ID = 'gemini-3-pro-image-preview';
 
 function getClientIdentifier(request: NextRequest): string {
   // Use a combination of IP and user agent for basic fingerprinting
@@ -76,11 +79,12 @@ export async function POST(request: NextRequest) {
     if (!keyResult.valid) return keyResult.error;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent?key=${keyResult.key}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL_ID}:generateContent`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-goog-api-key': keyResult.key,
         },
         body: JSON.stringify({
           contents: [

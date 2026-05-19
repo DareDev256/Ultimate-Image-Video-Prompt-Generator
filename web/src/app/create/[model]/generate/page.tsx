@@ -8,6 +8,8 @@ import { Particles } from '@/components/effects/Particles';
 import { ModelType } from '@/context/WizardContext';
 import { MODEL_NAMES, MODEL_COLORS } from '@/lib/models';
 import { useFreeTier } from '@/hooks/useFreeTier';
+import { readApiKey, modelHasFreeTier } from '@/lib/api-key-resolver';
+import { getModelDefaults } from '@/lib/user-settings';
 
 const loadingMessages = [
   'Initializing creative engine...',
@@ -35,8 +37,8 @@ export default function GeneratePage() {
 
   const generate = useCallback(async () => {
     const prompt = localStorage.getItem('generatingPrompt');
-    const apiKey = localStorage.getItem(`${modelId}ApiKey`);
-    const willUseFreeMode = !apiKey && modelId === 'nano-banana' && canUseFreeTier;
+    const apiKey = readApiKey(modelId);
+    const willUseFreeMode = !apiKey && modelHasFreeTier(modelId) && canUseFreeTier;
 
     if (!prompt) {
       setError('No prompt found. Please go back and create one.');
@@ -47,11 +49,21 @@ export default function GeneratePage() {
     // Check if we can proceed with generation
     if (!apiKey && !willUseFreeMode) {
       if (modelId === 'nano-banana' && !canUseFreeTier) {
-        setError('Daily free tier limit reached. Please add your own API key in settings or try again tomorrow.');
-      } else if (modelId !== 'nano-banana') {
-        setError('No API key configured. Free tier is only available for Nano Banana. Please add your API key in settings.');
+        setError('Daily free tier limit reached. Add your own Gemini key in /settings or try again tomorrow.');
+      } else if (modelId === 'kling') {
+        setError('No Kling API key configured. Add it in /settings, or use a fal.ai-hosted video model instead.');
+      } else if (modelHasFreeTier(modelId)) {
+        setError('No API key configured. Add it in /settings.');
       } else {
-        setError('No API key configured. Please add your API key in settings.');
+        // fal-hosted models: 6 of them share the same fal.ai key
+        const falModels = ['seedance', 'veo', 'wan', 'hunyuan', 'ltx', 'mochi'];
+        if (falModels.includes(modelId)) {
+          setError('No fal.ai API key configured. One key in /settings unlocks Seedance, Veo, Wan, HunyuanVideo, LTX, and Mochi.');
+        } else if (modelId === 'openai') {
+          setError('No OpenAI API key configured. Add it in /settings to use GPT-Image-2.');
+        } else {
+          setError('No API key configured. Add it in /settings.');
+        }
       }
       setIsGenerating(false);
       return;
@@ -73,6 +85,11 @@ export default function GeneratePage() {
         setMessageIndex((prev) => (prev + 1) % loadingMessages.length);
       }, 2000);
 
+      // Pull per-model defaults (size, quality, aspect, duration, etc.) from /settings.
+      // Server still validates these — we just spread them into the body so the user's
+      // saved preferences take effect without forcing them to re-pick every shoot.
+      const defaults = getModelDefaults(modelId);
+
       // Make API call
       const response = await fetch(`/api/generate/${modelId}`, {
         method: 'POST',
@@ -83,6 +100,7 @@ export default function GeneratePage() {
           prompt,
           apiKey: apiKey || undefined,
           useFreeMode: willUseFreeMode,
+          ...defaults,
         }),
       });
 
@@ -132,8 +150,8 @@ export default function GeneratePage() {
     if (!isLoaded) return;
 
     const prompt = localStorage.getItem('generatingPrompt');
-    const apiKey = localStorage.getItem(`${modelId}ApiKey`);
-    const canUseFree = modelId === 'nano-banana' && canUseFreeTier;
+    const apiKey = readApiKey(modelId);
+    const canUseFree = modelHasFreeTier(modelId) && canUseFreeTier;
 
     if (!prompt) {
       setIsGenerating(false);

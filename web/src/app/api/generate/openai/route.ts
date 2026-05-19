@@ -1,12 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { validatePrompt, validateApiKey } from '@/lib/validation';
 
-// DALL-E 3 supported image sizes
-const VALID_SIZES = ['1024x1024', '1792x1024', '1024x1792'] as const;
+// GPT-Image-2 (OpenAI's flagship image model, launched April 2026, replaced DALL-E 3)
+const VALID_SIZES = ['1024x1024', '1536x1024', '1024x1536', '2048x2048', 'auto'] as const;
+const VALID_QUALITIES = ['low', 'medium', 'high', 'auto'] as const;
 type ValidSize = (typeof VALID_SIZES)[number];
+type ValidQuality = (typeof VALID_QUALITIES)[number];
 
 function isValidSize(size: unknown): size is ValidSize {
   return typeof size === 'string' && VALID_SIZES.includes(size as ValidSize);
+}
+function isValidQuality(q: unknown): q is ValidQuality {
+  return typeof q === 'string' && VALID_QUALITIES.includes(q as ValidQuality);
 }
 
 export async function POST(request: NextRequest) {
@@ -14,6 +19,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { prompt, apiKey } = body;
     const size = body.size ?? '1024x1024';
+    const quality = body.quality ?? 'high';
 
     const promptResult = validatePrompt(prompt);
     if (!promptResult.valid) return promptResult.error;
@@ -27,8 +33,14 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+    if (!isValidQuality(quality)) {
+      return NextResponse.json(
+        { error: `Invalid quality. Must be one of: ${VALID_QUALITIES.join(', ')}` },
+        { status: 400 }
+      );
+    }
 
-    // OpenAI DALL-E 3 API
+    // GPT-Image-2 returns base64-encoded images via b64_json (URL response not supported).
     const response = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
       headers: {
@@ -36,12 +48,11 @@ export async function POST(request: NextRequest) {
         Authorization: `Bearer ${keyResult.key}`,
       },
       body: JSON.stringify({
-        model: 'dall-e-3',
+        model: 'gpt-image-2',
         prompt: promptResult.sanitized,
         n: 1,
         size,
-        quality: 'hd',
-        response_format: 'url',
+        quality,
       }),
     });
 
@@ -55,17 +66,22 @@ export async function POST(request: NextRequest) {
     }
 
     const data = await response.json();
+    const first = data.data?.[0];
 
-    if (!data.data?.[0]?.url) {
-      return NextResponse.json(
-        { error: 'No image generated' },
-        { status: 500 }
-      );
+    let imageUrl: string | null = null;
+    if (first?.b64_json) {
+      imageUrl = `data:image/png;base64,${first.b64_json}`;
+    } else if (first?.url) {
+      imageUrl = first.url;
+    }
+
+    if (!imageUrl) {
+      return NextResponse.json({ error: 'No image generated' }, { status: 500 });
     }
 
     return NextResponse.json({
-      imageUrl: data.data[0].url,
-      revisedPrompt: data.data[0].revised_prompt,
+      imageUrl,
+      revisedPrompt: first.revised_prompt,
     });
   } catch (error) {
     console.error('OpenAI generation error:', error);

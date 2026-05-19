@@ -15,6 +15,7 @@ import { Particles } from '@/components/effects/Particles';
 import { WizardProvider, useWizard, ModelType } from '@/context/WizardContext';
 import { MODEL_NAMES, MODEL_COLORS, isValidModel } from '@/lib/models';
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
+import { readApiKey } from '@/lib/api-key-resolver';
 
 function PreviewContent() {
   const router = useRouter();
@@ -43,9 +44,8 @@ function PreviewContent() {
         setModel(modelId);
       }
 
-      // Check for API key
-      const apiKey = localStorage.getItem(`${modelId}ApiKey`);
-      setHasApiKey(!!apiKey);
+      // Check for API key (fal-hosted video models share `falApiKey`)
+      setHasApiKey(!!readApiKey(modelId));
     } else {
       router.push('/create');
     }

@@ -3,7 +3,21 @@
 import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
 import { WizardCategory, getCategoriesForModel } from '@/lib/categories';
 
-export type ModelType = 'nano-banana' | 'openai' | 'kling';
+export type ModelType =
+  | 'nano-banana'
+  | 'openai'
+  | 'kling'
+  | 'seedance'
+  | 'veo'
+  | 'wan'
+  | 'hunyuan'
+  | 'ltx'
+  | 'mochi';
+
+const VIDEO_MODELS = new Set<ModelType>(['kling', 'seedance', 'veo', 'wan', 'hunyuan', 'ltx', 'mochi']);
+function isVideoModelType(model: ModelType): boolean {
+  return VIDEO_MODELS.has(model);
+}
 
 interface WizardState {
   model: ModelType;
@@ -44,7 +58,7 @@ export function WizardProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<WizardState>(initialState);
 
   const setModel = useCallback((model: ModelType) => {
-    const isVideo = model === 'kling';
+    const isVideo = isVideoModelType(model);
     const categories = getCategoriesForModel(isVideo ? 'video' : 'image');
     setState({
       model,
@@ -56,7 +70,7 @@ export function WizardProvider({ children }: { children: React.ReactNode }) {
 
   const restoreState = useCallback((savedState: WizardState) => {
     // Restore state from localStorage, but regenerate categories
-    const isVideo = savedState.model === 'kling';
+    const isVideo = isVideoModelType(savedState.model);
     const categories = getCategoriesForModel(isVideo ? 'video' : 'image');
     setState({
       ...savedState,

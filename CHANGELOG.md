@@ -1,5 +1,50 @@
 # Changelog
 
+## [2.0.0] - 2026-04-29
+
+Major feature release. Modernized AI surface (5 contemporary models), added editorial discovery layer (`/feed`, `/blog`, `/sources`), expanded prompt corpus by ~17% with 3 new sources, and replaced the AI-slop loading-screen landing with a Seedance-style showreel hero.
+
+### Added
+- **Seedance 2.0** (Pro + Fast tiers) text-to-video adapter via fal.ai — `$0.022/sec` Fast tier, multi-shot from one prompt, phoneme-level lip-sync, 20s coherent runtime
+- **Veo 3.1** (Pro + Fast tiers) text-to-video adapter via fal.ai — native 4K@60fps, synced audio, best dialogue clarity
+- **GPT-Image-2** image adapter (replaces dead DALL-E 3) — supports up to 4K, b64_json response, 4 sizes, 4 quality tiers
+- **Nano Banana Pro** upgrade — `gemini-3-pro-image-preview` model, free-tier rate limit raised from 10/day to 25/day per IP
+- **Shared `lib/fal-queue.ts` helper** — single fal.ai key unlocks both Seedance and Veo via a unified queue API client
+- **Paginated `/api/prompts` route** with model/source/category/tag/search filtering and trending/recent/random sort modes — supports the new `/feed` without bundle bloat
+- **`/api/prompts/meta` route** — full filter universe (models, categories, tags, sources) with per-bucket counts
+- **`/feed` route** — editorial scrolling timeline with intersection-observer pagination, source attribution per card, asymmetric grid with feature-card variants
+- **`/blog` route** with 5 launch posts — editorial breakdowns of standout prompts (Helmut Newton portrait, brutalist fashion, vintage Hollywood, avant-garde editorial, synthwave retro)
+- **`/sources` route** — full credit page with GitHub stars, top contributors per repo, last-updated timestamps, one-click feed filter by source
+- **`HeroShowreel` component** — full-bleed cycling-imagery hero with Ken Burns + flash-cut transitions, Seedance video swap-in via single `videoSrc` prop
+- **`LandingSections` component** — How It Works (3 steps), 5-model showcase grid, Feed teaser with scroll-revealed motion
+- **Per-prompt OG image generator** — `/api/og/prompt?id=N&type=image|video` returns shareable 1200×630 PNG cards with cover image, model badge, source attribution
+- **3 new prompt sources** — Anil-matcha/Awesome-GPT-Image-2-API-Prompts (52 prompts), ZeroLu/awesome-gpt-image (69 X-curated prompts), ImgEdify/Awesome-GPT4o-Image-Prompts (76 prompts)
+- **Unified scrape pipeline** — `scripts/fetch-x-curated-prompts.ts` parses the GPT-Image-2 family of source repos with dedup + idempotent re-runs
+- **Server-side data helpers** — `lib/server/prompt-data.ts` provides shared loaders + canonical model-name normalization for routes and server components
+- **Source attribution metadata** — every prompt carries `origin: { repo, repoUrl }` enabling source-filtered browsing and per-source GitHub stat displays
+
+### Changed
+- **Replaced 2.5s theatrical loading sequence on `/` with `HeroShowreel`** — landing page now drops users directly into the showreel + scroll-revealed below-fold sections
+- **Model registry** expanded to 5 entries (`nano-banana`, `openai`, `kling`, `seedance`, `veo`) with brand colors, provider badges, and image/video kind metadata
+- **`WizardContext`** routes the 3 video models (`kling`, `seedance`, `veo`) to video category sets
+- **`/create` model selection page** updated with NEW/HOT badges, modern descriptions, and brand colors per model
+- **Model-name canonicalization** — server-side normalization collapses casing variants (`Nano banana pro` ↔ `Nano Banana Pro`) so filters work consistently
+- **README upgrade** — model table reflects 5 modern engines, free-tier limit, fal.ai-shared video access, updated env var docs
+- **Gallery page** now uses canonical `MODEL_NAMES` / `MODEL_COLORS` registry instead of hardcoded model lists
+
+### Removed
+- **DALL-E 3** support — superseded by GPT-Image-2 (same OpenAI route, new model + new sizes/quality params + b64_json response handling)
+- **Theatrical 2.5s loading screen on landing** — replaced with Seedance-style showreel hero
+- **Duplicate stale `/dev/Ultimate-Image-Video-Prompt-Generator/` working copy** — kept Documents/Projects path canonical
+
+### Fixed
+- **Bundle-cliff risk** — paginated API route prevents shipping the entire 4.1MB prompt JSON to every page load
+- **Source attribution gap** — every prompt now links back to original creator (Twitter handle) AND originating repo, with per-source counts visible at `/sources`
+
+### Migration notes
+- The `MODEL_NAMES.openai` value is now `'GPT-Image-2'`. UI components reading from the registry pick this up automatically; any hardcoded `'DALL-E 3'` strings need a manual sweep.
+- The `useInspirationData` hook still loads the full `image-prompts.json` client-side for the existing slide-out panel. New surfaces (`/feed`) use `/api/prompts` with pagination. Migrating the panel to the API is recommended but non-blocking.
+
 ## [1.0.0] - 2026-03-11
 
 ### Changed

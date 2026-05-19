@@ -125,26 +125,29 @@ bun run index.ts --favorites list         # Manage favorite suggestions
 - **Diversity-aware Randomize** — sliding-window exclusion algorithm tracks recent picks per field so consecutive clicks always surface fresh suggestions (see [algorithm detail](#diversity-aware-randomization))
 - **Keyboard navigation** with smart focus detection
 
-### 🤖 Multi-Model Generation
+### 🤖 Multi-Model Generation (v2.0 — five modern engines)
 
-| Model | Type | Prompt Format | Free Tier | Notes |
-|-------|------|--------------|-----------|-------|
-| **Nano Banana** (Gemini) | Image | Structured JSON | ✅ 10/day | Instant response |
-| **DALL-E 3** (OpenAI) | Image | Natural language | BYOK only | Returns AI-revised prompt alongside your image |
-| **Kling** | Video (5s/10s) | Natural language | BYOK only | Async polling — generates in up to 5 min |
+| Model | Type | Free Tier | Notes |
+|-------|------|-----------|-------|
+| **Nano Banana Pro** (Gemini 3 Pro Image) | Image | ✅ 25/day | World-knowledge grounded, text-in-image SOTA, up to 4K |
+| **GPT-Image-2** (OpenAI) | Image | BYOK only | Replaces DALL-E 3 — broke the arena leaderboard by 242 pts |
+| **Seedance 2.0** (ByteDance · via fal.ai) | Video | BYOK only | $0.022/sec Fast tier, multi-shot from one prompt, phoneme-level lip-sync, 20s coherent |
+| **Veo 3.1** (Google DeepMind · via fal.ai) | Video | BYOK only | Native 4K@60fps, synced audio, best dialogue clarity |
+| **Kling 3.0** (Kuaishou) | Video (5s/10s) | BYOK only | Multi-shot 3–15s with subject continuity |
 
-- **Free Tier** — Try Nano Banana without an API key (10 generations/day, server-side Gemini)
-- **BYOK** — Bring Your Own Keys for unlimited use (keys stored in `localStorage` only)
-- **Kling video generation** uses a two-phase async pattern: POST to create task → poll every 5s until complete. Supports 16:9, 9:16, and 1:1 aspect ratios
+- **Free Tier** — 25 Nano Banana Pro generations/day without an API key (server-side Gemini)
+- **BYOK** — Bring Your Own Keys for unlimited use (keys stored in `localStorage` only, never touch the server)
+- **Single fal.ai key** unlocks both Seedance 2.0 and Veo 3.1
 
-### 💡 Inspiration Gallery & Showcase
+### 💡 Inspiration Gallery, Feed, Blog & Sources (v2.0)
 
-- **1,180+ curated image prompts** from the community + **5,600+ Nano Banana prompts**
-- **50+ video prompts** for Veo3/Kling/Hailuo
-- Search and filter by tags (fashion, portrait, 3D, anime, etc.)
-- **"Use as Template"** to pre-fill the wizard from any community prompt
+- **1,377 curated image prompts** from 5 open-source repos (`songguoxs`, `YouMind-OpenLab`, `Anil-matcha`, `ZeroLu`, `ImgEdify`) + **50 video prompts**
+- **`/feed`** — editorial Twitter-style timeline with model/source/category filters, intersection-observer pagination, full per-prompt attribution
+- **`/blog`** — 5 launch posts with editorial breakdowns of standout prompts (why they work, what to swap, full 13-cat breakdown per post)
+- **`/sources`** — full credit page with GitHub stars, top contributors per repo, and one-click feed filter by source
 - **Pattern library** — 240 extracted patterns across lighting, cameras, moods, color grades, and styles
-- **Showcase** — 30 editorially curated examples with full 13-category prompt breakdowns and image carousels
+- **Showcase** — 30 editorially curated examples with full 13-category prompt breakdowns
+- **Per-prompt OG cards** — every prompt has a shareable 1200×630 social card via `/api/og/prompt?id=N`
 
 ### 🎨 Generation Flow
 
@@ -156,11 +159,13 @@ bun run index.ts --favorites list         # Manage favorite suggestions
 
 ### 💰 API Key Pricing
 
-| Model | Provider | Cost per Image | Get a Key |
-|-------|----------|---------------|-----------|
-| Nano Banana | Google Gemini | ~$0.03 | [ai.google.dev](https://ai.google.dev/tutorials/setup) |
-| DALL-E 3 | OpenAI | ~$0.04–0.12 | [platform.openai.com](https://platform.openai.com/api-keys) |
-| Kling | Kling AI | Varies | [klingai.com](https://klingai.com) |
+| Model | Provider | Cost | Get a Key |
+|-------|----------|------|-----------|
+| Nano Banana Pro | Google Gemini 3 Pro Image | ~$0.04/image (free tier 25/day) | [ai.google.dev](https://ai.google.dev/tutorials/setup) |
+| GPT-Image-2 | OpenAI | ~$0.04–0.12/image | [platform.openai.com](https://platform.openai.com/api-keys) |
+| Seedance 2.0 | ByteDance via fal.ai | $0.022/sec (Fast) · $0.18 for 8s | [fal.ai](https://fal.ai/) |
+| Veo 3.1 | Google DeepMind via fal.ai | $0.10–0.40/sec | [fal.ai](https://fal.ai/) |
+| Kling 3.0 | Kling AI | Varies | [klingai.com](https://klingai.com) |
 
 ## Tech Stack
 
@@ -172,7 +177,7 @@ bun run index.ts --favorites list         # Manage favorite suggestions
 | Animations | Framer Motion 12 | — |
 | UI | React 19 + Lucide icons | @clack/prompts |
 | State | React Context + localStorage | File-based (JsonStore) |
-| APIs | Gemini, OpenAI, Kling | Gemini Vision (analyzer) |
+| APIs | Gemini 3 Pro Image, GPT-Image-2, fal.ai (Seedance + Veo), Kling | Gemini Vision (analyzer) |
 
 ## Getting Started
 
@@ -180,9 +185,10 @@ bun run index.ts --favorites list         # Manage favorite suggestions
 
 - **Node.js 18+** (web) or **Bun** (CLI + web)
 - API keys are optional — the free tier works out of the box:
-  - [Google AI Studio](https://ai.google.dev/tutorials/setup) — Gemini / Nano Banana
-  - [OpenAI Platform](https://platform.openai.com/api-keys) — DALL-E 3
-  - [Kling AI](https://klingai.com) — Video
+  - [Google AI Studio](https://ai.google.dev/tutorials/setup) — Gemini 3 Pro Image / Nano Banana Pro (free tier 25/day)
+  - [OpenAI Platform](https://platform.openai.com/api-keys) — GPT-Image-2
+  - [fal.ai](https://fal.ai/) — Seedance 2.0 + Veo 3.1 (single key for both)
+  - [Kling AI](https://klingai.com) — Kling 3.0 video
 
 ### Web App
 
@@ -207,9 +213,9 @@ bun run index.ts
 
 | Variable | Required | Scope | Description |
 |----------|----------|-------|-------------|
-| `GEMINI_API_KEY` | No | Server | Enables the free tier (10 generations/day) for users without their own keys |
+| `GEMINI_API_KEY` | No | Server | Enables the free tier (25 Nano Banana Pro generations/day) for users without their own keys |
 
-User-provided API keys (Gemini, OpenAI, Kling) are entered in the browser at `/settings` and stored in `localStorage` only — they never touch the server.
+User-provided API keys (Gemini, OpenAI, fal.ai, Kling) are entered in the browser at `/settings` and stored in `localStorage` only — they never touch the server.
 
 ### Deploy Your Own
 

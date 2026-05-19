@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { Particles } from '@/components/effects/Particles';
 import { ModelType } from '@/context/WizardContext';
+import { MODEL_NAMES, MODEL_COLORS } from '@/lib/models';
 
 interface GalleryItem {
   id: string;
@@ -39,17 +40,9 @@ export default function GalleryPage() {
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
   const [copied, setCopied] = useState(false);
 
-  const modelNames: Record<ModelType, string> = {
-    'nano-banana': 'Nano Banana',
-    openai: 'DALL-E 3',
-    kling: 'Kling',
-  };
-
-  const modelColors: Record<ModelType, string> = {
-    'nano-banana': '#00d4ff',
-    openai: '#00ff88',
-    kling: '#ff00aa',
-  };
+  // Use the canonical registry rather than redefine in-component (DRY + adds new models automatically).
+  const modelNames = MODEL_NAMES;
+  const modelColors = MODEL_COLORS;
 
   useEffect(() => {
     const gallery = JSON.parse(localStorage.getItem('gallery') || '[]');

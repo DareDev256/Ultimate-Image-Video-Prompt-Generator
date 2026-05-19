@@ -1,0 +1,30 @@
+# Ultimate Image & Video Prompt Generator
+
+> Nine modern AI image/video generation engines side by side, with 1,377 curated prompts from open-source repos and X. Editorial timeline + blog breakdowns + per-source attribution. Wizard turns 13 categories into ready-to-ship prompts. Built by [DareDev256](https://github.com/DareDev256) in Toronto.
+
+## Highlights
+
+- **Models wired:** Nano Banana Pro (Gemini 3 Pro Image · 25/day free), GPT-Image-2 (OpenAI), Seedance 2.0, Veo 3.1, Kling 3.0, plus the open-source spectrum — Wan 2.6, HunyuanVideo, LTX-Video 2.0, Mochi 1
+- **1,377 prompts** curated from 5 open-source repos (`songguoxs/gpt4o-image-prompts`, `YouMind-OpenLab/awesome-nano-banana-pro-prompts`, `Anil-matcha/Awesome-GPT-Image-2-API-Prompts`, `ZeroLu/awesome-gpt-image`, `ImgEdify/Awesome-GPT4o-Image-Prompts`)
+- **13-category wizard** — Subject, Environment, Lighting, Camera, Atmosphere, Color, Film, Composition, Vibes, etc., with 7,000+ curated suggestions
+- **One paste of a fal.ai key** unlocks 6 video models (Seedance + Veo + Wan + Hunyuan + LTX + Mochi)
+- **Open-source** — MIT, contributions welcome
+
+## Pages
+
+- [Home / Hero showreel](/): cycling showcase imagery + the 9-model overview
+- [The Feed](/feed): editorial timeline of 1,377 prompts, filter by model/source/category, full attribution
+- [The Blog](/blog): 5 editorial breakdowns with 13-cat decomposition per post
+- [Sources & Credit](/sources): per-repo attribution, GitHub stars, top contributors
+- [Create / Wizard](/create): pick a model, walk through 13 prompt categories, ship
+- [Showcase](/showcase): 30 hand-curated examples with full breakdowns
+- [Settings](/settings): per-provider API keys + per-model generation defaults
+- [API: List prompts](/api/prompts): paginated, filterable JSON over the corpus
+- [API: Filter universe](/api/prompts/meta): models, sources, categories, tags + counts
+- [API: Per-prompt OG card](/api/og/prompt?id=N&type=image|video): 1200×630 PNG
+
+## Optional
+
+- [Repo on GitHub](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator)
+- [CHANGELOG](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/blob/main/CHANGELOG.md)
+- [DareDev256 portfolio](https://tdotssolutionsz.com)
