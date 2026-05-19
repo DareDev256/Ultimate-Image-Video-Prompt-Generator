@@ -1,207 +1,125 @@
 'use client';
 
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 /**
- * Showreel hero — full-bleed cycling background with massive Orbitron headline overlay.
+ * Editorial hero — cream paper, ink black, ONE cobalt accent.
  *
- * **Background pipeline:**
- *   1. If `videoSrc` is provided → use a `<video autoplay muted loop>` element.
- *      This is the production state once James drops his Seedance hero footage.
- *   2. Otherwise → cycle through `images` at `cycleMs` cadence with Ken Burns zoom +
- *      flash-cut transitions. Used as the placeholder until real video lands.
+ * Replaces the v2.0 Flash-era scrolling video showreel. The product is an
+ * image generator; the hero now shows actual outputs (work strip) instead
+ * of a cycling background. Headline gets a marker-highlight on the phrase
+ * indexed by `highlightIndex` — the AYNEB / Areeba signature move.
  *
- * **Scroll bindings (Framer Motion useScroll):**
- *   - Background: opacity 1 → 0.25, scale 1 → 1.12 over the hero's height
- *   - Headline: y 0 → -80px, opacity 1 → 0
- *   - Eyebrow: opacity 1 → 0 faster than headline (out at 60% scroll)
- *
- * **Reduced motion:** transforms are bypassed; placeholder still cycles images
- * but at 6s cadence instead of 2.4s, with crossfade only (no Ken Burns scale).
+ * Legacy props (videoSrc, posterSrc, cycleMs) are kept in the interface as
+ * `unknown` so existing call sites compile, but are ignored in render.
  */
 
 export interface HeroShowreelProps {
-  /** Eyebrow label above the headline (small caps, mono font). */
+  /** Tiny ◆ label above the headline. */
   eyebrow: string;
-  /** Multi-line headline. Pass an array; the component stacks them. */
+  /** Multi-line headline. Each entry becomes one stacked line. */
   headline: string[];
+  /** Which headline line gets the marker-highlight swipe. Default: last line. */
+  highlightIndex?: number;
   /** Subhead paragraph below the headline. */
   subhead?: string;
-  /** Image paths used in placeholder cycle. Ignored when `videoSrc` is set. */
+  /** Thumbnail paths shown in the work strip below the CTAs. Defaults to a
+   *  curated 6 from /showcase. Pass `[]` to hide the strip. */
   images?: string[];
-  /** Cadence (ms) between flash-cuts in placeholder mode. Default 2400. */
-  cycleMs?: number;
-  /** When set, replaces the image carousel with a looping video (the final state). */
-  videoSrc?: string;
-  /** Optional poster image while video loads. */
-  posterSrc?: string;
-  /** 'landing' = full 92vh hero with subhead; 'feed' = compact 70vh, no subhead. */
+  /** 'landing' = full hero with work strip; 'feed' = compact, no work strip. */
   variant?: 'landing' | 'feed';
-  /** Extra content slotted below the headline (CTA buttons, stats counter, etc). */
+  /** CTA buttons + secondary actions slot. */
   children?: React.ReactNode;
+  /** Live location/time meta city label. Default 'TORONTO'. */
+  city?: string;
+
+  /* Deprecated v2.0 props — accepted but no-op. */
+  cycleMs?: number;
+  videoSrc?: string;
+  posterSrc?: string;
 }
 
-const DEFAULT_PLACEHOLDER_IMAGES = [
+const DEFAULT_WORK_STRIP = [
   '/showcase/01-neon-noir.png',
+  '/showcase/03-golden-hour-ethereal.png',
   '/showcase/04-brutalist-fashion.png',
   '/showcase/06-vintage-hollywood.png',
-  '/showcase/11-cyberpunk-vendor.png',
-  '/showcase/14-synthwave-retro.png',
-  '/showcase/03-golden-hour-ethereal.png',
-  '/showcase/13-underwater-dream.png',
   '/showcase/08-avant-garde-editorial.png',
+  '/showcase/14-synthwave-retro.png',
 ];
 
 export function HeroShowreel({
   eyebrow,
   headline,
+  highlightIndex,
   subhead,
-  images = DEFAULT_PLACEHOLDER_IMAGES,
-  cycleMs = 2400,
-  videoSrc,
-  posterSrc,
+  images = DEFAULT_WORK_STRIP,
   variant = 'landing',
   children,
+  city = 'TORONTO',
 }: HeroShowreelProps) {
-  const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end start'],
-  });
-
-  const bgOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.25]);
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
-  const titleY = useTransform(scrollYProgress, [0, 1], [0, -80]);
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.85, 1], [1, 0.2, 0]);
-  const eyebrowOpacity = useTransform(scrollYProgress, [0, 0.5, 0.7], [1, 0.4, 0]);
-
-  // Image cycle state for placeholder mode.
-  const [activeIdx, setActiveIdx] = useState(0);
-  useEffect(() => {
-    if (videoSrc) return;
-    const cadence = reduce ? 6000 : cycleMs;
-    const id = setInterval(() => {
-      setActiveIdx((i) => (i + 1) % images.length);
-    }, cadence);
-    return () => clearInterval(id);
-  }, [videoSrc, images.length, cycleMs, reduce]);
-
-  const heroHeight = variant === 'feed' ? 'h-[70vh] min-h-[480px]' : 'h-[100vh] min-h-[640px]';
+  const markIdx = highlightIndex ?? headline.length - 1;
+  const heroMinHeight = variant === 'feed' ? 'min-h-[60vh]' : 'min-h-[92vh]';
+  const showWorkStrip = variant === 'landing' && images.length > 0;
 
   return (
     <section
-      ref={ref}
-      className={`relative ${heroHeight} w-full overflow-hidden`}
+      className={`relative w-full ${heroMinHeight} overflow-hidden`}
       style={{
-        background: 'var(--color-bg-deep)',
-        borderBottom: '1px solid var(--color-border)',
+        background: 'var(--paper)',
+        borderBottom: '1px solid var(--rule-strong)',
       }}
     >
-      {/* Layer 0 — background carousel or video */}
-      <motion.div
-        className="absolute inset-0 z-0"
-        style={reduce ? undefined : { opacity: bgOpacity, scale: bgScale }}
-      >
-        {videoSrc ? (
-          <video
-            className="h-full w-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster={posterSrc}
-          >
-            <source src={videoSrc} type="video/mp4" />
-          </video>
-        ) : (
-          <ImageCarousel images={images} activeIdx={activeIdx} reduceMotion={reduce ?? false} />
-        )}
-      </motion.div>
-
-      {/* Layer 1 — color scrim + flash-cut white pulse on each image change */}
       <div
-        className="absolute inset-0 z-10"
-        style={{
-          background:
-            'radial-gradient(ellipse at 25% 30%, rgba(0,212,255,0.12) 0%, transparent 50%), radial-gradient(ellipse at 80% 70%, rgba(255,0,170,0.14) 0%, transparent 55%), linear-gradient(180deg, rgba(10,10,18,0.35) 0%, rgba(10,10,18,0.55) 50%, rgba(10,10,18,0.92) 100%)',
-        }}
-        aria-hidden="true"
-      />
-      {!videoSrc && !reduce && (
-        <FlashOverlay key={activeIdx} />
-      )}
-
-      {/* Layer 2 — scanlines + grain (existing brand motif) */}
-      <div
-        className="pointer-events-none absolute inset-0 z-10 opacity-25"
-        style={{
-          background:
-            'repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,0.18) 2px 4px)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Layer 3 — content */}
-      <motion.div
-        className="relative z-20 flex h-full flex-col justify-between px-6 py-10 md:px-16 md:py-14"
-        style={reduce ? undefined : { y: titleY, opacity: titleOpacity }}
+        className="relative z-10 flex h-full min-h-inherit flex-col justify-between"
+        style={{ padding: 'clamp(20px, 3.5vw, 56px) var(--gutter)' }}
       >
-        {/* Top meta strip */}
+        {/* ── Top meta strip ── */}
         <motion.div
-          className="flex items-center justify-between text-[10px] tracking-[0.4em] uppercase opacity-90"
-          style={reduce ? undefined : { opacity: eyebrowOpacity }}
+          className="flex items-start justify-between gap-6"
+          initial={reduce ? false : { opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-success)' }}>
-            ◆ {eyebrow}
+          <span className="section-meta" style={{ marginBottom: 0 }}>
+            <span className="meta-bullet">◆</span>
+            {eyebrow}
           </span>
-          <span style={{ color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)' }}>
-            v2.0 · TORONTO
-          </span>
+          <LiveClock city={city} />
         </motion.div>
 
-        {/* Center stack */}
-        <div className="flex flex-col items-start gap-6 md:gap-8">
-          <h1
-            className="text-nebula-glow"
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: variant === 'feed'
-                ? 'clamp(2.5rem, 8vw, 6.5rem)'
-                : 'clamp(3rem, 11vw, 11rem)',
-              lineHeight: 0.88,
-              letterSpacing: '-0.025em',
-              fontWeight: 900,
-              textTransform: 'uppercase',
-            }}
-          >
-            {headline.map((line, i) => (
-              <motion.span
-                key={`${line}-${i}`}
-                className="block"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + i * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              >
-                {line}
-              </motion.span>
-            ))}
+        {/* ── Hero lockup ── */}
+        <div className="flex flex-col items-start gap-8 md:gap-10 py-8 md:py-12">
+          <h1 className="hero-lockup">
+            {headline.map((line, i) => {
+              const isMarked = i === markIdx;
+              return (
+                <motion.span
+                  key={`${line}-${i}`}
+                  className="block"
+                  initial={reduce ? false : { opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 0.2 + i * 0.08,
+                    duration: 0.7,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                >
+                  {isMarked ? <span className="highlight">{line}</span> : line}
+                </motion.span>
+              );
+            })}
           </h1>
 
           {subhead && variant === 'landing' && (
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              className="body-editorial max-w-2xl"
+              initial={reduce ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-              className="max-w-2xl text-base md:text-lg"
-              style={{
-                color: 'var(--color-text-secondary)',
-                fontFamily: 'var(--font-body)',
-                lineHeight: 1.55,
-              }}
+              transition={{ delay: 0.55, duration: 0.6 }}
             >
               {subhead}
             </motion.p>
@@ -209,90 +127,75 @@ export function HeroShowreel({
 
           {children && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              className="flex flex-wrap items-center gap-3 mt-2"
+              initial={reduce ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-              className="flex flex-wrap items-center gap-3"
+              transition={{ delay: 0.75, duration: 0.6 }}
             >
               {children}
             </motion.div>
           )}
         </div>
 
-        {/* Bottom scroll cue */}
-        <motion.div
-          className="flex items-center gap-3 text-[10px] tracking-[0.4em] uppercase"
-          style={reduce ? undefined : { opacity: eyebrowOpacity }}
-        >
-          <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted)' }}>
-            scroll
-          </span>
-          <span
-            className="block h-px w-10 origin-left animate-pulse"
-            style={{ background: 'var(--color-primary)', boxShadow: '0 0 8px var(--color-primary-glow)' }}
-          />
-          <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted)' }}>↓</span>
-        </motion.div>
-      </motion.div>
+        {/* ── Work strip — the meh fix ── */}
+        {showWorkStrip && (
+          <motion.div
+            className="flex flex-col gap-3"
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.95, duration: 0.6 }}
+          >
+            <div className="flex items-center gap-4">
+              <span className="section-meta" style={{ marginBottom: 0 }}>
+                <span className="meta-bullet">◆</span>
+                Recent work
+              </span>
+              <span className="rule-h flex-1" />
+              <span className="meta-clock">{images.length} of 133</span>
+            </div>
+            <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 sm:gap-3">
+              {images.map((src) => (
+                <div
+                  key={src}
+                  className="duotone-soft relative aspect-[4/5] overflow-hidden"
+                  style={{ borderRadius: 2 }}
+                >
+                  <Image
+                    src={src}
+                    alt=""
+                    fill
+                    sizes="(max-width: 640px) 33vw, 16vw"
+                    style={{ objectFit: 'cover' }}
+                    priority={false}
+                  />
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </div>
     </section>
   );
 }
 
-/** Cross-faded carousel with Ken Burns zoom on the active image. */
-function ImageCarousel({
-  images,
-  activeIdx,
-  reduceMotion,
-}: {
-  images: string[];
-  activeIdx: number;
-  reduceMotion: boolean;
-}) {
+/** Live "BASED IN [CITY], HH:MM" meta — updates every 30s. */
+function LiveClock({ city }: { city: string }) {
+  const [time, setTime] = useState<string>(() => formatTime(new Date()));
+  useEffect(() => {
+    const id = setInterval(() => setTime(formatTime(new Date())), 30_000);
+    return () => clearInterval(id);
+  }, []);
   return (
-    <div className="relative h-full w-full">
-      {images.map((src, i) => {
-        const isActive = i === activeIdx;
-        return (
-          <motion.div
-            key={src}
-            className="absolute inset-0"
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: isActive ? 1 : 0,
-              scale: reduceMotion ? 1 : isActive ? 1.08 : 1,
-            }}
-            transition={{
-              opacity: { duration: 0.35, ease: 'easeOut' },
-              scale: { duration: 4.5, ease: 'linear' },
-            }}
-            style={{
-              backgroundImage: `url(${src})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              willChange: 'opacity, transform',
-            }}
-            aria-hidden="true"
-          />
-        );
-      })}
-    </div>
+    <span className="meta-clock whitespace-nowrap">
+      BASED IN {city}, {time}
+    </span>
   );
 }
 
-/** Brief white-flash bloom on every image change — flash-cut moment. */
-function FlashOverlay() {
-  return (
-    <motion.div
-      className="pointer-events-none absolute inset-0 z-10"
-      initial={{ opacity: 0.55 }}
-      animate={{ opacity: 0 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-      style={{
-        background:
-          'radial-gradient(ellipse at center, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.4) 25%, transparent 60%)',
-        mixBlendMode: 'screen',
-      }}
-      aria-hidden="true"
-    />
-  );
+function formatTime(d: Date): string {
+  return d.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
 }
