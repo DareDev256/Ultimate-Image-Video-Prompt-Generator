@@ -119,7 +119,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 800;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--paper);
 }
 
 h1 {
@@ -176,18 +176,22 @@ h1 {
 
 .text-glow,
 .text-lcd {
-  color: var(--ink);
+  color: var(--paper);
   font-family: var(--font-mono);
 }
 
 /* ── Marker highlight utility (also usable inline) ── */
-.marker {
+.marker,
+.highlight {
   background: var(--accent);
   color: var(--paper);
   padding: 0.04em 0.18em 0.10em;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
+
+/* Inside hero-lockup we already add a stronger glow + nullify text-shadow.
+   See the `.hero-lockup .highlight` rule above for that scoped variant. */
 
 /* ── Section meta — tiny ◆ kicker above each body section ── */
 .section-meta {

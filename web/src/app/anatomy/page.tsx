@@ -512,7 +512,7 @@ export default function AnatomyPage() {
               className="inline-flex items-center gap-2 px-7 py-3.5 text-sm uppercase tracking-[0.18em] font-bold"
               style={{
                 background: 'var(--paper)',
-                color: 'var(--paper)',
+                color: 'var(--ink)',
                 fontFamily: 'var(--font-display)',
                 borderRadius: 2,
               }}

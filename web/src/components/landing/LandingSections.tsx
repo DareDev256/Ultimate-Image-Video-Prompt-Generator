@@ -87,7 +87,7 @@ function HowItWorks() {
     <section
       className="relative"
       style={{
-        background: 'var(--paper)',
+        background: 'var(--ink)',
         padding: 'clamp(80px, 10vw, 160px) var(--gutter)',
       }}
     >
@@ -115,7 +115,7 @@ function HowItWorks() {
             letterSpacing: '-0.025em',
             fontWeight: 900,
             textTransform: 'uppercase',
-            color: 'var(--ink)',
+            color: 'var(--paper)',
             margin: '0 0 4rem',
           }}
         >
@@ -139,7 +139,7 @@ function HowItWorks() {
                   <span
                     style={{
                       fontFamily: 'var(--font-mono)',
-                      color: 'var(--ink)',
+                      color: 'var(--paper)',
                       fontSize: '2.75rem',
                       fontWeight: 500,
                       lineHeight: 1,
@@ -157,7 +157,7 @@ function HowItWorks() {
                     letterSpacing: '-0.01em',
                     textTransform: 'uppercase',
                     fontWeight: 800,
-                    color: 'var(--ink)',
+                    color: 'var(--paper)',
                   }}
                 >
                   {step.title}
@@ -165,7 +165,7 @@ function HowItWorks() {
                 <p
                   className="mt-3"
                   style={{
-                    color: 'var(--ink-2)',
+                    color: 'var(--paper-soft)',
                     fontFamily: 'var(--font-body)',
                     fontSize: '0.9375rem',
                     lineHeight: 1.55,
@@ -188,7 +188,7 @@ function ModelsShowcase() {
     <section
       className="relative"
       style={{
-        background: 'var(--paper-soft)',
+        background: 'var(--ink-2)',
         padding: 'clamp(80px, 10vw, 160px) var(--gutter)',
         borderTop: '1px solid var(--rule-strong)',
         borderBottom: '1px solid var(--rule-strong)',
@@ -219,7 +219,7 @@ function ModelsShowcase() {
                 letterSpacing: '-0.025em',
                 fontWeight: 900,
                 textTransform: 'uppercase',
-                color: 'var(--ink)',
+                color: 'var(--paper)',
                 margin: 0,
               }}
             >
@@ -231,7 +231,7 @@ function ModelsShowcase() {
             href="/create"
             className="text-xs tracking-[0.25em] uppercase font-bold"
             style={{
-              color: 'var(--ink)',
+              color: 'var(--paper)',
               fontFamily: 'var(--font-display)',
               textDecoration: 'underline',
               textUnderlineOffset: '6px',
@@ -262,9 +262,9 @@ function ModelsShowcase() {
                     <div
                       className="flex h-11 w-11 items-center justify-center"
                       style={{
-                        background: 'var(--paper)',
+                        background: 'var(--ink-3)',
                         border: '1px solid var(--rule-strong)',
-                        color: 'var(--ink)',
+                        color: 'var(--accent)',
                         borderRadius: 2,
                       }}
                     >
@@ -275,7 +275,7 @@ function ModelsShowcase() {
                         className="px-2 py-0.5 text-[9px] uppercase tracking-[0.18em]"
                         style={{
                           border: '1px solid var(--rule-strong)',
-                          color: 'var(--ink-2)',
+                          color: 'var(--paper-soft)',
                           fontFamily: 'var(--font-mono)',
                           borderRadius: 2,
                         }}
@@ -306,7 +306,7 @@ function ModelsShowcase() {
                       letterSpacing: '-0.01em',
                       textTransform: 'uppercase',
                       fontWeight: 800,
-                      color: 'var(--ink)',
+                      color: 'var(--paper)',
                     }}
                   >
                     {MODEL_NAMES[id]}
@@ -314,7 +314,7 @@ function ModelsShowcase() {
                   <p
                     className="mt-1 text-[10px] uppercase tracking-[0.22em]"
                     style={{
-                      color: 'var(--ink-3)',
+                      color: 'var(--paper-card)',
                       fontFamily: 'var(--font-mono)',
                     }}
                   >
@@ -324,7 +324,7 @@ function ModelsShowcase() {
                   <p
                     className="mt-4 flex-1"
                     style={{
-                      color: 'var(--ink-2)',
+                      color: 'var(--paper-soft)',
                       fontFamily: 'var(--font-body)',
                       fontSize: '0.875rem',
                       lineHeight: 1.55,
@@ -335,7 +335,7 @@ function ModelsShowcase() {
 
                   <div
                     className="mt-6 flex items-center gap-2 text-xs uppercase tracking-[0.2em] transition-all group-hover:gap-3"
-                    style={{ color: 'var(--ink)', fontFamily: 'var(--font-display)', fontWeight: 700 }}
+                    style={{ color: 'var(--paper)', fontFamily: 'var(--font-display)', fontWeight: 700 }}
                   >
                     <span>Generate</span>
                     <ArrowRight size={14} />
@@ -356,7 +356,8 @@ function ReadDeeper() {
     <section
       className="relative"
       style={{
-        background: 'var(--paper)',
+        background:
+          'linear-gradient(180deg, var(--ink) 0%, rgba(58, 92, 255, 0.06) 100%)',
         padding: 'clamp(80px, 10vw, 160px) var(--gutter)',
       }}
     >
@@ -384,7 +385,7 @@ function ReadDeeper() {
               letterSpacing: '-0.025em',
               fontWeight: 900,
               textTransform: 'uppercase',
-              color: 'var(--ink)',
+              color: 'var(--paper)',
               margin: '0 0 1.5rem',
             }}
           >
