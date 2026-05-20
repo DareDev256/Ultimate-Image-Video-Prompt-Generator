@@ -34,6 +34,10 @@ interface ModelOption {
   badge?: string;
 }
 
+// Editorial-aligned palette — each model still has identity via icon tint,
+// but the palette is pulled into the holo cloud's iridescent register
+// (cobalt / cyan / magenta / lime / mint / amber / violet). No more Y2K
+// arcade neon.
 const models: ModelOption[] = [
   {
     id: 'nano-banana',
@@ -42,8 +46,8 @@ const models: ModelOption[] = [
     icon: <Sparkles className="w-8 h-8" />,
     description: 'Gemini 3 Pro Image — text-in-image SOTA + free tier',
     features: ['4K capable', 'World-knowledge grounded', '25/day free'],
-    color: '#00d4ff',
-    glowColor: 'rgba(0, 212, 255, 0.5)',
+    color: '#3a5cff', // cobalt — primary
+    glowColor: 'rgba(58, 92, 255, 0.32)',
     badge: 'NEW',
   },
   {
@@ -53,8 +57,8 @@ const models: ModelOption[] = [
     icon: <Wand2 className="w-8 h-8" />,
     description: 'OpenAI flagship — broke arena leaderboard by 242 pts',
     features: ['Up to 4K', 'Photorealistic', 'Style transfer'],
-    color: '#00ff88',
-    glowColor: 'rgba(0, 255, 136, 0.5)',
+    color: '#5ee8a0', // mint — success
+    glowColor: 'rgba(94, 232, 160, 0.32)',
     badge: 'NEW',
   },
   {
@@ -64,8 +68,8 @@ const models: ModelOption[] = [
     icon: <Film className="w-8 h-8" />,
     description: 'ByteDance — best image-to-video, $0.022/sec Fast tier',
     features: ['Multi-shot from 1 prompt', 'Phoneme-level lip-sync', '20s coherent'],
-    color: '#ffb300',
-    glowColor: 'rgba(255, 179, 0, 0.5)',
+    color: '#ffa726', // amber
+    glowColor: 'rgba(255, 167, 38, 0.32)',
     badge: 'HOT',
   },
   {
@@ -75,8 +79,8 @@ const models: ModelOption[] = [
     icon: <Clapperboard className="w-8 h-8" />,
     description: 'Google DeepMind — only model with native 4K@60 + audio',
     features: ['Native synced audio', '1080p / 4K', 'Best dialogue clarity'],
-    color: '#7c4dff',
-    glowColor: 'rgba(124, 77, 255, 0.5)',
+    color: '#a855f7', // violet
+    glowColor: 'rgba(168, 85, 247, 0.32)',
     badge: 'NEW',
   },
   {
@@ -86,8 +90,8 @@ const models: ModelOption[] = [
     icon: <Video className="w-8 h-8" />,
     description: 'Multi-shot subject consistency 3–15s',
     features: ['5/10 sec', 'Subject continuity', 'Multi-character audio'],
-    color: '#ff00aa',
-    glowColor: 'rgba(255, 0, 170, 0.5)',
+    color: '#ff2bd1', // iri-magenta
+    glowColor: 'rgba(255, 43, 209, 0.32)',
   },
   {
     id: 'hunyuan',
@@ -96,8 +100,8 @@ const models: ModelOption[] = [
     icon: <Cpu className="w-8 h-8" />,
     description: 'Tencent · 13B open-source · prosumer-runnable',
     features: ['Strong text alignment', '720p · 5s/10s', 'Self-hostable on 24GB+ GPU'],
-    color: '#3acaff',
-    glowColor: 'rgba(58, 202, 255, 0.5)',
+    color: '#16e5ff', // iri-cyan
+    glowColor: 'rgba(22, 229, 255, 0.32)',
     badge: 'OPEN',
   },
   {
@@ -107,8 +111,8 @@ const models: ModelOption[] = [
     icon: <Aperture className="w-8 h-8" />,
     description: 'Alibaba · open-source · MoE architecture',
     features: ['~$0.05/sec hosted', '480p · 720p', 'High-noise + low-noise experts'],
-    color: '#ff7e29',
-    glowColor: 'rgba(255, 126, 41, 0.5)',
+    color: '#ffa726', // amber, paired with seedance
+    glowColor: 'rgba(255, 167, 38, 0.32)',
     badge: 'OPEN',
   },
   {
@@ -118,8 +122,8 @@ const models: ModelOption[] = [
     icon: <Layers className="w-8 h-8" />,
     description: 'Lightricks · cheapest hosted at ~$0.04/sec',
     features: ['1080p · 4K', 'DiT architecture', 'Built for speed'],
-    color: '#a3ff5b',
-    glowColor: 'rgba(163, 255, 91, 0.5)',
+    color: '#c8ff3a', // iri-lime
+    glowColor: 'rgba(200, 255, 58, 0.32)',
     badge: 'CHEAP',
   },
   {
@@ -129,8 +133,8 @@ const models: ModelOption[] = [
     icon: <Box className="w-8 h-8" />,
     description: 'Genmo AI · 10B Apache 2.0 · self-host friendly',
     features: ['Apache 2.0 license', 'Strong prompt-following', 'Asymmetric DiT'],
-    color: '#ff5cc0',
-    glowColor: 'rgba(255, 92, 192, 0.5)',
+    color: '#ff2bd1', // iri-magenta, paired with kling
+    glowColor: 'rgba(255, 43, 209, 0.32)',
     badge: 'OPEN',
   },
 ];
@@ -197,7 +201,7 @@ export default function CreatePage() {
           ◆ Pick the engine
         </p>
         <h1
-          className="text-nebula-glow mb-4"
+          className="mb-4"
           style={{
             fontFamily: 'var(--font-display)',
             fontSize: 'clamp(2rem, 6vw, 4.5rem)',
@@ -205,9 +209,11 @@ export default function CreatePage() {
             letterSpacing: '-0.02em',
             fontWeight: 900,
             textTransform: 'uppercase',
+            color: 'var(--paper)',
           }}
         >
-          Nine engines. <br />Same wizard.
+          Nine engines. <br />
+          <span className="highlight">same wizard</span>.
         </h1>
         <p
           className="text-base"
@@ -231,7 +237,7 @@ export default function CreatePage() {
             flex items-center gap-2
             ${mode === 'wizard'
               ? 'bg-[var(--color-primary)] text-black'
-              : 'text-[var(--color-text-muted)] hover:text-white'
+              : 'text-[var(--color-text-muted)] hover:text-[var(--paper)]'
             }
           `}
         >
@@ -245,7 +251,7 @@ export default function CreatePage() {
             flex items-center gap-2
             ${mode === 'quick'
               ? 'bg-[var(--color-secondary)] text-black'
-              : 'text-[var(--color-text-muted)] hover:text-white'
+              : 'text-[var(--color-text-muted)] hover:text-[var(--paper)]'
             }
           `}
         >
@@ -315,16 +321,7 @@ export default function CreatePage() {
               whileHover={{ y: -8 }}
               whileTap={{ scale: 0.98 }}
             >
-              {/* Shimmer effect */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: `linear-gradient(135deg, transparent 0%, ${model.glowColor} 50%, transparent 100%)`,
-                    opacity: 0.1,
-                  }}
-                />
-              </div>
+              {/* Subtle hover lift — editorial, no shimmer, no glitter */}
 
               {/* Type badge */}
               <div
@@ -367,7 +364,7 @@ export default function CreatePage() {
               {/* Name */}
               <h2
                 className="text-2xl font-bold mb-2 tracking-tight"
-                style={{ color: hoveredModel === model.id ? model.color : 'white' }}
+                style={{ color: hoveredModel === model.id ? model.color : 'var(--paper)' }}
               >
                 {model.name}
               </h2>
@@ -534,7 +531,7 @@ export default function CreatePage() {
 
               <h2
                 className="text-2xl font-bold mb-2 tracking-tight"
-                style={{ color: hoveredModel === model.id ? model.color : 'white' }}
+                style={{ color: hoveredModel === model.id ? model.color : 'var(--paper)' }}
               >
                 {model.name}
               </h2>

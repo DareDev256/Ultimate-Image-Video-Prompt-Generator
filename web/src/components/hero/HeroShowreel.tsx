@@ -190,16 +190,20 @@ export function HeroShowreel({
   );
 }
 
-/** Live "BASED IN [CITY], HH:MM" meta — updates every 30s. */
+/** Live "BASED IN [CITY], HH:MM" meta — updates every 30s.
+ *  Initialized to an empty time slot on SSR so hydration stays stable; the
+ *  client fills it in via useEffect. suppressHydrationWarning catches the
+ *  millisecond-tick gap in case Date.now drifts between render and mount. */
 function LiveClock({ city }: { city: string }) {
-  const [time, setTime] = useState<string>(() => formatTime(new Date()));
+  const [time, setTime] = useState<string>('');
   useEffect(() => {
+    setTime(formatTime(new Date()));
     const id = setInterval(() => setTime(formatTime(new Date())), 30_000);
     return () => clearInterval(id);
   }, []);
   return (
-    <span className="meta-clock whitespace-nowrap">
-      BASED IN {city}, {time}
+    <span className="meta-clock whitespace-nowrap" suppressHydrationWarning>
+      BASED IN {city}{time && `, ${time}`}
     </span>
   );
 }

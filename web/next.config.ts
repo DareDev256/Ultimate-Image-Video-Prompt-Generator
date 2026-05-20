@@ -23,7 +23,14 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   images: {
-    unoptimized: true,
+    // On-the-fly AVIF + WebP compression via next/image. Vercel serves the
+    // optimized variant per Accept header; original PNG stays as fallback.
+    // 118MB of source PNGs typically shrinks 60-80% at LCP.
+    formats: ['image/avif', 'image/webp'],
+    // Cache compressed variants on the edge for 31 days.
+    minimumCacheTTL: 60 * 60 * 24 * 31,
+    deviceSizes: [320, 480, 640, 750, 828, 1080, 1200, 1440, 1920, 2560],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 512],
     remotePatterns: [
       {
         protocol: 'https',

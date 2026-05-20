@@ -41,7 +41,7 @@ export function PromptCardEditorial({ item, variant = 'standard', index }: Promp
   const wizardModelId = mapToWizardModel(item);
 
   const accentColor = wizardModelId ? MODEL_COLORS[wizardModelId] : 'var(--color-primary)';
-  const modelName = isImage ? (item as FeedImagePrompt).model : 'Video';
+  const modelName = isImage ? ((item as FeedImagePrompt).model ?? 'Unknown') : 'Video';
 
   const handleCopy = async () => {
     try {
@@ -284,7 +284,10 @@ function shortRepo(repo: string): string {
  */
 function mapToWizardModel(item: FeedItem): ModelType | null {
   if (item._type === 'video') return 'kling'; // any video → kling wizard for now
-  const model = item.model.toLowerCase();
+  // Some feed entries are missing `model` — fall back to nano-banana wizard
+  // rather than crashing on a null toLowerCase.
+  const model = (item.model ?? '').toLowerCase();
+  if (!model) return 'nano-banana';
   if (model.includes('nano banana') || model.includes('gemini')) return 'nano-banana';
   if (model.includes('gpt-image') || model.includes('gpt-4o')) return 'openai';
   return isValidModel(model) ? (model as ModelType) : 'nano-banana';

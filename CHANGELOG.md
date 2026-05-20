@@ -1,5 +1,92 @@
 # Changelog
 
+## [2.1.0] - 2026-05-20
+
+The wagyu editorial reset. Site moves off the Y2K Flash-era neon palette
+onto a near-black holo substrate with cobalt + iridescent accents. The
+hero is now a 110-card WebGL cloud composed of the actual showcase + 103
+generated-inspiration outputs, lit by a fresnel-driven holographic rim
+shader. The wagyu pass also kills two pre-existing crashes on `/feed`.
+
+### Added
+- **`HoloCardCloud` hero component** — R3F + drei + postprocessing.
+  Webgl-card-field Architecture 3 (Cloud-scatter). 110 textured planes
+  scattered through 30+ units of depth on a Lissajous drift orbit,
+  cursor parallax, scroll-z pull-in, DepthOfField bokeh, additive Bloom.
+  Each card material extends `MeshBasicMaterial` with a custom
+  `onBeforeCompile` shader injection: fresnel against the camera drives
+  an iridescent cobalt→cyan→magenta rim that cycles with a `uTime`
+  uniform — cards "glint" with camera motion like real holographic cards.
+- **Holo cards manifest** + `scripts/build-holo-manifest.mjs` rebuilds
+  the 133-card index (30 showcase + 103 generated-inspiration) at build
+  time. Run when you drop new outputs in `public/`.
+- **Hidden DOM mirror** of the cloud — `<ul class="sr-only">` lists the
+  same images for screen readers and crawlers since WebGL canvases are
+  invisible to both.
+- **`.highlight` global utility** — the cobalt marker swatch
+  (`var(--accent)` bg + `var(--paper)` text + halo) now works outside
+  `.hero-lockup` too. Used across landing, `/create`, `/anatomy`.
+- **AVIF + WebP via `next/image`** — `formats: ['image/avif', 'image/webp']`
+  with 31-day edge cache and full deviceSizes ladder. 118 MB of PNGs
+  drops 60–80% at LCP. `unoptimized: true` flipped off (Vercel does the
+  compression now).
+
+### Changed
+- **Palette inversion**. `--ink` is now `#060608` (near-black with a
+  blue cast), `--paper` is `#f4efe6` (cream foreground), `--accent` is
+  `#3a5cff` electric cobalt, plus iridescent `--iri-cyan` `--iri-magenta`
+  `--iri-lime` for shader rims and edge highlights. Legacy
+  `--color-bg-*` and `--color-text-*` map onto the dark substrate so
+  every page consuming the legacy vars cascades without per-file edits.
+- **`HeroShowreel` rewrite** — work-strip thumbnail row is gone; the
+  cloud IS the showreel. Lazy-imported with `ssr: false` so the WebGL
+  context doesn't run on the server. Left-column gradient wash + a
+  `text-shadow` halo on `.hero-lockup` keep the headline punchy against
+  the bright cloud without sparsing out the field.
+- **`/anatomy` long-form field guide** flipped to the dark substrate
+  with the cobalt swatch on "A PROMPT", "TURN ONE SEE THE REST MOVE",
+  "LIGHTING ALONE MOVES THE ERA", "DOES THE HEAVY LIFTING", and the
+  inverted radial-gradient CTA close.
+- **`LandingSections.tsx`** — How It Works → Models → Read Deeper now
+  flows ink → ink-2 → ink+accent-tint gradient. Model icon chips swap
+  cream wells for ink-3 wells with cobalt icons. Hover lifts use
+  `accent-halo` instead of per-model neon glows.
+- **`/create` engine picker retinted** — 9 model colors pulled into the
+  iridescent register (cobalt / mint / amber / violet / cyan / lime /
+  magenta) so the page reads as one DNA with the holo cloud. Y2K
+  shimmer overlay removed.
+- **`body::before`** — fixed iridescent vignette (cobalt + magenta +
+  cyan radial gradients) sits behind every page so the dark substrate
+  never reads as flat.
+- **h1-h6 base rule** no longer sets `font-size`; pages opt in to the
+  giant lockup via `.hero-lockup`. Fixes `/gallery` watermark blow-up.
+
+### Fixed
+- **`/feed` React error #418** — `LiveClock` was initializing state
+  with `formatTime(new Date())` which differs between SSR and client
+  hydration. Now SSR renders empty, `useEffect` sets the time on mount
+  with `suppressHydrationWarning` on the span.
+- **`/feed` `Cannot read properties of null (reading 'toLowerCase')`** —
+  `mapToWizardModel` and the `modelName` derivation both assumed
+  `item.model` was always defined for image prompts. Some feed entries
+  ship without a model field. Defensive `(item.model ?? '').toLowerCase()`
+  + fallback to nano-banana wizard.
+- **Settings provider labels invisible** — h1-h6 base rule still
+  pointed `color` at the now-near-black `--ink`. Flipped to `--paper`.
+- **`.text-glow` / `.text-lcd` utilities** had the same now-dark text
+  color. Flipped.
+- **`/anatomy` CTA button** had cream-on-cream (both `background` and
+  `color` set to `var(--paper)`). Fixed to ink text on paper button.
+- **Bare `<span className="highlight">` outside hero** rendered as
+  plain text because `.highlight` was scoped to `.hero-lockup`. Now a
+  global utility — LandingSections, `/create`, `/anatomy` all carry
+  the cobalt swatch.
+
+### Tech
+- New dependencies: `@react-three/fiber@^9.6.1`, `@react-three/drei@^10.7.7`,
+  `@react-three/postprocessing@^3.0.4`, `three@^0.184.0`,
+  `@types/three@^0.184.1`.
+
 ## [2.0.0] - 2026-04-29
 
 Major feature release. Modernized AI surface (5 contemporary models), added editorial discovery layer (`/feed`, `/blog`, `/sources`), expanded prompt corpus by ~17% with 3 new sources, and replaced the AI-slop loading-screen landing with a Seedance-style showreel hero.

@@ -2,12 +2,12 @@
 
 # 🎬 Ultimate Image & Video Prompt Generator
 
-### Stop staring at blank text boxes.
+### Make the shot. Skip the blank box.
 
-**13 guided categories. 7,000+ curated suggestions. Three AI models.**<br>
-**A prompt builder that turns guesswork into a creative process — on the web or in your terminal.**
+**Nine modern engines · 13 guided categories · 7,000+ curated suggestions · 1,377 curated prompts**<br>
+**Editorial holo aesthetic — a 110-card WebGL cloud of real outputs floating in 3D space behind the headline.**
 
-Neon UI · Particle effects · Flash Site Era energy · Zero blank-box anxiety
+Holo card cloud · Iridescent rim shader · Cobalt + paper · Zero blank-box anxiety
 
 **[🚀 Try the Live Demo](https://web-ten-vert-46.vercel.app)** · [Report Bug](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues) · [Request Feature](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues)
 

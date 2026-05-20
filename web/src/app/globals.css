@@ -122,10 +122,9 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--paper);
 }
 
-h1 {
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  line-height: 0.92;
-}
+/* Note: deliberately NO font-size on h1 — many h1s want to be small
+   (page-level chrome, side nav titles). Pages that want the big editorial
+   lockup use .hero-lockup explicitly, never bare <h1>. */
 
 /* ── Hero lockup — the signature editorial move ── */
 .hero-lockup {
