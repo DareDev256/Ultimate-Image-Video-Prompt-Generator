@@ -3,7 +3,11 @@
 import { useCallback } from 'react';
 import { useLocalStorage } from './useLocalStorage';
 
-const FREE_TIER_LIMIT = 10;
+// Must match the server's FREE_TIER_DAILY_LIMIT in
+// api/generate/nano-banana/route.ts (25/day per IP — sized so the Gemini
+// project key isn't drained). The client previously capped at 10, silently
+// cutting free users off before the server limit; keep these in sync.
+const FREE_TIER_LIMIT = 25;
 
 interface FreeTierUsage {
   count: number;

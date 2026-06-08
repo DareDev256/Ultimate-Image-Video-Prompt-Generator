@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.1.1] - 2026-06-08
+
+Bug fix + version/doc reconciliation.
+
+### Fixed
+- **Free-tier limit mismatch.** The client (`useFreeTier.ts`) capped free
+  usage at 10/day while the server (`api/generate/nano-banana/route.ts`)
+  allows 25/day per IP. The client gate silently cut free users off at 10
+  before the real server limit. Client now matches the server's documented
+  25/day, with a comment to keep them in sync.
+
+### Changed
+- Root `package.json` version reconciled 2.0.0 → 2.1.1 (it had drifted
+  behind `web/package.json` and the git tags).
+- Docs synced to shipped code (merged from the 2026-06-08 cleanup pass):
+  `docs/API.md` now documents all 9 model endpoints at the correct 25/day
+  limit; `web/README.md` corrected to 13 categories / 9 models.
+
 ## [2.1.0] - 2026-05-20
 
 The wagyu editorial reset. Site moves off the Y2K Flash-era neon palette
