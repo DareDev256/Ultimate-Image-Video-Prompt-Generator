@@ -6,7 +6,7 @@ A free, open-source web app for crafting AI image prompts with a guided wizard i
 
 ## What is This?
 
-This app helps you create better prompts for AI image generators. Instead of staring at a blank text box, you're guided through choosing:
+This app helps you create better prompts for AI image (and video) generators. Instead of staring at a blank text box, you're guided through **13 categories** of curated suggestions — for example:
 
 - **Subject** - What to generate (person, landscape, object, etc.)
 - **Style** - Art style (photorealistic, anime, oil painting, etc.)
@@ -14,25 +14,25 @@ This app helps you create better prompts for AI image generators. Instead of sta
 - **Composition** - Camera angle and framing
 - **Details** - Colors, textures, and extras
 
-Then it combines your choices into an optimized prompt and generates the image for you.
+Then it combines your choices into an optimized prompt and generates the image (or video) for you across **9 models**.
 
 ## Free Tier
 
-**10 free image generations per day** using Nano Banana (Google Gemini). No sign-up, no API key needed - just start creating!
+**25 free image generations per day** using Nano Banana (Google Gemini). No sign-up, no API key needed - just start creating!
 
 ### How It Works
 
 | Aspect | Details |
 |--------|---------|
-| Daily Limit | 10 generations per user |
-| Model | Google Gemini (gemini-2.0-flash-exp-image-generation) |
+| Daily Limit | 25 generations per user |
+| Model | Google Gemini (gemini-3-pro-image-preview) |
 | Reset Time | Midnight (your local time) |
 | Rate Limiting | IP-based (no account needed) |
 | Cost to You | Free |
 
 ### Why Free?
 
-I'm covering the API costs from my own pocket to let people try AI image generation without barriers. The Gemini API is affordable (~$0.03 per image), so offering 10 free generations daily is sustainable for a hobby project.
+I'm covering the API costs from my own pocket to let people try AI image generation without barriers. The Gemini API is affordable (~$0.03 per image), so offering 25 free generations daily is sustainable for a hobby project.
 
 For unlimited generations, you can add your own API keys in Settings.
 
@@ -43,7 +43,7 @@ For unlimited generations, you can add your own API keys in Settings.
 - **Inspiration Gallery** - 1000+ curated prompts from the community
 - **30 Curated Examples** - Hand-picked showcase with generated images
 - **113 AI-Generated Examples** - Diverse prompts with sample outputs
-- **Multiple Models** - Support for Gemini, DALL-E 3, and Kling
+- **9 Models** - Nano Banana (Gemini), GPT-Image-2, Kling, Seedance, Veo, Wan, HunyuanVideo, LTX-Video, and Mochi
 - **No Account Required** - Everything stored locally in your browser
 - **Dark Mode** - Cyberpunk-inspired UI
 
@@ -117,8 +117,9 @@ Users can bring their own keys for unlimited generations:
 | Model | Provider | Cost | Get Key |
 |-------|----------|------|---------|
 | Nano Banana | Google Gemini | ~$0.03/image | [ai.google.dev](https://ai.google.dev/tutorials/setup) |
-| DALL-E 3 | OpenAI | ~$0.04-0.12/image | [platform.openai.com](https://platform.openai.com/api-keys) |
+| GPT-Image-2 | OpenAI | ~$0.04-0.12/image | [platform.openai.com](https://platform.openai.com/api-keys) |
 | Kling | Kling AI | Varies | [klingai.com](https://klingai.com) |
+| Seedance · Veo · Wan · Hunyuan · LTX · Mochi | via [fal.ai](https://fal.ai) | Varies | [fal.ai/dashboard/keys](https://fal.ai/dashboard/keys) |
 
 User-provided keys are stored in browser localStorage and sent directly to the respective APIs - never to our servers.
 
@@ -155,7 +156,7 @@ MIT - do whatever you want with it.
 
 - Built with [Claude Code](https://claude.ai/claude-code)
 - Prompt data from the open-source community
-- Powered by Google Gemini, OpenAI, and Kling AI
+- Powered by Google Gemini, OpenAI, Kling AI, and fal.ai (Seedance, Veo, Wan, HunyuanVideo, LTX-Video, Mochi)
 
 ---
 

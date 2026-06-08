@@ -87,6 +87,21 @@ shader. The wagyu pass also kills two pre-existing crashes on `/feed`.
   `@react-three/postprocessing@^3.0.4`, `three@^0.184.0`,
   `@types/three@^0.184.1`.
 
+### Docs
+- Documentation sync to match shipped code (no behavior change):
+  - **Free-tier limit** corrected from `10` to `25` generations/day across
+    `docs/API.md` and `web/README.md` (matches `FREE_TIER_DAILY_LIMIT = 25`).
+  - **Model count** reconciled to **9 models** in `web/README.md`
+    (Nano Banana, GPT-Image-2, Kling, Seedance, Veo, Wan, HunyuanVideo,
+    LTX-Video, Mochi).
+  - **`docs/API.md`** now documents all 9 generate endpoints — added the
+    six fal.ai video routes (`seedance`, `veo`, `wan`, `hunyuan`, `ltx`,
+    `mochi`) alongside `nano-banana`, `openai`, and `kling`.
+  - Stale **DALL-E 3** references replaced with **GPT-Image-2**; OpenAI
+    endpoint sizes and base64 response shape corrected in `docs/API.md`.
+  - Free-tier model id corrected to `gemini-3-pro-image-preview` and
+    category count aligned to **13** in `web/README.md`.
+
 ## [2.0.0] - 2026-04-29
 
 Major feature release. Modernized AI surface (5 contemporary models), added editorial discovery layer (`/feed`, `/blog`, `/sources`), expanded prompt corpus by ~17% with 3 new sources, and replaced the AI-slop loading-screen landing with a Seedance-style showreel hero.
