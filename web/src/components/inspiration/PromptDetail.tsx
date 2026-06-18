@@ -91,6 +91,7 @@ export function PromptDetail({
           <button
             onClick={onClose}
             className="absolute top-3 right-3 z-10 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+            aria-label="Close detail view"
           >
             <X size={18} />
           </button>
@@ -100,6 +101,7 @@ export function PromptDetail({
             <button
               onClick={onPrev}
               className="absolute left-3 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+              aria-label="Previous prompt"
             >
               <ChevronLeft size={20} />
             </button>
@@ -108,6 +110,7 @@ export function PromptDetail({
             <button
               onClick={onNext}
               className="absolute right-3 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors md:right-[calc(40%+12px)]"
+              aria-label="Next prompt"
             >
               <ChevronRight size={20} />
             </button>
@@ -140,12 +143,14 @@ export function PromptDetail({
                   <button
                     onClick={() => handleImageNav('prev')}
                     className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/50 text-white hover:bg-black/70"
+                    aria-label="Previous image"
                   >
                     <ChevronLeft size={16} />
                   </button>
                   <button
                     onClick={() => handleImageNav('next')}
                     className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/50 text-white hover:bg-black/70"
+                    aria-label="Next image"
                   >
                     <ChevronRight size={16} />
                   </button>
