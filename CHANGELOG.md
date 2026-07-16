@@ -1,5 +1,43 @@
 # Changelog
 
+## [2.1.2] - 2026-07-16
+
+Documentation truth pass. The README had drifted badly from the app — every
+headline number was wrong, and the screenshots showed a UI that no longer exists.
+
+### Fixed
+- **Screenshots replaced.** All three were captured before the editorial redesign
+  and showed a UI that is gone — the "Theatrical Intro" screen no longer exists,
+  and the model picker advertised **DALL-E 3**, which was removed from the registry
+  in v2.0. Re-shot from the live app: `hero.png` (new), `model-selection.png`,
+  `wizard-step.png`. `intro-loading.png` deleted.
+- **Model count.** README claimed `3` AI models in the stat line and "five modern
+  engines" in Features — 30 lines apart, contradicting each other. Real count is
+  **9** (2 image, 7 video), per `web/src/lib/models.ts`. The four open-source video
+  engines (Wan 2.6, HunyuanVideo, LTX-Video 2.0, Mochi 1) were missing from the
+  model table entirely.
+- **Prompt count.** Claimed `7,000+`; real total is **1,427** (1,377 image + 50
+  video). The live app header already said 1,377.
+- **Category count.** Claimed a flat `13`; the web wizard has **11** (9 steps for
+  image models, 11 for video). The CLI genuinely has 13 — the README conflated the
+  two platforms. Now stated per-platform. The listed field names (Fashion,
+  Environment, Atmosphere, Composition, Technical) were the CLI's schema, not the
+  web's.
+- **Test/assertion counts.** Claimed `429 tests / 2,200 assertions`; a real run
+  reports **399 tests / 2,159 expect() calls** across 17 files.
+- **Free-tier limit.** Quick Start still advertised **10/day** — the exact number
+  v2.1.1 fixed in code six weeks ago (server allows 25/day). The README was never
+  updated with that fix.
+- **DALL-E references** in the flow diagram, mermaid graph, and adapter notes now
+  read GPT-Image-2, which replaced it.
+- **Demo link** pointed at the raw `web-ten-vert-46.vercel.app` deployment; now
+  points at the branded `prompts.tdotssolutionsz.com`.
+- **`240 extracted patterns`** removed — unverifiable against the source.
+
+### Kept
+- `0 any types` — verified accurate. The only two `: any` hits are a `console` mock
+  in a test file and the word "any" inside a comment. Production source is clean.
+
 ## [2.1.1] - 2026-06-08
 
 Bug fix + version/doc reconciliation.

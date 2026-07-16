@@ -4,12 +4,12 @@
 
 ### Make the shot. Skip the blank box.
 
-**Nine modern engines · 13 guided categories · 7,000+ curated suggestions · 1,377 curated prompts**<br>
-**Editorial holo aesthetic — a 110-card WebGL cloud of real outputs floating in 3D space behind the headline.**
+**Nine engines · 11 guided categories · 1,427 curated prompts**<br>
+**Editorial holo aesthetic — a WebGL cloud of real outputs floating in 3D space behind the headline.**
 
 Holo card cloud · Iridescent rim shader · Cobalt + paper · Zero blank-box anxiety
 
-**[🚀 Try the Live Demo](https://web-ten-vert-46.vercel.app)** · [Report Bug](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues) · [Request Feature](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues)
+**[🚀 Try the Live Demo](https://prompts.tdotssolutionsz.com)** · [Report Bug](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues) · [Request Feature](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues)
 
 <br>
 
@@ -18,8 +18,8 @@ Holo card cloud · Iridescent rim shader · Cobalt + paper · Zero blank-box anx
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-0ea5e9?style=flat-square&logo=tailwindcss&logoColor=fff)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-d946ef?style=flat-square&logo=framer&logoColor=fff)
 ![Bun](https://img.shields.io/badge/Bun-runtime-fbf0df?style=flat-square&logo=bun)
-![Tests](https://img.shields.io/badge/429_tests-passing-10b981?style=flat-square)
-![Assertions](https://img.shields.io/badge/2,200_assertions-verified-10b981?style=flat-square)
+![Tests](https://img.shields.io/badge/399_tests-passing-10b981?style=flat-square)
+![Assertions](https://img.shields.io/badge/2,159_assertions-verified-10b981?style=flat-square)
 ![Zero Any](https://img.shields.io/badge/any_types-0-8b5cf6?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-22d3ee?style=flat-square)
 
@@ -29,13 +29,13 @@ Holo card cloud · Iridescent rim shader · Cobalt + paper · Zero blank-box anx
 
 <table>
 <tr>
-<td width="33%" align="center"><strong>Theatrical Intro</strong><br><br><img src="./screenshots/intro-loading.png" alt="Neon loading screen with animated progress bar and particle effects" width="280"></td>
-<td width="33%" align="center"><strong>Model Selection</strong><br><br><img src="./screenshots/model-selection.png" alt="Choose between Nano Banana, DALL-E 3, and Kling video models" width="280"></td>
-<td width="33%" align="center"><strong>Guided Wizard</strong><br><br><img src="./screenshots/wizard-step.png" alt="Step-by-step category wizard with curated suggestions per field" width="280"></td>
+<td width="33%" align="center"><strong>The Field</strong><br><br><img src="./screenshots/hero.png" alt="Landing page — Make the shot, skip the blank box — over a WebGL cloud of real generated outputs drifting in 3D" width="280"></td>
+<td width="33%" align="center"><strong>Pick the Engine</strong><br><br><img src="./screenshots/model-selection.png" alt="Nine engines: Nano Banana Pro and GPT-Image-2 for image, plus Seedance, Veo, Kling, Wan, HunyuanVideo, LTX and Mochi for video" width="280"></td>
+<td width="33%" align="center"><strong>Guided Wizard</strong><br><br><img src="./screenshots/wizard-step.png" alt="Step 1 of 9 — Subject — with community-popular suggestions under each field" width="280"></td>
 </tr>
 </table>
 
-> **`13`** guided categories · **`3`** AI models · **`7,000+`** curated prompts · **`429`** tests / **`2,200`** assertions · **`240`** extracted patterns · **`0`** `any` types
+> **`9`** engines — 2 image, 7 video · **`11`** guided categories · **`1,427`** curated prompts · **`399`** tests / **`2,159`** assertions · **`0`** `any` types
 
 ## Table of Contents
 
@@ -66,7 +66,7 @@ cd Ultimate-Image-Video-Prompt-Generator/web && npm install && npm run dev
 cd Ultimate-Image-Video-Prompt-Generator && bun install && bun run index.ts
 ```
 
-Open [localhost:3000](http://localhost:3000) and start generating — the free tier gives you 10 Nano Banana generations per day, no key required.
+Open [localhost:3000](http://localhost:3000) and start generating — the free tier gives you 25 Nano Banana Pro generations per day, no key required.
 
 ## How It Works
 
@@ -74,28 +74,28 @@ Open [localhost:3000](http://localhost:3000) and start generating — the free t
   ╭──────────────╮        ╭──────────────────╮        ╭───────────────────╮
   │  ① CHOOSE    │        │  ② BUILD         │        │  ③ GENERATE       │
   │              │        │                  │        │                   │
-  │  Nano Banana │  ───▸  │  13 categories   │  ───▸  │  One click →      │
-  │  DALL-E 3    │        │  with curated    │        │  assembled prompt │
+  │  Nano Banana │  ───▸  │  11 categories   │  ───▸  │  One click →      │
+  │  GPT-Image-2 │        │  with curated    │        │  assembled prompt │
   │  Kling video │        │  suggestions     │        │  hits the API     │
   ╰──────────────╯        ╰──────────────────╯        ╰───────────────────╯
 ```
 
-> 💡 **Quick Mode** — Describe your idea in one sentence and let AI expand it into a full 13-category prompt automatically. Skip the wizard entirely.
+> 💡 **Quick Mode** — Describe your idea in one sentence and let AI expand it into a full 11-category prompt automatically. Skip the wizard entirely.
 
 ## Why This Exists
 
 Most AI image tools give you a blank text box and wish you luck.
 
-This project replaces the blank box with **guided prompt engineering** — 13 categories (subject, camera, lighting, atmosphere…) with curated suggestions per field, assembled into the exact format your chosen model expects. The result: prompts that are **10× more detailed** than freehand, produced in a fraction of the time.
+This project replaces the blank box with **guided prompt engineering** — 11 categories in the web wizard, 13 in the CLI (subject, setting, style, lighting, camera…) with curated suggestions per field, assembled into the exact format your chosen model expects. The result: prompts that are **10× more detailed** than freehand, produced in a fraction of the time.
 
 ### What Makes This Different
 
 > *Structured enough to guide you. Flexible enough to not constrain you.*
 
 - **Diversity-aware randomization** — a sliding-window exclusion algorithm (not naive `Math.random()`) ensures the "randomize" button always surfaces fresh suggestions. [Algorithm deep-dive →](#diversity-aware-randomization)
-- **Model-aware output** — the same wizard produces structured JSON for Gemini or natural language for DALL-E/Kling, automatically adapting to what each model expects
-- **Composable architecture** — 13 pure section generators composed via `flatMap`. Adding a new prompt category is one function + one array entry, zero touch points elsewhere
-- **Actually tested** — 429 tests prove invariants like "NL and JSON generators stay in sync on the same input" and "the randomizer never deadlocks regardless of pool size"
+- **Model-aware output** — the same wizard produces structured JSON for Gemini or natural language for GPT-Image-2/Kling, automatically adapting to what each model expects
+- **Composable architecture** — 13 pure section generators (CLI) composed via `flatMap`. Adding a new prompt category is one function + one array entry, zero touch points elsewhere
+- **Actually tested** — 399 tests prove invariants like "NL and JSON generators stay in sync on the same input" and "the randomizer never deadlocks regardless of pool size"
 
 ## Two Platforms, One Pipeline
 
@@ -119,33 +119,51 @@ bun run index.ts --favorites list         # Manage favorite suggestions
 
 ### 🎯 Guided Prompt Building
 
-- **13 deep categories** with 3-7 fields each — Subject, Camera, Fashion, Environment, Lighting, Atmosphere, Composition, Color, Film, Technical, Vibes, and more
+- **11 guided categories in the web wizard** — Subject, Setting, Style, Lighting, Camera, Mood, Color, Film, Vibes, plus Motion and Duration for video engines. Image models get 9 steps, video models 11. *(The CLI runs its own deeper 13-category schema — see [Architecture](#architecture).)*
 - **Curated suggestions** per field (8-10 hyper-specific options like "six thick rope braids radiating outward from skull")
 - **Quick Mode** — describe your idea in plain English, AI expands to full structured prompt
 - **Diversity-aware Randomize** — sliding-window exclusion algorithm tracks recent picks per field so consecutive clicks always surface fresh suggestions (see [algorithm detail](#diversity-aware-randomization))
 - **Keyboard navigation** with smart focus detection
 
-### 🤖 Multi-Model Generation (v2.0 — five modern engines)
+### 🤖 Multi-Model Generation — nine engines, two image, seven video
 
-| Model | Type | Free Tier | Notes |
-|-------|------|-----------|-------|
-| **Nano Banana Pro** (Gemini 3 Pro Image) | Image | ✅ 25/day | World-knowledge grounded, text-in-image SOTA, up to 4K |
-| **GPT-Image-2** (OpenAI) | Image | BYOK only | Replaces DALL-E 3 — broke the arena leaderboard by 242 pts |
-| **Seedance 2.0** (ByteDance · via fal.ai) | Video | BYOK only | $0.022/sec Fast tier, multi-shot from one prompt, phoneme-level lip-sync, 20s coherent |
-| **Veo 3.1** (Google DeepMind · via fal.ai) | Video | BYOK only | Native 4K@60fps, synced audio, best dialogue clarity |
-| **Kling 3.0** (Kuaishou) | Video (5s/10s) | BYOK only | Multi-shot 3–15s with subject continuity |
+Pick a model and every wizard step adapts to it. Source of truth: [`web/src/lib/models.ts`](./web/src/lib/models.ts).
+
+**Image**
+
+| Model | Free Tier | Notes |
+|-------|-----------|-------|
+| **Nano Banana Pro** (Google · Gemini 3 Pro) | ✅ 25/day | World-knowledge grounded, text-in-image SOTA, up to 4K |
+| **GPT-Image-2** (OpenAI) | BYOK only | Replaces DALL-E 3 — broke the arena leaderboard by 242 pts |
+
+**Video — proprietary**
+
+| Model | Notes |
+|-------|-------|
+| **Seedance 2.0** (ByteDance · via fal.ai) | $0.022/sec Fast tier, multi-shot from one prompt, phoneme-level lip-sync |
+| **Veo 3.1** (Google DeepMind · via fal.ai) | Native 4K@60fps, synced audio, best dialogue clarity |
+| **Kling 3.0** (Kuaishou) | Multi-shot 3–15s, subject continuity, multi-character audio |
+
+**Video — open-source**
+
+| Model | Notes |
+|-------|-------|
+| **Wan 2.6** (Alibaba · via fal.ai) | MoE architecture, ~$0.05/sec, 720p |
+| **HunyuanVideo** (Tencent · via fal.ai) | 13B, prosumer-runnable, stable text alignment |
+| **LTX-Video 2.0** (Lightricks · via fal.ai) | Cheapest hosted at ~$0.04/sec, 1080p–4K |
+| **Mochi 1** (Genmo · via fal.ai) | 10B, Apache 2.0, strong prompt-following, self-host friendly |
 
 - **Free Tier** — 25 Nano Banana Pro generations/day without an API key (server-side Gemini)
 - **BYOK** — Bring Your Own Keys for unlimited use (keys stored in `localStorage` only, never touch the server)
-- **Single fal.ai key** unlocks both Seedance 2.0 and Veo 3.1
+- **A single fal.ai key** unlocks every video engine except Kling
 
-### 💡 Inspiration Gallery, Feed, Blog & Sources (v2.0)
+### 💡 Inspiration Gallery, Feed, Blog & Sources
 
 - **1,377 curated image prompts** from 5 open-source repos (`songguoxs`, `YouMind-OpenLab`, `Anil-matcha`, `ZeroLu`, `ImgEdify`) + **50 video prompts**
 - **`/feed`** — editorial Twitter-style timeline with model/source/category filters, intersection-observer pagination, full per-prompt attribution
 - **`/blog`** — 5 launch posts with editorial breakdowns of standout prompts (why they work, what to swap, full 13-cat breakdown per post)
 - **`/sources`** — full credit page with GitHub stars, top contributors per repo, and one-click feed filter by source
-- **Pattern library** — 240 extracted patterns across lighting, cameras, moods, color grades, and styles
+- **Pattern library** — extracted patterns across lighting, cameras, moods, color grades, and styles
 - **Showcase** — 30 editorially curated examples with full 13-category prompt breakdowns
 - **Per-prompt OG cards** — every prompt has a shareable 1200×630 social card via `/api/og/prompt?id=N`
 
@@ -240,7 +258,7 @@ flowchart LR
     B --> C[flatMap]
     C --> D{Output Format}
     D -->|Nano Banana| E[Structured JSON]
-    D -->|DALL-E / Kling| F[Natural Language]
+    D -->|GPT-Image-2 / Kling| F[Natural Language]
 ```
 
 Sections can be composed, reordered, or extended without touching other sections. The natural language generator is just **18 lines** — a `flatMap` over the section array.
@@ -326,9 +344,9 @@ const pick = useDiversePick<string>(4);
 | Combined | `diverse-pick.ts` | `pickWithHistory` — pick + state update, no temporal coupling |
 | Factory | `diverse-pick.ts` | `createPicker` — per-key state for scripts, tests, CLI |
 | React binding | `useDiversePick.ts` | `useDiversePick` — `useRef` state, same call signature as `createPicker` |
-| Composition | `WizardStep.tsx` / Quick Mode | `buildRandomPrompt` + `flattenPromptToText` — full 13-category assembly |
+| Composition | `WizardStep.tsx` / Quick Mode | `buildRandomPrompt` + `flattenPromptToText` — full 11-category assembly |
 
-Both the wizard and Quick Mode share the identical algorithm — Quick Mode composes `buildRandomPrompt` with the hook's picker for zero-duplication prompt assembly across all 13 categories in a single click. Non-React consumers use `createPicker` for the same guarantees without hooks.
+Both the wizard and Quick Mode share the identical algorithm — Quick Mode composes `buildRandomPrompt` with the hook's picker for zero-duplication prompt assembly across all 11 web categories in a single click. Non-React consumers use `createPicker` for the same guarantees without hooks.
 
 <details>
 <summary><strong>Proven properties (71 tests)</strong></summary>
@@ -410,7 +428,7 @@ All types, section generators, and output formatters are documented with TSDoc �
 bun test
 ```
 
-**429 tests** across 17 test files:
+**399 tests** across 17 test files:
 
 | Module | Tests | Coverage |
 |--------|-------|----------|
@@ -441,7 +459,7 @@ bun test
 | **Single-source model registry** | `MODEL_NAMES`, `MODEL_COLORS`, `isValidModel` in `lib/models.ts` + `useCopyToClipboard` hook | Adding a model or changing brand colors is a 1-file change — replaces 4× duplicated metadata maps and 3× clipboard boilerplate |
 | **Temporal coupling elimination** | `pickWithHistory` combines pick + state update in one call; `createPicker` wraps it in a stateful factory | Impossible to forget the state update step — callers can't use `diversePick` without also calling `pushRecent` |
 | **Data-driven preset parsing** | Replaced 5-branch `else if` chain with a `PRESET_FLAGS` lookup map | Adding a new preset is a one-line map entry instead of a new branch |
-| **429 tests / 2,200 assertions** | Every generator, every template, every CLI flag, cross-format consistency checks, web-side validation & diversity logic | Not just coverage — tests document *invariants* like "NL and JSON generators stay in sync on the same input" |
+| **399 tests / 2,159 assertions** | Every generator, every template, every CLI flag, cross-format consistency checks, web-side validation & diversity logic | Not just coverage — tests document *invariants* like "NL and JSON generators stay in sync on the same input" |
 
 ## Design Philosophy
 
@@ -465,7 +483,7 @@ This project embraces the **Flash Site Era** aesthetic (2002–2006) — when we
 | **State loss during page transitions** | Framer Motion unmounts components on route change. Solved with React Context + localStorage sync to persist wizard state across animated transitions. |
 | **Keyboard nav vs. text input** | Arrow keys conflicted with suggestion field typing. Implemented focus detection to disable shortcuts during input, re-enable on blur. |
 | **Canvas particle performance** | Frame drops on lower-end devices. Reduced particle count, added `requestAnimationFrame` throttling and `will-change` GPU hints. |
-| **Multi-model prompt formats** | Each AI model expects different formats. Built a unified generation interface with model-specific adapters (JSON for Nano Banana, natural language for DALL-E/Kling). |
+| **Multi-model prompt formats** | Each AI model expects different formats. Built a unified generation interface with model-specific adapters (JSON for Nano Banana, natural language for GPT-Image-2/Kling). |
 | **Randomize repeats same values** | Naive `Math.random()` frequently repeats the same suggestion. Implemented a [sliding-window exclusion algorithm](#diversity-aware-randomization) (`diversePick`) that tracks recent picks per field and excludes them from the candidate pool — with graceful fallback when the pool is smaller than the window. |
 | **Type safety at serialization boundaries** | `cleanObject` recursively processes prompt data of unknown shape. Replaced `any` with `unknown` + type narrowing to catch bugs at compile time instead of runtime. |
 
@@ -524,7 +542,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines. Bug reports, feature su
 <div align="center">
 
 <strong>Built with caffeine and nostalgia for the early 2000s web.</strong><br>
-<sub>429 tests. Zero `any` types. Maximum vibes.</sub>
+<sub>399 tests. Zero `any` types. Maximum vibes.</sub>
 
 [DareDev256](https://github.com/DareDev256) · **[⬆ Back to Top](#-ultimate-image--video-prompt-generator)**
 
