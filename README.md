@@ -4,7 +4,7 @@
 
 ### Make the shot. Skip the blank box.
 
-**Nine engines · 11 guided categories · 1,427 curated prompts**<br>
+**Nine engines · 11 guided categories · 1,427 credited prompts · a scorer that grades a shot before you pay for it**<br>
 **Editorial holo aesthetic — a WebGL cloud of real outputs floating in 3D space behind the headline.**
 
 Holo card cloud · Iridescent rim shader · Cobalt + paper · Zero blank-box anxiety
@@ -18,8 +18,8 @@ Holo card cloud · Iridescent rim shader · Cobalt + paper · Zero blank-box anx
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-0ea5e9?style=flat-square&logo=tailwindcss&logoColor=fff)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-d946ef?style=flat-square&logo=framer&logoColor=fff)
 ![Bun](https://img.shields.io/badge/Bun-runtime-fbf0df?style=flat-square&logo=bun)
-![Tests](https://img.shields.io/badge/399_tests-passing-10b981?style=flat-square)
-![Assertions](https://img.shields.io/badge/2,159_assertions-verified-10b981?style=flat-square)
+![Tests](https://img.shields.io/badge/460_tests-passing-10b981?style=flat-square)
+![Assertions](https://img.shields.io/badge/6,530_assertions-verified-10b981?style=flat-square)
 ![Zero Any](https://img.shields.io/badge/any_types-0-8b5cf6?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-22d3ee?style=flat-square)
 
@@ -35,7 +35,7 @@ Holo card cloud · Iridescent rim shader · Cobalt + paper · Zero blank-box anx
 </tr>
 </table>
 
-> **`9`** engines — 2 image, 7 video · **`11`** guided categories · **`1,427`** curated prompts · **`399`** tests / **`2,159`** assertions · **`0`** `any` types
+> **`9`** engines — 2 image, 7 video · **`11`** guided categories · **`1,427`** credited prompts · **`387`** credited creators · **`460`** tests / **`6,530`** assertions · **`0`** `any` types
 
 ## Table of Contents
 
@@ -95,7 +95,7 @@ This project replaces the blank box with **guided prompt engineering** — 11 ca
 - **Diversity-aware randomization** — a sliding-window exclusion algorithm (not naive `Math.random()`) ensures the "randomize" button always surfaces fresh suggestions. [Algorithm deep-dive →](#diversity-aware-randomization)
 - **Model-aware output** — the same wizard produces structured JSON for Gemini or natural language for GPT-Image-2/Kling, automatically adapting to what each model expects
 - **Composable architecture** — 13 pure section generators (CLI) composed via `flatMap`. Adding a new prompt category is one function + one array entry, zero touch points elsewhere
-- **Actually tested** — 399 tests prove invariants like "NL and JSON generators stay in sync on the same input" and "the randomizer never deadlocks regardless of pool size"
+- **Actually tested** — 460 tests prove invariants like "NL and JSON generators stay in sync on the same input" and "the randomizer never deadlocks regardless of pool size"
 
 ## Two Platforms, One Pipeline
 
@@ -124,6 +124,72 @@ bun run index.ts --favorites list         # Manage favorite suggestions
 - **Quick Mode** — describe your idea in plain English, AI expands to full structured prompt
 - **Diversity-aware Randomize** — sliding-window exclusion algorithm tracks recent picks per field so consecutive clicks always surface fresh suggestions (see [algorithm detail](#diversity-aware-randomization))
 - **Keyboard navigation** with smart focus detection
+
+### 🎚 Shot Grammar — score the prompt before you pay for it
+
+Every other prompt tool hands you text and lets you discover whether it was any
+good by buying a render. This one grades it first.
+
+Six axes, 0–5 each, out of 30 — **Subject · Setting · Light · Camera · Grade ·
+Mood**. Each maps back to the wizard steps that raise it, so the score is not a
+grade, it is an instruction to go back to a specific step.
+
+```bash
+bun run skill/scripts/score.ts "a cat, 8k masterpiece"
+```
+```
+0/30  FLAT
+The model is making most of this up. Expect a generic result.
+
+  SUBJECT  ████· 4/5  ← cat
+  SETTING  ····· 0/5
+  LIGHT    ····· 0/5
+  CAMERA   ····· 0/5
+  GRADE    ····· 0/5
+  MOOD     ····· 0/5
+
+   -2  Too short — Under 25 characters. There is no room for a shot in there.
+   -2  Empty tokens — 8k, masterpiece — these read as effort and steer nothing.
+
+NEXT: SETTING
+  Say where this happens. A room, a street, a void — but somewhere.
+  Wizard steps that fix it: setting, style
+```
+
+**The vocabulary is generated, not guessed.** 598 terms, part seeded from the
+pattern dictionary and part mined from the 1,070 Latin-script prompts in the
+corpus, each weighted by log frequency so a common term outranks a rare one
+without swamping it. When no term matches, a broad category marker sets a floor
+of 2 rather than reporting zero — a prompt can specify its setting in words
+nobody happened to mine, and telling someone to fix the one thing they did is
+worse than saying nothing.
+
+**Calibrated against the corpus it grades**, because a scorer that cannot
+separate known-good prompts from junk is not measuring anything: 85% of the
+1,070 known-good prompts score workable or better (median 22/30), while every
+junk string in the test suite tops out at 2/30.
+
+Empty tokens (`8k`, `masterpiece`, `trending on artstation`) are penalised —
+capped, because five of them is the same mistake made five times, not five
+mistakes. A negative prompt is rewarded, because most people skip it.
+
+The six-axis, 0–5, four-tier shape is lifted from the COSTAR engine in
+[prompt-craft](https://github.com/DareDev256/prompt-craft). The axes are not:
+COSTAR grades *text* prompts, where "write a formal summary in bullet points"
+is excellent and describes no shot at all.
+
+### 🤖 Agent skill
+
+`skill/` ships a Claude Code skill so an agent can search the corpus, score a
+draft, and pick an engine without a browser:
+
+```bash
+ln -s "$PWD/skill" ~/.claude/skills/shot-grammar
+```
+
+Search returns each prompt **with its author and upstream repo attached** —
+these were written by named people, and two of the source repos carry licence
+terms that require the attribution to travel with the text.
 
 ### 🤖 Multi-Model Generation — nine engines, two image, seven video
 
@@ -459,7 +525,7 @@ bun test
 | **Single-source model registry** | `MODEL_NAMES`, `MODEL_COLORS`, `isValidModel` in `lib/models.ts` + `useCopyToClipboard` hook | Adding a model or changing brand colors is a 1-file change — replaces 4× duplicated metadata maps and 3× clipboard boilerplate |
 | **Temporal coupling elimination** | `pickWithHistory` combines pick + state update in one call; `createPicker` wraps it in a stateful factory | Impossible to forget the state update step — callers can't use `diversePick` without also calling `pushRecent` |
 | **Data-driven preset parsing** | Replaced 5-branch `else if` chain with a `PRESET_FLAGS` lookup map | Adding a new preset is a one-line map entry instead of a new branch |
-| **399 tests / 2,159 assertions** | Every generator, every template, every CLI flag, cross-format consistency checks, web-side validation & diversity logic | Not just coverage — tests document *invariants* like "NL and JSON generators stay in sync on the same input" |
+| **460 tests / 6,530 assertions** | Every generator, every template, every CLI flag, cross-format consistency checks, web-side validation & diversity logic | Not just coverage — tests document *invariants* like "NL and JSON generators stay in sync on the same input" |
 
 ## Design Philosophy
 
@@ -511,17 +577,44 @@ The `scripts/` directory contains a full pipeline for refreshing and expanding t
 | `translate-titles.ts` | Extracts English titles from bilingual EN/ZH content |
 | `batch-generate-inspiration.py` | Batch-generates preview images via Gemini 3 Pro |
 | `update-prompts-with-generated.py` | Writes generated image paths back into prompt JSON |
+| `backfill-origin.ts` | Stamps upstream repo + licence onto every prompt (idempotent) |
+| `build-shot-grammar-terms.ts` | Builds the scorer's 598-term vocabulary from the corpus |
 
 ```
 fetch → translate → extract patterns → generate images → update JSON
 ```
 
-## Community Prompts Attribution
+## Sources & Credit
 
-The Inspiration Gallery includes curated prompts from:
+Every one of the 1,427 prompts carries its author — **387 distinct creators**,
+credited down to the individual handle, surfaced on each card, in the OG image,
+and at [`/sources`](https://prompts.tdotssolutionsz.com/sources) with live repo
+metadata. The counts below are generated from the shipped data, not maintained
+by hand:
 
-- **[@songguoxs](https://github.com/songguoxs)**: [gpt4o-image-prompts](https://github.com/songguoxs/gpt4o-image-prompts) (1,180+ image prompts) · [awesome-video-prompts](https://github.com/songguoxs/awesome-video-prompts) (50+ video prompts)
-- **[@YouMind-OpenLab](https://github.com/YouMind-OpenLab)**: [awesome-nano-banana-pro-prompts](https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts) (5,600+ Nano Banana prompts)
+| Prompts | Upstream | Licence |
+|--------:|----------|---------|
+| 1,180 | [YouMind-OpenLab/awesome-nano-banana-pro-prompts](https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| 76 | [ImgEdify/Awesome-GPT4o-Image-Prompts](https://github.com/ImgEdify/Awesome-GPT4o-Image-Prompts) | MIT |
+| 69 | [ZeroLu/awesome-gpt-image](https://github.com/ZeroLu/awesome-gpt-image) | MIT |
+| 52 | [Anil-matcha/Awesome-GPT-Image-2-API-Prompts](https://github.com/Anil-matcha/Awesome-GPT-Image-2-API-Prompts) | No stated licence |
+| 50 | [songguoxs/awesome-video-prompts](https://github.com/songguoxs/awesome-video-prompts) | No stated licence |
+
+**CC BY 4.0 notice.** The 1,180 prompts from YouMind-OpenLab are used under
+[Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/),
+which permits commercial use with attribution. **Changes were made:** titles
+were translated from Chinese to English, 240 style patterns were extracted from
+the corpus, and preview images were generated for a subset. YouMind-OpenLab does
+not endorse this project.
+
+**Where no licence is stated**, the material is used with full attribution while
+the authors are asked to add one. If you are one of them and would rather your
+prompts were not included, open an issue and they will be removed.
+
+> An earlier version of this section credited **@songguoxs** with 1,180 image
+> prompts. That was wrong — those entries come from the YouMind-OpenLab corpus
+> via `fetch-nano-banana-prompts.ts`, and the table above is the corrected
+> attribution. songguoxs is credited for the video set, which is theirs.
 
 ## Documentation
 

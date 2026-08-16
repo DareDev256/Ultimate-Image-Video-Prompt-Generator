@@ -1,5 +1,83 @@
 # Changelog
 
+## [2.2.0] - 2026-08-16
+
+Scores a prompt before you pay to render it, ships an agent surface, and
+corrects the attribution — including a credit that had been on the wrong
+person for 1,180 prompts.
+
+### Added
+
+- **Shot Grammar (`web/src/lib/shot-grammar.ts`)** — scores an image or video
+  prompt 0–30 across six axes: Subject, Setting, Light, Camera, Grade, Mood.
+  Every axis maps back to the wizard steps that raise it, so the output is an
+  instruction ("go fix step 4") rather than a grade. Reports which corpus
+  terms matched, every modifier that moved the score with its reason, and the
+  single highest-leverage next addition.
+
+  The six-axis / 0–5 / four-tier shape comes from the COSTAR engine in
+  [prompt-craft](https://github.com/DareDev256/prompt-craft). The axes do not:
+  COSTAR grades *text* prompts, where "write a formal summary in bullet
+  points" scores well and describes no shot at all.
+
+  Empty tokens (`8k`, `masterpiece`, `trending on artstation`) are penalised,
+  capped — five of them is one mistake made five times. A negative prompt is
+  rewarded, because most people skip it.
+
+- **A generated vocabulary (`scripts/build-shot-grammar-terms.ts`)** — 598
+  terms, part seeded from the pattern dictionary and part mined from the 1,070
+  Latin-script prompts in the corpus, weighted by log frequency. The first
+  version scored 182 long, well-specified English prompts as "flat" because
+  they said "harsh flash" and "grainy", which nobody had put in the seed list;
+  the miner exists because of that. Where no term matches, a broad category
+  marker sets a floor of 2 rather than reporting zero — telling someone to fix
+  the one axis they did specify is worse than saying nothing.
+
+- **Agent skill (`skill/`)** — a Claude Code skill that searches the corpus,
+  scores a draft, and picks an engine without a browser. Search results carry
+  their author and upstream repo, because two of the sources carry licence
+  terms that require attribution to travel with the text.
+
+  ```bash
+  ln -s "$PWD/skill" ~/.claude/skills/shot-grammar
+  ```
+
+- **`scripts/backfill-origin.ts`** — stamps upstream repo and licence onto
+  every prompt. Idempotent.
+
+### Fixed
+
+- **1,180 prompts were credited to the wrong person.** The README attributed
+  them to @songguoxs. They come from the YouMind-OpenLab corpus via
+  `fetch-nano-banana-prompts.ts`, which allocates `id: 10000+` and
+  `slug: nano-banana-*`. songguoxs is credited for the video set, which is
+  theirs. The corrected table is generated from the shipped data.
+
+- **CC BY 4.0 terms were not met.** The YouMind corpus — 1,180 of 1,427
+  prompts, the largest single block — is CC BY 4.0, which permits commercial
+  use but requires the licence to be identified and changes to be stated.
+  Neither was done, and changes *were* made: titles translated from Chinese,
+  240 patterns extracted, preview images generated. Both are now stated in the
+  README, in the skill, and in the data itself.
+
+- **Provenance was missing on 1,230 of 1,427 prompts.** Three fetchers write
+  the corpus and only one stamped where a prompt came from, so `/sources` and
+  the README were both silently under-reporting. You cannot identify a licence
+  for a repository you never recorded.
+
+- **The test count was measured against a broken install.** v2.1.2 lowered the
+  badge from 429 tests / 2,200 assertions to 399 / 2,159 as part of a "truth
+  pass". The suite had been run without `bun install`, so six modules failed to
+  resolve their imports and were counted as absent. The original numbers were
+  right. Now 460 / 6,530.
+
+- **`depth of field` was scored as a location.** "field" is a setting marker
+  and a camera term; the miner now excludes it and the marker uses a lookbehind.
+
+### Changed
+
+- Prompt records carry `origin.license` and `origin.licenseUrl`.
+
 ## [2.1.2] - 2026-07-16
 
 Documentation truth pass. The README had drifted badly from the app — every
