@@ -4,7 +4,7 @@
 
 ### Make the shot. Skip the blank box.
 
-**Nine engines · 11 guided categories · 1,427 credited prompts · a scorer that grades a shot before you pay for it**<br>
+**Nine engines · 11 guided categories · 1,427 prompts · a scorer that grades a shot before you pay for it**<br>
 **Editorial holo aesthetic — a WebGL cloud of real outputs floating in 3D space behind the headline.**
 
 Holo card cloud · Iridescent rim shader · Cobalt + paper · Zero blank-box anxiety
@@ -35,7 +35,9 @@ Holo card cloud · Iridescent rim shader · Cobalt + paper · Zero blank-box anx
 </tr>
 </table>
 
-> **`9`** engines — 2 image, 7 video · **`11`** guided categories · **`1,427`** credited prompts · **`387`** credited creators · **`460`** tests / **`6,530`** assertions · **`0`** `any` types
+> **`9`** engines — 2 image, 7 video · **`11`** guided categories · **`1,427`** prompts · **`374`** credited creators · **`460`** tests / **`6,530`** assertions · **`0`** `any` types
+>
+> Reproduce every figure: `bun test` for the tests and assertions; `bun -e "const c=await import('./web/src/lib/categories.ts');console.log(new Set([...c.wizardCategories,...c.videoCategories].map(x=>x.id)).size)"` for the categories; `jq 'length' web/public/data/image-prompts.json web/public/data/video-prompts.json` for the prompt count (1,377 image + 50 video).
 
 ## Table of Contents
 
@@ -101,7 +103,7 @@ This project replaces the blank box with **guided prompt engineering** — 11 ca
 
 ### 🌐 Web App — Visual Wizard
 
-A step-by-step guided experience with theatrical animations, particle effects, and a neon UI. Choose your model, walk through 9-11 categories, preview your assembled prompt, and generate — all in the browser.
+A step-by-step guided experience with theatrical animations, particle effects, and a neon UI. Choose your model, walk through 9 categories for image or 8 for video, preview your assembled prompt, and generate — all in the browser.
 
 ### ⌨️ CLI Tool — Terminal Power
 
@@ -119,7 +121,7 @@ bun run index.ts --favorites list         # Manage favorite suggestions
 
 ### 🎯 Guided Prompt Building
 
-- **11 guided categories in the web wizard** — Subject, Setting, Style, Lighting, Camera, Mood, Color, Film, Vibes, plus Motion and Duration for video engines. Image models get 9 steps, video models 11. *(The CLI runs its own deeper 13-category schema — see [Architecture](#architecture).)*
+- **11 guided categories in the web wizard** — Subject, Setting, Style, Lighting, Camera and Mood are shared. Image models add Color, Film Look and Vibes for a 9-step run; video models add Motion and Duration for an 8-step run. Eleven distinct categories across the two paths. *(The CLI runs its own deeper 13-category schema — see [Architecture](#architecture).)*
 - **Curated suggestions** per field (8-10 hyper-specific options like "six thick rope braids radiating outward from skull")
 - **Quick Mode** — describe your idea in plain English, AI expands to full structured prompt
 - **Diversity-aware Randomize** — sliding-window exclusion algorithm tracks recent picks per field so consecutive clicks always surface fresh suggestions (see [algorithm detail](#diversity-aware-randomization))
@@ -586,7 +588,7 @@ fetch → translate → extract patterns → generate images → update JSON
 
 ## Sources & Credit
 
-Every one of the 1,427 prompts carries its author — **387 distinct creators**,
+1,421 of the 1,427 prompts carry a named author, across **374 distinct creators**,
 credited down to the individual handle, surfaced on each card, in the OG image,
 and at [`/sources`](https://prompts.tdotssolutionsz.com/sources) with live repo
 metadata. The counts below are generated from the shipped data, not maintained
