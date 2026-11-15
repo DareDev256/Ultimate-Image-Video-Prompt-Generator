@@ -4,8 +4,10 @@
 
 ### Make the shot. Skip the blank box.
 
+A free AI image prompt generator and video prompt generator for anyone making pictures or clips with Nano Banana Pro, GPT-Image-2, Seedance, Veo, Kling and four more engines. Pick an engine, walk a guided wizard, and score the finished prompt before you pay to render it.
+
 **Nine engines · 11 guided categories · 1,427 prompts · a scorer that grades a shot before you pay for it**<br>
-**Editorial holo aesthetic — a WebGL cloud of real outputs floating in 3D space behind the headline.**
+**Editorial holo aesthetic: a WebGL cloud of real outputs floating in 3D space behind the headline.**
 
 Holo card cloud · Iridescent rim shader · Cobalt + paper · Zero blank-box anxiety
 
@@ -35,6 +37,21 @@ Holo card cloud · Iridescent rim shader · Cobalt + paper · Zero blank-box anx
 </tr>
 </table>
 
+## Quick Start
+
+```bash
+# Web app (no API key needed to build prompts)
+git clone https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator.git
+cd Ultimate-Image-Video-Prompt-Generator/web && npm install && npm run dev
+
+# CLI tool
+cd Ultimate-Image-Video-Prompt-Generator && bun install && bun run dev
+```
+
+Open [localhost:3000](http://localhost:3000) and start building. The [live demo](https://prompts.tdotssolutionsz.com) includes a free tier of 25 Nano Banana Pro generations per day with no key of your own; a local copy gets that tier when you set `GEMINI_API_KEY` (see [Environment Variables](#environment-variables)).
+
+License: MIT, see [LICENSE](./LICENSE).
+
 > **`9`** engines — 2 image, 7 video · **`11`** guided categories · **`1,427`** prompts · **`374`** credited creators · **`460`** tests / **`6,530`** assertions · **`0`** `any` types
 >
 > Reproduce every figure: `bun test` for the tests and assertions; `bun -e "const c=await import('./web/src/lib/categories.ts');console.log(new Set([...c.wizardCategories,...c.videoCategories].map(x=>x.id)).size)"` for the categories; `jq 'length' web/public/data/image-prompts.json web/public/data/video-prompts.json` for the prompt count (1,377 image + 50 video).
@@ -56,19 +73,6 @@ Holo card cloud · Iridescent rim shader · Cobalt + paper · Zero blank-box anx
 - [Data Pipeline](#data-pipeline)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
-
-## Quick Start
-
-```bash
-# Web app (no API key needed — free tier included)
-git clone https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator.git
-cd Ultimate-Image-Video-Prompt-Generator/web && npm install && npm run dev
-
-# CLI tool
-cd Ultimate-Image-Video-Prompt-Generator && bun install && bun run index.ts
-```
-
-Open [localhost:3000](http://localhost:3000) and start generating — the free tier gives you 25 Nano Banana Pro generations per day, no key required.
 
 ## How It Works
 
@@ -292,7 +296,7 @@ Open [http://localhost:3000](http://localhost:3000). Configure API keys at `/set
 ```bash
 cd Ultimate-Image-Video-Prompt-Generator
 bun install
-bun run index.ts
+bun run dev
 ```
 
 ### Environment Variables
