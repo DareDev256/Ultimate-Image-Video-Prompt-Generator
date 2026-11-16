@@ -83,7 +83,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       {/* Top bar */}
       <div
         className="sticky top-0 z-30 border-b backdrop-blur-md"
-        style={{ background: 'rgba(10,10,18,0.85)', borderColor: 'var(--color-border)' }}
+        style={{ background: 'rgba(0,0,0,0.85)', borderColor: 'var(--color-border)' }}
       >
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4 md:px-8">
           <Link
@@ -302,7 +302,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                   className="flex items-center gap-1.5 rounded px-3 py-1.5 text-xs uppercase tracking-wider transition-all"
                   style={{
                     background: post.modelColor,
-                    color: '#0a0a12',
+                    color: '#000000',
                     fontFamily: 'var(--font-display)',
                     fontWeight: 700,
                     boxShadow: `0 0 14px ${post.modelColor}66`,

@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { HOLO_CARDS } from './holo-cards-manifest';
 
@@ -53,6 +53,14 @@ export function HeroShowreel({
   const markIdx = highlightIndex ?? headline.length - 1;
   const heroMinHeight = variant === 'feed' ? 'min-h-[60vh]' : 'min-h-[92vh]';
   const limit = cardLimit ?? (variant === 'feed' ? 36 : 110);
+  const cloudRef = useRef<HTMLDivElement>(null);
+  const [cloudOn, setCloudOn] = useState(false);
+  useEffect(() => {
+    const check = () => setCloudOn(!!cloudRef.current && cloudRef.current.offsetParent !== null);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   return (
     <section
@@ -62,9 +70,12 @@ export function HeroShowreel({
         borderBottom: '1px solid var(--rule-strong)',
       }}
     >
-      {/* ── Cloud canvas — fills the section, sits behind text ── */}
-      <div className="absolute inset-0 z-0" aria-hidden="true">
-        <HoloCardCloud cardLimit={limit} />
+      {/* ── Cloud canvas — fills the section, sits behind text ──
+          Mounted only while the section is actually rendered: the home page
+          hides this whole hero on phones (display:none), and three.js plus a
+          WebGL context would otherwise load there for nothing. */}
+      <div ref={cloudRef} className="absolute inset-0 z-0" aria-hidden="true">
+        {cloudOn && <HoloCardCloud cardLimit={limit} />}
       </div>
 
       {/* ── Floor gradient — sells the depth, tucks the cards' bottom edge ── */}

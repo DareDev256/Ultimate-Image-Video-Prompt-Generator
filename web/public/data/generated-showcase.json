@@ -13,19 +13,6 @@
     }
   },
   {
-    "id": "gen-002",
-    "name": "drawn style header image prompt from ...",
-    "image": "/generated-inspiration/nano-banana-2.png",
-    "style": "Hand",
-    "description": "drawn style header image prompt from photo",
-    "rawPrompt": "Completely recreate the uploaded person.\nMake it a header image for a note article where that person introduces \u201cNano Banana Pro\u201d.\nAspect ratio: horizontal 16:9.\nStyle and colors: simple, hand-drawn style, italic, with a blue and green gradient.\nTitle text: \u201cIn-depth explanation of Google\u2019s new AI \u2018Nano Banana Pro\u2019\u201d.",
-    "model": "Nano Banana Pro",
-    "source": {
-      "name": "@\u30bb\u30df\u30ca\u30fc\u8b1b\u5e2b\u5c02\u9580AI\u30b3\u30f3\u30b7\u30a7\u30eb\u30b8\u30e5\uff5c\u5de5\u85e4 \u6676",
-      "url": "https://x.com/akirakudo_ai"
-    }
-  },
-  {
     "id": "gen-003",
     "name": "Watercolor map of Germany with labele...",
     "image": "/generated-inspiration/nano-banana-3.png",
@@ -36,19 +23,6 @@
     "source": {
       "name": "@Florian Gallwitz",
       "url": "https://x.com/FlorianGallwitz"
-    }
-  },
-  {
-    "id": "gen-004",
-    "name": "Panel Puzzle for 2026 Blessing",
-    "image": "/generated-inspiration/nano-banana-4.png",
-    "style": "New Year'S Day Special: Four",
-    "description": "Panel Puzzle for 2026 Blessing",
-    "rawPrompt": "[Key: Maintain precise facial features, retain original face structure, the character in the image must be completely consistent with the uploaded reference image] High-end photo studio 2x2 grid photo. Top-left panel (Navy Blue background): The character wears a navy blue uniform-style dress, decorated with gold buttons, vintage curls with a blue beret and pearl earrings. She holds up a huge puzzle piece (top-left piece, with the number \"20\" on it) with both hands, moving it towards the center of the frame. Her eyes are focused on the central puzzle area, her expression is serious, with a slight smile. The background features navy stripes, an anchor, and the text \"Set Sail for the New Year\". Top-right panel (Cherry Blossom Pink background): The same woman wears a pink lace dress, a pearl necklace, a princess hairstyle with a pink rose hairpin and crystal earrings. She holds up the top-right puzzle piece (with the number \"26\" on it) with both hands, moving it towards the center to connect with the top-left piece. Her eyes look at the puzzle seam, her expression is focused and expectant, and her body leans forward. The background features pink cherry blossoms, the text \"Beautiful Encounter\", butterflies, and petals. Bottom-left panel (Mint Green background): The same woman wears a mint green cotton and linen dress, in an artistic style, with natural long hair, a green hairband, and wooden earrings. She holds up the bottom-left puzzle piece (with the text \"New Year's Day\" on it) with both hands, moving it upwards to connect with the top-left piece. Her eyes look at the puzzle, her expression is serious, and her mouth is slightly pursed. The background features green plants, the text \"Hope Grows\", new sprouts, and leaves. Bottom-right panel (Lemon Yellow background): The same woman wears a yellow dress with a sunflower pattern, pigtails with yellow bows. She pushes in the last bottom-right puzzle piece (with the text \"Happy\" on it) to complete the puzzle. The four pieces perfectly form the complete pattern \"2026 New Year's Day Happy\" in the center of the frame. She tilts her head back, looking at the completed puzzle, her face beaming with a successful, joyful smile. The center of the frame bursts with golden light and confetti. The background features a yellow sun, the text \"Complete Success\", smiley faces, and sunflowers. The puzzle pieces converge from the four corners to the center to form a complete picture. Clear makeup, bright ring light, 85mm lens, f/1.8 aperture, four-panel composition with puzzle interaction, fashion magazine style.",
-    "model": "Nano Banana Pro",
-    "source": {
-      "name": "@\u677e\u679c\u5148\u68ee",
-      "url": "https://x.com/songguoxiansen"
     }
   },
   {
@@ -130,19 +104,6 @@
     }
   },
   {
-    "id": "gen-011",
-    "name": "Black and white studio side-profile p...",
-    "image": "/generated-inspiration/nano-banana-1.png",
-    "style": "Avatar",
-    "description": "Black and white studio side-profile portrait prompt",
-    "rawPrompt": "{\n  \"Use the attached image of the person as reference. Hyper-realistic black and white studio portrait of the young man in side profile, natural hair gently falling around his face. Strong rim light accentuating his jawline and nose, dark minimalist background. Expression thoughtful and serene, cinematic lighting creating dramatic contrast and fine photographic detail.\",\n  \"size\": \"{argument name=\"image size\" default=\"1024x1024\"}\",\n  \"n\": {argument name=\"number of images\" default=\"1\"}\n}",
-    "model": "Nano Banana Pro",
-    "source": {
-      "name": "@K",
-      "url": "https://x.com/ChillaiKalan__"
-    }
-  },
-  {
     "id": "gen-012",
     "name": "2005 Sony CyberShot mall food court s...",
     "image": "/generated-inspiration/nano-banana-2.png",
@@ -156,19 +117,6 @@
     }
   },
   {
-    "id": "gen-013",
-    "name": "Intimate Low-Light Bedroom Selfie (Ch...",
-    "image": "/generated-inspiration/nano-banana-3.png",
-    "style": "Avatar",
-    "description": "Intimate Low-Light Bedroom Selfie (Chiaroscuro)",
-    "rawPrompt": "{\n  \"main_prompt\": \"intimate low-light bedroom selfie portrait, young woman in her early-mid 20s with fair pale skin and natural soft glow, short-to-medium auburn/reddish-brown hair in messy high messy bun with loose strands framing face, subtle natural makeup with defined brows, light mascara, glossy soft pink-nude lips in relaxed expression, wide innocent yet captivating eyes looking directly at camera with slight curiosity, wearing loose light pink camisole top with thin straps and subtle zipper detail at bust, delicate silver chunky chain necklace with large oval green gemstone pendant (emerald or malachite), large intricate silver hoop earrings with dangling elements, cozy dimly lit bedroom at night: warm orange tungsten bedside lamp light from side creating strong golden rim light on face, hair and shoulders, mixed with cool purple-blue LED or phone light fill from below/right casting violet shadows and highlights on skin and clothing, wooden headboard bed with floral-patterned pillow, rumpled sheets and blanket in earthy tones, curtains in warm brown/beige behind, phone visible in hand implied for selfie, soft lens flare and light bloom from lamp, slight vignette and warm color cast with purple-blue accents, photorealistic, ultra-detailed skin texture with realistic pores, subtle freckles and natural imperfections, individual hair strands catching colored lights, cinematic moody grading with strong chiaroscuro contrast between warm orange and cool purple tones, light film grain, dreamy intimate late-night vibe, shot on smartphone with night mode or low-light portrait, shallow depth of field focus on face with soft bokeh on background bed and curtains, raw unfiltered cozy bedroom energy, warm yet mysterious nighttime aesthetic\",\n  \"negative_prompt\": \"blurry, lowres, deformed hands, extra fingers, fused fingers, bad anatomy, poorly drawn face, bad proportions, extra limbs, mutated hands, ugly, disfigured, tiling, out of frame, jpeg artifacts, signature, watermark, text, error, cropped badly, worst quality, low quality, cartoon, 3d render, plastic skin, doll-like, airbrushed skin, overexposed, harsh flash, pale washed-out skin, heavy makeup, glamorous look, instagram face, duck lips, smiling overly happy, elderly, child, male, group shot, bright daylight, clean minimalist room, white walls, no colored lighting, flat lighting, cold dominant blue tones, desaturated colors, synthetic look, perfect symmetrical face, no grain, modern high-res filter, visible phone blocking face, deformed reflection if mirror, cluttered foreground\",\n  \"style_tags\": [\n    \"photorealistic\",\n    \"low-light intimate selfie\",\n    \"warm tungsten + cool purple mix\",\n    \"chiaroscuro bedroom lighting\",\n    \"cozy nighttime aesthetic\",\n    \"messy bun redhead vibe\",\n    \"raw phone camera portrait\",\n    \"film grain subtle\",\n    \"dreamy melancholic expression\",\n    \"urban apartment late night\",\n    \"colored rim light glow\"\n  ],\n  \"technical\": {\n    \"aspect\"\n  }\n}",
-    "model": "Nano Banana Pro",
-    "source": {
-      "name": "@Lex",
-      "url": "https://x.com/katmanai"
-    }
-  },
-  {
     "id": "gen-014",
     "name": "Nostalgic Vintage Selfie Portrait (Tu...",
     "image": "/generated-inspiration/nano-banana-4.png",
@@ -179,84 +127,6 @@
     "source": {
       "name": "@Lex",
       "url": "https://x.com/katmanai"
-    }
-  },
-  {
-    "id": "gen-015",
-    "name": "Hyper-Realistic Mirror Selfie Prompt",
-    "image": "/generated-inspiration/nano-banana-5.png",
-    "style": "Avatar",
-    "description": "Hyper-Realistic Mirror Selfie Prompt",
-    "rawPrompt": "{\n\u00a0 \"subject\": {\n\u00a0 \u00a0 \"character\": \"uploaded_photo\",\n\u00a0 \u00a0 \"face_consistency\": \"true\",\n\u00a0 \u00a0 \"body_consistency\": \"true\",\n\u00a0 \u00a0 \"gender\": \"female\",\n\u00a0 \u00a0 \"age_appearance\": \"young adult, early 20s\",\n\u00a0 \u00a0 \"ethnicity\": \"Northern European\",\n\u00a0 \u00a0 \"emotion\": \"composed, neutral, effortless, calm focus\",\n\n\u00a0 \u00a0 \"hair\": {\n\u00a0 \u00a0 \u00a0 \"color\": \"icy platinum blonde\",\n\u00a0 \u00a0 \u00a0 \"length\": \"long, past shoulders\",\n\u00a0 \u00a0 \u00a0 \"style\": \"straight with soft natural movement\",\n\u00a0 \u00a0 \u00a0 \"texture\": \"silky, light-reflecting, fine strands\",\n\u00a0 \u00a0 \u00a0 \"placement\": \"cascading over shoulders\"\n\u00a0 \u00a0 },\n\n\u00a0 \u00a0 \"face\": {\n\u00a0 \u00a0 \u00a0 \"visibility\": \"partially visible in reflection\",\n\u00a0 \u00a0 \u00a0 \"profile_visibility\": \"three-quarter view\",\n\u00a0 \u00a0 \u00a0 \"skin_tone\": \"fair, pale, porcelain\",\n\u00a0 \u00a0 \u00a0 \"expression\": \"neutral, relaxed lips, blue eyes looking at phone screen\"\n\u00a0 \u00a0 }\n\u00a0 },\n\n\u00a0 \"meta\": {\n\u00a0 \u00a0 \"aspect_ratio\": \"9:16\",\n\u00a0 \u00a0 \"camera\": \"iPhone 15 Pro Max rear camera\",\n\u00a0 \u00a0 \"lens\": \"24mm f/1.78 main lens equivalent\",\n\u00a0 \u00a0 \"focal_character\": \"sharp focus on subject, natural depth of field\",\n\u00a0 \u00a0 \"quality\": \"ultra photorealistic, 8k resolution\",\n\u00a0 \u00a0 \"style\": \"authentic mirror selfie, raw mobile photography, natural daylight, subtle skin texture\"\n\u00a0 },\n\n\u00a0 \"visibility_rules\": {\n\u00a0 \u00a0 \"mirror_only\": true,\n\u00a0 \u00a0 \"no_direct_subject_visibility\": true,\n\u00a0 \u00a0 \"no_body_parts_outside_mirror\": true\n\u00a0 },\n\n\u00a0 \"camera_angle\": {\n\u00a0 \u00a0 \"vertical_position\": \"eye level\",\n\u00a0 \u00a0 \"horizontal_alignment\": \"centered\",\n\u00a0 \u00a0 \"tilt\": \"0 degree tilt\",\n\u00a0 \u00a0 \"yaw\": \"facing mirror directly\",\n\u00a0 \u00a0 \"roll\": \"no rotation\",\n\u00a0 \u00a0 \"distance_to_mirror_meters\": 1.0,\n\u00a0 \u00a0 \"handheld_behavior\": \"slight natural handheld lean\"\n\u00a0 },\n\n\u00a0 \"body_angle\": {\n\u00a0 \u00a0 \"global_orientation\": \"crouching or squatting position\",\n\u00a0 \u00a0 \"torso_rotation_degrees\": 15,\n\u00a0 \u00a0 \"shoulder_alignment\": \"relaxed, one shoulder slightly higher holding phone\",\n\u00a0 \u00a0 \"hip_rotation_degrees\": 45,\n\u00a0 \u00a0 \"weight_distribution\": \"balanced on balls of feet in a squat\",\n\u00a0 \u00a0 \"posture\": \"compact, athletic, modern pose\"\n\u00a0 },\n\n\u00a0 \"head_angle\": {\n\u00a0 \u00a0 \"rotation_degrees\": 10,\n\u00a0 \u00a0 \"tilt\": \"subtle side tilt\",\n\u00a0 \u00a0 \"chin_position\": \"neutral\",\n\u00a0 \u00a0 \"neck_tension\": \"relaxed\"\n\u00a0 },\n\n\u00a0 \"phone_angle\": {\n\u00a0 \u00a0 \"phone_model\": \"Gold iPhone 15 Pro Max with triple-lens system\",\n\u00a0 \u00a0 \"height_relative_to_face\": \"partial coverage of the left cheek\",\n\u00a0 \u00a0 \"distance_from_face_cm\": 25,\n\u00a0 \u00a0 \"angle\": \"slight inward tilt toward subject\",\n\u00a0 \u00a0 \"coverage\": \"phone obscures a portion of the face but leaves eyes and hair visible\"\n\u00a0 },\n\n\u00a0 \"pose\": {\n\u00a0 \u00a0 \"legs\": {\n\u00a0 \u00a0 \u00a0 \"stance\": \"deep squat\",\n\u00a0 \u00a0 \u00a0 \"front_leg\": \"bent, knee pointing toward camera\",\n\u00a0 \u00a0 \u00a0 \"back_leg\": \"bent, supporting weight\"\n\u00a0 \u00a0 },\n\u00a0 \u00a0 \"hips\": {\n\u00a0 \u00a0 \u00a0 \"action\": \"tucked in a crouching silhouette\"\n\u00a0 \u00a0 },\n\u00a0 \u00a0 \"arms\": {\n\u00a0 \u00a0 \u00a0 \"phone_hand\": \"right hand holding phone, index finger on side\",\n\u00a0 \u00a0 \u00a0 \"free_hand\": \"left arm resting on knee\"\n\u00a0 \u00a0 }\n\u00a0 },\n\n\u00a0 \"clothing\": {\n\u00a0 \u00a0 \"outfit_type\": \"long-sleeve bodysuit with patterned tights\",\n\u00a0 \u00a0 \"color\": \"solid black top, black patterned bottoms\",\n\u00a0 \u00a0 \"ma",
-    "model": "Nano Banana Pro",
-    "source": {
-      "name": "@inanna",
-      "url": "https://x.com/inannaai"
-    }
-  },
-  {
-    "id": "gen-016",
-    "name": "Mirror Selfie with Hyper-Pronounced S...",
-    "image": "/generated-inspiration/nano-banana-6.png",
-    "style": "Avatar",
-    "description": "Mirror Selfie with Hyper-Pronounced Silhouette",
-    "rawPrompt": "{\n\u00a0 \"subject\": {\n\u00a0 \u00a0 \"description\": \"Young woman with a light-tan complexion, featuring short, voluminous curly black hair styled in a messy bob with soft bangs. Her face has a subtle smile, defined winged eyeliner (cat-eye), and well-groomed eyebrows.\",\n\u00a0 \u00a0 \"body\": {\n\u00a0 \u00a0 \u00a0 \"physique\": \"Hyper-pronounced hourglass silhouette with a very high waist-to-hip ratio. The anatomy features a narrow, tapered waist transitioning into exceptionally wide, curvilinear hips and voluminous, thick thighs (thigh brow visible).\",\n\u00a0 \u00a0 \u00a0 \"proportions\": \"Broad, soft shoulders contrasting with a slim midsection; full, rounded bust; well-developed gluteal muscles and athletic leg density; realistic skin folds at the hip-waist junction.\",\n\u00a0 \u00a0 \u00a0 \"details\": \"Three small five-pointed stars tattooed on the left clavicle. Detailed grayscale ink including a large butterfly on the dorsal side of the right hand and a vintage-style female figure on the inner right forearm.\"\n\u00a0 \u00a0 }\n\u00a0 },\n\u00a0 \"wardrobe\": {\n\u00a0 \u00a0 \"apparel\": \"Single-piece, form-fitting spaghetti strap bodysuit in a solid {argument name=\"bodysuit color\" default=\"taupe-brown\"} shade. The fabric is a matte spandex-cotton blend with a subtle ribbed texture at the center of the chest and high-cut leg openings.\",\n\u00a0 \u00a0 \"branding_note\": \"The garment is entirely monochrome and plain; no logos, no text, no brand names visible.\"\n\u00a0 },\n\u00a0 \"pose_action\": {\n\u00a0 \u00a0 \"position\": \"Sitting on a vintage rattan-backed chair, performing a mirror selfie. She holds a smartphone with a decorative butterfly-patterned case in her right hand, positioned at eye level.\",\n\u00a0 \u00a0 \"expression\": \"Casual and confident, looking into the mirror's reflection with a soft, closed-mouth smile; head tilted slightly toward the shoulder.\"\n\u00a0 },\n\u00a0 \"scene\": {\n\u00a0 \u00a0 \"environment\": \"Modern, minimalist apartment interior. To the left, a wooden shelf holds a glass reptile terrarium with heat lamps. To the right, a mid-century modern wooden cabinet supports another glass tank.\",\n\u00a0 \u00a0 \"flooring\": \"Dark wood laminate floor partially covered by a traditional area rug with intricate Persian motifs in faded blue, terracotta, and cream tones.\",\n\u00a0 \u00a0 \"background\": \"Neutral light gray walls, a white rectangular ceiling air vent, and a silver pendant light fixture hanging from above.\"\n\u00a0 },\n\u00a0 \"lighting\": {\n\u00a0 \u00a0 \"type\": \"Soft, diffused natural indoor lighting combined with warm ambient overhead light. Subtle shadows define the abdominal curves and jawline.\",\n\u00a0 \u00a0 \"quality\": \"Realistic skin texture with natural subsurface scattering, visible pores, and soft highlights on the shoulders and collarbone.\"\n\u00a0 },\n\u00a0 \"camera\": {\n\u00a0 \u00a0 \"setup\": \"Mobile photography aesthetic, 9:16 vertical aspect ratio, shot through a clean mirror. Focal length equivalent to 24mm to capture the full torso and upper legs.\",\n\u00a0 \u00a0 \"technical\": \"Sharp focus on the subject, slight depth of field blurring the distant background, high dynamic range (HDR) to balance the bright walls and dark wood textures.\",\n\u00a0 \u00a0 \"con\"\n}",
-    "model": "Nano Banana Pro",
-    "source": {
-      "name": "@Pinodi",
-      "url": "https://x.com/PinodiArt"
-    }
-  },
-  {
-    "id": "gen-017",
-    "name": "Playful High-Fashion Studio Portrait",
-    "image": "/generated-inspiration/nano-banana-7.png",
-    "style": "Avatar",
-    "description": "Playful High-Fashion Studio Portrait",
-    "rawPrompt": "{ \"style\": \"ultra-realistic studio portrait\", \"subject\": { \"gender\": \"female\", \"age\": \"young adult\", \"pose\": \"leaning slightly forward toward the camera\", \"expression\": \"playful, flirty\", \"facial\\_details\": { \"wink\": true, \"tongue\\_out\": true, \"freckles\": \"natural across fair skin\", \"makeup\": { \"blush\": \"soft pink\", \"lips\": \"glossy\" } }, \"hair\": { \"color\": \"{argument name=\"hair color\" default=\"blonde\"}\", \"length\": \"long\", \"part\": \"side-parted\", \"style\": \"falling naturally over shoulders\" }, \"outfit\": { \"dress\": \"off-shoulder fitted black dress\", \"jewelry\": { \"earrings\": \"long dangling gold earrings\", \"necklaces\": \"layered gold necklaces with small heart pendant\" } } }, \"environment\": { \"setting\": \"studio\", \"background\": \"clean minimal light neutral tones\" }, \"lighting\": { \"type\": \"soft diffused studio lighting\", \"shadows\": \"smooth natural shadows\" }, \"camera\": { \"lens\": \"50mm\", \"aperture\": \"f/1.8\", \"depth\\_of\\_field\": \"shallow\" }, \"quality\": { \"resolution\": \"high resolution\", \"detail\": \"ultra-detailed\", \"skin\\_texture\": \"photorealistic\", \"focus\": \"sharp focus\", \"photography\\_style\": \"high fashion lifestyle photography\" }}",
-    "model": "Nano Banana Pro",
-    "source": {
-      "name": "@Artificial intelligence (Ai),Open Ai",
-      "url": "https://x.com/Vishnudxe"
-    }
-  },
-  {
-    "id": "gen-018",
-    "name": "Cozy Bedroom Selfie with Celebrity Lo...",
-    "image": "/generated-inspiration/nano-banana-8.png",
-    "style": "Avatar",
-    "description": "Cozy Bedroom Selfie with Celebrity Lookalikes",
-    "rawPrompt": "{\n  \"scene\": {\n    \"type\": \"bedroom_interior\",\n    \"lighting\": \"natural_daylight\",\n    \"atmosphere\": \"casual, cozy, domestic\"\n  },\n  \"subject\": {\n    \"pose\": {\n      \"position\": \"lying_prone_on_bed\",\n      \"orientation\": \"facing_camera\",\n      \"legs\": \"knees_bent_upwards, ankles_crossed\",\n      \"arms\": \"left_arm_extended_for_selfie\",\n      \"head\": \"resting_on_pillow\"\n    },\n    \"appearance\": {\n      \"hair\": \"long, straight, dark_brown\",\n      \"expression\": \"gentle_smile, direct_eye_contact\",\n      \"complexion\": \"fair, rosy_cheeks\"\n    },\n    \"attire\": {\n      \"top\": {\n        \"item\": \"tank_top\",\n        \"color\": \"{argument name=\"top color\" default=\"light_pink\"}\",\n        \"texture\": \"ribbed\",\n        \"style\": \"spaghetti_straps\"\n      },\n      \"bottom\": {\n        \"item\": \"lounge_shorts\",\n        \"color\": \"light_pink\",\n        \"details\": \"ruffled_hem, scrunched_texture\"\n      },\n      \"accessories\": {\n        \"feet\": \"white_crew_socks\"\n      }\n    }\n  },\n  \"environment\": {\n    \"bedding\": {\n      \"sheets\": \"white, rumpled\",\n      \"pillows\": \"white_with_floral_pattern\",\n      \"duvet\": \"white, puffy\"\n    },\n    \"background_elements\": {\n      \"windows\": {\n        \"quantity\": 2,\n        \"features\": \"white_frames, horizontal_blinds\"\n      },\n      \"furniture\": {\n        \"side_table\": {\n          \"location\": \"left_side\",\n          \"visible_items\": [\n            \"skincare_products\",\n            \"pink_mug\",\n            \"small_potted_plant\",\n            \"tissues\"\n          ]\n        }\n      }\n    }\n  },\n  \"composition\": {\n    \"angle\": \"high_angle_selfie\",\n    \"framing\": \"medium_shot\",\n    \"focus\": \"sharp_subject, soft_background\"\n  }\n}",
-    "model": "Nano Banana Pro",
-    "source": {
-      "name": "@Artificial intelligence (Ai),Open Ai",
-      "url": "https://x.com/Vishnudxe"
-    }
-  },
-  {
-    "id": "gen-019",
-    "name": "LA Rooftop Poolside Selfie (Midday Sun)",
-    "image": "/generated-inspiration/nano-banana-9.png",
-    "style": "Avatar",
-    "description": "LA Rooftop Poolside Selfie (Midday Sun)",
-    "rawPrompt": "\"title\": \"LA Rooftop Poolside Selfie\",\n    \"style_attributes\": [\n      \"Ultra-realistic cinematic lifestyle photography\",\n      \"8K resolution\",\n      \"Hyper-detailed\",\n      \"Photorealistic\",\n      \"iPhone-style casual shot\",\n      \"Cinematic photographic quality\"\n    ],\n    \"subject\": {\n      \"demographics\": \"Female, 20 years old, Slavic appearance\",\n      \"facial_features\": {\n        \"structure\": \"Naturally beautiful, well-balanced face, realistic proportions\",\n        \"eyes\": \"Large expressive green-hazel, calm confident gaze\",\n        \"lips\": \"Naturally full, soft, unexaggerated\",\n        \"makeup\": \"Light natural daytime, not heavy\"\n      },\n      \"skin_texture\": {\n        \"quality\": \"Sun-kissed, highly realistic, visible pores, subtle micro-imperfections\",\n        \"effects\": \"Wet skin, water and oil droplets catching sunlight, no plastic texture\"\n      },\n      \"hair\": \"Long, wet, slightly messy, strands sticking naturally to cheek and forehead\",\n      \"body\": {\n        \"pose\": \"Lying on stomach, legs gently bent at knees and lifted, feet together, arm extended for selfie\",\n        \"physique\": \"Slim waist, natural back line, realistic anatomy without exaggeration\"\n      },\n      \"clothing\": \"Small classic black bikini top with thin straps and deep plunge\"\n    },\n    \"props\": [\n      \"Fresh coconut with straw and subtle ADORE logo\",\n      \"Bright blue-and-white striped beach towel\",\n      \"Smartphone (partial visibility)\"\n    ],\n    \"environment\": {\n      \"location\": \"Luxurious rooftop pool, high-rise building, Los Angeles\",\n      \"background\": \"Modern downtown LA skyscrapers, slight atmospheric haze, white sun loungers and umbrellas\",\n      \"elements\": \"Turquoise pool water, lush tropical greenery (banana palms, monstera plants)\",\n      \"weather\": \"Bright sunny day, clear blue sky, no clouds\"\n    },\n    \"technical_specs\": {\n      \"lighting\": \"Harsh midday sunlight, strong contrast, deep natural shadows, bright specular highlights\",\n      \"camera_settings\": \"50\u201385mm lens look, shallow depth of field, high dynamic range (HDR)\",\n      \"color_grading\": \"Realistic, true-to-life skin tones\"\n    },\n    \"full_prompt_string\": \"Ultra-realistic cinematic lifestyle photography, 8K, hyper-detailed, photorealistic, An attractive woman aged 20, Slavic appearance. A naturally beautiful, well-balanced face with realistic proportions, no artificial perfection. Large expressive green-hazel eyes, calm confident gaze toward the camera. Naturally full lips, soft and unexaggerated. Light, natural daytime makeup emphasizing her features without looking heavy. Her skin is sun-kissed and wet, highly realistic with visible pores, subtle micro-imperfections, fine highlights, and water and oil droplets catching the sunlight. No plastic or overly smooth texture. Long wet hair, slightly messy after swimming, with a few strands sticking naturally to her cheek and forehead. She is lying on her stomach on a bright blue-and-white striped",
-    "model": "Nano Banana Pro",
-    "source": {
-      "name": "@Artificial intelligence (Ai),Open Ai",
-      "url": "https://x.com/Vishnudxe"
-    }
-  },
-  {
-    "id": "gen-020",
-    "name": "Ultra-Realistic Kitchen Selfie with C...",
-    "image": "/generated-inspiration/nano-banana-10.png",
-    "style": "Avatar",
-    "description": "Ultra-Realistic Kitchen Selfie with Chocolate Smudge",
-    "rawPrompt": "{\n  \"Objective\": \"Create ultra-realistic kitchen selfie of young woman making chocolate\",\n  \"FaceReference\": {\n    \"Mode\": \"Strict face preservation\",\n    \"Instruction\": \"Exact facial identity from reference - DO NOT CHANGE FACE\",\n    \"Consistency\": \"Face identical to reference photo\"\n  },\n  \"Subject\": {\n    \"Type\": \"Young female, reference identity match\",\n    \"FacialFeatures\": {\n      \"Expression\": \"Playful smile with chocolate smudge on chin and cheek\",\n      \"Eyes\": \"Green eyes bright with enjoyment, reference angle\",\n      \"Hair\": \"Hair with caramel-colored highlights from chocolate\"\n    }\n  },\n  \"Clothing\": {\n    \"Top\": \"Black t-shirt, reference fit\",\n    \"Bottom\": \"Pajama shorts\",\n    \"Footwear\": \"Barefoot\"\n  },\n  \"Pose\": {\n    \"BodyPosition\": \"Leaning over island with chocolate molds\",\n    \"Hands\": \"Hands with melted chocolate, holding chocolate-dipped strawberry\",\n    \"CameraAngle\": \"Mirror selfie eye-level\"\n  },\n  \"Scene\": {\n    \"Location\": \"Kitchen\",\n    \"State\": \"Chocolate workshop chaos\",\n    \"BackgroundObjects\": [\n      \"Melting chocolate bowls\",\n      \"Chocolate molds on counter\",\n      \"Dipped strawberries cooling\",\n      \"Cocoa powder dust\",\n      \"Tempered chocolate streaks\"\n    ]\n  },\n  \"Lighting\": \"Warm kitchen lighting, rich chocolate brown tones\",\n  \"Style\": \"Ultra-realistic, decadent atmosphere, glossy chocolate details\",\n  \"Technical\": {\n    \"AspectRatio\": \"4:5\"\n  },\n  \"NegativePrompt\": [\"different face\", \"altered features\", \"beautification\", \"flour instead of chocolate\"]\n}",
-    "model": "Nano Banana Pro",
-    "source": {
-      "name": "@Mr.pinecone",
-      "url": "https://x.com/Mrpinecone888"
     }
   },
   {

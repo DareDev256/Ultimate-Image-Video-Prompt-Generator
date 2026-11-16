@@ -357,7 +357,7 @@ function ReadDeeper() {
       className="relative"
       style={{
         background:
-          'linear-gradient(180deg, var(--ink) 0%, rgba(58, 92, 255, 0.06) 100%)',
+          'linear-gradient(180deg, var(--ink) 0%, rgba(255, 45, 122, 0.06) 100%)',
         padding: 'clamp(80px, 10vw, 160px) var(--gutter)',
       }}
     >

@@ -7,6 +7,7 @@
  */
 
 import { writeFileSync, readFileSync, existsSync } from 'fs';
+import { mergePrompts } from './lib/merge-prompts';
 import { join } from 'path';
 
 const OUTPUT_DIR = join(__dirname, '../web/public/data');
@@ -27,6 +28,7 @@ interface ParsedPrompt {
   language: string;
   publishedDate: string;
   youmindId: number | null;
+  origin?: { repo: string; repoUrl: string };
 }
 
 // Extract language from badge
@@ -213,8 +215,14 @@ async function fetchNanoBananaPrompts(): Promise<ParsedPrompt[]> {
     }
 
     prompts.push({
-      id: 10000 + promptNumber, // Offset IDs to avoid collision with existing prompts
+      // Provisional: README position. mergePrompts() replaces it with the
+      // next free id, because upstream renumbers newest-first on every update.
+      id: 10000 + promptNumber,
       slug: `nano-banana-${promptNumber}`,
+      origin: {
+        repo: 'YouMind-OpenLab/awesome-nano-banana-pro-prompts',
+        repoUrl: 'https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts',
+      },
       title: cleanTitle || `Nano Banana Prompt ${promptNumber}`,
       source: author,
       model: 'Nano Banana Pro',
@@ -256,34 +264,30 @@ async function main() {
       console.log(`   Found ${existingPrompts.length} existing prompts`);
     }
 
-    // Merge prompts (new ones first, then existing)
-    const mergedPrompts = [...nanoBananaPrompts, ...existingPrompts];
-    console.log(`\n📊 Total prompts after merge: ${mergedPrompts.length}`);
+    // Merge without reusing ids (see scripts/lib/merge-prompts.ts). It
+    // throws, and nothing is written, if the result would hold a duplicate.
+    const { merged: mergedPrompts, added } = mergePrompts(nanoBananaPrompts, existingPrompts, {
+      rangeStart: 10000,
+      rangeEnd: 20000,
+      slugPrefix: 'nano-banana-',
+    });
+    console.log(`\n📊 ${added.length} new, ${mergedPrompts.length} total after merge`);
 
-    // Save merged prompts
     const outputPath = EXISTING_PROMPTS_FILE;
     writeFileSync(outputPath, JSON.stringify(mergedPrompts, null, 2));
     console.log(`   ✅ Saved to ${outputPath}`);
 
-    // Update metadata
+    // Update metadata: keep the existing source list (it used to be
+    // overwritten with two of the five repos), refresh date and counts.
     const metaPath = join(OUTPUT_DIR, 'meta.json');
-    const meta = {
-      lastFetched: new Date().toISOString(),
-      imagePromptsCount: mergedPrompts.length,
-      videoPromptsCount: 50, // Keep existing video count
-      sources: {
-        imagePrompts: [
-          'https://github.com/songguoxs/gpt4o-image-prompts',
-          'https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts'
-        ],
-        videoPrompts: 'https://github.com/songguoxs/awesome-video-prompts',
-      },
-    };
+    const meta = existsSync(metaPath) ? JSON.parse(readFileSync(metaPath, 'utf-8')) : {};
+    meta.lastFetched = new Date().toISOString();
+    meta.imagePromptsCount = mergedPrompts.length;
     writeFileSync(metaPath, JSON.stringify(meta, null, 2));
     console.log(`   ✅ Updated metadata`);
 
     console.log('\n✨ Done! Nano Banana prompts added successfully.');
-    console.log(`   🍌 ${nanoBananaPrompts.length} new prompts from Nano Banana repo`);
+    console.log(`   🍌 ${added.length} new prompts from Nano Banana repo (${nanoBananaPrompts.length} parsed)`);
     console.log(`   📸 ${existingPrompts.length} existing prompts`);
     console.log(`   📊 ${mergedPrompts.length} total prompts`);
 

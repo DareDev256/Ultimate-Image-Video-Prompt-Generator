@@ -6,7 +6,7 @@
 
 A free AI image prompt generator and video prompt generator for anyone making pictures or clips with Nano Banana Pro, GPT-Image-2, Seedance, Veo, Kling and four more engines. Pick an engine, walk a guided wizard, and score the finished prompt before you pay to render it.
 
-**Nine engines · 11 guided categories · 1,427 prompts · a scorer that grades a shot before you pay for it**<br>
+**Nine engines · 11 guided categories · 1,546 prompts · a scorer that grades a shot before you pay for it**<br>
 **Editorial holo aesthetic: a WebGL cloud of real outputs floating in 3D space behind the headline.**
 
 Holo card cloud · Iridescent rim shader · Cobalt + paper · Zero blank-box anxiety
@@ -20,8 +20,8 @@ Holo card cloud · Iridescent rim shader · Cobalt + paper · Zero blank-box anx
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-0ea5e9?style=flat-square&logo=tailwindcss&logoColor=fff)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-d946ef?style=flat-square&logo=framer&logoColor=fff)
 ![Bun](https://img.shields.io/badge/Bun-runtime-fbf0df?style=flat-square&logo=bun)
-![Tests](https://img.shields.io/badge/460_tests-passing-10b981?style=flat-square)
-![Assertions](https://img.shields.io/badge/6,530_assertions-verified-10b981?style=flat-square)
+![Tests](https://img.shields.io/badge/501_tests-passing-10b981?style=flat-square)
+![Assertions](https://img.shields.io/badge/6,802_assertions-verified-10b981?style=flat-square)
 ![Zero Any](https://img.shields.io/badge/any_types-0-8b5cf6?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-22d3ee?style=flat-square)
 
@@ -52,9 +52,9 @@ Open [localhost:3000](http://localhost:3000) and start building. The [live demo]
 
 License: MIT, see [LICENSE](./LICENSE).
 
-> **`9`** engines — 2 image, 7 video · **`11`** guided categories · **`1,427`** prompts · **`374`** credited creators · **`460`** tests / **`6,530`** assertions · **`0`** `any` types
+> **`9`** engines — 2 image, 7 video · **`11`** guided categories · **`1,546`** prompts · **`428`** credited creators · **`501`** tests / **`6,802`** assertions · **`0`** `any` types
 >
-> Reproduce every figure: `bun test` for the tests and assertions; `bun -e "const c=await import('./web/src/lib/categories.ts');console.log(new Set([...c.wizardCategories,...c.videoCategories].map(x=>x.id)).size)"` for the categories; `jq 'length' web/public/data/image-prompts.json web/public/data/video-prompts.json` for the prompt count (1,377 image + 50 video).
+> Reproduce every figure: `bun test` for the tests and assertions; `bun -e "const c=await import('./web/src/lib/categories.ts');console.log(new Set([...c.wizardCategories,...c.videoCategories].map(x=>x.id)).size)"` for the categories; `jq 'length' web/public/data/image-prompts.json web/public/data/video-prompts.json` for the prompt count (1,496 image + 50 video, library fetched 2026-11-16).
 
 ## Table of Contents
 
@@ -101,7 +101,7 @@ This project replaces the blank box with **guided prompt engineering** — 11 ca
 - **Diversity-aware randomization** — a sliding-window exclusion algorithm (not naive `Math.random()`) ensures the "randomize" button always surfaces fresh suggestions. [Algorithm deep-dive →](#diversity-aware-randomization)
 - **Model-aware output** — the same wizard produces structured JSON for Gemini or natural language for GPT-Image-2/Kling, automatically adapting to what each model expects
 - **Composable architecture** — 13 pure section generators (CLI) composed via `flatMap`. Adding a new prompt category is one function + one array entry, zero touch points elsewhere
-- **Actually tested** — 460 tests prove invariants like "NL and JSON generators stay in sync on the same input" and "the randomizer never deadlocks regardless of pool size"
+- **Actually tested** — 501 tests prove invariants like "NL and JSON generators stay in sync on the same input" and "the randomizer never deadlocks regardless of pool size"
 
 ## Two Platforms, One Pipeline
 
@@ -231,7 +231,7 @@ Pick a model and every wizard step adapts to it. Source of truth: [`web/src/lib/
 
 ### 💡 Inspiration Gallery, Feed, Blog & Sources
 
-- **1,377 curated image prompts** from 5 open-source repos (`songguoxs`, `YouMind-OpenLab`, `Anil-matcha`, `ZeroLu`, `ImgEdify`) + **50 video prompts**
+- **1,496 curated image prompts** from 5 open-source repos (`songguoxs`, `YouMind-OpenLab`, `Anil-matcha`, `ZeroLu`, `ImgEdify`) + **50 video prompts**
 - **`/feed`** — editorial Twitter-style timeline with model/source/category filters, intersection-observer pagination, full per-prompt attribution
 - **`/blog`** — 5 launch posts with editorial breakdowns of standout prompts (why they work, what to swap, full 13-cat breakdown per post)
 - **`/sources`** — full credit page with GitHub stars, top contributors per repo, and one-click feed filter by source
@@ -531,7 +531,7 @@ bun test
 | **Single-source model registry** | `MODEL_NAMES`, `MODEL_COLORS`, `isValidModel` in `lib/models.ts` + `useCopyToClipboard` hook | Adding a model or changing brand colors is a 1-file change — replaces 4× duplicated metadata maps and 3× clipboard boilerplate |
 | **Temporal coupling elimination** | `pickWithHistory` combines pick + state update in one call; `createPicker` wraps it in a stateful factory | Impossible to forget the state update step — callers can't use `diversePick` without also calling `pushRecent` |
 | **Data-driven preset parsing** | Replaced 5-branch `else if` chain with a `PRESET_FLAGS` lookup map | Adding a new preset is a one-line map entry instead of a new branch |
-| **460 tests / 6,530 assertions** | Every generator, every template, every CLI flag, cross-format consistency checks, web-side validation & diversity logic | Not just coverage — tests document *invariants* like "NL and JSON generators stay in sync on the same input" |
+| **501 tests / 6,802 assertions** | Every generator, every template, every CLI flag, cross-format consistency checks, web-side validation & diversity logic | Not just coverage — tests document *invariants* like "NL and JSON generators stay in sync on the same input" |
 
 ## Design Philosophy
 
@@ -592,7 +592,7 @@ fetch → translate → extract patterns → generate images → update JSON
 
 ## Sources & Credit
 
-1,421 of the 1,427 prompts carry a named author, across **374 distinct creators**,
+1,540 of the 1,546 prompts carry a named author, across **428 distinct creators**,
 credited down to the individual handle, surfaced on each card, in the OG image,
 and at [`/sources`](https://prompts.tdotssolutionsz.com/sources) with live repo
 metadata. The counts below are generated from the shipped data, not maintained
@@ -600,13 +600,13 @@ by hand:
 
 | Prompts | Upstream | Licence |
 |--------:|----------|---------|
-| 1,180 | [YouMind-OpenLab/awesome-nano-banana-pro-prompts](https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| 1,299 | [YouMind-OpenLab/awesome-nano-banana-pro-prompts](https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 | 76 | [ImgEdify/Awesome-GPT4o-Image-Prompts](https://github.com/ImgEdify/Awesome-GPT4o-Image-Prompts) | MIT |
 | 69 | [ZeroLu/awesome-gpt-image](https://github.com/ZeroLu/awesome-gpt-image) | MIT |
 | 52 | [Anil-matcha/Awesome-GPT-Image-2-API-Prompts](https://github.com/Anil-matcha/Awesome-GPT-Image-2-API-Prompts) | No stated licence |
 | 50 | [songguoxs/awesome-video-prompts](https://github.com/songguoxs/awesome-video-prompts) | No stated licence |
 
-**CC BY 4.0 notice.** The 1,180 prompts from YouMind-OpenLab are used under
+**CC BY 4.0 notice.** The 1,299 prompts from YouMind-OpenLab are used under
 [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/),
 which permits commercial use with attribution. **Changes were made:** titles
 were translated from Chinese to English, 240 style patterns were extracted from

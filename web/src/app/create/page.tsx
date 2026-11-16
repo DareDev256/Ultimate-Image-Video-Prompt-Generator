@@ -46,8 +46,8 @@ const models: ModelOption[] = [
     icon: <Sparkles className="w-8 h-8" />,
     description: 'Gemini 3 Pro Image — text-in-image SOTA + free tier',
     features: ['4K capable', 'World-knowledge grounded', '25/day free'],
-    color: '#3a5cff', // cobalt — primary
-    glowColor: 'rgba(58, 92, 255, 0.32)',
+    color: '#ff2d7a', // hot pink — primary
+    glowColor: 'rgba(255, 45, 122, 0.32)',
     badge: 'NEW',
   },
   {
@@ -496,7 +496,7 @@ export default function CreatePage() {
                     className="rounded px-1.5 py-0.5 text-[9px] uppercase tracking-[0.2em] font-bold"
                     style={{
                       background: model.color,
-                      color: '#0a0a12',
+                      color: '#000000',
                       fontFamily: 'var(--font-display)',
                     }}
                   >

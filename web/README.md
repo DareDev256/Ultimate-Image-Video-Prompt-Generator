@@ -2,11 +2,11 @@
 
 A free, open-source web app for crafting AI image prompts with a guided wizard interface. Generate images with Google Gemini for free - no API key required!
 
-**[Try it Live](https://web-ten-vert-46.vercel.app)** | [Report Bug](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues) | [Request Feature](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues)
+**[Try it Live](https://prompts.tdotssolutionsz.com)** | [Report Bug](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues) | [Request Feature](https://github.com/DareDev256/Ultimate-Image-Video-Prompt-Generator/issues)
 
 ## What is This?
 
-This app helps you create better prompts for AI image (and video) generators. Instead of staring at a blank text box, you're guided through **13 categories** of curated suggestions — for example:
+This app helps you create better prompts for AI image (and video) generators. Instead of staring at a blank text box, you're guided through **11 categories** of curated suggestions — for example:
 
 - **Subject** - What to generate (person, landscape, object, etc.)
 - **Style** - Art style (photorealistic, anime, oil painting, etc.)
@@ -27,12 +27,12 @@ Then it combines your choices into an optimized prompt and generates the image (
 | Daily Limit | 25 generations per user |
 | Model | Google Gemini (gemini-3-pro-image-preview) |
 | Reset Time | Midnight (your local time) |
-| Rate Limiting | IP-based (no account needed) |
+| Rate Limiting | Per visitor IP, plus a daily ceiling per server and an off switch (`FREE_TIER_GLOBAL_DAILY`, `FREE_TIER_ENABLED`) |
 | Cost to You | Free |
 
 ### Why Free?
 
-I'm covering the API costs from my own pocket to let people try AI image generation without barriers. The Gemini API is affordable (~$0.03 per image), so offering 25 free generations daily is sustainable for a hobby project.
+I'm covering the API costs from my own pocket to let people try AI image generation without barriers. Every image is billed on the Gemini API, so the free tier has a per-visitor limit and a daily ceiling.
 
 For unlimited generations, you can add your own API keys in Settings.
 
@@ -40,19 +40,24 @@ For unlimited generations, you can add your own API keys in Settings.
 
 - **Guided Wizard** - Step-by-step prompt building
 - **Quick Mode** - Describe your idea, AI generates the full prompt
-- **Inspiration Gallery** - 1000+ curated prompts from the community
-- **30 Curated Examples** - Hand-picked showcase with generated images
-- **113 AI-Generated Examples** - Diverse prompts with sample outputs
+- **Swipe feed** - The phone home page: one real output per screen, the phrase that made it highlighted, remix it in three taps
+- **Blur Face in Photo** - Blur or pixelate faces and crop a photo in the browser; nothing is uploaded
+- **Inspiration Gallery** - The full prompt library from five open-source repos, every prompt credited
+- **AI-Generated Examples** - Showcase prompts with the image each one made
 - **9 Models** - Nano Banana (Gemini), GPT-Image-2, Kling, Seedance, Veo, Wan, HunyuanVideo, LTX-Video, and Mochi
 - **No Account Required** - Everything stored locally in your browser
-- **Dark Mode** - Cyberpunk-inspired UI
+- **Night look** - True black, white type, one hot pink accent
 
 ## Inspiration Data Attribution
 
 The inspiration gallery includes prompts curated by:
 
-- **[songguoxs/ai-image-prompt-ideas](https://github.com/songguoxs/ai-image-prompt-ideas)** - Image prompt collection
-- **[Sora Prompts](https://github.com/youmind-com/sora-prompts)** - Video prompt collection
+- **[YouMind-OpenLab/awesome-nano-banana-pro-prompts](https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts)** - Nano Banana Pro prompts ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/))
+- **[ZeroLu/awesome-gpt-image](https://github.com/ZeroLu/awesome-gpt-image)** and **[ImgEdify/Awesome-GPT4o-Image-Prompts](https://github.com/ImgEdify/Awesome-GPT4o-Image-Prompts)** - GPT image prompts (MIT)
+- **[Anil-matcha/Awesome-GPT-Image-2-API-Prompts](https://github.com/Anil-matcha/Awesome-GPT-Image-2-API-Prompts)** - GPT-Image-2 prompts (no licence: shown with credit only)
+- **[songguoxs/awesome-video-prompts](https://github.com/songguoxs/awesome-video-prompts)** - Video prompts (no licence: shown with credit only)
+
+Live counts and each repo's licence are on the [Sources page](https://prompts.tdotssolutionsz.com/sources).
 
 Thank you to these open-source contributors!
 
@@ -116,7 +121,7 @@ Users can bring their own keys for unlimited generations:
 
 | Model | Provider | Cost | Get Key |
 |-------|----------|------|---------|
-| Nano Banana | Google Gemini | ~$0.03/image | [ai.google.dev](https://ai.google.dev/tutorials/setup) |
+| Nano Banana | Google Gemini | Per image, see [Gemini pricing](https://ai.google.dev/gemini-api/docs/pricing) | [ai.google.dev](https://ai.google.dev/tutorials/setup) |
 | GPT-Image-2 | OpenAI | ~$0.04-0.12/image | [platform.openai.com](https://platform.openai.com/api-keys) |
 | Kling | Kling AI | Varies | [klingai.com](https://klingai.com) |
 | Seedance · Veo · Wan · Hunyuan · LTX · Mochi | via [fal.ai](https://fal.ai) | Varies | [fal.ai/dashboard/keys](https://fal.ai/dashboard/keys) |

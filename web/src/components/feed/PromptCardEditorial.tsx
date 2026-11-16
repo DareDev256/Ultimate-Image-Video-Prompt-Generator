@@ -108,7 +108,7 @@ export function PromptCardEditorial({ item, variant = 'standard', index }: Promp
         <div
           className="absolute top-3 right-3 rounded-full border px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] backdrop-blur"
           style={{
-            background: 'rgba(10,10,18,0.7)',
+            background: 'rgba(0,0,0,0.7)',
             borderColor: `${accentColor}66`,
             color: accentColor,
             fontFamily: 'var(--font-mono)',
@@ -122,7 +122,7 @@ export function PromptCardEditorial({ item, variant = 'standard', index }: Promp
         <div
           className="absolute bottom-3 left-3 flex items-center gap-2 rounded-md border px-2 py-1 text-[10px] backdrop-blur"
           style={{
-            background: 'rgba(10,10,18,0.65)',
+            background: 'rgba(0,0,0,0.65)',
             borderColor: 'var(--color-border)',
             fontFamily: 'var(--font-mono)',
           }}
@@ -222,7 +222,7 @@ export function PromptCardEditorial({ item, variant = 'standard', index }: Promp
               className="ml-auto flex items-center gap-1.5 rounded px-2.5 py-1 text-[10px] uppercase tracking-wider transition-all"
               style={{
                 background: accentColor,
-                color: '#0a0a12',
+                color: '#000000',
                 fontFamily: 'var(--font-display)',
                 fontWeight: 700,
                 boxShadow: `0 0 14px ${accentColor}66`,

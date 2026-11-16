@@ -4,7 +4,10 @@ import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
+import { SITE_URL } from '@/lib/site-config';
 import {
+  EyeOff,
   Heart,
   Wrench,
   Shuffle,
@@ -125,7 +128,7 @@ export default function ResultPage() {
       ? result.prompt.substring(0, 100) + '...'
       : result.prompt;
     const text = `Just generated this with AI! 🎨\n\nPrompt: "${promptSnippet}"\n\nMade with Ultimate Image Generator`;
-    const url = 'https://web-ten-vert-46.vercel.app';
+    const url = SITE_URL;
     window.open(
       `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
       '_blank'
@@ -135,7 +138,7 @@ export default function ResultPage() {
   const handleShareToReddit = () => {
     if (!result) return;
     const title = `AI Generated Image - ${MODEL_NAMES[modelId]}`;
-    const url = 'https://web-ten-vert-46.vercel.app';
+    const url = SITE_URL;
     window.open(
       `https://reddit.com/submit?title=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`,
       '_blank'
@@ -143,7 +146,7 @@ export default function ResultPage() {
   };
 
   const handleCopyLink = () => {
-    copyLink('https://web-ten-vert-46.vercel.app');
+    copyLink(SITE_URL);
   };
 
   const handleStartFresh = () => {
@@ -257,6 +260,16 @@ export default function ResultPage() {
 
             {/* Quick actions overlay */}
             <div className="absolute top-4 right-4 flex gap-2">
+              {!isVideo && (
+                <Link
+                  href="/blur-face-in-photo?from=result"
+                  className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-black/60 px-4 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-black/80"
+                  title="Blur faces, pixelate or crop this image on your device"
+                >
+                  <EyeOff size={18} />
+                  Blur
+                </Link>
+              )}
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}

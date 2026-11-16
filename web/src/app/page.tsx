@@ -3,6 +3,8 @@ import { ArrowRight } from 'lucide-react';
 import { HeroShowreel } from '@/components/hero/HeroShowreel';
 import { LandingSections } from '@/components/landing/LandingSections';
 import { loadImagePrompts, loadVideoPrompts } from '@/lib/server/prompt-data';
+import { loadSwipeCards } from '@/lib/server/swipe-cards';
+import { SwipeFeed } from '@/components/swipe/SwipeFeed';
 
 /**
  * Landing — editorial reset (v3.0 wagyu pass).
@@ -16,6 +18,13 @@ export default function LandingPage() {
   const promptCount = loadImagePrompts().length + loadVideoPrompts().length;
   return (
     <main className="relative min-h-screen">
+      {/* Phones get the swipe feed as the home page (plan A1, 2026-11-16):
+          one card per screen instead of 7 screens of scroll. Desktop keeps
+          the 3D showreel; the cloud only mounts when it is visible. */}
+      <div className="md:hidden">
+        <SwipeFeed cards={loadSwipeCards()} totalPrompts={promptCount} />
+      </div>
+      <div className="hidden md:block">
       <HeroShowreel
         variant="landing"
         eyebrow={`Nine engines · ${promptCount.toLocaleString('en-US')} prompts · zero blank boxes`}
@@ -34,6 +43,9 @@ export default function LandingPage() {
         </Link>
 
         {/* Secondary CTAs */}
+        <Link href="/swipe" className="btn btn-ghost">
+          Swipe and learn
+        </Link>
         <Link href="/feed" className="btn btn-ghost">
           The feed
         </Link>
@@ -43,6 +55,7 @@ export default function LandingPage() {
       </HeroShowreel>
 
       <LandingSections />
+      </div>
     </main>
   );
 }

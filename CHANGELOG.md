@@ -1,5 +1,30 @@
 # Changelog
 
+## [2.3.0] - 2026-11-16
+
+Plan A1 from the Fable 5.2 review: swipe first, Night colours, an on-device photo editor last.
+
+### Added
+- **Swipe feed** as the phone home page (and `/swipe` on desktop): one real Nano Banana Pro output per screen, the one phrase in its prompt that made it highlighted, a one-line why, and the creator credited. 73 cards; the copy lives in `web/src/data/feed-cards.json`, joined to the showcase on the server (`web/src/lib/server/swipe-cards.ts`, 5 tests). Cards whose image shows a real public figure, needs an uploaded reference photo, or is suggestive are held back (30, each with a reason in the file).
+- **Remix in three taps** from any card: subject, light, lens, then "Make it with Nano Banana" hands the prompt to the free-tier generate flow, or Copy.
+- First-visit onboarding (one screen, one button), keyboard arrows and j/k on desktop, 44px targets, safe-area insets.
+- **Blur Face in Photo** (`/blur-face-in-photo`, name from autocomplete demand): see the editor notes below.
+- The generate result has a **Blur** action that opens the image in the editor.
+- `/llms.txt` is now a route that counts prompts, cards, categories, posts and showcase entries from the data, with the library's fetch date.
+- Each source's licence on `/sources` (CC BY 4.0 links its licence, as the licence requires).
+
+### Changed
+- **Night colours**: true black ground, white type, hot pink `#ff2d7a` accent. The cream type and cobalt accent are retired; navy-tinted panels are true black.
+- The desktop home keeps the 3D showreel and gains a "Swipe and learn" button. The 3D cloud only mounts while it is visible, so phones no longer load three.js for a hidden hero.
+- **Library refreshed**: 119 new Nano Banana Pro prompts from YouMind-OpenLab (all published in 2026), 1,496 image + 50 video = 1,546.
+- Typed counts removed: the site description, the feed's meta description and llms.txt said 1,377 or "1,300+"; they are counted from the data now or carry no number.
+
+### Fixed
+- **10 showcase images were attached to two different prompts each**, so the showcase showed at least 10 wrong pairings. Each image now sits only under the prompt it was made from (checked by eye), the other 10 entries are removed (103 remain), and the 10 prompts that shared an id got unique ids (10121 to 10130).
+- Root cause: `scripts/fetch-nano-banana-prompts.ts` numbered prompts `10000 + No.` from the upstream README, which lists newest first, so every refresh reused taken ids (today's refresh would have made 120 more duplicates). Merging now goes through `scripts/lib/merge-prompts.ts`: existing prompts are skipped by text or YouMind id, new ones get the next free id, and the write refuses on any duplicate id or slug (3 tests, both guards mutation-checked). The fetcher also no longer overwrites `meta.json`'s source list with two of the five repos.
+- `web/README.md` pointed at an old Vercel URL, said 13 categories and ~$0.03 an image, and credited the wrong repos.
+- The generate result's share buttons (X, Facebook, copy link) and the showcase text files linked the old `web-ten-vert-46.vercel.app` address; they use the site's own domain now.
+
 ## [2.2.1] - 2026-11-16
 
 ### Fixed

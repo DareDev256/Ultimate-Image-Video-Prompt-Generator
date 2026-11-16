@@ -498,7 +498,7 @@ export default function AnatomyPage() {
             style={{
               fontFamily: 'var(--font-body)',
               fontSize: '1.0625rem',
-              color: 'rgba(244, 239, 230, 0.78)',
+              color: 'rgba(255, 255, 255, 0.78)',
               lineHeight: 1.6,
             }}
           >
@@ -526,7 +526,7 @@ export default function AnatomyPage() {
               style={{
                 background: 'transparent',
                 color: 'var(--paper)',
-                border: '1px solid rgba(244, 239, 230, 0.32)',
+                border: '1px solid rgba(255, 255, 255, 0.32)',
                 fontFamily: 'var(--font-display)',
                 borderRadius: 2,
               }}

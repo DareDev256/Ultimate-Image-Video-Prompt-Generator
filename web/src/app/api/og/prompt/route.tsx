@@ -67,7 +67,7 @@ export async function GET(req: NextRequest) {
           display: 'flex',
           width: '100%',
           height: '100%',
-          background: '#0a0a12',
+          background: '#000000',
           position: 'relative',
         }}
       >
@@ -89,7 +89,7 @@ export async function GET(req: NextRequest) {
               display: 'flex',
               width: '55%',
               height: '100%',
-              background: `linear-gradient(135deg, ${accent}33 0%, #0a0a12 60%)`,
+              background: `linear-gradient(135deg, ${accent}33 0%, #000000 60%)`,
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: 32,
@@ -111,7 +111,7 @@ export async function GET(req: NextRequest) {
             width: '45%',
             height: '100%',
             padding: '48px 44px',
-            background: '#0a0a12',
+            background: '#000000',
             color: 'white',
             position: 'relative',
             justifyContent: 'space-between',
@@ -258,7 +258,7 @@ function fallbackCard(title: string, subtitle: string) {
           width: '100%',
           height: '100%',
           background:
-            'radial-gradient(ellipse at 25% 30%, rgba(0,212,255,0.18) 0%, transparent 55%), radial-gradient(ellipse at 80% 70%, rgba(255,0,170,0.18) 0%, transparent 55%), #0a0a12',
+            'radial-gradient(ellipse at 25% 30%, rgba(0,212,255,0.18) 0%, transparent 55%), radial-gradient(ellipse at 80% 70%, rgba(255,0,170,0.18) 0%, transparent 55%), #000000',
           color: '#ffffff',
           padding: 60,
           textAlign: 'center',

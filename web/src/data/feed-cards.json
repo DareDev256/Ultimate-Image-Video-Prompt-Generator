@@ -1,0 +1,955 @@
+[
+  {
+    "id": "gen-109",
+    "ing": "Weather",
+    "hit": "heavy acid rain reflecting intense pink, blue, purple, cyan neon lights on wet streets",
+    "why": "Wet streets double every light, so one weather phrase buys the whole palette.",
+    "subj": [
+      "Yonge Street taxi at midnight",
+      "Tokyo ramen alley, two cyclists",
+      "Kensington Market neon fruit stalls"
+    ]
+  },
+  {
+    "id": "gen-097",
+    "ing": "Light",
+    "hit": "powerful top key light, sharp rim lights tracing the can edges",
+    "why": "Name each light and the product gets edges. \"Dramatic lighting\" alone gives mush.",
+    "subj": [
+      "matte black sneaker on ice",
+      "gold perfume bottle in smoke",
+      "tall pint of craft beer"
+    ]
+  },
+  {
+    "id": "gen-012",
+    "ing": "Era",
+    "hit": "A low-resolution digital photo taken on a 2005 Sony CyberShot",
+    "why": "Name a real camera and year and you get its flash, noise and colour for free.",
+    "subj": [
+      "friends at a Scarborough arcade",
+      "teens on a school bus",
+      "birthday party in a basement"
+    ]
+  },
+  {
+    "id": "gen-057",
+    "ing": "Camera",
+    "hit": "First-person passenger-seat perspective",
+    "why": "Say where the camera sits and the picture reads as shot, not generated.",
+    "subj": [
+      "GO Train window along Lake Ontario",
+      "streetcar window on Queen East",
+      "ferry window to the Toronto Islands"
+    ]
+  },
+  {
+    "id": "gen-110",
+    "ing": "Material",
+    "hit": "ultra-realistic knitted texture with lifelike proportions and expressive facial details",
+    "why": "Pair a handmade material with lifelike proportions and the yarn reads real, not flat.",
+    "subj": [
+      "crocheted grandmother in a cardigan",
+      "knitted barber with a tiny razor",
+      "yarn hockey goalie in full pads"
+    ]
+  },
+  {
+    "id": "gen-103",
+    "ing": "Colour",
+    "hit": "contrast between warm interior tones and cold blue snowy exterior",
+    "why": "Set one warm colour against one cold colour and the product becomes the focus.",
+    "subj": [
+      "coffee mug, snowy window",
+      "lit candle by a rainy window",
+      "orange juice, frosty patio door"
+    ]
+  },
+  {
+    "id": "gen-099",
+    "ing": "Layout",
+    "hit": "exploded view with inner mechanics revealed, outer shell hovering above core, micro screws and components suspended",
+    "why": "Describe the parts as floating layers and any product becomes a clean exploded diagram.",
+    "subj": [
+      "wireless earbuds case",
+      "mechanical keyboard",
+      "espresso machine"
+    ]
+  },
+  {
+    "id": "gen-010",
+    "ing": "Style",
+    "hit": "A Japanese Edo-period Ukiyo-e woodblock print",
+    "why": "A named print tradition brings its line work, palette and paper texture with it.",
+    "subj": [
+      "hockey night at the arena",
+      "TTC subway rush hour",
+      "CN Tower fireworks night"
+    ]
+  },
+  {
+    "id": "gen-079",
+    "ing": "Template",
+    "hit": "Flavor theme: 【{argument name=\"flavor theme\" default=\"Strawberry\"}】",
+    "why": "One slot for the flavour rebuilds the whole poster, so you change a word and keep the look.",
+    "subj": [
+      "Mango lassi",
+      "Pistachio and rose",
+      "Maple butter tart"
+    ]
+  },
+  {
+    "id": "gen-112",
+    "ing": "Composition",
+    "hit": "oversized DJ setup",
+    "why": "A scale word like oversized turns an ordinary object into a whole world.",
+    "subj": [
+      "oversized ramen bowl food market",
+      "giant pizza slice skate park",
+      "oversized coffee cup cafe"
+    ]
+  },
+  {
+    "id": "gen-014",
+    "ing": "Light",
+    "hit": "warm tungsten room light from above/side creating soft golden highlights on hair curls and skin",
+    "why": "Say where a warm bulb sits and it paints gold highlights exactly where you want them.",
+    "subj": [
+      "friend reading on a bed",
+      "cousin on a fire escape",
+      "teen at a night desk"
+    ]
+  },
+  {
+    "id": "gen-003",
+    "ing": "Style",
+    "hit": "watercolor style, on which all federal states are labeled in ballpoint pen",
+    "why": "Mix two media in one sentence, paint for the map and pen for labels, and it feels handmade.",
+    "subj": [
+      "Ontario map with city labels",
+      "Italy regions in watercolour",
+      "Toronto neighbourhoods labeled in pen"
+    ]
+  },
+  {
+    "id": "gen-030",
+    "ing": "Light",
+    "hit": "bathed in bright, harsh sunlight, creating strong shadows and high contrast",
+    "why": "Harsh midday sun gives hard shadows and punchy contrast, the look of an old street photo.",
+    "subj": [
+      "kid with an ice cream cone",
+      "man at a corner store door",
+      "girl at a basketball court"
+    ]
+  },
+  {
+    "id": "gen-039",
+    "ing": "Layout",
+    "hit": "Separate each ingredient vertically one by one, keep perfect alignment, spacing, and scale.",
+    "why": "Spacing and alignment words turn a photo of food into a tidy exploded diagram.",
+    "subj": [
+      "a poutine",
+      "a breakfast sandwich",
+      "a layered cake slice"
+    ]
+  },
+  {
+    "id": "gen-034",
+    "ing": "Light",
+    "hit": "soft diffused studio lighting",
+    "why": "Say diffused and the shadows go smooth, which is why studio portraits look clean.",
+    "subj": [
+      "barista in a studio portrait",
+      "dad in a plaid shirt, studio",
+      "grandma laughing on a plain backdrop"
+    ]
+  },
+  {
+    "id": "gen-008",
+    "ing": "Colour",
+    "hit": "Soft macaron color palette",
+    "why": "A food word for the palette gives you a whole set of soft pastels in one phrase.",
+    "subj": [
+      "sleepy panda on a pillow",
+      "kitten curled on a moon",
+      "ducklings in teacups"
+    ]
+  },
+  {
+    "id": "gen-041",
+    "ing": "Light",
+    "hit": "strong chiaroscuro lighting to create a high-fashion editorial ambiance",
+    "why": "One art term for strong light and dark contrast sets the whole drama.",
+    "subj": [
+      "tiny hockey arena stages",
+      "miniature night market",
+      "doll-sized jazz club"
+    ]
+  },
+  {
+    "id": "gen-038",
+    "ing": "Style",
+    "hit": "ultra-high-fidelity 3D isometric miniature models",
+    "why": "Isometric plus miniature gives collectible figures on a clean base.",
+    "subj": [
+      "Toronto hockey mascots",
+      "kitchen brigade chefs",
+      "Caribbean carnival dancers"
+    ]
+  },
+  {
+    "id": "gen-052",
+    "ing": "Light",
+    "hit": "Esports gamer, premium style portrait, fiery glow lighting",
+    "why": "Name the glow colour and it tints the face and the gradient behind it.",
+    "subj": [
+      "chess streamer with teal glow",
+      "DJ in a headset, magenta glow",
+      "boxer wrapping hands, red glow"
+    ]
+  },
+  {
+    "id": "gen-054",
+    "ing": "Layout",
+    "hit": "\"layout\": \"four-panel collage\"",
+    "why": "A four-panel layout gives you a whole photoshoot from one prompt.",
+    "subj": [
+      "chef at the pass, four angles",
+      "carpenter at a bench, four shots",
+      "florist at a stall, four views"
+    ]
+  },
+  {
+    "id": "gen-055",
+    "ing": "Light",
+    "hit": "Golden hour / sunset",
+    "why": "Name the hour and the light does the grading: warm, low and flattering.",
+    "subj": [
+      "baker at the counter at sunrise",
+      "tailor in a shop window",
+      "cyclist on the Don Valley trail"
+    ]
+  },
+  {
+    "id": "gen-009",
+    "ing": "Colour",
+    "hit": "Mirror selfie in an otaku-style computer corner, blue color tone",
+    "why": "Name one tone for the whole room and every prop falls in line behind it.",
+    "subj": [
+      "green-lit streamer desk corner",
+      "purple music studio nook",
+      "orange-lit workshop bench"
+    ]
+  },
+  {
+    "id": "gen-040",
+    "ing": "Style",
+    "hit": "miniature architectural model style",
+    "why": "Call it an architect's model and you get rounded edges, soft light and a tidy base.",
+    "subj": [
+      "corner bakery cutaway",
+      "tiny two-floor library",
+      "skate shop with a mezzanine"
+    ]
+  },
+  {
+    "id": "gen-056",
+    "ing": "Light",
+    "hit": "Warm neon ambient + Direct Phone Flash",
+    "why": "Mix a neon glow with a phone flash and a night shot looks candid.",
+    "subj": [
+      "friends outside a bowling alley",
+      "teen with fries, food court",
+      "couple at an arcade"
+    ]
+  },
+  {
+    "id": "gen-061",
+    "ing": "Layout",
+    "hit": "Left-to-right reading, bottom-to-top reading composition is forbidden",
+    "why": "Forbid what you do not want and the layout flips to the format you do.",
+    "subj": [
+      "manga page read right to left",
+      "vertical webtoon strip",
+      "four-panel family comic"
+    ]
+  },
+  {
+    "id": "gen-027",
+    "ing": "Colour",
+    "hit": "warm tones, cozy evening palette",
+    "why": "Ask for a palette by mood and the whole frame warms up to match.",
+    "subj": [
+      "ramen date in a corner booth",
+      "pizza night at home",
+      "jazz bar with a cocktail"
+    ]
+  },
+  {
+    "id": "gen-042",
+    "ing": "Style",
+    "hit": "The typed text physically rises from the page, forming a 3D topographical landscape",
+    "why": "Say how the words transform and the page turns into terrain you can look into.",
+    "subj": [
+      "a love letter as a valley",
+      "a recipe card growing into hills",
+      "a shopping list as a city"
+    ]
+  },
+  {
+    "id": "gen-059",
+    "ing": "Camera",
+    "hit": "Standing, one arm extended holding camera, other hand resting on hip",
+    "why": "Describe the arm holding the phone and you get a real selfie angle and framing.",
+    "subj": [
+      "nurse selfie at shift change",
+      "firefighter selfie by the truck",
+      "chef selfie in the kitchen"
+    ]
+  },
+  {
+    "id": "gen-076",
+    "ing": "Light",
+    "hit": "Direct on-camera flash look with bright specular highlights and gentle falloff",
+    "why": "Name the flash look and you get that sharp, grainy backstage snapshot feel.",
+    "subj": [
+      "stylist at a clothing rack",
+      "musician in a green room",
+      "florist behind a shop counter"
+    ]
+  },
+  {
+    "id": "gen-083",
+    "ing": "Layout",
+    "hit": "A grid of four high-resolution studio photographs (2x2 layout)",
+    "why": "Ask for a 2x2 grid and you get four poses of one character at once.",
+    "subj": [
+      "four expressions of a chef",
+      "four moods of a barista",
+      "four poses of a skater"
+    ]
+  },
+  {
+    "id": "gen-026",
+    "ing": "Mood",
+    "hit": "She's not smiling; she's intensely focused on the phone screen's preview.",
+    "why": "Tell the model what the face is doing and you set the mood, not just the outfit.",
+    "subj": [
+      "chef checking plating on a phone",
+      "runner checking a watch",
+      "DJ checking a setlist backstage"
+    ]
+  },
+  {
+    "id": "gen-058",
+    "ing": "Style",
+    "hit": "Photorealistic female subject seamlessly blended with high-quality animated characters.",
+    "why": "Say real person plus animated characters and the model blends both worlds in one shot.",
+    "subj": [
+      "woman, cartoon fox, streetcar stop",
+      "man with a cartoon dog",
+      "kids with cartoon dragons downtown"
+    ]
+  },
+  {
+    "id": "gen-064",
+    "ing": "Camera",
+    "hit": "Ground-level view. Bright, daytime, blue skies.",
+    "why": "Ground-level view puts you on the sidewalk with the crowd, so the monster feels huge.",
+    "subj": [
+      "giant raccoon at the CN Tower",
+      "kaiju duck at Niagara Falls",
+      "giant hamster at Union Station"
+    ]
+  },
+  {
+    "id": "gen-070",
+    "ing": "Colour",
+    "hit": "Flat, block colors with no gradients.",
+    "why": "Ban gradients and the colours go flat and bold, the way old comics are printed.",
+    "subj": [
+      "moustached man on a patio",
+      "woman with an espresso",
+      "lifeguard on a tower"
+    ]
+  },
+  {
+    "id": "gen-089",
+    "ing": "Layout",
+    "hit": "Products arranged in triangular hierarchy",
+    "why": "Name the arrangement shape and the products fall into a balanced set with a hero.",
+    "subj": [
+      "jacket, gift box and bag",
+      "sneaker, box and shopping bag",
+      "tea set, tin and scarf"
+    ]
+  },
+  {
+    "id": "gen-094",
+    "ing": "Material",
+    "hit": "Flat, rectangular paper wrappers",
+    "why": "Say the wrapper material and shape and the packaging looks real, not blobby.",
+    "subj": [
+      "four tea bags in paper sleeves",
+      "four wrapped soap bars",
+      "four granola bars"
+    ]
+  },
+  {
+    "id": "gen-095",
+    "ing": "Light",
+    "hit": "Warm morning sunlight enters from the left at a low angle, creating soft shadows and tactile fabric highlights",
+    "why": "Give the light a direction and angle and soft shadows and fabric texture show up.",
+    "subj": [
+      "bag of Ethiopian coffee beans",
+      "sourdough loaf on a counter",
+      "tea tin on a window shelf"
+    ]
+  },
+  {
+    "id": "gen-005",
+    "ing": "Era",
+    "hit": "styled after late 1800s United States Patent Office filings",
+    "why": "Point at a real document type from an era and the paper, drawings and stamps follow.",
+    "subj": [
+      "a self-folding umbrella",
+      "a bicycle bell for cats",
+      "a pocket espresso press"
+    ]
+  },
+  {
+    "id": "gen-044",
+    "ing": "Detail",
+    "hit": "Caustics, refraction of light through the clear stream, wet darkening effect on the wood, small splashing droplets",
+    "why": "List the physics you can see and a spill looks wet instead of painted.",
+    "subj": [
+      "milk spilled on slate",
+      "paint pouring off a canvas",
+      "honey dripping on toast"
+    ]
+  },
+  {
+    "id": "gen-051",
+    "ing": "Weather",
+    "hit": "overcast to soft natural daylight",
+    "why": "Overcast sky is a free softbox, so faces and fabric look natural.",
+    "subj": [
+      "street musician on a gray morning",
+      "mechanic teaching in a garage",
+      "farmer in a foggy field"
+    ]
+  },
+  {
+    "id": "gen-060",
+    "ing": "Composition",
+    "hit": "FOREGROUND: A heavy wrench and blurred blueprints on a workbench in the corner. Creates depth.",
+    "why": "Put a blurred object in front of the subject and the scene gains depth.",
+    "subj": [
+      "mascot at a bakery counter",
+      "robot fixing a bike",
+      "fox chef behind a blurred whisk"
+    ]
+  },
+  {
+    "id": "gen-062",
+    "ing": "Style",
+    "hit": "LEGO miniature diorama",
+    "why": "A toy brand as the style turns any scene into a tiny set built from bricks.",
+    "subj": [
+      "brick-built TTC subway platform",
+      "LEGO farmers market",
+      "LEGO backstage at a concert"
+    ]
+  },
+  {
+    "id": "gen-067",
+    "ing": "Mood",
+    "hit": "a quiet moment that feels remembered rather than photographed",
+    "why": "Describe how a picture should be remembered and you get quiet, muted frames.",
+    "subj": [
+      "kid at a school bus stop",
+      "grandfather on a porch",
+      "runner on an empty field"
+    ]
+  },
+  {
+    "id": "gen-084",
+    "ing": "Camera",
+    "hit": "Seated on a high bar stool, angled with her back three-quarters towards the camera (rear 3/4 view)",
+    "why": "A rear three-quarter view tells the story of the room without showing the face.",
+    "subj": [
+      "man on a pub stool",
+      "woman at a ramen counter",
+      "barber seen from behind mid-haircut"
+    ]
+  },
+  {
+    "id": "gen-088",
+    "ing": "Colour",
+    "hit": "Solid or smooth gradient background, color varies per module",
+    "why": "A soft gradient behind floating food keeps the colours clean and the subject bright.",
+    "subj": [
+      "mango pieces on pale yellow",
+      "blueberries on soft lavender",
+      "mint leaves on light green"
+    ]
+  },
+  {
+    "id": "gen-091",
+    "ing": "Layout",
+    "hit": "Four-panel grid (2x2 collage)",
+    "why": "A grid layout gets you four shots in one picture, handy for a menu or catalogue.",
+    "subj": [
+      "bakery: bread, buns, pies, rolls",
+      "cafe: latte, mug, beans, pastry",
+      "tacos with four fillings"
+    ]
+  },
+  {
+    "id": "gen-098",
+    "ing": "Material",
+    "hit": "matte black metal",
+    "why": "Say the exact finish, matte black metal, and the can stops looking glossy and generic.",
+    "subj": [
+      "matte black coffee tin",
+      "brushed steel water bottle",
+      "frosted glass jam jar"
+    ]
+  },
+  {
+    "id": "gen-100",
+    "ing": "Light",
+    "hit": "dramatic side lighting",
+    "why": "Side light rakes across the chocolate and shows every texture.",
+    "subj": [
+      "croissant tower",
+      "macarons on a stand",
+      "donut stack on a pedestal"
+    ]
+  },
+  {
+    "id": "gen-101",
+    "ing": "Template",
+    "hit": "A {argument name=\"brand name\" default=\"BRAND\"} {argument name=\"product name\" default=\"PRODUCT\"} featuring {argument name=\"packaging details\" default=\"PACKAGING/LOGO DETAILS\"}",
+    "why": "Slots in braces turn one prompt into a template you reuse for every product.",
+    "subj": [
+      "a bottle of hot sauce",
+      "a jar of face cream",
+      "a tin of loose tea"
+    ]
+  },
+  {
+    "id": "gen-029",
+    "ing": "Lens",
+    "hit": "Everything behind her, from the waiter moving about to the soft morning traffic, should fall into a smooth blur",
+    "why": "Ask for a smooth blur behind the subject and a phone shot gets that portrait pop.",
+    "subj": [
+      "man with coffee, Queen West",
+      "cyclist at a Bloor Street light",
+      "student on a Kensington stoop"
+    ]
+  },
+  {
+    "id": "gen-049",
+    "ing": "Text",
+    "hit": "The letters are made of materials from the story (e.g., Driftwood, Stone, Bone).",
+    "why": "Make the letters from the story's own materials and the title joins the scene.",
+    "subj": [
+      "Jaws title in sea foam",
+      "Jungle Book title from vines",
+      "Dune title in sand"
+    ]
+  },
+  {
+    "id": "gen-066",
+    "ing": "Style",
+    "hit": "bold outlines, vibrant colors, dramatic action",
+    "why": "Three style words plus a ban on photos lock the whole page into print comic art.",
+    "subj": [
+      "grocery hero vs shopping cart",
+      "TTC conductor hero in four panels",
+      "chef vs a giant pancake"
+    ]
+  },
+  {
+    "id": "gen-071",
+    "ing": "Weather",
+    "hit": "in the midst of a heavy downpour at night",
+    "why": "Rain plus night makes water flash on every surface, so flames pop against the dark.",
+    "subj": [
+      "archer on a stormy rooftop",
+      "fencer in a rain-lit courtyard",
+      "pitcher in stadium rain"
+    ]
+  },
+  {
+    "id": "gen-086",
+    "ing": "Composition",
+    "hit": "one gloved hand reaching toward the lens creating depth",
+    "why": "A hand reaching at the lens gives instant foreground depth in a studio portrait.",
+    "subj": [
+      "dancer reaching to the camera",
+      "chef offering a plate",
+      "kid reaching with a sparkler"
+    ]
+  },
+  {
+    "id": "gen-087",
+    "ing": "Camera",
+    "hit": "Frozen mid-air action, ingredients suspended",
+    "why": "Ask for frozen action and the ingredients hang in the air like a high-speed photo.",
+    "subj": [
+      "falling pasta and parmesan",
+      "orange slices and splashing juice",
+      "peppers and chilis mid-toss"
+    ]
+  },
+  {
+    "id": "gen-090",
+    "ing": "Colour",
+    "hit": "deep velvety black",
+    "why": "Deep black behind warm browns makes the splash glow like a spotlight.",
+    "subj": [
+      "orange juice splash and citrus",
+      "red wine and cherries",
+      "green matcha and mint"
+    ]
+  },
+  {
+    "id": "gen-092",
+    "ing": "Layout",
+    "hit": "Irregular grid (1+2) - large hero left, two supporting images stacked right",
+    "why": "Spell out one big cell plus two small ones and the grid reads as a magazine spread.",
+    "subj": [
+      "running shoe campaign",
+      "headphones brand page",
+      "perfume bottle spread"
+    ]
+  },
+  {
+    "id": "gen-093",
+    "ing": "Mood",
+    "hit": "natural origin story, fresh and organic aesthetic, ingredient transparency",
+    "why": "Show raw ingredients around the product and it feels natural before anyone reads the label.",
+    "subj": [
+      "hot sauce with chilies and garlic",
+      "face cream with aloe and cucumber",
+      "honey jar with wildflowers"
+    ]
+  },
+  {
+    "id": "gen-096",
+    "ing": "Detail",
+    "hit": "Steam and mist curling around the bottle",
+    "why": "Add small extras like steam and mist and a plain bottle gets atmosphere.",
+    "subj": [
+      "cold brew bottle in smoke",
+      "hot sauce bottle with steam",
+      "gin bottle in frosty mist"
+    ]
+  },
+  {
+    "id": "gen-104",
+    "ing": "Light",
+    "hit": "Golden hour sunlight streams through floor-to-ceiling windows",
+    "why": "Low sun through big windows puts a warm glow on every surface.",
+    "subj": [
+      "plant-based gadgets in a greenhouse",
+      "solar speakers in a rooftop garden",
+      "algae lamps in a library"
+    ]
+  },
+  {
+    "id": "gen-105",
+    "ing": "Era",
+    "hit": "2000’s character design",
+    "why": "That is the whole prompt. An era plus a noun is a full style.",
+    "subj": [
+      "2000's skater character",
+      "2000's cartoon sidekick",
+      "2000's fantasy knight"
+    ]
+  },
+  {
+    "id": "gen-108",
+    "ing": "Template",
+    "hit": "A clean, minimal 3D isometric diorama of a {argument name=\"exhibition type\" default=\"[EXHIBITION TYPE]\"}",
+    "why": "Put the subject in a slot and the same isometric look works for any exhibit.",
+    "subj": [
+      "a record store",
+      "a tiny bakery",
+      "a pop-up gallery"
+    ]
+  },
+  {
+    "id": "gen-111",
+    "ing": "Material",
+    "hit": "ultra-detailed felt fibers and fabric textures",
+    "why": "Name the fibres and fabric and you can see wool strands on every surface.",
+    "subj": [
+      "felt astronaut with a felt cat",
+      "felt chef in a felt kitchen",
+      "felt hockey player on felt ice"
+    ]
+  },
+  {
+    "id": "gen-006",
+    "ing": "Style",
+    "hit": "as if a teacher had written it",
+    "why": "Give the style a person to imitate and the handwriting and diagrams come with them.",
+    "subj": [
+      "how TTC fares work",
+      "this week's weather",
+      "how bread rises"
+    ]
+  },
+  {
+    "id": "gen-007",
+    "ing": "Layout",
+    "hit": "Arranged as a loop (ring), with arrows curving clockwise along the circumference",
+    "why": "Say the path shape and the arrows follow it, so a cycle looks like a cycle.",
+    "subj": [
+      "the cycle of learning guitar",
+      "one shift in a bakery",
+      "how a playlist loops all week"
+    ]
+  },
+  {
+    "id": "gen-043",
+    "ing": "Text",
+    "hit": "long, thin, smooth golden lines with rounded corners",
+    "why": "Describe label lines like any other object and the infographic stays neat.",
+    "subj": [
+      "a stacked burger",
+      "a bowl of ramen",
+      "a fruit tart"
+    ]
+  },
+  {
+    "id": "gen-036",
+    "ing": "Layout",
+    "hit": "CRITICAL: The image must be split into 4 distinct quadrants with different visual styles.",
+    "why": "Give each quadrant its own style and one image does four jobs: patent, diagram, render, pitch.",
+    "subj": [
+      "a mug plus a grater",
+      "a backpack plus a speaker",
+      "an umbrella plus a flashlight"
+    ]
+  },
+  {
+    "id": "gen-053",
+    "ing": "Text",
+    "hit": "Use the image as is and fix the garbled text.",
+    "why": "Keep the picture and give the exact words, so only the lettering gets redrawn.",
+    "subj": [
+      "fix a menu board's prices",
+      "correct a poster headline",
+      "relabel a classroom chart"
+    ]
+  },
+  {
+    "id": "gen-037",
+    "ing": "Layout",
+    "hit": "Left section: raw materials in unprocessed state, sourced and labeled, the transformation yet to begin.",
+    "why": "Give the model a grid and it fills it, so the image reads as a designed board.",
+    "subj": [
+      "handmade ceramic mug",
+      "hand-stitched leather wallet",
+      "small-batch hot sauce"
+    ]
+  },
+  {
+    "id": "gen-068",
+    "ing": "Text",
+    "hit": "make them distinct characters (Real, Angel, Demon) while being the same person",
+    "why": "Name each speaker label and the same face takes on three clearly different roles.",
+    "subj": [
+      "three moods of one cat",
+      "Student, Tired and Caffeinated barista",
+      "Calm, Angry and Excited goalie"
+    ]
+  },
+  {
+    "id": "gen-048",
+    "ing": "Layout",
+    "hit": "The right 40% of the screen is empty space for later synthesis of a standing character image.",
+    "why": "Reserve space on purpose and the model leaves a clean hole for your own cutout.",
+    "subj": [
+      "gym class timetable",
+      "podcast episode calendar",
+      "exam study planner"
+    ]
+  },
+  {
+    "id": "gen-113",
+    "ing": "Template",
+    "hit": "Generate {argument name=\"number of icons\" default=\"40\"} {argument name=\"type\" default=\"icons\"}",
+    "why": "Two slots, a count and a type, turn one line into an icon set generator.",
+    "subj": [
+      "12 weather icons",
+      "20 kitchen symbols",
+      "30 transit signs"
+    ]
+  },
+  {
+    "id": "gen-063",
+    "ing": "Layout",
+    "hit": "Display them in a 16-panel screen. The top-left panel should be the original image as is.",
+    "why": "Number the grid and pin cell one to the original, so a sheet of variations stays consistent.",
+    "subj": [
+      "16 poses of a chef character",
+      "16 moods of a mascot",
+      "16 outfits of a game hero"
+    ]
+  },
+  {
+    "id": "gen-001",
+    "skip": true,
+    "skipReason": "Shows a real famous person likeness."
+  },
+  {
+    "id": "gen-021",
+    "skip": true,
+    "skipReason": "Suggestive content, not suited to a public teaching feed."
+  },
+  {
+    "id": "gen-022",
+    "skip": true,
+    "skipReason": "Suggestive content, not suited to a public teaching feed."
+  },
+  {
+    "id": "gen-023",
+    "skip": true,
+    "skipReason": "Real celebrity likeness in the prompt and image."
+  },
+  {
+    "id": "gen-024",
+    "skip": true,
+    "skipReason": "Suggestive content, not suited to a public teaching feed."
+  },
+  {
+    "id": "gen-025",
+    "skip": true,
+    "skipReason": "Prompt is only one line naming the tool; nothing visible to teach."
+  },
+  {
+    "id": "gen-028",
+    "skip": true,
+    "skipReason": "Depends on an uploaded photo of a real person; image shows a real face."
+  },
+  {
+    "id": "gen-031",
+    "skip": true,
+    "skipReason": "Real celebrity likenesses."
+  },
+  {
+    "id": "gen-032",
+    "skip": true,
+    "skipReason": "Celebrity likeness and suggestive content."
+  },
+  {
+    "id": "gen-033",
+    "skip": true,
+    "skipReason": "Real celebrity likeness."
+  },
+  {
+    "id": "gen-035",
+    "skip": true,
+    "skipReason": "Suggestive content, not suited to a public teaching feed."
+  },
+  {
+    "id": "gen-045",
+    "skip": true,
+    "skipReason": "Real athlete likeness."
+  },
+  {
+    "id": "gen-046",
+    "skip": true,
+    "skipReason": "Real celebrity likeness."
+  },
+  {
+    "id": "gen-047",
+    "skip": true,
+    "skipReason": "Real political figure likeness."
+  },
+  {
+    "id": "gen-050",
+    "skip": true,
+    "skipReason": "Prompt says keep face exactly the same, so it depends on an uploaded face photo."
+  },
+  {
+    "id": "gen-065",
+    "skip": true,
+    "skipReason": "Real celebrity likeness."
+  },
+  {
+    "id": "gen-069",
+    "skip": true,
+    "skipReason": "Requires an uploaded reference photo of a real person."
+  },
+  {
+    "id": "gen-072",
+    "skip": true,
+    "skipReason": "Depends on the user profile photo being turned into manga."
+  },
+  {
+    "id": "gen-073",
+    "skip": true,
+    "skipReason": "Suggestive content, not suited to a public teaching feed."
+  },
+  {
+    "id": "gen-074",
+    "skip": true,
+    "skipReason": "Suggestive content, not suited to a public teaching feed."
+  },
+  {
+    "id": "gen-075",
+    "skip": true,
+    "skipReason": "Suggestive content, not suited to a public teaching feed."
+  },
+  {
+    "id": "gen-077",
+    "skip": true,
+    "skipReason": "Suggestive content, not suited to a public teaching feed."
+  },
+  {
+    "id": "gen-078",
+    "skip": true,
+    "skipReason": "Real celebrity likeness."
+  },
+  {
+    "id": "gen-080",
+    "skip": true,
+    "skipReason": "Requires an uploaded reference photo of a real person."
+  },
+  {
+    "id": "gen-081",
+    "skip": true,
+    "skipReason": "Depends on uploaded face references of a real couple."
+  },
+  {
+    "id": "gen-082",
+    "skip": true,
+    "skipReason": "Suggestive content, not suited to a public teaching feed."
+  },
+  {
+    "id": "gen-085",
+    "skip": true,
+    "skipReason": "Requires an uploaded reference photo of a real person."
+  },
+  {
+    "id": "gen-102",
+    "skip": true,
+    "skipReason": "Depends on an uploaded garment photo."
+  },
+  {
+    "id": "gen-106",
+    "skip": true,
+    "skipReason": "Image shows a plain portrait, not the action figure the prompt describes."
+  },
+  {
+    "id": "gen-107",
+    "skip": true,
+    "skipReason": "Depends on an attached character sheet; image does not show the prompt."
+  }
+]

@@ -247,7 +247,7 @@ export function HoloCardCloud({ cardLimit = 110 }: { cardLimit?: number }) {
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}
     >
-      <color attach="background" args={['#060608']} />
+      <color attach="background" args={['#000000']} />
       <TexturedCards specs={specs} />
       <CursorParallax />
       <ScrollDepth />

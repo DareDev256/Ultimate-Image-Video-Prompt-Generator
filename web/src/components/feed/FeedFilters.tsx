@@ -42,7 +42,7 @@ export function FeedFilters({ meta, filters, onFiltersChange, total, sticky = tr
           : 'border-b'
       }
       style={{
-        background: 'rgba(10, 10, 18, 0.85)',
+        background: 'rgba(0, 0, 0, 0.85)',
         borderColor: 'var(--color-border)',
       }}
     >

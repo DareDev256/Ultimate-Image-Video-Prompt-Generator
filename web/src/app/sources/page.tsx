@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, ExternalLink, Star, Database, Github } from 'lucide-react';
 import { buildSourceSummaries, fetchGithubMeta, loadImagePrompts, loadVideoPrompts } from '@/lib/server/prompt-data';
+import { SOURCE_LICENSES, LICENSES_CHECKED } from '@/lib/source-licenses';
 
 export const metadata: Metadata = {
   title: 'Sources & Credit — Ultimate Image & Video Prompt Generator',
@@ -27,7 +28,7 @@ export default async function SourcesPage() {
       {/* Top bar */}
       <div
         className="sticky top-0 z-30 border-b backdrop-blur-md"
-        style={{ background: 'rgba(10,10,18,0.85)', borderColor: 'var(--color-border)' }}
+        style={{ background: 'rgba(0,0,0,0.85)', borderColor: 'var(--color-border)' }}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-12">
           <Link
@@ -222,6 +223,26 @@ export default async function SourcesPage() {
                     {stars !== null && (
                       <Stat label="Stars" value={formatStars(stars)} icon={Star} />
                     )}
+                    {(() => {
+                      const lic = SOURCE_LICENSES[source.repo];
+                      if (!lic) return null;
+                      const text = lic.reusable ? `Licence ${lic.label}` : 'No licence · credit only';
+                      return (
+                        <p
+                          className="text-[10px] uppercase tracking-[0.25em]"
+                          style={{ color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)' }}
+                          title={`Read from the repo's LICENSE on ${LICENSES_CHECKED}`}
+                        >
+                          {lic.url ? (
+                            <a href={lic.url} target="_blank" rel="noopener noreferrer license" className="underline underline-offset-2 hover:opacity-80">
+                              {text}
+                            </a>
+                          ) : (
+                            text
+                          )}
+                        </p>
+                      );
+                    })()}
                     {lastPush && (
                       <p
                         className="text-[10px] uppercase tracking-[0.25em]"

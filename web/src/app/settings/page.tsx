@@ -131,7 +131,7 @@ export default function SettingsPage() {
       {/* Top bar */}
       <div
         className="sticky top-0 z-30 border-b backdrop-blur-md"
-        style={{ background: 'rgba(10,10,18,0.85)', borderColor: 'var(--color-border)' }}
+        style={{ background: 'rgba(0,0,0,0.85)', borderColor: 'var(--color-border)' }}
       >
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4 md:px-8">
           <button
@@ -361,7 +361,7 @@ export default function SettingsPage() {
                     className="rounded-md px-4 text-xs uppercase tracking-[0.25em] transition-all disabled:opacity-40"
                     style={{
                       background: saved[c.id] ? 'var(--color-success)' : c.color,
-                      color: '#0a0a12',
+                      color: '#000000',
                       fontFamily: 'var(--font-display)',
                       fontWeight: 800,
                       boxShadow: saved[c.id]
