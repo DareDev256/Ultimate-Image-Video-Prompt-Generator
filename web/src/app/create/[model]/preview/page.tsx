@@ -60,11 +60,15 @@ function PreviewContent() {
 
   const prompt = getFormattedPrompt();
   const isJson = modelId === 'nano-banana';
+  // Nano Banana runs on the free tier without a key (the generate page enforces
+  // the daily cap), same as Quick mode and the swipe feed's "Make it".
+  const onFreeTier = !hasApiKey && modelId === 'nano-banana';
+  const canGenerate = hasApiKey || onFreeTier;
 
   const handleCopy = () => copyToClipboard(prompt);
 
   const handleGenerate = () => {
-    if (!hasApiKey) {
+    if (!canGenerate) {
       router.push('/settings');
       return;
     }
@@ -89,19 +93,23 @@ function PreviewContent() {
 
       {/* Header */}
       <header className="relative z-10 px-6 py-4 border-b border-[var(--color-border)]">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
+        <div className="max-w-4xl mx-auto flex items-center justify-between gap-3">
           <button
             onClick={handleEdit}
-            className="flex items-center gap-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors"
+            className="flex items-center gap-2 min-h-[44px] text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors"
           >
             <ArrowLeft size={20} />
             <span className="text-sm font-medium tracking-wider">EDIT</span>
           </button>
 
-          <h1 className="text-xl font-bold">Preview Your Prompt</h1>
+          {/* Phones get the short title: the long one wrapped into the EDIT label at 390px. */}
+          <h1 className="text-lg sm:text-xl font-bold text-center leading-tight">
+            <span className="sm:hidden">Preview</span>
+            <span className="hidden sm:inline">Preview Your Prompt</span>
+          </h1>
 
           <div
-            className="px-3 py-1 text-xs font-bold tracking-wider rounded-full"
+            className="px-3 py-1 text-xs font-bold tracking-wider rounded-full whitespace-nowrap"
             style={{
               backgroundColor: `${MODEL_COLORS[modelId]}20`,
               color: MODEL_COLORS[modelId],
@@ -190,7 +198,16 @@ function PreviewContent() {
           </motion.div>
 
           {/* API Key Warning */}
-          {!hasApiKey && (
+          {onFreeTier && (
+            <p className="text-sm text-center text-[var(--color-text-muted)]">
+              Free to try: a few images a day on the site&apos;s key.{' '}
+              <button onClick={() => router.push('/settings')} className="text-[var(--color-primary)] hover:underline">
+                Add your own Gemini key
+              </button>{' '}
+              for more.
+            </p>
+          )}
+          {!canGenerate && (
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -253,7 +270,7 @@ function PreviewContent() {
               ) : (
                 <>
                   <Zap size={18} />
-                  <span>{hasApiKey ? 'Generate' : 'Configure API Key'}</span>
+                  <span>{canGenerate ? 'Generate' : 'Configure API Key'}</span>
                 </>
               )}
             </motion.button>

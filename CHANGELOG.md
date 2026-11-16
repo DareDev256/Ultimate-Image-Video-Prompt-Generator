@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.4.0] - 2026-11-16
+
+Plan P2 from the Fable 5.2 review: the wizard becomes taps.
+
+### Added
+- **Tap wizard** is now the default at `/create/[model]`: five questions, one per screen (subject, place, light, lens, colour; video engines add the camera move for six), each answered with one tap. Each question carries one line on why it matters. The answers build a sentence at the bottom of the screen as you tap, each one highlighted where it landed. Surprise me, Type my own and Skip on every question; the progress bar jumps to any question; coming back resumes at the first unanswered one. Answers land in the same fields the nine-step wizard uses, so preview, generate and result are unchanged. Logic in `web/src/lib/tap-questions.ts` (5 tests, its 3 guards mutation-checked), screen in `web/src/components/wizard/TapWizard.tsx`.
+- The nine-step wizard stays one tap away ("All 9 steps", "Add more detail"), and its first-step Back returns to tap mode.
+- `web/src/data/held-images.json`: 19 generated showcase images held off public pages, 10 for a real person's likeness (Steve Jobs, Donald Trump, Taylor Swift, Ana de Armas and others) and 9 for suggestive framing. Checked by eye. `held-images.test.ts` (4 tests, 3 guards mutation-checked) keeps the list in step with the swipe feed's own holds and proves the desktop hero carries none of them.
+
+### Changed
+- `/showcase` shows 84 generated examples, not 103; the desktop 3D hero cloud draws 114 cards, not 133 (`scripts/build-holo-manifest.mjs` reads the held list); `/llms.txt` counts the 84.
+
+### Fixed
+- Preview no longer blocks Nano Banana behind "Configure API Key" when no key is saved. It runs on the free tier there, as Quick mode and the swipe feed's "Make it" already did, with a one-line note on adding your own Gemini key.
+- The preview header crowded EDIT, a two-line title and a wrapping engine pill together at 390px; phones get the short title "Preview".
+- README: the test count read 399 across 17 files and 501 in the badges; it is 510 tests and 6,841 assertions across 25 files.
+
 ## [2.3.1] - 2026-11-16
 
 ### Added

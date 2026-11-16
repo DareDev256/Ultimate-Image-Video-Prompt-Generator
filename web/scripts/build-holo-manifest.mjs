@@ -2,7 +2,7 @@
 // Rebuild src/components/hero/holo-cards-manifest.ts from the PNGs sitting in
 // public/showcase + public/generated-inspiration. Run when adding new cards.
 
-import { readdirSync, writeFileSync } from 'node:fs'
+import { readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -16,7 +16,9 @@ const generated = readdirSync(join(webRoot, 'public/generated-inspiration'))
   .filter((f) => f.startsWith('nano-banana-') && f.endsWith('.png'))
   .sort()
   .map((f) => `/generated-inspiration/${f}`)
-const cards = [...showcase, ...generated]
+// Real-person likenesses and suggestive shots never reach the hero cloud.
+const held = JSON.parse(readFileSync(join(webRoot, 'src/data/held-images.json'), 'utf-8')).images
+const cards = [...showcase, ...generated].filter((p) => !Object.hasOwn(held, p))
 const out = [
   '// Auto-generated. Re-run scripts/build-holo-manifest.mjs to refresh.',
   'export const HOLO_CARDS: readonly string[] = [',

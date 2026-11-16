@@ -38,7 +38,7 @@ For unlimited generations, you can add your own API keys in Settings.
 
 ## Features
 
-- **Guided Wizard** - Step-by-step prompt building
+- **Tap Wizard** - Five one-tap questions build the prompt in front of you; all nine steps are one tap away
 - **Quick Mode** - Describe your idea, AI generates the full prompt
 - **Swipe feed** - The phone home page: one real output per screen, the phrase that made it highlighted, remix it in three taps
 - **Blur Face in Photo** - Blur or pixelate faces and crop a photo in the browser; nothing is uploaded

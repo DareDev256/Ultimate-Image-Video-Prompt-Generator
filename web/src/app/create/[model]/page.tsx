@@ -8,6 +8,7 @@ import { Particles } from '@/components/effects/Particles';
 import { InspirationButton } from '@/components/inspiration';
 import { WizardProgress } from '@/components/wizard/WizardProgress';
 import { WizardStep } from '@/components/wizard/WizardStep';
+import { TapWizard } from '@/components/wizard/TapWizard';
 import { WizardProvider, useWizard, ModelType } from '@/context/WizardContext';
 import { MODEL_NAMES, MODEL_COLORS, isValidModel } from '@/lib/models';
 
@@ -29,6 +30,9 @@ function WizardContent() {
   } = useWizard();
 
   const [direction, setDirection] = useState(0);
+  // Tap mode (five one-tap questions) is the default; the nine-step wizard
+  // with every field is one tap away for people who want it.
+  const [mode, setMode] = useState<'tap' | 'detail'>('tap');
 
   // Initialize model on mount - restore from localStorage if available
   useEffect(() => {
@@ -60,15 +64,17 @@ function WizardContent() {
   const handlePrev = useCallback(() => {
     setDirection(-1);
     if (isFirstStep) {
-      router.push('/create');
+      setMode('tap');
     } else {
       prevStep();
     }
-  }, [isFirstStep, prevStep, router]);
+  }, [isFirstStep, prevStep]);
 
   // Keyboard navigation (skip if user is typing in an input)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Tap mode handles its own keys; arrows and Enter here would skip questions.
+      if (mode !== 'detail') return;
       // Don't intercept keyboard when user is typing
       const target = e.target as HTMLElement;
       const isTyping = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable;
@@ -84,7 +90,7 @@ function WizardContent() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleNext, handlePrev]);
+  }, [handleNext, handlePrev, mode]);
 
   // Save state to localStorage on changes
   useEffect(() => {
@@ -106,6 +112,10 @@ function WizardContent() {
     );
   }
 
+  if (mode === 'tap') {
+    return <TapWizard modelId={modelId} onDetail={() => setMode('detail')} />;
+  }
+
   return (
     <div className="relative min-h-screen flex flex-col overflow-hidden">
       {/* Particle Background */}
@@ -120,7 +130,7 @@ function WizardContent() {
           >
             <ArrowLeft size={20} />
             <span className="text-sm font-medium tracking-wider">
-              {isFirstStep ? 'MODELS' : 'BACK'}
+              {isFirstStep ? 'TAP MODE' : 'BACK'}
             </span>
           </button>
 
@@ -178,7 +188,7 @@ function WizardContent() {
             whileTap={{ scale: 0.98 }}
           >
             <ArrowLeft size={18} />
-            <span>{isFirstStep ? 'Change Model' : 'Previous'}</span>
+            <span>{isFirstStep ? 'Tap mode' : 'Previous'}</span>
           </motion.button>
 
           {/* Step indicator */}

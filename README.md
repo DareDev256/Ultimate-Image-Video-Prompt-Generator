@@ -4,7 +4,7 @@
 
 ### Make the shot. Skip the blank box.
 
-A free AI image prompt generator and video prompt generator for anyone making pictures or clips with Nano Banana Pro, GPT-Image-2, Seedance, Veo, Kling and four more engines. Pick an engine, walk a guided wizard, and score the finished prompt before you pay to render it.
+A free AI image prompt generator and video prompt generator for anyone making pictures or clips with Nano Banana Pro, GPT-Image-2, Seedance, Veo, Kling and four more engines. Pick an engine, answer five one-tap questions (or all nine steps), and score the finished prompt before you pay to render it.
 
 **Nine engines · 11 guided categories · 1,546 prompts · a scorer that grades a shot before you pay for it**<br>
 **Editorial holo aesthetic: a WebGL cloud of real outputs floating in 3D space behind the headline.**
@@ -20,8 +20,8 @@ Holo card cloud · Iridescent rim shader · Cobalt + paper · Zero blank-box anx
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-0ea5e9?style=flat-square&logo=tailwindcss&logoColor=fff)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-d946ef?style=flat-square&logo=framer&logoColor=fff)
 ![Bun](https://img.shields.io/badge/Bun-runtime-fbf0df?style=flat-square&logo=bun)
-![Tests](https://img.shields.io/badge/501_tests-passing-10b981?style=flat-square)
-![Assertions](https://img.shields.io/badge/6,802_assertions-verified-10b981?style=flat-square)
+![Tests](https://img.shields.io/badge/510_tests-passing-10b981?style=flat-square)
+![Assertions](https://img.shields.io/badge/6,841_assertions-verified-10b981?style=flat-square)
 ![Zero Any](https://img.shields.io/badge/any_types-0-8b5cf6?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-22d3ee?style=flat-square)
 
@@ -52,7 +52,7 @@ Open [localhost:3000](http://localhost:3000) and start building. The [live demo]
 
 License: MIT, see [LICENSE](./LICENSE).
 
-> **`9`** engines — 2 image, 7 video · **`11`** guided categories · **`1,546`** prompts · **`428`** credited creators · **`501`** tests / **`6,802`** assertions · **`0`** `any` types
+> **`9`** engines — 2 image, 7 video · **`11`** guided categories · **`1,546`** prompts · **`428`** credited creators · **`510`** tests / **`6,841`** assertions · **`0`** `any` types
 >
 > Reproduce every figure: `bun test` for the tests and assertions; `bun -e "const c=await import('./web/src/lib/categories.ts');console.log(new Set([...c.wizardCategories,...c.videoCategories].map(x=>x.id)).size)"` for the categories; `jq 'length' web/public/data/image-prompts.json web/public/data/video-prompts.json` for the prompt count (1,496 image + 50 video, library fetched 2026-11-16).
 
@@ -101,13 +101,13 @@ This project replaces the blank box with **guided prompt engineering** — 11 ca
 - **Diversity-aware randomization** — a sliding-window exclusion algorithm (not naive `Math.random()`) ensures the "randomize" button always surfaces fresh suggestions. [Algorithm deep-dive →](#diversity-aware-randomization)
 - **Model-aware output** — the same wizard produces structured JSON for Gemini or natural language for GPT-Image-2/Kling, automatically adapting to what each model expects
 - **Composable architecture** — 13 pure section generators (CLI) composed via `flatMap`. Adding a new prompt category is one function + one array entry, zero touch points elsewhere
-- **Actually tested** — 501 tests prove invariants like "NL and JSON generators stay in sync on the same input" and "the randomizer never deadlocks regardless of pool size"
+- **Actually tested** — 510 tests prove invariants like "NL and JSON generators stay in sync on the same input" and "the randomizer never deadlocks regardless of pool size"
 
 ## Two Platforms, One Pipeline
 
 ### 🌐 Web App — Visual Wizard
 
-A step-by-step guided experience with theatrical animations, particle effects, and a neon UI. Choose your model, walk through 9 categories for image or 8 for video, preview your assembled prompt, and generate — all in the browser.
+A step-by-step guided experience with theatrical animations, particle effects, and a neon UI. Choose your model and answer five one-tap questions (subject, place, light, lens, colour; video adds the camera move) while the prompt builds in a sentence under your thumb. The full run, 9 categories for image or 8 for video, is one tap away. Preview the assembled prompt and generate, all in the browser.
 
 ### ⌨️ CLI Tool — Terminal Power
 
@@ -245,7 +245,7 @@ Pick a model and every wizard step adapts to it. Source of truth: [`web/src/lib/
 - Animated generation progress with theatrical transitions
 - **Love It / Tweak It / Remix** result actions
 - Gallery to save and revisit creations
-- 30 pre-generated **Showcase** examples + 113 AI-generated community examples
+- 30 pre-generated **Showcase** examples + 84 AI-generated community examples (19 more are held off public pages: real people's likenesses and suggestive shots, listed in `web/src/data/held-images.json`)
 
 ### 💰 API Key Pricing
 
@@ -500,7 +500,7 @@ All types, section generators, and output formatters are documented with TSDoc �
 bun test
 ```
 
-**399 tests** across 17 test files:
+**510 tests** across 25 test files (`bun test`, 2026-11-16). The table covers the core modules; the web app adds suites for the swipe feed, free tier, photo editor, library merge, held images and the tap wizard:
 
 | Module | Tests | Coverage |
 |--------|-------|----------|
@@ -531,7 +531,7 @@ bun test
 | **Single-source model registry** | `MODEL_NAMES`, `MODEL_COLORS`, `isValidModel` in `lib/models.ts` + `useCopyToClipboard` hook | Adding a model or changing brand colors is a 1-file change — replaces 4× duplicated metadata maps and 3× clipboard boilerplate |
 | **Temporal coupling elimination** | `pickWithHistory` combines pick + state update in one call; `createPicker` wraps it in a stateful factory | Impossible to forget the state update step — callers can't use `diversePick` without also calling `pushRecent` |
 | **Data-driven preset parsing** | Replaced 5-branch `else if` chain with a `PRESET_FLAGS` lookup map | Adding a new preset is a one-line map entry instead of a new branch |
-| **501 tests / 6,802 assertions** | Every generator, every template, every CLI flag, cross-format consistency checks, web-side validation & diversity logic | Not just coverage — tests document *invariants* like "NL and JSON generators stay in sync on the same input" |
+| **510 tests / 6,841 assertions** | Every generator, every template, every CLI flag, cross-format consistency checks, web-side validation & diversity logic | Not just coverage — tests document *invariants* like "NL and JSON generators stay in sync on the same input" |
 
 ## Design Philosophy
 
@@ -641,7 +641,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines. Bug reports, feature su
 <div align="center">
 
 <strong>Built with caffeine and nostalgia for the early 2000s web.</strong><br>
-<sub>399 tests. Zero `any` types. Maximum vibes.</sub>
+<sub>510 tests. Zero `any` types. Maximum vibes.</sub>
 
 [DareDev256](https://github.com/DareDev256) · **[⬆ Back to Top](#-ultimate-image--video-prompt-generator)**
 

@@ -16,6 +16,7 @@ import {
   Wand2,
 } from 'lucide-react';
 import { Particles } from '@/components/effects/Particles';
+import { isHeldImage } from '@/lib/held-images';
 
 interface ShowcaseItem {
   id: string;
@@ -596,8 +597,9 @@ export default function ShowcasePage() {
       try {
         const res = await fetch('/data/generated-showcase.json');
         if (res.ok) {
-          const data = await res.json();
-          setGeneratedItems(data);
+          const data = (await res.json()) as ShowcaseItem[];
+          // Real-person likenesses and suggestive shots stay off this page.
+          setGeneratedItems(data.filter((item) => !isHeldImage(item.image)));
         }
       } catch (err) {
         console.error('Failed to load generated showcase:', err);

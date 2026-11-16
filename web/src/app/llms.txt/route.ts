@@ -4,6 +4,7 @@ import { loadImagePrompts, loadVideoPrompts } from '@/lib/server/prompt-data';
 import { BLOG_POSTS } from '@/lib/blog';
 import { wizardCategories, videoCategories } from '@/lib/categories';
 import feedCards from '@/data/feed-cards.json';
+import { isHeldImage } from '@/lib/held-images';
 
 // Every count below is read from the bundled data at build time. The old
 // static public/llms.txt typed 1,377 prompts, 13 categories and 30 showcase
@@ -15,8 +16,8 @@ export function GET() {
   const videos = loadVideoPrompts().length;
   const total = (images + videos).toLocaleString('en-US');
   const showcase = (
-    JSON.parse(readFileSync(join(process.cwd(), 'public', 'data', 'generated-showcase.json'), 'utf-8')) as unknown[]
-  ).length;
+    JSON.parse(readFileSync(join(process.cwd(), 'public', 'data', 'generated-showcase.json'), 'utf-8')) as { image: string }[]
+  ).filter((s) => !isHeldImage(s.image)).length;
   const meta = JSON.parse(readFileSync(join(process.cwd(), 'public', 'data', 'meta.json'), 'utf-8')) as {
     lastFetched: string;
   };

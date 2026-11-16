@@ -1,0 +1,24 @@
+{
+  "_note": "Generated showcase images kept off every public showcase surface (/showcase, the desktop 3D hero). likeness = a real, recognisable person; suggestive = lingerie, bikini or bedroom framing. Checked by eye 2026-11-16. The feed's own skips live in feed-cards.json; held-images.test.ts keeps the two in step.",
+  "images": {
+    "/generated-inspiration/nano-banana-1.png": "likeness",
+    "/generated-inspiration/nano-banana-13.png": "likeness",
+    "/generated-inspiration/nano-banana-25.png": "likeness",
+    "/generated-inspiration/nano-banana-28.png": "likeness",
+    "/generated-inspiration/nano-banana-29.png": "likeness",
+    "/generated-inspiration/nano-banana-42.png": "likeness",
+    "/generated-inspiration/nano-banana-43.png": "likeness",
+    "/generated-inspiration/nano-banana-44.png": "likeness",
+    "/generated-inspiration/nano-banana-65.png": "likeness",
+    "/generated-inspiration/nano-banana-84.png": "likeness",
+    "/generated-inspiration/nano-banana-11.png": "suggestive",
+    "/generated-inspiration/nano-banana-12.png": "suggestive",
+    "/generated-inspiration/nano-banana-14.png": "suggestive",
+    "/generated-inspiration/nano-banana-31.png": "suggestive",
+    "/generated-inspiration/nano-banana-79.png": "suggestive",
+    "/generated-inspiration/nano-banana-80.png": "suggestive",
+    "/generated-inspiration/nano-banana-81.png": "suggestive",
+    "/generated-inspiration/nano-banana-83.png": "suggestive",
+    "/generated-inspiration/nano-banana-89.png": "suggestive"
+  }
+}
