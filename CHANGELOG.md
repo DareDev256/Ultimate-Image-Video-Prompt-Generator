@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.3.1] - 2026-11-16
+
+### Added
+- Vercel Web Analytics (cookieless page views per route, `@vercel/analytics` 2.0.1) so the swipe feed, remix-to-generate and blur pages can be measured. The site had no analytics at all.
+
+### Build
+- Vercel's Git integration is connected (root directory `web`): a push to main deploys production. Commits that change nothing under `web/` skip the build (`git diff HEAD^ HEAD --quiet -- .`). Deploying by hand now runs `vercel --prod` from the repo root, not from `web/`.
+- Phone screenshots of 2.3.0 live: `docs/screenshots/2026-11-16_v2.3.0-live-390.jpg`.
+
 ## [2.3.0] - 2026-11-16
 
 Plan A1 from the Fable 5.2 review: swipe first, Night colours, an on-device photo editor last.

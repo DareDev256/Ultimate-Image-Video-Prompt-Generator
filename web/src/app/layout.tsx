@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import { WebsiteJsonLd } from "@/components/seo/JsonLd";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site-config";
 
@@ -65,7 +66,12 @@ export default function RootLayout({
       <head>
         <WebsiteJsonLd />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {children}
+        {/* Vercel Web Analytics: cookieless page views per route, so we can
+            see whether the swipe feed, remix and blur pages get used. */}
+        <Analytics />
+      </body>
     </html>
   );
 }
