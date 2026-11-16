@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.2.1] - 2026-11-16
+
+### Fixed
+- Phone layout (390px): the highlighted headline line no longer paints over the line above it ("SHOT" and "FEED" were cut in half on the home page and /feed). The marked line gets its own line box.
+- The wizard's floating Inspiration button sat on top of NEXT on phones; it now lifts above the footer bar. The "Step 1 of 9" footer label (already shown by the progress bar) and the keyboard-arrows hint are hidden on phones.
+- Touch screens see "drag · scroll to dive in" instead of "move mouse".
+- The home eyebrow counted 1,377 prompts (image only, typed by hand); it is now counted from the data files at build time (1,427).
+
+### Security
+- Free tier on the site's Gemini key: the per-visitor key no longer includes the user agent (changing it bought a fresh 25), `x-real-ip` is preferred over a spoofable `x-forwarded-for`, a per-instance daily ceiling (`FREE_TIER_GLOBAL_DAILY`, default 100) bounds total use, and `FREE_TIER_ENABLED=false` turns the free tier off without a deploy. The limiter moved to `web/src/lib/server/free-tier.ts` with 6 tests. Still per-instance memory: a shared store is the real cap.
+- `npm audit fix` inside existing ranges: Next.js 16.1.6 → 16.4.6 (critical advisory) and six transitive packages. `npm audit` reports 0.
+
+### Build
+- `turbopack.root` pinned to `web/` so a local `next build` resolves its PostCSS plugin; the repo root's bun.lock made Turbopack pick the parent folder.
+
 ## [2.2.0] - 2026-08-16
 
 Scores a prompt before you pay to render it, ships an agent surface, and

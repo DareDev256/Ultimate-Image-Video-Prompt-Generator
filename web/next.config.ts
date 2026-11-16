@@ -1,3 +1,4 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 /**
@@ -22,6 +23,10 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // The repo root has its own bun.lock (the CLI), so Turbopack picked the
+  // parent folder as the workspace root and could not resolve web/'s
+  // PostCSS plugin in a local build. Pin the root to this app.
+  turbopack: { root: path.join(__dirname) },
   images: {
     // On-the-fly AVIF + WebP compression via next/image. Vercel serves the
     // optimized variant per Accept header; original PNG stays as fallback.

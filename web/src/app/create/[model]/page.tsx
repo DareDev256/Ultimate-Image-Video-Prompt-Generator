@@ -182,7 +182,9 @@ function WizardContent() {
           </motion.button>
 
           {/* Step indicator */}
-          <div className="text-[var(--color-text-muted)] text-sm">
+          {/* Hidden on phones: the progress bar above already says it, and
+              here it wrapped onto two lines between the buttons. */}
+          <div className="hidden sm:block text-[var(--color-text-muted)] text-sm">
             Step {state.currentStep + 1} of {totalSteps}
           </div>
 
@@ -200,12 +202,12 @@ function WizardContent() {
       </footer>
 
       {/* Keyboard hints */}
-      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 text-[var(--color-text-muted)] text-xs opacity-50">
+      <div className="hidden md:block absolute bottom-20 left-1/2 -translate-x-1/2 text-[var(--color-text-muted)] text-xs opacity-50">
         Use ← → arrows or Enter to navigate
       </div>
 
       {/* Inspiration Panel */}
-      <InspirationButton />
+      <InspirationButton liftAboveFooter />
     </div>
   );
 }

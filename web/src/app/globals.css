@@ -142,6 +142,15 @@ h1, h2, h3, h4, h5, h6 {
     0 0 1px rgba(6, 6, 8, 0.6);
 }
 
+/* The marked line wraps on phones. Inline backgrounds paint the font's full
+   content box (~1.15em) whatever the line-height, so at 0.88 each blue slice
+   covered the line above it ("SHOT" was cut in half at 390px). Give the
+   marked line its own taller line box and a small gap above it. */
+.hero-lockup .hero-line-marked {
+  line-height: 1.14;
+  margin-top: 0.1em;
+}
+
 .hero-lockup .highlight {
   background: var(--accent);
   color: var(--paper);

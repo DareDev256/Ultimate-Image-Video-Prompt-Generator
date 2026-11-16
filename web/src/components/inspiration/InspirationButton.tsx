@@ -8,9 +8,12 @@ import type { ImagePrompt, VideoPrompt } from '@/hooks/useInspirationData';
 
 interface InspirationButtonProps {
   onUseAsTemplate?: (prompt: ImagePrompt | VideoPrompt, type: 'image' | 'video') => void;
+  /** Pages with a fixed footer bar (the wizard) lift the button above it on
+   *  phones, where it otherwise sat on top of the NEXT button. */
+  liftAboveFooter?: boolean;
 }
 
-export function InspirationButton({ onUseAsTemplate }: InspirationButtonProps) {
+export function InspirationButton({ onUseAsTemplate, liftAboveFooter = false }: InspirationButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -18,7 +21,7 @@ export function InspirationButton({ onUseAsTemplate }: InspirationButtonProps) {
       {/* Floating Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-30 flex items-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-black font-semibold shadow-lg hover:shadow-xl transition-shadow"
+        className={`fixed ${liftAboveFooter ? 'bottom-28 md:bottom-6' : 'bottom-6'} right-6 z-30 flex items-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-black font-semibold shadow-lg hover:shadow-xl transition-shadow`}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, y: 20 }}

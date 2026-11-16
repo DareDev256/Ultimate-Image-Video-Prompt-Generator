@@ -1,40 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { validatePrompt, validateApiKey } from '@/lib/validation';
+import { checkRateLimit, freeTierEnabled, getClientIdentifier } from '@/lib/server/free-tier';
 
-// Simple in-memory rate limiting for server-side protection
-// In production, consider using Redis or a proper rate limiter
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-// Gemini 3 Pro Image (Nano Banana Pro) free tier: 60 RPM / ~1500/day per project key.
-// We expose 25/day per IP so the project key isn't drained in a few hours.
-const FREE_TIER_DAILY_LIMIT = 25;
-const RATE_LIMIT_WINDOW_MS = 24 * 60 * 60 * 1000; // 24 hours
+// Free tier limits live in lib/server/free-tier.ts (kill switch, per-IP,
+// per-instance daily ceiling).
 const GEMINI_MODEL_ID = 'gemini-3-pro-image-preview';
-
-function getClientIdentifier(request: NextRequest): string {
-  // Use a combination of IP and user agent for basic fingerprinting
-  const forwarded = request.headers.get('x-forwarded-for');
-  const ip = forwarded ? forwarded.split(',')[0].trim() : 'unknown';
-  const userAgent = request.headers.get('user-agent') || 'unknown';
-  return `${ip}-${userAgent.slice(0, 50)}`;
-}
-
-function checkRateLimit(clientId: string): { allowed: boolean; remaining: number } {
-  const now = Date.now();
-  const entry = rateLimitMap.get(clientId);
-
-  if (!entry || now > entry.resetTime) {
-    // New entry or expired, reset count
-    rateLimitMap.set(clientId, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
-    return { allowed: true, remaining: FREE_TIER_DAILY_LIMIT - 1 };
-  }
-
-  if (entry.count >= FREE_TIER_DAILY_LIMIT) {
-    return { allowed: false, remaining: 0 };
-  }
-
-  entry.count += 1;
-  return { allowed: true, remaining: FREE_TIER_DAILY_LIMIT - entry.count };
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -45,7 +15,7 @@ export async function POST(request: NextRequest) {
     if (useFreeMode) {
       // Use server-side API key for free tier
       const serverApiKey = process.env.GEMINI_API_KEY;
-      if (!serverApiKey) {
+      if (!serverApiKey || !freeTierEnabled()) {
         return NextResponse.json(
           { error: 'Free tier is temporarily unavailable. Please use your own API key.' },
           { status: 503 }
@@ -54,12 +24,15 @@ export async function POST(request: NextRequest) {
 
       // Check rate limit for free tier
       const clientId = getClientIdentifier(request);
-      const { allowed, remaining } = checkRateLimit(clientId);
+      const { allowed, remaining, reason } = checkRateLimit(clientId);
 
       if (!allowed) {
         return NextResponse.json(
           {
-            error: 'Daily free tier limit reached. Please try again tomorrow or use your own API key.',
+            error:
+              reason === 'global'
+                ? 'The free tier is used up for today. Add your own API key to keep going.'
+                : 'Daily free tier limit reached. Please try again tomorrow or use your own API key.',
             remaining: 0
           },
           { status: 429 }

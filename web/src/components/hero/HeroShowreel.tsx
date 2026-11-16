@@ -122,7 +122,7 @@ export function HeroShowreel({
               return (
                 <motion.span
                   key={`${line}-${i}`}
-                  className="block"
+                  className={isMarked ? 'block hero-line-marked' : 'block'}
                   initial={reduce ? false : { opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{
@@ -172,7 +172,9 @@ export function HeroShowreel({
             {HOLO_CARDS.length} pieces in the field
           </span>
           <span className="rule-h flex-1" />
-          <span className="meta-clock">move mouse · scroll to dive in</span>
+          {/* Phones have no mouse: say what a thumb can do. */}
+          <span className="meta-clock hidden [@media(hover:hover)]:inline">move mouse · scroll to dive in</span>
+          <span className="meta-clock [@media(hover:hover)]:hidden">drag · scroll to dive in</span>
         </motion.div>
       </div>
 
