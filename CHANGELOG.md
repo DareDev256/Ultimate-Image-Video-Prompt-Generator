@@ -13,6 +13,7 @@
 - `npm audit fix` inside existing ranges: Next.js 16.1.6 → 16.4.6 (critical advisory) and six transitive packages. `npm audit` reports 0.
 
 ### Build
+- Test files are excluded from the web app's typecheck. Vercel's `next build` failed on `bun:test` imports (no bun types outside the repo root), which is why main had not reached the live site since June 8; `bun test` still runs them from the root.
 - `turbopack.root` pinned to `web/` so a local `next build` resolves its PostCSS plugin; the repo root's bun.lock made Turbopack pick the parent folder.
 
 ## [2.2.0] - 2026-08-16
