@@ -107,7 +107,7 @@ This project replaces the blank box with **guided prompt engineering** — 11 ca
 
 ### 🌐 Web App — Visual Wizard
 
-A step-by-step guided experience with theatrical animations, particle effects, and a neon UI. Choose your model and answer five one-tap questions (subject, place, light, lens, colour; video adds the camera move) while the prompt builds in a sentence under your thumb. The full run, 9 categories for image or 8 for video, is one tap away. Preview the assembled prompt and generate, all in the browser.
+A step-by-step guided experience with theatrical animations, particle effects, and a neon UI. Start on Nano Banana (switch engine any time without losing your answers) and answer five one-tap questions (subject, place, light, lens, colour; video adds the camera move) while the prompt builds in a sentence under your thumb. The full run, 9 categories for image or 8 for video, is one tap away. Preview the assembled prompt and generate, all in the browser.
 
 ### ⌨️ CLI Tool — Terminal Power
 

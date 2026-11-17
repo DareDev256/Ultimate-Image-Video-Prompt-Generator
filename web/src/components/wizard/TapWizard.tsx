@@ -11,10 +11,11 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useWizard, type ModelType } from '@/context/WizardContext';
 import { useDiversePick } from '@/hooks/useDiversePick';
-import { MODEL_KIND, MODEL_NAMES } from '@/lib/models';
+import { MODEL_KIND, MODEL_NAMES, MODEL_PROVIDERS } from '@/lib/models';
 import { firstOpen, tapQuestions, tapSentence } from '@/lib/tap-questions';
 
 const ADVANCE_MS = 170;
+const ENGINES = Object.keys(MODEL_NAMES) as ModelType[];
 
 export function TapWizard({ modelId, onDetail }: { modelId: ModelType; onDetail: () => void }) {
   const router = useRouter();
@@ -25,6 +26,7 @@ export function TapWizard({ modelId, onDetail }: { modelId: ModelType; onDetail:
   const [typing, setTyping] = useState(false);
   const [draft, setDraft] = useState('');
   const [flash, setFlash] = useState<string | null>(null);
+  const [picking, setPicking] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const heading = useRef<HTMLHeadingElement>(null);
 
@@ -59,6 +61,29 @@ export function TapWizard({ modelId, onDetail }: { modelId: ModelType; onDetail:
 
   const back = () => (step === 0 ? router.push('/create') : go(step - 1));
 
+  // Switching engine keeps every answer: the next engine's page restores
+  // wizardState when its model matches, and the field keys are shared.
+  const switchEngine = (id: ModelType) => {
+    setPicking(false);
+    if (id === modelId) return;
+    try {
+      window.localStorage.setItem(
+        'wizardState',
+        JSON.stringify({ model: id, currentStep: 0, formData: state.formData, categories: [] }),
+      );
+    } catch {
+      /* private mode: the new engine starts empty */
+    }
+    router.push(`/create/${id}`);
+  };
+
+  useEffect(() => {
+    if (!picking) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setPicking(false);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [picking]);
+
   const startOver = () => {
     for (const item of questions) updateField(item.key, '');
     go(0);
@@ -70,7 +95,15 @@ export function TapWizard({ modelId, onDetail }: { modelId: ModelType; onDetail:
         <button type="button" className="tap-link" onClick={back}>
           ← {step === 0 ? 'Engines' : 'Back'}
         </button>
-        <span className="tap-model">{MODEL_NAMES[modelId]}</span>
+        <button
+          type="button"
+          className="tap-model"
+          aria-haspopup="dialog"
+          aria-expanded={picking}
+          onClick={() => setPicking(true)}
+        >
+          {MODEL_NAMES[modelId]} <span aria-hidden="true">▾</span>
+        </button>
         <button type="button" className="tap-link" onClick={onDetail}>
           All 9 steps
         </button>
@@ -180,6 +213,33 @@ export function TapWizard({ modelId, onDetail }: { modelId: ModelType; onDetail:
             </button>
           </div>
         </main>
+      )}
+
+      {picking && (
+        <>
+          <button type="button" className="tap-scrim" aria-label="Close" onClick={() => setPicking(false)} />
+          <div className="tap-sheet" role="dialog" aria-modal="true" aria-label="Pick an engine">
+            <span className="tap-eyebrow">Engine · your answers come with you</span>
+            {(['image', 'video'] as const).map((kind) => (
+              <div key={kind} className="tap-engines">
+                <span className="tap-kind">{kind === 'image' ? 'Image' : 'Video'}</span>
+                {ENGINES.filter((id) => MODEL_KIND[id] === kind).map((id, i) => (
+                  <button
+                    key={id}
+                    type="button"
+                    autoFocus={kind === 'image' && i === 0}
+                    aria-current={id === modelId ? 'true' : undefined}
+                    className={id === modelId ? 'is-on' : ''}
+                    onClick={() => switchEngine(id)}
+                  >
+                    <b>{MODEL_NAMES[id]}</b>
+                    <small>{id === 'nano-banana' ? 'Free to try · ' : ''}{MODEL_PROVIDERS[id]}</small>
+                  </button>
+                ))}
+              </div>
+            ))}
+          </div>
+        </>
       )}
 
       {!done && (

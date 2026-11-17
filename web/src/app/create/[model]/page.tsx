@@ -113,7 +113,8 @@ function WizardContent() {
   }
 
   if (mode === 'tap') {
-    return <TapWizard modelId={modelId} onDetail={() => setMode('detail')} />;
+    // Keyed by engine so a switch starts on the new engine's first open question.
+    return <TapWizard key={modelId} modelId={modelId} onDetail={() => setMode('detail')} />;
   }
 
   return (

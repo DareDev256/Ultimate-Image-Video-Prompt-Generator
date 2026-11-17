@@ -182,7 +182,7 @@ export function SwipeFeed({ cards, totalPrompts, framed = false }: { cards: Swip
               <span className="swipe-ing">That is {cards.length} moves</span>
               <h2>Now make your own.</h2>
               <p>The full library holds {totalPrompts.toLocaleString('en-US')} prompts, every one credited to its creator.</p>
-              <Link href="/create" className="swipe-btn">Prompt</Link>
+              <Link href="/create/nano-banana" className="swipe-btn">Prompt</Link>
               <Link href="/feed" className="swipe-btn is-ghost">Browse every prompt</Link>
               <Link href="/blur-face-in-photo" className="swipe-btn is-ghost">Blur a face in a photo</Link>
             </div>
@@ -190,7 +190,7 @@ export function SwipeFeed({ cards, totalPrompts, framed = false }: { cards: Swip
         </div>
 
         <nav className="swipe-top" aria-label="Sections">
-          <Link href="/create">Prompt</Link>
+          <Link href="/create/nano-banana">Prompt</Link>
           <span className="is-on" aria-current="page">Learn</span>
           <Link href="/blur-face-in-photo">Blur</Link>
         </nav>

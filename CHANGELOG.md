@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.4.1] - 2026-11-16
+
+Finishes plan P2 as specced: Nano Banana by default, the engine as a switch inside the taps.
+
+### Changed
+- The swipe feed's **Prompt** tab and end card open the tap wizard on Nano Banana directly (`/create/nano-banana`) instead of the nine-engine picker. The picker stays at `/create`.
+- The engine pill in the tap wizard is a switch: a sheet lists all 9 engines (image, then video; Nano Banana marked free to try), and picking one carries every answer to the new engine and resumes at its first open question. A video engine adds its camera-move question. Escape or the scrim closes the sheet.
+
+### Fixed
+- On phones, the option under the last tap lit up pink on the next screen (sticky hover). Tap-wizard hover styles now apply only where a pointer can hover.
+
 ## [2.4.0] - 2026-11-16
 
 Plan P2 from the Fable 5.2 review: the wizard becomes taps.
