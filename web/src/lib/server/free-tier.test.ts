@@ -61,3 +61,9 @@ describe('free tier limiter', () => {
     expect(freeTierEnabled()).toBe(false);
   });
 });
+
+describe('getClientIdentifier on Cloudflare', () => {
+  test('cf-connecting-ip wins over client-supplied x-real-ip and x-forwarded-for', () => {
+    expect(getClientIdentifier(req({ 'cf-connecting-ip': '9.9.9.9', 'x-real-ip': '1.1.1.1', 'x-forwarded-for': '2.2.2.2' }))).toBe('9.9.9.9');
+  });
+});

@@ -1,0 +1,13 @@
+{
+  // Cloudflare Workers via OpenNext (moved off Vercel 2026-11-19; Vercel Hobby team paused).
+  // Secret: GEMINI_API_KEY (wrangler secret put). FREE_TIER_KV holds the shared free-tier counts.
+  "name": "prompt-generator",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
+  "workers_dev": true,
+  "routes": [{ "pattern": "prompts.tdotssolutionsz.com", "custom_domain": true }],
+  "observability": { "enabled": true },
+  "kv_namespaces": [{ "binding": "FREE_TIER_KV", "id": "e2a7995952ae402588f53f34ea5bd003" }]
+}

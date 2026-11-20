@@ -26,7 +26,11 @@ export function globalDailyCap(): number {
 }
 
 export function getClientIdentifier(request: NextRequest): string {
-  // Vercel sets x-real-ip to the connecting client; x-forwarded-for's first
+  // Cloudflare Workers (since 2026-11-19) set cf-connecting-ip, which a client cannot supply;
+  // there x-real-ip and x-forwarded-for can carry client-sent values, so they are fallbacks only.
+  const cf = request.headers.get('cf-connecting-ip')?.trim();
+  if (cf) return cf;
+  // Vercel set x-real-ip to the connecting client; x-forwarded-for's first
   // hop is the fallback for other hosts.
   const real = request.headers.get('x-real-ip')?.trim();
   if (real) return real;

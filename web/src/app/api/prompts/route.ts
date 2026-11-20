@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { readPublicJson } from '@/lib/server/public-data';
 
 export const runtime = 'nodejs';
 export const revalidate = 3600; // ISR — re-read data hourly in case scrape ran
@@ -33,7 +32,6 @@ interface VideoPrompt {
 
 type FeedItem = (ImagePrompt & { _type: 'image' }) | (VideoPrompt & { _type: 'video' });
 
-const DATA_DIR = join(process.cwd(), 'public', 'data');
 
 let _imageCache: ImagePrompt[] | null = null;
 let _videoCache: VideoPrompt[] | null = null;
@@ -56,10 +54,10 @@ function canonicalModel(name: string): string {
   return MODEL_CANONICAL[key] ?? name.trim();
 }
 
-function loadImagePrompts(): ImagePrompt[] {
+async function loadImagePrompts(): Promise<ImagePrompt[]> {
   if (_imageCache) return _imageCache;
-  const raw = readFileSync(join(DATA_DIR, 'image-prompts.json'), 'utf-8');
-  const parsed = JSON.parse(raw) as ImagePrompt[];
+  // A fresh array: the parsed JSON is shared through readPublicJson's cache.
+  const parsed = (await readPublicJson<ImagePrompt[]>('data/image-prompts.json')).map((p) => ({ ...p }));
   // Normalize model casing in-place once at load time.
   for (const p of parsed) {
     if (p.model) p.model = canonicalModel(p.model);
@@ -68,10 +66,9 @@ function loadImagePrompts(): ImagePrompt[] {
   return _imageCache;
 }
 
-function loadVideoPrompts(): VideoPrompt[] {
+async function loadVideoPrompts(): Promise<VideoPrompt[]> {
   if (_videoCache) return _videoCache;
-  const raw = readFileSync(join(DATA_DIR, 'video-prompts.json'), 'utf-8');
-  _videoCache = JSON.parse(raw) as VideoPrompt[];
+  _videoCache = await readPublicJson<VideoPrompt[]>('data/video-prompts.json');
   return _videoCache;
 }
 
@@ -100,7 +97,7 @@ export async function GET(request: NextRequest) {
     const items: FeedItem[] = [];
 
     if (type === 'image' || type === 'all') {
-      let images: ImagePrompt[] = loadImagePrompts();
+      let images: ImagePrompt[] = await loadImagePrompts();
       if (model) images = images.filter((p) => p.model === model);
       if (sourceRepo) {
         images = images.filter((p) => {
@@ -124,7 +121,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (type === 'video' || type === 'all') {
-      let videos: VideoPrompt[] = loadVideoPrompts();
+      let videos: VideoPrompt[] = await loadVideoPrompts();
       if (category) videos = videos.filter((p) => p.category === category);
       if (search) {
         videos = videos.filter(

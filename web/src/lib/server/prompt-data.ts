@@ -9,6 +9,7 @@
  */
 
 import { readFileSync } from 'node:fs';
+import { readPublicJson } from './public-data';
 import { join } from 'node:path';
 
 export interface RawImagePrompt {
@@ -74,6 +75,26 @@ export function loadVideoPrompts(): RawVideoPrompt[] {
   if (_videoCache) return _videoCache;
   const raw = readFileSync(join(DATA_DIR, 'video-prompts.json'), 'utf-8');
   _videoCache = JSON.parse(raw) as RawVideoPrompt[];
+  return _videoCache;
+}
+
+/** Async loaders for request-time routes. On Cloudflare Workers there is no filesystem, so
+ * public/data is read through the ASSETS binding (see public-data.ts). The sync loaders above
+ * stay for pages prerendered at build time. Both fill the same per-isolate cache. */
+export async function loadImagePromptsAsync(): Promise<RawImagePrompt[]> {
+  if (_imageCache) return _imageCache;
+  const parsed = (await readPublicJson<RawImagePrompt[]>('data/image-prompts.json')).map((p) => ({ ...p }));
+  for (const p of parsed) {
+    const canon = canonicalModel(p.model);
+    if (canon) p.model = canon;
+  }
+  _imageCache = parsed;
+  return _imageCache;
+}
+
+export async function loadVideoPromptsAsync(): Promise<RawVideoPrompt[]> {
+  if (_videoCache) return _videoCache;
+  _videoCache = await readPublicJson<RawVideoPrompt[]>('data/video-prompts.json');
   return _videoCache;
 }
 

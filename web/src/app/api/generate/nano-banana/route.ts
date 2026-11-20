@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { validatePrompt, validateApiKey } from '@/lib/validation';
 import { checkRateLimit, freeTierEnabled, getClientIdentifier } from '@/lib/server/free-tier';
+import { checkSharedFreeTier } from '@/lib/server/free-tier-kv';
 
 // Free tier limits live in lib/server/free-tier.ts (kill switch, per-IP,
 // per-instance daily ceiling).
@@ -24,7 +25,12 @@ export async function POST(request: NextRequest) {
 
       // Check rate limit for free tier
       const clientId = getClientIdentifier(request);
-      const { allowed, remaining, reason } = checkRateLimit(clientId);
+      const local = checkRateLimit(clientId);
+      // The in-memory count is per isolate on Workers; the KV count is shared by all of them.
+      const shared = local.allowed ? await checkSharedFreeTier(clientId) : { allowed: false as const, reason: local.reason };
+      const allowed = local.allowed && shared.allowed;
+      const remaining = local.remaining;
+      const reason = local.allowed ? shared.reason : local.reason;
 
       if (!allowed) {
         return NextResponse.json(

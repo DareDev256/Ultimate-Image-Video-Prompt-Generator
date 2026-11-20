@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
-import { loadImagePrompts, loadVideoPrompts, type RawImagePrompt, type RawVideoPrompt } from '@/lib/server/prompt-data';
+import { loadImagePromptsAsync, loadVideoPromptsAsync, type RawImagePrompt, type RawVideoPrompt } from '@/lib/server/prompt-data';
 
 export const runtime = 'nodejs';
 export const revalidate = 86400; // Per-prompt OG cards rarely change — cache 24h.
@@ -34,9 +34,9 @@ export async function GET(req: NextRequest) {
 
   let prompt: RawImagePrompt | RawVideoPrompt | undefined;
   if (type === 'video') {
-    prompt = loadVideoPrompts().find((p) => p.id === id);
+    prompt = (await loadVideoPromptsAsync()).find((p) => p.id === id);
   } else {
-    prompt = loadImagePrompts().find((p) => p.id === id);
+    prompt = (await loadImagePromptsAsync()).find((p) => p.id === id);
   }
 
   if (!prompt) {
