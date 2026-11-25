@@ -203,7 +203,7 @@ export default function AnatomyPage() {
                   lineHeight: 0.95,
                 }}
               >
-                Nine fields, <br />ninety percent of the work.
+                The nine-field <br />structure
               </h2>
               <p className="body-editorial mt-6">
                 The piece on the left was generated from a structured nine-field
@@ -213,8 +213,8 @@ export default function AnatomyPage() {
                 Film + format chooses the medium. Vibes signs the work.
               </p>
               <p className="body-editorial mt-4">
-                Below: each field in turn. What it does. The line that produced
-                this piece. The one-word swap that would change everything.
+                Below, each field in turn: what it does, the line that produced
+                this piece, and the one-word swap that would change everything.
               </p>
             </div>
           </div>
@@ -242,8 +242,8 @@ export default function AnatomyPage() {
               margin: '0 0 4rem',
             }}
           >
-            One field per knob. <br />
-            <span className="highlight">turn one, see the rest move</span>.
+            Each field <br />
+            <span className="highlight">in turn</span>
           </h2>
 
           <ol className="space-y-16 md:space-y-20" style={{ listStyle: 'none', padding: 0 }}>
@@ -342,8 +342,8 @@ export default function AnatomyPage() {
               margin: '0 0 1.5rem',
             }}
           >
-            Same subject. <br />
-            <span className="highlight">lighting alone</span> moves the era.
+            Lighting as <br />
+            <span className="highlight">the only variable</span>
           </h2>
           <p className="body-editorial mb-12 max-w-3xl">
             Hold subject, wardrobe, camera, format, and vibes constant. Change
@@ -430,7 +430,7 @@ export default function AnatomyPage() {
             }}
           >
             The vibes field <br />
-            <span className="highlight">does the heavy lifting</span>.
+            <span className="highlight">across six references</span>
           </h2>
           <p className="body-editorial mb-12 max-w-3xl">
             Six pieces from the showcase, each anchored on a different reference

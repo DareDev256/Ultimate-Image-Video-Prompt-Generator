@@ -58,7 +58,7 @@ export default function BlogIndexPage() {
             textTransform: 'uppercase',
           }}
         >
-          One prompt. <br />Deep coverage.
+          One prompt, <br />deep coverage
         </h1>
         <p
           className="max-w-2xl text-base md:text-lg"

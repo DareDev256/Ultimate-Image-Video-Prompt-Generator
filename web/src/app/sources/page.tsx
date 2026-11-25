@@ -68,7 +68,7 @@ export default async function SourcesPage() {
             textTransform: 'uppercase',
           }}
         >
-          Credit kept. <br />Always.
+          Credit kept, <br />always
         </h1>
         <p
           className="max-w-2xl text-base md:text-lg"

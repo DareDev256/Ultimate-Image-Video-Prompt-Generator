@@ -197,7 +197,7 @@ export function SwipeFeed({ cards, totalPrompts, framed = false }: { cards: Swip
 
         {onboard && (
           <div className="swipe-onboard" role="dialog" aria-modal="true" aria-labelledby="swipe-onboard-h">
-            <h2 id="swipe-onboard-h">Swipe a shot. Learn the move.</h2>
+            <h2 id="swipe-onboard-h">Swipe a shot to learn the move</h2>
             <p>Every card is a real AI output with the one phrase that made it. Tap Remix to make your own in three taps.</p>
             <button type="button" className="swipe-btn" onClick={start} autoFocus>
               Start swiping

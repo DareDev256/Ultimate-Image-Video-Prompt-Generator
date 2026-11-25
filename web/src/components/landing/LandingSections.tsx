@@ -399,10 +399,10 @@ function ReadDeeper() {
             transition={{ duration: 0.55, delay: 0.1 }}
             className="body-editorial mb-10 max-w-3xl"
           >
-            Five editorial breakdowns of standout prompts — Helmut Newton portrait,
-            brutalist fashion, vintage Hollywood, avant-garde editorial, synthwave
-            retro. Why they work. What to swap. How to remix. Plus full per-source
-            credit so the creators get theirs.
+            Five editorial breakdowns of standout prompts: Helmut Newton portrait,
+            brutalist fashion, vintage Hollywood, avant-garde editorial and synthwave
+            retro. Each covers why it works, what to swap and how to remix, plus full
+            per-source credit so the creators get theirs.
           </motion.p>
           <div className="flex flex-wrap items-center gap-3">
             <Link href="/anatomy" className="btn btn-primary">

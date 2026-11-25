@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.4.2] - 2026-11-24
+
+- Copy: section headings are labels; no indicator lights or staccato slogans (James 2026-11-24)
+
 ## [2.4.1] - 2026-11-16
 
 Finishes plan P2 as specced: Nano Banana by default, the engine as a switch inside the taps.
